@@ -1273,6 +1273,25 @@ img.platform-logo { max-width: 80%; max-height: 72px; margin: auto; object-fit: 
 }
 .header-mission p { font-size: clamp(15px, calc(0.6vw + 9px), 19.5px); }
 
+/* Mission reads as one line, starting right after the divider next to the logo. */
+.site-header .header-mission { text-align: start; }
+.site-header .header-mission p {
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 0 18px;
+  font-size: clamp(14px, calc(0.5vw + 8px), 18px);
+}
+/* French phrases are longer: slightly smaller, and the label gives way while the full menu shows. */
+:root[lang='fr'] .site-header .header-mission p { font-size: clamp(13px, calc(0.45vw + 7px), 17px); gap: 0 14px; }
+@media (min-width: 1721px) and (max-width: 2100px) {
+  :root[lang='fr'] .header-mission .eyebrow { display: none; }
+  :root[lang='fr'] .site-header .header-mission { gap: 0; }
+}
+/* With the language switch in the header, below ~1200px the mission moves into the hero. */
+@media (max-width: 1200px) {
+  .site-header .header-mission { display: none; }
+  .hero-content .hero-mission { display: block; }
+}
 /* ---------- Talk to an expert (floating, bottom-left) ---------- */
 .expert { position: fixed; left: 20px; bottom: 20px; z-index: 37; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
 .expert-toggle {
