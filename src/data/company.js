@@ -47,8 +47,7 @@ export const contact = {
   address: ['8-1-299/A/108, Shaikpet', 'Hyderabad 500 096, Telangana, India'],
   // Opens the address in Google Maps.
   mapUrl: 'https://www.google.com/maps/search/?api=1&query=8-1-299%2FA%2F108%2C+Shaikpet%2C+Hyderabad+500096',
-  // Confirm this is MindSuite's company page before going live.
-  linkedin: 'https://www.linkedin.com/company/mindsuite/',
+  linkedin: 'https://www.linkedin.com/company/mindsuite-informatics-private-limited/',
 };
 
 /**
