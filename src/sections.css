@@ -1512,3 +1512,18 @@ img.platform-logo { max-width: 80%; max-height: 72px; margin: auto; object-fit: 
 
 /* Spam-trap field: kept out of sight and out of the tab order */
 .enq-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+/* Hover feedback for the main buttons: they fill with the brand violet.
+   Limited to real pointers so the colour doesn't stick after a tap on touch screens. */
+.cta, .motion, .site-nav a, .site-nav-toggle {
+  transition: background .2s, color .2s, border-color .2s, box-shadow .2s, transform .2s;
+}
+@media (hover: hover) {
+  .cta:hover,
+  .careers-hero .careers-btn.primary:hover {
+    background: var(--soft-violet); color: #fff; transform: translateY(-1px); box-shadow: 0 8px 22px #7461ad59;
+  }
+  .careers-btn.ghost:hover { background: #ffffff24; border-color: #c9bdf0; color: #fff; }
+  .site-nav a:hover, .site-nav-toggle:hover { background: var(--soft-violet); color: #fff; }
+  .motion:hover { background: var(--soft-violet); border-color: var(--soft-violet); color: #fff; }
+}
