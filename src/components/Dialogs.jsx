@@ -1,18 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import { Check, Plus, Search as SearchIcon, ShoppingBag, X } from 'lucide-react';
 import Icon from './Icon.jsx';
+import PhoneInput from './PhoneInput.jsx';
+import { checkPhone, guessCountry } from '../lib/phone.js';
 import { useT } from '../i18n/index.jsx';
 import {
   CONTACT_METHODS,
   ENQUIRY_INBOX,
   TIMELINES,
   buildEnquiry,
+  enquiryEmail,
+  isBackendConfigured,
   sendEnquiry,
 } from '../lib/enquiry.js';
 import {
   aliases,
   areaCount,
   families,
+  inEnglish,
   normalize,
   offeringById,
   offerings,
@@ -321,7 +326,8 @@ const EMPTY_FORM = {
   name: '',
   email: '',
   company: '',
-  phone: '',
+  phone: '', // as typed; checked and sent in international form
+  phoneCountry: guessCountry(),
   preferredContact: CONTACT_METHODS[0],
   timeline: TIMELINES[1],
   message: '',
@@ -334,11 +340,14 @@ function validate(form, t) {
   if (!form.name.trim()) errors.name = t('Please enter your name.');
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())) errors.email = t('Please enter a valid email address.');
   if (!form.company.trim()) errors.company = t('Please enter your company.');
-  if (['Phone call', 'WhatsApp'].includes(form.preferredContact) && form.phone.replace(/\D/g, '').length < 7) {
+  const phone = checkPhone(form.phone, form.phoneCountry);
+  if (phone.empty && ['Phone call', 'WhatsApp'].includes(form.preferredContact)) {
     errors.phone =
       form.preferredContact === 'WhatsApp'
-        ? t('Please add a phone number with country code for WhatsApp.')
-        : t('Please add a phone number with country code for a call.');
+        ? t('Please add a phone number for WhatsApp.')
+        : t('Please add a phone number for a call.');
+  } else if (!phone.empty && !phone.valid) {
+    errors.phone = t('This number doesn’t look right for the selected country code. Check the digits or choose another country.');
   }
   if (!form.consent) errors.consent = t('Please confirm we may contact you about this request.');
   return errors;
@@ -361,7 +370,58 @@ function Field({ id, label, error, optional, children }) {
   );
 }
 
-const STEPS = ['Shortlist', 'Your details', 'Sent'];
+const STEPS = ['Shortlist', 'Your details', 'Review', 'Sent'];
+
+/**
+ * Review step: the email exactly as it will be sent (recipient, subject and body), so the
+ * visitor can check it before anything leaves the site.
+ */
+function EmailPreview({ enquiry, sending, sendError, onEdit, onSend }) {
+  const t = useT();
+  const { subject, body } = enquiryEmail(enquiry);
+  const viaBackend = isBackendConfigured();
+  return (
+    <div className="enq-preview">
+      <p className="enq-preview-intro">
+        {viaBackend
+          ? t('This is the email our team will receive. Check it, then send it. You will also get a confirmation at {email}.', { email: enquiry.contact.email })
+          : t('This is the email that will open in your email app, ready to send. Check it first.')}
+      </p>
+      <div className="enq-preview-mail" dir="ltr" lang="en">
+        <dl>
+          <div>
+            <dt>{t('To')}</dt>
+            <dd>MindSuite &lt;{ENQUIRY_INBOX}&gt;</dd>
+          </div>
+          <div>
+            <dt>{t('Reply to')}</dt>
+            <dd>
+              {enquiry.contact.name} &lt;{enquiry.contact.email}&gt;
+            </dd>
+          </div>
+          <div>
+            <dt>{t('Subject')}</dt>
+            <dd>{subject}</dd>
+          </div>
+        </dl>
+        <pre>{body}</pre>
+      </div>
+      {sendError && (
+        <p className="enq-send-error" role="alert">
+          {sendError}
+        </p>
+      )}
+      <div className="enq-actions">
+        <button type="button" className="enq-primary" disabled={sending} onClick={onSend}>
+          {sending ? t('Sending…') : t('Send request')}
+        </button>
+        <button type="button" className="interests-clear" onClick={onEdit} disabled={sending}>
+          {t('Edit details')}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 /**
  * "Your interests" drawer: review the shortlist, request a proposal with a short form,
@@ -378,10 +438,11 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState('');
   const [result, setResult] = useState(null); // { reference, via, offerings }
+  const [preview, setPreview] = useState(null); // the enquiry shown on the Review step
   const t = useT();
 
   const selected = [...interests].map((id) => offeringById.get(id)).filter(Boolean);
-  const stepIndex = { list: 0, form: 1, done: 2 }[step];
+  const stepIndex = { list: 0, form: 1, review: 2, done: 3 }[step];
 
   // Each opening starts where the caller asked (the list, or straight to the form).
   useEffect(() => {
@@ -400,8 +461,13 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
     setForm((f) => ({ ...f, [key]: value }));
     if (errors[key]) setErrors((er) => ({ ...er, [key]: undefined }));
   };
+  const setPhone = ({ country, value }) => {
+    setForm((f) => ({ ...f, phoneCountry: country, phone: value }));
+    if (errors.phone) setErrors((er) => ({ ...er, phone: undefined }));
+  };
 
-  async function submit(e) {
+  // "Review": check the form, then show the email exactly as it will be sent.
+  function review(e) {
     e.preventDefault();
     const found = validate(form, t);
     setErrors(found);
@@ -409,16 +475,30 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
       ref.current.querySelector(`#enq-${Object.keys(found)[0]}`)?.focus();
       return;
     }
+    setSendError('');
+    // The team works in English, so the email lists offerings by their English names.
+    const english = selected.map((o) => ({
+      id: o.id,
+      name: inEnglish(o).name,
+      family: { name: inEnglish(o.family).name },
+      area: { name: inEnglish(o.area).name },
+    }));
+    setPreview(buildEnquiry({ ...form, phone: checkPhone(form.phone, form.phoneCountry).international }, english));
+    setStep('review');
+  }
+
+  async function send() {
+    const enquiry = preview;
     setSending(true);
     setSendError('');
     try {
-      const enquiry = buildEnquiry(form, selected);
       const { via } = await sendEnquiry(enquiry);
       setResult({ reference: enquiry.reference, via, offerings: selected.map((o) => o.name) });
       setStep('done');
       if (via === 'backend') {
         onClear();
         setForm(EMPTY_FORM);
+        setPreview(null);
       }
     } catch (err) {
       setSendError(
@@ -439,7 +519,13 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
       <div className="interests-header">
         <div>
           <h2 id="interests-title">
-            {step === 'list' ? t('Your interests') : step === 'form' ? t('Request a proposal') : t('Request sent')}
+            {step === 'list'
+              ? t('Your interests')
+              : step === 'form'
+                ? t('Request a proposal')
+                : step === 'review'
+                  ? t('Review your request')
+                  : t('Request sent')}
           </h2>
           <p className="interests-count">
             {step === 'done'
@@ -525,7 +611,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
       )}
 
       {step === 'form' && (
-        <form className="enq-form" onSubmit={submit} noValidate>
+        <form className="enq-form" onSubmit={review} noValidate>
           <div className="enq-summary">
             <div>
               <strong>{t(selected.length === 1 ? '{count} offering' : '{count} offerings', { count: selected.length })}</strong>
@@ -547,7 +633,14 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
               <input id="enq-company" autoComplete="organization" value={form.company} onChange={set('company')} {...errorProps('company')} />
             </Field>
             <Field id="enq-phone" label="Phone" optional={!['Phone call', 'WhatsApp'].includes(form.preferredContact)} error={errors.phone}>
-              <input id="enq-phone" type="tel" autoComplete="tel" placeholder={t('+ country code and number')} value={form.phone} onChange={set('phone')} {...errorProps('phone')} />
+              <PhoneInput
+                id="enq-phone"
+                country={form.phoneCountry}
+                value={form.phone}
+                onChange={setPhone}
+                invalid={Boolean(errors.phone)}
+                describedBy={errors.phone ? 'enq-phone-error' : undefined}
+              />
             </Field>
           </div>
 
@@ -602,21 +695,25 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
             )}
           </div>
 
-          {sendError && (
-            <p className="enq-send-error" role="alert">
-              {sendError}
-            </p>
-          )}
-
           <div className="enq-actions">
-            <button type="submit" className="enq-primary" disabled={sending}>
-              {sending ? t('Sending…') : t('Send request')}
+            <button type="submit" className="enq-primary">
+              {t('Review email')} <span aria-hidden="true">→</span>
             </button>
             <button type="button" className="interests-clear" onClick={() => setStep('list')}>
               {t('Back')}
             </button>
           </div>
         </form>
+      )}
+
+      {step === 'review' && preview && (
+        <EmailPreview
+          enquiry={preview}
+          sending={sending}
+          sendError={sendError}
+          onEdit={() => setStep('form')}
+          onSend={send}
+        />
       )}
 
       {step === 'done' && result && (

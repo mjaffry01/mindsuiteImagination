@@ -17,6 +17,7 @@ import { fileURLToPath } from 'node:url';
 import nodemailer from 'nodemailer';
 import { CONTACT_METHODS, TIMELINES, enquiryEmail, makeReference } from '../src/lib/enquiry.js';
 import { assistantError, createAssistant } from './assistant.js';
+import { checkPhone } from '../src/lib/phone.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..');
@@ -149,7 +150,12 @@ function validate(body) {
   if (!contact.name) errors.push('name');
   if (!EMAIL_RE.test(contact.email)) errors.push('email');
   if (!contact.company) errors.push('company');
-  if (contact.phone && !/^[+\d\s().-]{5,40}$/.test(contact.phone)) errors.push('phone');
+  // The website sends international numbers (+country code); check them against that country's rules.
+  if (contact.phone) {
+    const phone = checkPhone(contact.phone);
+    if (phone.valid) contact.phone = phone.international;
+    else errors.push('phone');
+  }
 
   const ids = Array.isArray(body?.offerings) ? body.offerings.slice(0, 300).map((o) => (typeof o === 'string' ? o : o?.id)) : [];
   const offerings = [...new Set(ids)].map((id) => offeringIndex.get(id)).filter(Boolean);

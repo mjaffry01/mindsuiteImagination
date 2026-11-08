@@ -63,6 +63,9 @@ families.forEach((f) => remember(f, FAMILY_FIELDS));
 areas.forEach((a) => remember(a, AREA_FIELDS));
 offerings.forEach((o) => remember(o, OFFERING_FIELDS));
 
+/** English wording of a family, area or offering, whatever language is showing. */
+export const inEnglish = (obj) => english.get(obj) || obj;
+
 function englishText(o) {
   const e = english.get(o);
   return [e.name, e.definition, e.scope, e.deliverables, e.value, english.get(o.area).name, english.get(o.family).name];

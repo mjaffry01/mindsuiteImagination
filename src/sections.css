@@ -1554,3 +1554,32 @@ img.platform-logo { max-width: 80%; max-height: 72px; margin: auto; object-fit: 
   .site-nav a:hover, .site-nav-toggle:hover { background: var(--soft-violet); color: #fff; }
   .motion:hover { background: var(--soft-violet); border-color: var(--soft-violet); color: #fff; }
 }
+
+/* ---------- Phone: country code picker + number ---------- */
+.enq-field:has(.phone-row) { grid-column: 1 / -1; }
+.phone-row { display: flex; gap: 8px; }
+.enq-field .phone-country { flex: 0 0 44%; min-width: 0; text-overflow: ellipsis; }
+.phone-number { position: relative; flex: 1; min-width: 0; display: flex; align-items: center; }
+.phone-prefix {
+  position: absolute; inset-inline-start: 12px; font: 15px/1 Arial, Helvetica, sans-serif; color: #6c7790;
+  pointer-events: none;
+}
+.enq-field .phone-number input { padding-inline-start: 58px; direction: ltr; text-align: left; }
+.enq-field .phone-number input[aria-invalid='true'] { border-color: #c4456a; }
+@media (max-width: 520px) {
+  .phone-row { flex-direction: column; }
+  .enq-field .phone-country { flex-basis: auto; }
+}
+
+/* ---------- Review: email preview before sending ---------- */
+.enq-preview { display: flex; flex-direction: column; gap: 14px; }
+.enq-preview-intro { font-size: 14px; line-height: 1.6; color: #4c5670; }
+.enq-preview-mail { border: 1px solid #dcd7ea; border-radius: 12px; background: #fff; overflow: hidden; }
+.enq-preview-mail dl { margin: 0; padding: 12px 16px; background: #f4f2fa; border-bottom: 1px solid #e3dff0; display: grid; gap: 6px; }
+.enq-preview-mail dl > div { display: grid; grid-template-columns: 74px 1fr; gap: 10px; font-size: 13px; }
+.enq-preview-mail dt { color: #6c7790; font-weight: 600; }
+.enq-preview-mail dd { margin: 0; color: #2b3350; overflow-wrap: anywhere; }
+.enq-preview-mail pre {
+  margin: 0; padding: 14px 16px; max-height: 320px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere;
+  font: 13px/1.6 Consolas, 'SFMono-Regular', Menlo, monospace; color: #2b3350;
+}
