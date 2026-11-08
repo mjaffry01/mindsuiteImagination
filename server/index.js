@@ -34,6 +34,18 @@ const config = {
         auth: env.SMTP_USER ? { user: env.SMTP_USER, pass: env.SMTP_PASS } : undefined,
       }
     : null,
+  // Microsoft 365 OAuth2 (app-only). When all three are set, they replace SMTP_PASS.
+  oauth:
+    env.SMTP_OAUTH_TENANT_ID && env.SMTP_OAUTH_CLIENT_ID && env.SMTP_OAUTH_CLIENT_SECRET
+      ? {
+          tenantId: env.SMTP_OAUTH_TENANT_ID,
+          clientId: env.SMTP_OAUTH_CLIENT_ID,
+          clientSecret: env.SMTP_OAUTH_CLIENT_SECRET,
+          tokenUrl:
+            env.SMTP_OAUTH_TOKEN_URL ||
+            `https://login.microsoftonline.com/${encodeURIComponent(env.SMTP_OAUTH_TENANT_ID)}/oauth2/v2.0/token`,
+        }
+      : null,
   from: env.MAIL_FROM || 'MindSuite <no-reply@mindsuite.in>',
   to: env.MAIL_TO || 'info@mindsuite.in',
   cc: env.MAIL_CC || '',
@@ -57,12 +69,59 @@ for (const family of catalogue) {
 }
 
 // ---------------------------------------------------------------- mail transport
-const transport = config.smtp
-  ? nodemailer.createTransport(config.smtp)
-  : nodemailer.createTransport({ streamTransport: true, buffer: true, newline: 'windows' });
 const mode = config.smtp ? 'smtp' : 'preview';
+const authMethod = !config.smtp ? 'none' : config.oauth ? 'oauth2' : 'password';
+
+/**
+ * App-only token from Microsoft Entra (client credentials). Cached until five minutes before
+ * it expires, so a busy server asks Microsoft for a new token about once an hour.
+ */
+let cachedToken = null;
+async function microsoftToken() {
+  if (cachedToken && Date.now() < cachedToken.expiresAt) return cachedToken.value;
+  const { tenantId, clientId, clientSecret, tokenUrl } = config.oauth;
+  const res = await fetch(tokenUrl, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'client_credentials',
+      client_id: clientId,
+      client_secret: clientSecret,
+      scope: 'https://outlook.office365.com/.default',
+    }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.access_token) {
+    // Microsoft's error text names the problem (wrong secret, wrong tenant, no admin consent...).
+    const why = data.error_description?.split('\r\n')[0] || data.error || `HTTP ${res.status}`;
+    throw new Error(`Microsoft sign-in for tenant ${tenantId} failed: ${why}`);
+  }
+  cachedToken = { value: data.access_token, expiresAt: Date.now() + (Number(data.expires_in) - 300) * 1000 };
+  return cachedToken.value;
+}
+
+const previewTransport = nodemailer.createTransport({ streamTransport: true, buffer: true, newline: 'windows' });
+const passwordTransport = config.smtp && !config.oauth ? nodemailer.createTransport(config.smtp) : null;
+let oauthTransport = null;
+let oauthTransportToken = null;
+
+async function getTransport() {
+  if (!config.smtp) return previewTransport;
+  if (!config.oauth) return passwordTransport;
+  const accessToken = await microsoftToken();
+  if (accessToken !== oauthTransportToken) {
+    oauthTransport?.close();
+    oauthTransport = nodemailer.createTransport({
+      ...config.smtp,
+      auth: { type: 'OAuth2', user: env.SMTP_USER, accessToken },
+    });
+    oauthTransportToken = accessToken;
+  }
+  return oauthTransport;
+}
 
 async function deliver(message, label) {
+  const transport = await getTransport();
   const info = await transport.sendMail(message);
   if (mode === 'preview') {
     mkdirSync(outboxDir, { recursive: true });
@@ -166,7 +225,7 @@ function ackMail(e) {
     'Reply to this email if you would like to add anything.',
     '',
     'MindSuite',
-    'info@mindsuite.in · +91 9100 00 5500',
+    'info@mindsuite.in · +91 91000 05500',
   ].join('\n');
   const html = `<div style="font-family:Arial,sans-serif;font-size:14px;color:#2b3350;line-height:1.6">
   <p>Hello ${esc(first)},</p>
@@ -175,7 +234,7 @@ function ackMail(e) {
   <p style="margin:18px 0 4px;font-weight:bold">What happens next</p>
   <ol style="margin:0;padding-left:20px">${steps.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>
   <p>Reply to this email if you would like to add anything.</p>
-  <p style="color:#6c7790">MindSuite · info@mindsuite.in · +91 9100 00 5500</p></div>`;
+  <p style="color:#6c7790">MindSuite · info@mindsuite.in · +91 91000 05500</p></div>`;
   return {
     from: config.from,
     to: e.contact.email,
@@ -369,7 +428,7 @@ const server = createServer(async (req, res) => {
       if (req.method === 'POST') return await handleEnquiry(req, res);
       return send(res, 405, { error: 'Method not allowed' }, { Allow: 'POST, OPTIONS' });
     }
-    if (pathname === '/api/health') return send(res, 200, { ok: true, mode });
+    if (pathname === '/api/health') return send(res, 200, { ok: true, mode, auth: authMethod });
     if (pathname.startsWith('/api/')) return send(res, 404, { error: 'Not found' });
     return await serveStatic(req, res);
   } catch (err) {
@@ -387,9 +446,11 @@ server.listen(config.port, () => {
   );
   if (mode === 'preview') console.log('  No SMTP_HOST set: emails are saved to server/outbox instead of being sent.');
   else {
-    transport
-      .verify()
-      .then(() => console.log(`  SMTP ready: ${config.smtp.host}:${config.smtp.port} → ${config.to}`))
-      .catch((err) => console.error('  SMTP check failed:', err.message));
+    getTransport()
+      .then((transport) => transport.verify())
+      .then(() =>
+        console.log(`  SMTP ready (${authMethod}): ${env.SMTP_USER} via ${config.smtp.host}:${config.smtp.port} → ${config.to}`)
+      )
+      .catch((err) => console.error(`  SMTP check failed (${authMethod}):`, err.message));
   }
 });

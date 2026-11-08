@@ -39,6 +39,33 @@ answer directly) and sends the visitor an acknowledgement.
    ```
 3. `npm start`. The log shows `SMTP ready: …` when the account connects.
 
+### Microsoft 365 with OAuth2 (when password sign-in is blocked)
+If the log shows `535 5.7.3 Authentication unsuccessful`, the tenant blocks password sign-in for
+SMTP. Use an app registration instead; the server then fetches a token itself (client credentials)
+and signs in to SMTP with it.
+
+1. **Entra admin centre → App registrations → New registration** ("MindSuite website mail",
+   single tenant). Copy the **Application (client) ID** and **Directory (tenant) ID**.
+2. **Certificates & secrets → New client secret.** Copy the secret's **Value** (shown once).
+3. **API permissions → Add a permission → APIs my organization uses → Office 365 Exchange Online →
+   Application permissions → `SMTP.SendAsApp`**, then **Grant admin consent**.
+4. **Enterprise applications →** open the same app and copy its **Object ID** (this one, not the
+   app registration's object ID).
+5. In Exchange Online PowerShell, as an admin:
+   ```powershell
+   Install-Module ExchangeOnlineManagement   # first time only
+   Connect-ExchangeOnline
+   New-ServicePrincipal -AppId <client-id> -ObjectId <enterprise-app-object-id> -DisplayName "MindSuite website mail"
+   Add-MailboxPermission -Identity info@mindsuite.in -User <enterprise-app-object-id> -AccessRights FullAccess
+   Set-CASMailbox -Identity info@mindsuite.in -SmtpClientAuthenticationDisabled $false
+   Add-RecipientPermission -Identity no-reply@mindsuite.in -Trustee info@mindsuite.in -AccessRights SendAs -Confirm:$false
+   ```
+   `no-reply@mindsuite.in` must exist; a free shared mailbox is enough.
+6. In `.env`, keep `SMTP_HOST=smtp.office365.com`, `SMTP_USER=info@mindsuite.in`, and fill in
+   `SMTP_OAUTH_TENANT_ID`, `SMTP_OAUTH_CLIENT_ID` and `SMTP_OAUTH_CLIENT_SECRET`.
+7. Restart the server: the log shows `SMTP ready (oauth2): …`. Permission changes can take up to
+   an hour to apply. Client secrets expire (default 6–24 months): create a new one before then.
+
 ### Preview mode (no SMTP yet)
 With `SMTP_HOST` empty the server sends nothing. Each email is saved to `server/outbox/*.eml`
 (open it in Outlook or any mail app) so you can check content before going live.
