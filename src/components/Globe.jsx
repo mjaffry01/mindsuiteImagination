@@ -1,10 +1,21 @@
 import { useEffect, useRef } from 'react';
 import Icon from './Icon.jsx';
+import { families } from '../data/catalogue.js';
 
-const ORBIT_ICONS = ['code-xml', 'cloud', 'cpu', 'shield-check', 'database', 'network'];
+// One satellite per distinct service-area icon in the catalogue.
+const SATELLITE_ICONS = [...new Set(families.flatMap((f) => f.areas.map((a) => a.icon)))];
+
+// Fixed, evenly scattered orbits, so satellites surround the globe instead of forming a band.
+const orbits = SATELLITE_ICONS.map((_, i) => ({
+  tilt: ((i * 0.618) % 1) * Math.PI,
+  node: i * 2.4,
+  radius: 1.12 + ((i * 0.381) % 1) * 0.3,
+  speed: (0.07 + ((i * 0.73) % 1) * 0.07) * (i % 2 ? 1 : -1),
+  phase: i * 1.7,
+}));
 
 /**
- * Rotating wireframe globe with orbiting service symbols, drawn behind its parent
+ * Rotating wireframe globe circled by small service satellites, drawn behind its parent
  * `.globe-scene` element. `sidebar` switches to the compact map-column framing.
  */
 export default function Globe({ playing, sidebar = false, light = false }) {
@@ -55,16 +66,22 @@ export default function Globe({ playing, sidebar = false, light = false }) {
         for (let lat = -90; lat <= 90; lat += 4) p.push(project(lat * rad, lon * rad));
         path(p);
       }
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, r * 1.2, r * 0.38, -0.4, 0, Math.PI * 2);
-      ctx.stroke();
       symbolsRef.current.forEach((node, i) => {
         if (!node) return;
-        const a = t * 0.08 + (i * Math.PI) / 3;
-        const x = Math.cos(a) * r * 1.2;
-        const y = Math.sin(a) * r * 0.45;
-        node.style.transform = `translate(${cx + x * 0.92 + y * 0.39 - 18}px,${cy - x * 0.39 + y * 0.92 - 18}px)`;
-        node.style.opacity = sidebar ? '.22' : '.6';
+        const o = orbits[i];
+        const R = r * o.radius;
+        // A point on this satellite's own circular orbit, tilted into 3D.
+        const a = o.phase + t * o.speed;
+        const px = R * Math.cos(a);
+        const py = R * Math.sin(a) * Math.cos(o.tilt);
+        const pz = R * Math.sin(a) * Math.sin(o.tilt);
+        const x = px * Math.cos(o.node) + pz * Math.sin(o.node);
+        const z = pz * Math.cos(o.node) - px * Math.sin(o.node);
+        const depth = (z / R + 1) / 2; // 0 = far side, 1 = nearest
+        const behindGlobe = z < 0 && Math.hypot(x, py) < r;
+        const opacity = behindGlobe ? 0.1 : 0.35 + depth * 0.5;
+        node.style.transform = `translate(${cx + x - 11}px,${cy + py - 11}px) scale(${0.75 + depth * 0.3})`;
+        node.style.opacity = String(sidebar ? opacity * 0.4 : opacity);
       });
     }
 
@@ -106,7 +123,7 @@ export default function Globe({ playing, sidebar = false, light = false }) {
     <>
       <canvas className="globe-canvas" aria-hidden="true" ref={canvasRef} />
       <div className="orbit-symbols" aria-hidden="true">
-        {ORBIT_ICONS.map((name, i) => (
+        {(sidebar ? SATELLITE_ICONS.slice(0, 8) : SATELLITE_ICONS).map((name, i) => (
           <div className="orbit-symbol" key={name} ref={(el) => (symbolsRef.current[i] = el)}>
             <Icon name={name} className="" />
           </div>
