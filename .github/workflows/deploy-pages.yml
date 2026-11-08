@@ -1,0 +1,46 @@
+# Builds the site and publishes it to GitHub Pages on every push to MIndsuiteOffering.
+# Live at https://mjaffry01.github.io/mindsuiteImagination/
+#
+# GitHub Pages serves static files only, so the proposal form uses its email-app fallback here
+# (VITE_ENQUIRY_URL is not set). Point VITE_ENQUIRY_URL at a hosted enquiry server to send by SMTP.
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [MIndsuiteOffering]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      # Project pages live under /<repo-name>/, so assets need that base path.
+      - run: npx vite build --base=/${{ github.event.repository.name }}/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
