@@ -26,9 +26,9 @@ export default function Hero({ playing, onToggleMotion }) {
             Transform <span className="pink">Business.</span>
           </h1>
           <p>
-            Explore MindSuite’s connected capabilities—from software and AI to cybersecurity, platform
-            engineering, business systems, IT staffing, managed services, support and business transformation. Every offering, definition and deliverable is available as
-            you scroll.
+            Explore MindSuite’s connected capabilities - from software and AI to cybersecurity, platform
+            engineering, ERP and business systems, IT staffing, managed services, support and business
+            transformation. Scroll to discover each offering, what it includes and the outcomes it delivers.
           </p>
           <a className="cta" href="#catalogue">
             Explore our capabilities <span aria-hidden="true">↓</span>
