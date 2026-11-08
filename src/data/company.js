@@ -27,16 +27,15 @@ export const clients = {
   lead: 'Technology starts with understanding the people and operations behind each business.',
   list: [
     { name: 'trustangle', logo: null, url: 'https://trustangle.com/' },
-    // Several companies share this name (wateen.com, wateen.sa, wateen.co): set the right one.
-    { name: 'Wateen', logo: null, url: null },
+    // Wateen's own page is on trustangle's site (Saudi inventory & procurement product).
+    { name: 'Wateen', logo: null, url: 'https://trustangle.com/products/wateen' },
     { name: 'LYNNC', logo: null, url: 'https://lynnc.io/' },
     { name: 'Omniful', logo: null, url: 'https://www.omniful.ai/' },
     { name: 'eddekhar', logo: null, url: 'https://eddekhar.com/' },
-    // No confirmed website found for this client yet.
-    { name: 'TACHYON', logo: null, url: null },
+    { name: 'TACHYON', logo: null, url: 'https://tachyonhub.com/' },
     { name: 'reachware', logo: null, url: 'https://reachware.com/' },
-    // Several companies share this name (jigsaw.digital, jigsawdigitalsolutions.com): set the right one.
-    { name: 'Jigsaw', logo: null, url: null },
+    // Jigsaw's own page is on trustangle's site (Saudi ordering & payment platform).
+    { name: 'Jigsaw', logo: null, url: 'https://trustangle.com/products/jigsaw-platform' },
   ],
 };
 
