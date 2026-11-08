@@ -1,50 +1,79 @@
-import logo from '../assets/logo.png';
+import { ChevronDown } from 'lucide-react';
 import Globe from './Globe.jsx';
-import SiteNav from './SiteNav.jsx';
-import { offerings } from '../data/catalogue.js';
+import DotField from './DotField.jsx';
+import { areaCount, families, offerings } from '../data/catalogue.js';
+import { clients } from '../data/company.js';
+
+const STATS = [
+  { value: families.length, label: 'service families' },
+  { value: areaCount, label: 'service areas' },
+  { value: offerings.length, label: 'defined offerings' },
+];
 
 export default function Hero({ playing, onToggleMotion }) {
   return (
     <div className="opening-screen">
-      <header className="brand">
-        <img src={logo} alt="MindSuite" width="773" height="165" />
-        <SiteNav />
-        <div className="mission">
-          <div className="eyebrow">Our mission</div>
-          <p>
-            <span>Our Customers’ Success.</span>
-            <span>Our People’s Passion.</span>
-            <span>Our World’s Progress.</span>
-          </p>
-        </div>
-      </header>
       <section className="hero globe-scene" aria-labelledby="hero-title">
         <Globe playing={playing} />
+        <DotField />
         <div className="hero-content">
           <div className="eyebrow">Build. Run. Protect. Transform.</div>
           <h1 id="hero-title">
-            Architecting <span className="lavender">Intelligence.</span>
+            Architect <span className="lavender">Intelligence.</span>
             <br />
-            Integrating <span className="cyan">Technology.</span>
+            Integrate <span className="cyan">Securely.</span>
             <br />
-            Transforming <span className="pink">Businesses.</span>
+            Transform <span className="pink">Business.</span>
           </h1>
           <p>
             Explore MindSuite’s connected capabilities—from software and AI to cybersecurity, platform
-            engineering and business systems. Every offering, definition and deliverable is available as
+            engineering, business systems, IT staffing, managed services, support and business transformation. Every offering, definition and deliverable is available as
             you scroll.
           </p>
           <a className="cta" href="#catalogue">
             Explore our capabilities <span aria-hidden="true">↓</span>
           </a>
-          <p className="scroll-hint">
-            Five families · {offerings.length} offerings · One continuous catalogue
-          </p>
+          {/* Shown on smaller screens, where the header has no room for the mission. */}
+          <div className="mission hero-mission">
+            <div className="eyebrow">Our mission</div>
+            <p>
+              <span>Our Customers’ Success.</span>
+              <span>Our People’s Passion.</span>
+              <span>Our World’s Progress.</span>
+            </p>
+          </div>
         </div>
+
+        <a className="scroll-cue" href="#catalogue">
+          <span>Scroll to explore</span>
+          <ChevronDown aria-hidden="true" />
+        </a>
+
         <button className="motion" type="button" aria-pressed={!playing} onClick={onToggleMotion}>
           {playing ? 'Pause motion' : 'Resume motion'}
         </button>
       </section>
+
+      {/* Proof strip: scale of the catalogue and who we work with, right at the fold. */}
+      <div className="proof-strip">
+        <ul className="proof-stats" aria-label="Catalogue at a glance">
+          {STATS.map((s) => (
+            <li key={s.label}>
+              <strong>{s.value}</strong> {s.label}
+            </li>
+          ))}
+        </ul>
+        <div className="proof-clients">
+          <span className="proof-label">Trusted by</span>
+          <ul aria-label="Clients">
+            {clients.list.slice(0, 6).map((c) => (
+              <li key={c.name}>
+                {c.logo ? <img src={c.logo} alt={c.name} loading="lazy" /> : <span>{c.name}</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }

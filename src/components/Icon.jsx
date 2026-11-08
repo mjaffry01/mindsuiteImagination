@@ -5,6 +5,7 @@ import {
   HeartPulse, KeyRound, Layers, LifeBuoy, LockKeyhole, Network, PackageCheck, PanelsTopLeft, Plus,
   Radio, Receipt, RefreshCw, Rocket, Route, ScanLine, Search, ShieldAlert, ShieldCheck, ShoppingBag,
   Siren, Smartphone, Stethoscope, TrendingUp, UserRoundCog, Workflow,
+  DatabaseBackup, Laptop, Palette, ServerCog, UserPlus, Users,
 } from 'lucide-react';
 
 const registry = {
@@ -14,6 +15,7 @@ const registry = {
   HeartPulse, KeyRound, Layers, LifeBuoy, LockKeyhole, Network, PackageCheck, PanelsTopLeft, Plus,
   Radio, Receipt, RefreshCw, Rocket, Route, ScanLine, Search, ShieldAlert, ShieldCheck, ShoppingBag,
   Siren, Smartphone, Stethoscope, TrendingUp, UserRoundCog, Workflow,
+  DatabaseBackup, Laptop, Palette, ServerCog, UserPlus, Users,
 };
 
 // Accepts "ShieldCheck" or "shield-check".

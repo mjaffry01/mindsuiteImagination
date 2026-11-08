@@ -52,6 +52,11 @@ export default function useInterests() {
     (id) => commit((s) => s.add(id), `${offeringById.get(id).name} added to your interests.`),
     [commit]
   );
+  const addMany = useCallback(
+    (ids) =>
+      commit((s) => (ids.forEach((id) => s.add(id)), s), `${ids.length} offerings added to your interests.`),
+    [commit]
+  );
   const remove = useCallback(
     (id) => commit((s) => (s.delete(id), s), `${offeringById.get(id).name} removed.`),
     [commit]
@@ -66,5 +71,5 @@ export default function useInterests() {
     return () => removeEventListener('storage', onStorage);
   }, []);
 
-  return { interests, status, toggle, add, remove, clear };
+  return { interests, status, toggle, add, addMany, remove, clear };
 }

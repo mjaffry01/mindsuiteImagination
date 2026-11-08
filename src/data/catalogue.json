@@ -2109,5 +2109,726 @@
    }
   ],
   "tagline": "Connect business processes and improve operational visibility."
+ },
+ {
+  "name": "IT Staffing & Augmentation",
+  "id": "family-6",
+  "short": "IT Staffing",
+  "icon": "users",
+  "tagline": "Add the skills you need. Keep control of delivery.",
+  "areas": [
+   {
+    "id": "family-6-area-1",
+    "name": "Software Engineering",
+    "short": "Engineering",
+    "stage": "Build",
+    "icon": "CodeXml",
+    "offerings": [
+     {
+      "id": "offering-177",
+      "number": "OFFERING 177",
+      "name": "Frontend Engineer",
+      "definition": "Builds and maintains user interfaces, components and accessibility to your design system. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: React, Next.js, TypeScript; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your repositories, rituals and review process",
+      "deliverables": "Delivery capacity on your backlog; Code to your review standards; Tests and documentation with each change",
+      "value": "More delivery capacity on your backlog, held to your coding and review standards.",
+      "icon": "PanelsTopLeft"
+     },
+     {
+      "id": "offering-178",
+      "number": "OFFERING 178",
+      "name": "Backend Engineer",
+      "definition": "Builds APIs, services, data models and integrations, with tests and documentation. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Node.js, Python, Java, .NET; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your repositories, rituals and review process",
+      "deliverables": "Delivery capacity on your backlog; Code to your review standards; Tests and documentation with each change",
+      "value": "More delivery capacity on your backlog, held to your coding and review standards.",
+      "icon": "Braces"
+     },
+     {
+      "id": "offering-179",
+      "number": "OFFERING 179",
+      "name": "Full-stack Engineer",
+      "definition": "Delivers features end to end, from the database and API to the interface. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: TypeScript, Node.js, PostgreSQL; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your repositories, rituals and review process",
+      "deliverables": "Delivery capacity on your backlog; Code to your review standards; Tests and documentation with each change",
+      "value": "More delivery capacity on your backlog, held to your coding and review standards.",
+      "icon": "Blocks"
+     },
+     {
+      "id": "offering-180",
+      "number": "OFFERING 180",
+      "name": "Mobile Engineer",
+      "definition": "Builds and releases iOS and Android features, and keeps app-store builds healthy. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: React Native, Flutter, Swift, Kotlin; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your repositories, rituals and review process",
+      "deliverables": "Delivery capacity on your backlog; Code to your review standards; Tests and documentation with each change",
+      "value": "More delivery capacity on your backlog, held to your coding and review standards.",
+      "icon": "Smartphone"
+     },
+     {
+      "id": "offering-181",
+      "number": "OFFERING 181",
+      "name": "QA & Test Automation Engineer",
+      "definition": "Writes test plans and automated tests, and reports quality before each release. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Playwright, Cypress, Selenium; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your repositories, rituals and review process",
+      "deliverables": "Delivery capacity on your backlog; Code to your review standards; Tests and documentation with each change",
+      "value": "More delivery capacity on your backlog, held to your coding and review standards.",
+      "icon": "FlaskConical"
+     }
+    ]
+   },
+   {
+    "id": "family-6-area-2",
+    "name": "Product & Design",
+    "short": "Product & Design",
+    "stage": "Shape",
+    "icon": "Palette",
+    "offerings": [
+     {
+      "id": "offering-182",
+      "number": "OFFERING 182",
+      "name": "UX/UI Designer",
+      "definition": "User flows, wireframes, interface designs and design-system components. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Figma; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your product team and design tools",
+      "deliverables": "Documented requirements; Designs engineers can build from; Agreed acceptance criteria",
+      "value": "Requirements, designs and acceptance criteria that engineers can build from.",
+      "icon": "Palette"
+     },
+     {
+      "id": "offering-183",
+      "number": "OFFERING 183",
+      "name": "Product Designer",
+      "definition": "Research, prototypes and tested designs for a product area, from problem to handoff. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Figma, user research; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your product team and design tools",
+      "deliverables": "Documented requirements; Designs engineers can build from; Agreed acceptance criteria",
+      "value": "Requirements, designs and acceptance criteria that engineers can build from.",
+      "icon": "Compass"
+     },
+     {
+      "id": "offering-184",
+      "number": "OFFERING 184",
+      "name": "Business Analyst",
+      "definition": "Documented processes, requirements and acceptance criteria agreed with stakeholders. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Process mapping, backlog tools; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your product team and backlog",
+      "deliverables": "Documented requirements; Designs engineers can build from; Agreed acceptance criteria",
+      "value": "Requirements, designs and acceptance criteria that engineers can build from.",
+      "icon": "Route"
+     },
+     {
+      "id": "offering-185",
+      "number": "OFFERING 185",
+      "name": "Product Owner Support",
+      "definition": "Backlog refinement, prioritization support and sprint reviews alongside your product lead. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Jira, Azure DevOps; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your product team and backlog",
+      "deliverables": "Documented requirements; Designs engineers can build from; Agreed acceptance criteria",
+      "value": "Requirements, designs and acceptance criteria that engineers can build from.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-186",
+      "number": "OFFERING 186",
+      "name": "Technical Writer",
+      "definition": "User guides, API documentation and runbooks kept in step with releases. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Docs-as-code, Markdown; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your repositories and documentation tools",
+      "deliverables": "Documented requirements; Designs engineers can build from; Agreed acceptance criteria",
+      "value": "Requirements, designs and acceptance criteria that engineers can build from.",
+      "icon": "FileText"
+     }
+    ]
+   },
+   {
+    "id": "family-6-area-3",
+    "name": "Cloud & DevOps Specialists",
+    "short": "Cloud & DevOps",
+    "stage": "Run",
+    "icon": "CloudCog",
+    "offerings": [
+     {
+      "id": "offering-187",
+      "number": "OFFERING 187",
+      "name": "DevOps Engineer",
+      "definition": "Builds and maintains CI/CD pipelines, environments and release automation. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: GitHub Actions, Azure DevOps, GitLab CI; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your cloud accounts and delivery tooling",
+      "deliverables": "Pipelines and infrastructure work in your accounts; Recorded changes; Operational runbooks",
+      "value": "Pipelines, infrastructure and operations work done in your accounts, with changes recorded.",
+      "icon": "GitBranch"
+     },
+     {
+      "id": "offering-188",
+      "number": "OFFERING 188",
+      "name": "Cloud Engineer",
+      "definition": "Provisions and manages cloud infrastructure as code, with access and cost in view. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: AWS, Azure, Google Cloud, Terraform; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your cloud accounts and delivery tooling",
+      "deliverables": "Pipelines and infrastructure work in your accounts; Recorded changes; Operational runbooks",
+      "value": "Pipelines, infrastructure and operations work done in your accounts, with changes recorded.",
+      "icon": "CloudCog"
+     },
+     {
+      "id": "offering-189",
+      "number": "OFFERING 189",
+      "name": "Site Reliability Engineer",
+      "definition": "Monitoring, alerting, incident response and reliability improvements for agreed services. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Prometheus, Grafana, cloud monitoring; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your cloud accounts and on-call process",
+      "deliverables": "Pipelines and infrastructure work in your accounts; Recorded changes; Operational runbooks",
+      "value": "Pipelines, infrastructure and operations work done in your accounts, with changes recorded.",
+      "icon": "Activity"
+     },
+     {
+      "id": "offering-190",
+      "number": "OFFERING 190",
+      "name": "Platform Engineer",
+      "definition": "Container platforms and internal tooling that make delivery repeatable for your teams. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Kubernetes, Docker, Helm; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your cloud accounts and delivery tooling",
+      "deliverables": "Pipelines and infrastructure work in your accounts; Recorded changes; Operational runbooks",
+      "value": "Pipelines, infrastructure and operations work done in your accounts, with changes recorded.",
+      "icon": "Container"
+     },
+     {
+      "id": "offering-191",
+      "number": "OFFERING 191",
+      "name": "Database Administrator",
+      "definition": "Performance tuning, backups, upgrades and access control for agreed databases. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: PostgreSQL, SQL Server, MySQL; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your environments and change process",
+      "deliverables": "Pipelines and infrastructure work in your accounts; Recorded changes; Operational runbooks",
+      "value": "Pipelines, infrastructure and operations work done in your accounts, with changes recorded.",
+      "icon": "Database"
+     }
+    ]
+   },
+   {
+    "id": "family-6-area-4",
+    "name": "Data & AI Specialists",
+    "short": "Data & AI",
+    "stage": "Learn",
+    "icon": "BrainCircuit",
+    "offerings": [
+     {
+      "id": "offering-192",
+      "number": "OFFERING 192",
+      "name": "Data Engineer",
+      "definition": "Data pipelines, models and quality checks that feed reporting and AI work. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: SQL, Python, dbt, Spark; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your data platform and access controls",
+      "deliverables": "Data pipelines and reports; AI features with evaluation checks; Documentation and agreed data access",
+      "value": "Data and AI work delivered with evaluation, documentation and agreed data access.",
+      "icon": "Database"
+     },
+     {
+      "id": "offering-193",
+      "number": "OFFERING 193",
+      "name": "BI & Reporting Analyst",
+      "definition": "Dashboards and reports with agreed metric definitions and data sources. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Power BI, Looker, Tableau; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your data platform and reporting tools",
+      "deliverables": "Data pipelines and reports; AI features with evaluation checks; Documentation and agreed data access",
+      "value": "Data and AI work delivered with evaluation, documentation and agreed data access.",
+      "icon": "ChartNoAxesCombined"
+     },
+     {
+      "id": "offering-194",
+      "number": "OFFERING 194",
+      "name": "Machine Learning Engineer",
+      "definition": "Trains, evaluates and deploys models, with monitoring for drift and quality. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Python, scikit-learn, PyTorch, MLflow; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your data platform and access controls",
+      "deliverables": "Data pipelines and reports; AI features with evaluation checks; Documentation and agreed data access",
+      "value": "Data and AI work delivered with evaluation, documentation and agreed data access.",
+      "icon": "BrainCircuit"
+     },
+     {
+      "id": "offering-195",
+      "number": "OFFERING 195",
+      "name": "AI & LLM Engineer",
+      "definition": "Builds assistants, retrieval and automation features with evaluation checks and cost limits. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: OpenAI, Claude, open models, RAG; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your data platform and access controls",
+      "deliverables": "Data pipelines and reports; AI features with evaluation checks; Documentation and agreed data access",
+      "value": "Data and AI work delivered with evaluation, documentation and agreed data access.",
+      "icon": "Bot"
+     },
+     {
+      "id": "offering-196",
+      "number": "OFFERING 196",
+      "name": "MLOps Engineer",
+      "definition": "Pipelines for training, deploying and monitoring models in production. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: MLflow, Kubeflow, cloud ML services; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your cloud accounts and delivery tooling",
+      "deliverables": "Data pipelines and reports; AI features with evaluation checks; Documentation and agreed data access",
+      "value": "Data and AI work delivered with evaluation, documentation and agreed data access.",
+      "icon": "Workflow"
+     }
+    ]
+   },
+   {
+    "id": "family-6-area-5",
+    "name": "ERP & Business Systems Specialists",
+    "short": "ERP Specialists",
+    "stage": "Operate",
+    "icon": "Building2",
+    "offerings": [
+     {
+      "id": "offering-197",
+      "number": "OFFERING 197",
+      "name": "ERP Functional Consultant",
+      "definition": "Maps processes to the platform, configures modules and supports user acceptance testing. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Oracle NetSuite, Odoo, ERPNext, SAP; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your ERP environments and change process",
+      "deliverables": "Configuration and customization work; Tested integrations; Documented changes",
+      "value": "Configuration, customization and integration work on your business platforms, documented and tested.",
+      "icon": "Route"
+     },
+     {
+      "id": "offering-198",
+      "number": "OFFERING 198",
+      "name": "ERP Technical Developer",
+      "definition": "Scripts, customizations, reports and data migrations on the ERP platform. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: SuiteScript, Python, ABAP; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your ERP environments and change process",
+      "deliverables": "Configuration and customization work; Tested integrations; Documented changes",
+      "value": "Configuration, customization and integration work on your business platforms, documented and tested.",
+      "icon": "Braces"
+     },
+     {
+      "id": "offering-199",
+      "number": "OFFERING 199",
+      "name": "CRM Developer",
+      "definition": "Configures and extends CRM objects, automation and integrations. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Salesforce, Apex, Flows; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your CRM environments and change process",
+      "deliverables": "Configuration and customization work; Tested integrations; Documented changes",
+      "value": "Configuration, customization and integration work on your business platforms, documented and tested.",
+      "icon": "BriefcaseBusiness"
+     },
+     {
+      "id": "offering-200",
+      "number": "OFFERING 200",
+      "name": "Integration Developer",
+      "definition": "Connects ERP, CRM and other systems through APIs, with error handling and monitoring. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: REST, GraphQL, n8n, Make; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your integration platform and environments",
+      "deliverables": "Configuration and customization work; Tested integrations; Documented changes",
+      "value": "Configuration, customization and integration work on your business platforms, documented and tested.",
+      "icon": "Cable"
+     },
+     {
+      "id": "offering-201",
+      "number": "OFFERING 201",
+      "name": "ERP Support Analyst",
+      "definition": "Handles user requests, fixes configuration issues and keeps a record of changes. Added to your team as an individual specialist or as part of a project team, interviewed and approved by you and working in your tools and accounts.",
+      "scope": "Typical skills: Your ERP and ticketing tool; Seniority, hours overlap and start date agreed per role; Interviewed and approved by you before joining; Works in your ERP and support process",
+      "deliverables": "Configuration and customization work; Tested integrations; Documented changes",
+      "value": "Configuration, customization and integration work on your business platforms, documented and tested.",
+      "icon": "Headset"
+     }
+    ]
+   },
+   {
+    "id": "family-6-area-6",
+    "name": "Engagement Models",
+    "short": "Engagement Models",
+    "stage": "Engage",
+    "icon": "Users",
+    "offerings": [
+     {
+      "id": "offering-202",
+      "number": "OFFERING 202",
+      "name": "Staff Augmentation",
+      "definition": "Individual specialists added to a team your leads already run. Your team directs the daily work and owns delivery, and the specialists work your backlog for weeks to months.",
+      "scope": "Agree roles and seniority; Hours overlap, start date and notice period; Rate basis; Interview and approve each person",
+      "deliverables": "Approved specialists on your team; Onboarding to your tools and access; Regular check-ins on output and fit",
+      "value": "Adds the exact skills a team is missing while leadership and delivery stay with you.",
+      "icon": "UserPlus"
+     },
+     {
+      "id": "offering-203",
+      "number": "OFFERING 203",
+      "name": "Project-based Team",
+      "definition": "A small cross-functional team that owns an agreed scope with your product owner. A MindSuite delivery lead directs the work and delivery is measured against agreed acceptance criteria.",
+      "scope": "Agree scope and acceptance criteria; Team shape and milestones; Governance with your product owner; Handover plan",
+      "deliverables": "Delivered scope against acceptance criteria; Milestone reporting; Documented handover",
+      "value": "Moves a defined project forward without building a team internally.",
+      "icon": "Users"
+     },
+     {
+      "id": "offering-204",
+      "number": "OFFERING 204",
+      "name": "Dedicated Team",
+      "definition": "A stable team working a long-running product or platform roadmap. Direction is shared through an agreed governance cadence, and ownership is agreed per roadmap item.",
+      "scope": "Agree team shape and governance; Review cadence; How the team scales up or down; Rolling roadmap",
+      "deliverables": "A stable team on your roadmap; Regular governance reviews; Agreed scaling process",
+      "value": "Gives a product the continuity of a long-term team with the flexibility to scale.",
+      "icon": "Boxes"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Managed IT Services",
+  "id": "family-7",
+  "short": "Managed Services",
+  "icon": "server-cog",
+  "tagline": "Keep your systems running, every day.",
+  "areas": [
+   {
+    "id": "family-7-area-1",
+    "name": "Monitor & Support",
+    "short": "Monitor & Support",
+    "stage": "Monitor",
+    "icon": "Activity",
+    "offerings": [
+     {
+      "id": "offering-205",
+      "number": "OFFERING 205",
+      "name": "Infrastructure & Application Monitoring",
+      "definition": "Monitoring of the infrastructure and applications in scope, so problems are seen early and routed to the right people. Coverage, alert rules and escalation are agreed before the service starts.",
+      "scope": "Agree systems in scope; Define alert rules and thresholds; Set the escalation path; Review coverage regularly",
+      "deliverables": "Monitoring coverage; Alert rules; Agreed escalation path",
+      "value": "Problems are seen early instead of reported by users.",
+      "icon": "Activity"
+     },
+     {
+      "id": "offering-206",
+      "number": "OFFERING 206",
+      "name": "Help Desk & User Support",
+      "definition": "One place for users to get help, with agreed channels, hours and response targets. Tickets are tracked and reported so recurring issues become visible.",
+      "scope": "Agree support channels and hours; Set response targets; Define escalation; Report on tickets",
+      "deliverables": "Support desk; Agreed channels, hours and response targets; Regular ticket reporting",
+      "value": "Frees internal IT from tickets so it can work on improvements.",
+      "icon": "Headset"
+     },
+     {
+      "id": "offering-207",
+      "number": "OFFERING 207",
+      "name": "Incident & Problem Management",
+      "definition": "Triage and resolution of incidents in the agreed estate, with fixes tracked to closure. Root causes are recorded and recurring issues are raised for permanent fixes.",
+      "scope": "Triage incidents; Track fixes to closure; Record root causes; Raise recurring problems",
+      "deliverables": "Incident triage and fixes; Root-cause notes; Recurring issues raised for permanent fixes",
+      "value": "Gives one owner for the whole picture when something fails.",
+      "icon": "Siren"
+     }
+    ]
+   },
+   {
+    "id": "family-7-area-2",
+    "name": "Run the Estate",
+    "short": "Run the Estate",
+    "stage": "Run",
+    "icon": "ServerCog",
+    "offerings": [
+     {
+      "id": "offering-208",
+      "number": "OFFERING 208",
+      "name": "Server, Network & Storage Management",
+      "definition": "Day-to-day administration of servers, networks and storage. Capacity is checked routinely and changes are recorded against the agreed scope.",
+      "scope": "Routine administration; Capacity checks; Change records; Patch and maintenance windows",
+      "deliverables": "Routine administration; Capacity checks; Change records for core infrastructure",
+      "value": "Keeps core infrastructure stable and its changes traceable.",
+      "icon": "ServerCog"
+     },
+     {
+      "id": "offering-209",
+      "number": "OFFERING 209",
+      "name": "Cloud Operations",
+      "definition": "Operation of AWS, Azure or Google Cloud environments in scope. Cost and usage are reviewed regularly and optimisation actions are agreed and carried out.",
+      "scope": "Operate agreed cloud environments; Review cost and usage; Agree optimisation actions; Report regularly",
+      "deliverables": "Operated cloud environments; Cost and usage reviews; Optimisation actions",
+      "value": "Predictable cloud operations with spending kept in view.",
+      "icon": "CloudCog"
+     },
+     {
+      "id": "offering-210",
+      "number": "OFFERING 210",
+      "name": "Device & Endpoint Management",
+      "definition": "Management of the laptops, desktops and mobile devices in scope, from enrolment to updates. Asset records are kept current.",
+      "scope": "Device enrolment; Configuration and updates; Asset records; Joiner and leaver changes",
+      "deliverables": "Device enrolment and configuration; Updates; Asset records for endpoints in scope",
+      "value": "Devices stay configured, updated and accounted for.",
+      "icon": "Laptop"
+     }
+    ]
+   },
+   {
+    "id": "family-7-area-3",
+    "name": "Protect & Recover",
+    "short": "Protect & Recover",
+    "stage": "Protect",
+    "icon": "ShieldCheck",
+    "offerings": [
+     {
+      "id": "offering-211",
+      "number": "OFFERING 211",
+      "name": "Security Monitoring & Endpoint Protection",
+      "definition": "Threat detection across the agreed estate with endpoint protection in place. Alerts are handled with your named escalation contacts.",
+      "scope": "Threat detection on the agreed estate; Endpoint protection; Alert handling; Escalation to your contacts",
+      "deliverables": "Threat detection; Endpoint protection; Alert handling with your escalation contacts",
+      "value": "Keeps the estate watched and protected around the clock within agreed hours.",
+      "icon": "ShieldCheck"
+     },
+     {
+      "id": "offering-212",
+      "number": "OFFERING 212",
+      "name": "Backup & Disaster Recovery",
+      "definition": "Automated backups for the systems that matter most, proven by restore tests. A documented recovery plan sets out how service is restored after a failure.",
+      "scope": "Automated backups; Scheduled restore tests; Recovery plan; Priority systems agreed with you",
+      "deliverables": "Automated backups; Restore tests; Documented recovery plan",
+      "value": "Confidence that critical systems can be restored when it counts.",
+      "icon": "DatabaseBackup"
+     },
+     {
+      "id": "offering-213",
+      "number": "OFFERING 213",
+      "name": "Compliance Support & Service Reporting",
+      "definition": "Evidence and policy checks that support audits, alongside a regular service report against the agreed service levels.",
+      "scope": "Collect audit evidence; Run policy checks; Report against service levels; Review with you regularly",
+      "deliverables": "Audit evidence; Policy checks; Regular service report against agreed levels",
+      "value": "Predictable operations with agreed service levels and regular reporting.",
+      "icon": "ClipboardCheck"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Support & Maintenance",
+  "id": "family-8",
+  "short": "Support & Maintenance",
+  "icon": "life-buoy",
+  "tagline": "Keep your software secure, current and fast.",
+  "areas": [
+   {
+    "id": "family-8-area-1",
+    "name": "Keep it Running",
+    "short": "Keep it Running",
+    "stage": "Respond",
+    "icon": "Activity",
+    "offerings": [
+     {
+      "id": "offering-214",
+      "number": "OFFERING 214",
+      "name": "Application Monitoring",
+      "definition": "Health checks and alerting for the applications in scope, so issues are noticed before users report them. Alerts are routed to the support contacts agreed in the engagement.",
+      "scope": "Agree applications in scope; Define health checks and alert thresholds; Route alerts to agreed contacts; Review alert noise regularly",
+      "deliverables": "Application health checks; Alert rules; Routing to agreed support contacts",
+      "value": "Issues are caught early instead of being reported by users.",
+      "icon": "Activity"
+     },
+     {
+      "id": "offering-215",
+      "number": "OFFERING 215",
+      "name": "Emergency & Critical Issue Support",
+      "definition": "An agreed path for critical incidents affecting a live application. The aim is a fix or workaround as quickly as possible, followed by a short note on what happened.",
+      "scope": "Agree what counts as critical; Define contact and escalation path; Restore service with a fix or workaround; Record the incident",
+      "deliverables": "Agreed critical-incident path; Fix or workaround; Short incident note",
+      "value": "Critical problems get an immediate, known response rather than a scramble.",
+      "icon": "Siren"
+     },
+     {
+      "id": "offering-216",
+      "number": "OFFERING 216",
+      "name": "Bug Fixing & Issue Resolution",
+      "definition": "Reported defects are triaged, fixed and tested, then released through your agreed process. Fixes address the cause so the same issue does not keep returning.",
+      "scope": "Triage reported defects; Reproduce and fix; Test the change; Release through your agreed process",
+      "deliverables": "Triaged and fixed defects; Tested releases; Notes on recurring causes",
+      "value": "Keeps a live application dependable after the original team has moved on.",
+      "icon": "Stethoscope"
+     }
+    ]
+   },
+   {
+    "id": "family-8-area-2",
+    "name": "Keep it Current",
+    "short": "Keep it Current",
+    "stage": "Update",
+    "icon": "RefreshCw",
+    "offerings": [
+     {
+      "id": "offering-217",
+      "number": "OFFERING 217",
+      "name": "Regular Updates & Minor Enhancements",
+      "definition": "A scheduled release cycle for the small changes and improvements your team requests. Changes are planned, tested and shipped regularly instead of waiting for a large project.",
+      "scope": "Collect and prioritise requests; Plan a release cadence; Build and test changes; Release on schedule",
+      "deliverables": "Scheduled release cycle; Small changes and improvements; Release notes",
+      "value": "The application keeps improving in small, low-risk steps.",
+      "icon": "RefreshCw"
+     },
+     {
+      "id": "offering-218",
+      "number": "OFFERING 218",
+      "name": "Security Patching",
+      "definition": "Security updates for the application and its dependencies, assessed for impact, tested and applied on an agreed cadence. Urgent vulnerabilities are handled outside the regular cycle when needed.",
+      "scope": "Track security advisories; Assess impact on the application; Test updates; Apply on an agreed cadence",
+      "deliverables": "Assessed and applied security updates; Updated dependencies; Patch records",
+      "value": "Reduces exposure from overdue security updates.",
+      "icon": "ShieldCheck"
+     },
+     {
+      "id": "offering-219",
+      "number": "OFFERING 219",
+      "name": "Platform & Version Upgrades",
+      "definition": "Planned upgrades of frameworks, runtimes and databases before they fall out of support. Each upgrade is tested and comes with a rollback plan.",
+      "scope": "Review supported versions; Plan the upgrade path; Test in a staging environment; Prepare rollback",
+      "deliverables": "Upgraded frameworks, runtimes or databases; Test results; Tested rollback plan",
+      "value": "Removes the risk of running on unsupported platforms.",
+      "icon": "Rocket"
+     }
+    ]
+   },
+   {
+    "id": "family-8-area-3",
+    "name": "Keep it Improving",
+    "short": "Keep it Improving",
+    "stage": "Improve",
+    "icon": "Gauge",
+    "offerings": [
+     {
+      "id": "offering-220",
+      "number": "OFFERING 220",
+      "name": "Performance Optimisation",
+      "definition": "Profiling of slow areas in the application and a prioritised list of fixes. Changes are measured before and after so improvements are proven.",
+      "scope": "Profile slow areas; Identify causes; Prioritise and apply fixes; Measure before and after",
+      "deliverables": "Profiling findings; Prioritised fix list; Before-and-after measurements",
+      "value": "Users get a faster application, with the improvement measured.",
+      "icon": "Gauge"
+     },
+     {
+      "id": "offering-221",
+      "number": "OFFERING 221",
+      "name": "Preventive Maintenance & Health Checks",
+      "definition": "Periodic reviews of logs, capacity, backups and technical debt to find problems before they cause incidents. Each review ends with recommended actions.",
+      "scope": "Review logs and errors; Check capacity and backups; Assess technical debt; Recommend actions",
+      "deliverables": "Periodic health reviews; Recommended actions; Technical-debt notes",
+      "value": "Prevents problems instead of only reacting to them.",
+      "icon": "HeartPulse"
+     },
+     {
+      "id": "offering-222",
+      "number": "OFFERING 222",
+      "name": "Service Levels & Support Reporting",
+      "definition": "Agreed response and resolution targets for support, with a regular report on tickets, trends and open risks.",
+      "scope": "Agree response and resolution targets; Track tickets; Analyse trends; Report regularly",
+      "deliverables": "Agreed service levels; Regular support report; Trends and open risks",
+      "value": "Makes support performance visible and predictable.",
+      "icon": "ClipboardCheck"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Business Transformation",
+  "id": "family-9",
+  "short": "Business Transformation",
+  "icon": "trending-up",
+  "tagline": "Reshape how you work, and make it last.",
+  "areas": [
+   {
+    "id": "family-9-area-1",
+    "name": "Operations & Process",
+    "short": "Operations & Process",
+    "stage": "Improve",
+    "icon": "Workflow",
+    "offerings": [
+     {
+      "id": "offering-223",
+      "number": "OFFERING 223",
+      "name": "Operational Excellence Review",
+      "definition": "A review of key operations with your leadership to find where time and money are lost today. Bottlenecks, cost drivers and quick wins are identified and ranked by value.",
+      "scope": "Agree operations in scope; Map how work flows today; Identify bottlenecks and cost drivers; Rank quick wins and longer fixes",
+      "deliverables": "Operations review; Ranked bottlenecks and cost drivers; Quick-win list",
+      "value": "Shows where cost rises without output, and what to fix first.",
+      "icon": "Gauge"
+     },
+     {
+      "id": "offering-224",
+      "number": "OFFERING 224",
+      "name": "Process Reengineering",
+      "definition": "Redesign of processes that have grown around workarounds, approvals and manual handovers. Current and future states are mapped, and the workflow, BPM or system changes they need are defined.",
+      "scope": "Map current processes; Design future-state workflows; Remove unnecessary approvals and handovers; Define BPM or system changes",
+      "deliverables": "Current and future process maps; Redesigned workflows; Required BPM or system changes",
+      "value": "Removes the workarounds and handovers that slow work down.",
+      "icon": "Workflow"
+     },
+     {
+      "id": "offering-225",
+      "number": "OFFERING 225",
+      "name": "Technology & Systems Alignment",
+      "definition": "An assessment of how ERP, CRM and other systems support the redesigned processes. Gaps are identified and the system changes required are set out.",
+      "scope": "Review ERP, CRM and other systems; Match systems to new processes; Identify gaps; Plan required changes",
+      "deliverables": "View of system support for new processes; Gap list; Required system changes",
+      "value": "Makes sure technology supports the new way of working instead of blocking it.",
+      "icon": "Cable"
+     }
+    ]
+   },
+   {
+    "id": "family-9-area-2",
+    "name": "People & Change",
+    "short": "People & Change",
+    "stage": "Adopt",
+    "icon": "Users",
+    "offerings": [
+     {
+      "id": "offering-226",
+      "number": "OFFERING 226",
+      "name": "Change Management",
+      "definition": "A structured plan that helps people adopt a new way of working so it holds. It covers stakeholders, communications, training and the measures that show whether adoption is happening.",
+      "scope": "Identify stakeholders and impacts; Plan communications; Plan training; Define adoption measures",
+      "deliverables": "Change plan; Stakeholder and communications plan; Training plan; Adoption measures",
+      "value": "Stops teams drifting back to the old way of working.",
+      "icon": "Users"
+     },
+     {
+      "id": "offering-227",
+      "number": "OFFERING 227",
+      "name": "Organisation & Culture Change",
+      "definition": "Redesign of roles, responsibilities and ways of working around the new processes, so the organisation supports the change rather than resisting it.",
+      "scope": "Review current roles and responsibilities; Redesign around new processes; Define ways of working; Plan the transition",
+      "deliverables": "Redesigned roles and responsibilities; Agreed ways of working; Transition plan",
+      "value": "Aligns how people work with how the business now needs to operate.",
+      "icon": "UserRoundCog"
+     },
+     {
+      "id": "offering-228",
+      "number": "OFFERING 228",
+      "name": "Leadership Alignment",
+      "definition": "Facilitated workshops that bring the leadership team to agreement on goals, priorities and decision rights before and during a transformation.",
+      "scope": "Agree transformation goals; Set priorities; Clarify decision rights; Plan leadership checkpoints",
+      "deliverables": "Leadership workshops; Agreed goals and priorities; Documented decision rights",
+      "value": "Gives the transformation one direction and clear ownership at the top.",
+      "icon": "Compass"
+     }
+    ]
+   },
+   {
+    "id": "family-9-area-3",
+    "name": "Growth & Customers",
+    "short": "Growth & Customers",
+    "stage": "Grow",
+    "icon": "ChartNoAxesCombined",
+    "offerings": [
+     {
+      "id": "offering-229",
+      "number": "OFFERING 229",
+      "name": "Innovation & Growth Strategy",
+      "definition": "Assessment of growth options such as new markets, services or operating models for value and fit. The options you choose to pursue get a plan.",
+      "scope": "Identify growth options; Assess value and fit; Select options to pursue; Plan next steps",
+      "deliverables": "Assessed growth options; Selection rationale; Plan for chosen options",
+      "value": "Turns growth ideas into a small number of options worth pursuing.",
+      "icon": "Rocket"
+     },
+     {
+      "id": "offering-230",
+      "number": "OFFERING 230",
+      "name": "Market Positioning",
+      "definition": "Definition of a clear proposition and positioning for the markets and customers you are targeting, so offerings are easy to understand and choose.",
+      "scope": "Define target markets and customers; Review competitors; Shape the proposition; Agree positioning",
+      "deliverables": "Clear proposition; Positioning for target markets and customers",
+      "value": "Makes it clear why target customers should choose you.",
+      "icon": "Route"
+     },
+     {
+      "id": "offering-231",
+      "number": "OFFERING 231",
+      "name": "Customer Journey & Service Design",
+      "definition": "Mapping of customer journeys and redesign of services to remove friction at key moments, from first contact to ongoing support.",
+      "scope": "Map customer journeys; Find friction at key moments; Redesign services; Plan improvements",
+      "deliverables": "Mapped customer journeys; Redesigned services; Prioritised improvements",
+      "value": "Removes friction customers feel at the moments that matter most.",
+      "icon": "HeartPulse"
+     }
+    ]
+   }
+  ]
  }
 ]

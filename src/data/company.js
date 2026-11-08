@@ -6,21 +6,6 @@
  * placeholder is shown. Links left as null render as plain text instead of a link.
  */
 
-export const process = {
-  eyebrow: 'How MindSuite works',
-  title: 'Know what comes next, at every stage.',
-  lead:
-    'From understanding your challenge to handing over a working system, use these stages to discuss the scope, responsibilities, and checkpoints for your project.',
-  stages: [
-    { name: 'Discovery', text: 'Understand workflows, constraints, stakeholders, and what success should look like.' },
-    { name: 'Architecture', text: 'Define the system design, integration boundaries, and implementation plan.' },
-    { name: 'Delivery', text: 'Build and configure against agreed requirements with review checkpoints.' },
-    { name: 'Integration', text: 'Connect systems, validate data, and test end-to-end workflows.' },
-    { name: 'Handover', text: 'Prepare documentation, user training, and operational ownership.' },
-    { name: 'Support', text: 'Agree maintenance, issue handling, and the scope of ongoing assistance.' },
-  ],
-};
-
 export const ecosystem = {
   eyebrow: 'Enterprise technology ecosystem',
   title: ['The right platform.', 'A connected business.'],
@@ -52,32 +37,29 @@ export const clients = {
   ],
 };
 
-export const leadership = {
-  eyebrow: 'Leadership / MindSuite',
-  title: 'Leadership, connected.',
-  lead: 'Get to know the leadership behind MindSuite’s business, technology, and cybersecurity work.',
-  link: { label: 'Meet the full team', href: null },
-  leaders: [
-    {
-      name: 'Ashraf Sheikh Mohammed',
-      area: 'Business leadership',
-      role: 'CEO & Founder',
-      photo: null,
-      linkedin: null,
-    },
-    {
-      name: 'Saddapalli Mohammed Zaheer',
-      area: 'Technology leadership',
-      role: 'CTO/Chief Technology Governance Officer',
-      photo: null,
-      linkedin: null,
-    },
-    {
-      name: 'Tanvir Hashmi',
-      area: 'Security leadership',
-      role: 'Cybersecurity, Risk & Compliance Leader',
-      photo: null,
-      linkedin: null,
-    },
-  ],
+export const contact = {
+  tagline: ['Business systems. Connected technology.', 'A considered path forward.'],
+  email: 'info@mindsuite.in',
+  phone: '+91 9100 00 5500',
+  address: ['8-1-299/A/108, Shaikpet', 'Hyderabad 500 096, Telangana, India'],
+  // Opens the address in Google Maps.
+  mapUrl: 'https://www.google.com/maps/search/?api=1&query=8-1-299%2FA%2F108%2C+Shaikpet%2C+Hyderabad+500096',
+  // Confirm this is MindSuite's company page before going live.
+  linkedin: 'https://www.linkedin.com/company/mindsuite/',
+};
+
+/**
+ * "Talk to an expert" channels. WhatsApp and Telegram open a chat with the number above.
+ * Telegram phone links only work if that account allows being found by its number;
+ * if MindSuite has a Telegram username, set it here instead (e.g. 'https://t.me/mindsuite').
+ */
+const digits = contact.phone.replace(/\D/g, '');
+const greeting = 'Hello MindSuite, I would like to talk to an expert about ';
+
+export const expertChannels = {
+  whatsapp: `https://wa.me/${digits}?text=${encodeURIComponent(greeting)}`,
+  telegram: `https://t.me/+${digits}`,
+  call: `tel:+${digits}`,
+  email: `mailto:${contact.email}?subject=${encodeURIComponent('Talk to an expert')}`,
+  linkedin: contact.linkedin,
 };

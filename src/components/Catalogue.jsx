@@ -5,6 +5,24 @@ import { families } from '../data/catalogue.js';
 const ORDINALS = ['01', '02', '03', '04', '05', '06', '07', '08', '09'];
 const WORDS = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'];
 
+/** "Assess risks; review code; define roadmap." → a bulleted list of the separate items. */
+function ItemList({ text }) {
+  const items = text
+    .split(';')
+    .map((s) => s.trim().replace(/\.$/, ''))
+    .filter(Boolean)
+    .map((s) => s.charAt(0).toUpperCase() + s.slice(1));
+  // A single sentence reads better as plain text than as a one-bullet list.
+  if (items.length < 2) return <p className="offering-text">{text}</p>;
+  return (
+    <ul className="offering-list">
+      {items.map((item) => (
+        <li key={item}>{item}</li>
+      ))}
+    </ul>
+  );
+}
+
 const Offering = memo(function Offering({ offering, family, added, onToggle }) {
   const n = offering.id.split('-')[1];
   return (
@@ -15,6 +33,21 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
       aria-labelledby={`offering-title-${n}`}
     >
       <div className="offering-heading">
+        <div className="offering-icon" aria-hidden="true">
+          <Icon name={offering.icon} />
+        </div>
+        <div className="offering-title">
+          <div className="offering-id">{offering.number}</div>
+          <h4 id={`offering-title-${n}`}>{offering.name}</h4>
+          {/* The "why" comes first: business value sits directly under the name. */}
+          <p className="offering-value">
+            <Icon name="TrendingUp" />
+            <span>
+              <span className="visually-hidden">Business value: </span>
+              {offering.value}
+            </span>
+          </p>
+        </div>
         <button
           type="button"
           className="interest-button"
@@ -25,13 +58,6 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
           <Icon name={added ? 'Check' : 'Plus'} />
           {added ? 'Added' : "I'm interested"}
         </button>
-        <div className="offering-icon" aria-hidden="true">
-          <Icon name={offering.icon} />
-        </div>
-        <div>
-          <div className="offering-id">{offering.number}</div>
-          <h4 id={`offering-title-${n}`}>{offering.name}</h4>
-        </div>
       </div>
       <p className="definition">{offering.definition}</p>
       <dl>
@@ -40,23 +66,20 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
             <Icon name="ScanLine" />
             Typical scope
           </dt>
-          <dd>{offering.scope}</dd>
+          <dd>
+            <ItemList text={offering.scope} />
+          </dd>
         </div>
         <div>
           <dt>
             <Icon name="PackageCheck" />
             What you receive
           </dt>
-          <dd>{offering.deliverables}</dd>
+          <dd>
+            <ItemList text={offering.deliverables} />
+          </dd>
         </div>
       </dl>
-      <div className="business-value">
-        <span>
-          <Icon name="TrendingUp" />
-          Business value
-        </span>
-        <p>{offering.value}</p>
-      </div>
     </article>
   );
 });
