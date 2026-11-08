@@ -2,24 +2,26 @@ import { ArrowUp, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
 import logo from '../assets/logo.png';
 import { SECTIONS, sectionHref } from './SiteNav.jsx';
 import { contact } from '../data/company.js';
+import { useT } from '../i18n/index.jsx';
 
 const iconProps = { 'aria-hidden': true, focusable: 'false' };
 
 /** Site footer: brand and tagline, contact details, section links and a closing bar. */
 export default function SiteFooter() {
-  const tel = contact.phone.replace(/[^\d+]/g, '');
+  const tel = contact.phone.replace(/[^\d+]/g, ''); // e.g. +919100005500
   const year = new Date().getFullYear();
+  const t = useT();
 
   return (
     <footer className="site-footer">
       <div className="footer-main">
         <div className="footer-brand">
-          <a href="#top" className="footer-logo" aria-label="MindSuite — back to top">
+          <a href="#top" className="footer-logo" aria-label={t('MindSuite — back to top')}>
             <img src={logo} alt="MindSuite" width="773" height="165" />
           </a>
           <p className="footer-tagline">
             {contact.tagline.map((line) => (
-              <span key={line}>{line}</span>
+              <span key={line}>{t(line)}</span>
             ))}
           </p>
           <a
@@ -27,48 +29,48 @@ export default function SiteFooter() {
             href={contact.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="MindSuite on LinkedIn (opens in a new tab)"
+            aria-label={t('MindSuite on LinkedIn (opens in a new tab)')}
           >
             <Linkedin {...iconProps} />
-            MindSuite on LinkedIn <span aria-hidden="true">↗</span>
+            {t('MindSuite on LinkedIn')} <span aria-hidden="true">↗</span>
           </a>
         </div>
 
         <div className="footer-col">
-          <h2 className="footer-heading">Get in touch</h2>
+          <h2 className="footer-heading">{t('Get in touch')}</h2>
           <address className="footer-contact">
             <a href={`mailto:${contact.email}`}>
               <span className="footer-icon"><Mail {...iconProps} /></span>
               <span>
-                <small>Email</small>
-                {contact.email}
+                <small>{t('Email')}</small>
+                <bdi dir="ltr">{contact.email}</bdi>
               </span>
             </a>
             <a href={`tel:${tel}`}>
               <span className="footer-icon"><Phone {...iconProps} /></span>
               <span>
-                <small>Phone</small>
-                {contact.phone}
+                <small>{t('Phone')}</small>
+                <bdi dir="ltr">{contact.phone}</bdi>
               </span>
             </a>
             <a href={contact.mapUrl} target="_blank" rel="noopener noreferrer">
               <span className="footer-icon"><MapPin {...iconProps} /></span>
               <span>
-                <small>Office</small>
+                <small>{t('Office')}</small>
                 {contact.address.map((line) => (
-                  <span className="footer-line" key={line}>{line}</span>
+                  <span className="footer-line" key={line}>{t(line)}</span>
                 ))}
               </span>
             </a>
           </address>
         </div>
 
-        <nav className="footer-col" aria-label="Footer">
-          <h2 className="footer-heading">Explore</h2>
+        <nav className="footer-col" aria-label={t('Footer')}>
+          <h2 className="footer-heading">{t('Explore')}</h2>
           <ul className="footer-links">
             {SECTIONS.map((s) => (
               <li key={s.id}>
-                <a href={sectionHref(s)}>{s.label}</a>
+                <a href={sectionHref(s)}>{t(s.label)}</a>
               </li>
             ))}
           </ul>
@@ -76,9 +78,9 @@ export default function SiteFooter() {
       </div>
 
       <div className="footer-bar">
-        <span>© {year} MindSuite. Connected capabilities. Clear outcomes.</span>
+        <span>© {year} MindSuite. {t('Connected capabilities. Clear outcomes.')}</span>
         <a href="#top" className="footer-top">
-          Back to top <ArrowUp {...iconProps} />
+          {t('Back to top')} <ArrowUp {...iconProps} />
         </a>
       </div>
     </footer>

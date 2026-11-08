@@ -1,13 +1,15 @@
 import { clients, ecosystem } from '../data/company.js';
+import { useT } from '../i18n/index.jsx';
 
 const pad = (n) => String(n).padStart(2, '0');
 
 /** Arrow link; renders as plain text until a destination is set in company.js. */
 function ArrowLink({ link, className = 'section-link' }) {
+  const t = useT();
   if (!link) return null;
   const content = (
     <>
-      {link.label}
+      {t(link.label)}
       <span aria-hidden="true">↗</span>
     </>
   );
@@ -16,22 +18,23 @@ function ArrowLink({ link, className = 'section-link' }) {
       {content}
     </a>
   ) : (
-    <span className={`${className} is-pending`} title="Link to be added">
+    <span className={`${className} is-pending`} title={t('Link to be added')}>
       {content}
     </span>
   );
 }
 
 function SectionIntro({ id, eyebrow, title, children }) {
+  const t = useT();
   const lines = Array.isArray(title) ? title : [title];
   return (
     <div className="section-intro">
-      <div className="section-eyebrow">{eyebrow}</div>
+      <div className="section-eyebrow">{t(eyebrow)}</div>
       <h2 id={id}>
         {lines.map((line, i) => (
           <span key={line}>
             {i > 0 && <br />}
-            {line}
+            {t(line)}
           </span>
         ))}
       </h2>
@@ -52,23 +55,24 @@ function Logo({ name, src, className }) {
 }
 
 export function PlatformEcosystem() {
+  const t = useT();
   return (
     <section className="company-section ecosystem-section" id="platforms" aria-labelledby="platforms-title">
       <div className="company-inner">
         <div className="section-head">
           <SectionIntro id="platforms-title" eyebrow={ecosystem.eyebrow} title={ecosystem.title} />
           <div className="section-aside">
-            <p className="section-lead">{ecosystem.lead}</p>
+            <p className="section-lead">{t(ecosystem.lead)}</p>
             <ArrowLink link={ecosystem.link} />
           </div>
         </div>
         <ul className="platform-list">
           {ecosystem.platforms.map((p, i) => (
             <li key={p.name}>
-              <a className="platform-card" href={`#${p.area}`} aria-label={`${p.name}: ${p.caption}`}>
-                <span className="card-kicker">{pad(i + 1)} / Platform</span>
+              <a className="platform-card" href={`#${p.area}`} aria-label={`${p.name}: ${t(p.caption)}`}>
+                <span className="card-kicker">{pad(i + 1)} / {t('Platform')}</span>
                 <Logo className="platform-logo" name={p.name} src={p.logo} />
-                <strong>{p.caption}</strong>
+                <strong>{t(p.caption)}</strong>
               </a>
             </li>
           ))}
@@ -79,11 +83,12 @@ export function PlatformEcosystem() {
 }
 
 export function Clients() {
+  const t = useT();
   return (
     <section className="company-section clients-section" id="clients" aria-labelledby="clients-title">
       <div className="company-inner clients-layout">
         <SectionIntro id="clients-title" eyebrow={clients.eyebrow} title={clients.title}>
-          <p className="section-lead">{clients.lead}</p>
+          <p className="section-lead">{t(clients.lead)}</p>
         </SectionIntro>
         <ul className="client-grid">
           {clients.list.map((c) => {

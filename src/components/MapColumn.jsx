@@ -3,6 +3,7 @@ import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import Globe from './Globe.jsx';
 import Icon from './Icon.jsx';
 import { families, offerings } from '../data/catalogue.js';
+import { useT } from '../i18n/index.jsx';
 
 const HEX_WIDTH = 112;
 const HEX_HEIGHT = (HEX_WIDTH * Math.sqrt(3)) / 2;
@@ -38,27 +39,28 @@ function useRailTip() {
 function MapRail({ current, onOpenSearch, onToggle }) {
   const family = current.family;
   const [tipFor, tip] = useRailTip();
+  const t = useT();
   const progress = ((current.index + 1) / offerings.length) * 100;
 
   return (
-    <aside className={`map-column map-rail${family.theme === 'dark' ? ' dark' : ''}`} aria-label="Connected service map (collapsed)">
-      <button type="button" className="rail-btn rail-toggle" aria-label="Expand service map" aria-expanded="false" onClick={onToggle} {...tipFor('Expand service map')}>
+    <aside className={`map-column map-rail${family.theme === 'dark' ? ' dark' : ''}`} aria-label={t('Connected service map (collapsed)')}>
+      <button type="button" className="rail-btn rail-toggle" aria-label={t('Expand service map')} aria-expanded="false" onClick={onToggle} {...tipFor(t('Expand service map'))}>
         <PanelLeftOpen aria-hidden="true" />
       </button>
       <button
         type="button"
         className="rail-btn"
-        aria-label={`Search all ${offerings.length} offerings`}
+        aria-label={t('Search all {count} offerings', { count: offerings.length })}
         aria-haspopup="dialog"
         aria-controls="catalogue-navigation"
         onClick={onOpenSearch}
-        {...tipFor(`Search all ${offerings.length} offerings`)}
+        {...tipFor(t('Search all {count} offerings', { count: offerings.length }))}
       >
         <Icon name="Search" />
       </button>
 
       <span className="rail-divider" aria-hidden="true" />
-      <nav className="rail-group" aria-label="Jump to a service family">
+      <nav className="rail-group" aria-label={t('Jump to a service family')}>
         {families.map((f) => (
           <a
             key={f.id}
@@ -74,13 +76,13 @@ function MapRail({ current, onOpenSearch, onToggle }) {
       </nav>
 
       <span className="rail-divider" aria-hidden="true" />
-      <nav className="rail-group" aria-label={`${family.name} service areas`}>
+      <nav className="rail-group" aria-label={t('{name} service areas', { name: family.name })}>
         {family.areas.map((a) => (
           <a
             key={a.id}
             href={`#${a.id}`}
             className="rail-btn rail-area"
-            aria-label={`${a.name}, ${a.offerings.length} offerings`}
+            aria-label={t('{name}, {count} offerings', { name: a.name, count: a.offerings.length })}
             aria-current={String(a.id === current.area.id)}
             {...tipFor(`${a.name} · ${a.offerings.length}`)}
           >
@@ -92,9 +94,9 @@ function MapRail({ current, onOpenSearch, onToggle }) {
       <div
         className="rail-progress"
         role="img"
-        aria-label={`Reading ${current.name}, ${current.index + 1} of ${offerings.length} offerings`}
+        aria-label={t('Reading {name}, {n} of {total} offerings', { name: current.name, n: current.index + 1, total: offerings.length })}
         tabIndex={0}
-        {...tipFor(`Reading now: ${current.name} (${current.index + 1} of ${offerings.length})`)}
+        {...tipFor(t('Reading now: {name} ({n} of {total})', { name: current.name, n: current.index + 1, total: offerings.length }))}
       >
         <span className="rail-progress-icon">
           <Icon name={current.icon} />
@@ -113,20 +115,21 @@ function MapRail({ current, onOpenSearch, onToggle }) {
 export default function MapColumn({ current, playing, onOpenSearch, collapsed, onToggle }) {
   const family = current.family;
   const dark = family.theme === 'dark';
+  const t = useT();
 
   if (collapsed) return <MapRail current={current} onOpenSearch={onOpenSearch} onToggle={onToggle} />;
 
   return (
-    <aside className={`map-column globe-scene${dark ? ' dark' : ''}`} aria-label="Connected service map">
+    <aside className={`map-column globe-scene${dark ? ' dark' : ''}`} aria-label={t('Connected service map')}>
       <Globe playing={playing} sidebar light={!dark} />
       <div className="map-heading">
-        <span>YOUR SERVICE MAP</span>
+        <span>{t('YOUR SERVICE MAP')}</span>
         <button
           type="button"
           className="map-collapse"
-          aria-label="Collapse service map"
+          aria-label={t('Collapse service map')}
           aria-expanded="true"
-          title="Collapse to icons"
+          title={t('Collapse to icons')}
           onClick={onToggle}
         >
           <PanelLeftClose aria-hidden="true" />
@@ -140,13 +143,13 @@ export default function MapColumn({ current, playing, onOpenSearch, collapsed, o
         onClick={onOpenSearch}
       >
         <Icon name="Search" />
-        Search all {offerings.length} offerings <span aria-hidden="true">&#8599;</span>
+        {t('Search all {count} offerings', { count: offerings.length })} <span aria-hidden="true">&#8599;</span>
       </button>
 
-      <div className="map-label">Service families</div>
+      <div className="map-label">{t('Service families')}</div>
       <nav
         className="hex-map family-map"
-        aria-label="Jump to a service family"
+        aria-label={t('Jump to a service family')}
         style={{
           width: HEX_WIDTH * 2.5,
           height: Math.ceil(families.length / COLS) * HEX_HEIGHT + HEX_HEIGHT / 2,
@@ -168,15 +171,15 @@ export default function MapColumn({ current, playing, onOpenSearch, collapsed, o
         ))}
       </nav>
 
-      <div className="map-label">Service areas</div>
+      <div className="map-label">{t('Service areas')}</div>
       <h3 className="area-family-title">{family.name}</h3>
-      <nav className="hex-map area-map" aria-label="Jump to a service area">
+      <nav className="hex-map area-map" aria-label={t('Jump to a service area')}>
         {family.areas.map((a) => (
           <a
             key={a.id}
             href={`#${a.id}`}
             className="map-cell"
-            aria-label={`${a.name}, ${a.offerings.length} offerings`}
+            aria-label={t('{name}, {count} offerings', { name: a.name, count: a.offerings.length })}
             title={a.name}
             aria-current={String(a.id === current.area.id)}
           >
@@ -190,13 +193,13 @@ export default function MapColumn({ current, playing, onOpenSearch, collapsed, o
       </nav>
 
       <div className="current-offer">
-        <div className="eyebrow">Reading now</div>
+        <div className="eyebrow">{t('Reading now')}</div>
         <p>
           <Icon name={current.icon} />
           {current.name}
         </p>
         <span className="reading-count">
-          {current.index + 1} of {offerings.length} offerings
+          {t('{n} of {total} offerings', { n: current.index + 1, total: offerings.length })}
         </span>
       </div>
     </aside>

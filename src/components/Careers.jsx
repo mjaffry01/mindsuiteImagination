@@ -5,6 +5,7 @@ import DotField from './DotField.jsx';
 import Globe from './Globe.jsx';
 import { DISCIPLINES, careersContact, hero, openings, perks, steps } from '../data/careers.js';
 import { leaders, team } from '../data/team.js';
+import { useLanguage, useT } from '../i18n/index.jsx';
 
 const peopleCount = leaders.length + team.length;
 const teamSize = (group) => team.filter((p) => p.groups.includes(group)).length;
@@ -12,8 +13,9 @@ const teamSize = (group) => team.filter((p) => p.groups.includes(group)).length;
 const mailto = (subject) =>
   `mailto:${careersContact.email}?subject=${encodeURIComponent(subject)}`;
 
-const formatDate = (iso) =>
-  new Date(`${iso}T00:00:00`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+const LOCALES = { en: 'en-GB', ar: 'ar-SA-u-nu-latn', fr: 'fr-FR' };
+const formatDate = (iso, lang) =>
+  new Date(`${iso}T00:00:00`).toLocaleDateString(LOCALES[lang] || 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 
 function scrollToId(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -22,6 +24,7 @@ function scrollToId(id) {
 /** Side panel with the full role description; open state lives in the URL (#/careers/<id>). */
 function RoleDrawer({ role, onClose }) {
   const ref = useRef(null);
+  const { t, lang } = useLanguage();
   useEffect(() => {
     const dialog = ref.current;
     if (role && !dialog.open) dialog.showModal();
@@ -43,14 +46,14 @@ function RoleDrawer({ role, onClose }) {
       {role && (
         <article>
           <header>
-            <span className="role-discipline">{role.discipline}</span>
+            <span className="role-discipline">{t(role.discipline)}</span>
             <h2 id="role-title">{role.title}</h2>
             <ul className="role-meta">
               <li><MapPin aria-hidden="true" />{role.location}</li>
-              <li><Briefcase aria-hidden="true" />{role.workModel} · {role.type}</li>
+              <li><Briefcase aria-hidden="true" />{t(role.workModel)} · {t(role.type)}</li>
               {role.experience && <li><Clock aria-hidden="true" />{role.experience}</li>}
             </ul>
-            <button type="button" className="role-close" aria-label="Close" onClick={onClose} autoFocus>
+            <button type="button" className="role-close" aria-label={t('Close')} onClick={onClose} autoFocus>
               <X aria-hidden="true" />
             </button>
           </header>
@@ -64,7 +67,7 @@ function RoleDrawer({ role, onClose }) {
               .filter(([, items]) => items?.length)
               .map(([title, items]) => (
                 <section key={title}>
-                  <h3>{title}</h3>
+                  <h3>{t(title)}</h3>
                   <ul>
                     {items.map((item) => (
                       <li key={item}>{item}</li>
@@ -74,9 +77,9 @@ function RoleDrawer({ role, onClose }) {
               ))}
           </div>
           <footer>
-            {role.posted && <span>Posted {formatDate(role.posted)}</span>}
+            {role.posted && <span>{t('Posted {date}', { date: formatDate(role.posted, lang) })}</span>}
             <a className="careers-btn primary" href={mailto(`Application: ${role.title}`)}>
-              <Send aria-hidden="true" /> Apply for this role
+              <Send aria-hidden="true" /> {t('Apply for this role')}
             </a>
           </footer>
         </article>
@@ -88,6 +91,7 @@ function RoleDrawer({ role, onClose }) {
 export default function Careers({ roleId, playing, onToggleMotion }) {
   const [query, setQuery] = useState('');
   const [discipline, setDiscipline] = useState('All');
+  const t = useT();
 
   // Arriving on the page starts at the top (unless the link opens a specific role).
   useEffect(() => {
@@ -124,29 +128,29 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
         <Globe playing={playing} />
         <DotField />
         <button className="motion" type="button" aria-pressed={!playing} onClick={onToggleMotion}>
-          {playing ? 'Pause motion' : 'Resume motion'}
+          {playing ? t('Pause motion') : t('Resume motion')}
         </button>
         <div className="hero-content careers-hero-inner">
-          <div className="eyebrow">{hero.eyebrow}</div>
+          <div className="eyebrow">{t(hero.eyebrow)}</div>
           <h1 id="careers-title">
-            {hero.title[0]}
+            {t(hero.title[0])}
             <br />
-            <span className="cyan">{hero.title[1]}</span>
+            <span className="cyan">{t(hero.title[1])}</span>
           </h1>
-          <p>{hero.lead}</p>
+          <p>{t(hero.lead)}</p>
           <div className="careers-hero-actions">
             <button type="button" className="careers-btn primary" onClick={() => scrollToId('careers-openings')}>
-              See current openings <ArrowRight aria-hidden="true" />
+              {t('See current openings')} <ArrowRight aria-hidden="true" />
             </button>
             <button type="button" className="careers-btn ghost" onClick={() => scrollToId('careers-why')}>
-              Working at MindSuite
+              {t('Working at MindSuite')}
             </button>
           </div>
-          <ul className="careers-stats" aria-label="MindSuite at a glance">
-            <li><strong>{peopleCount}</strong> people listed</li>
-            <li><strong>{DISCIPLINES.length}</strong> disciplines</li>
-            <li><strong>{openings.length}</strong> open {openings.length === 1 ? 'role' : 'roles'}</li>
-            <li><strong>Hyderabad</strong> India office</li>
+          <ul className="careers-stats" aria-label={t('MindSuite at a glance')}>
+            <li><strong>{peopleCount}</strong> {t('people listed')}</li>
+            <li><strong>{DISCIPLINES.length}</strong> {t('disciplines')}</li>
+            <li><strong>{openings.length}</strong> {openings.length === 1 ? t('open role') : t('open roles')}</li>
+            <li><strong>{t('Hyderabad')}</strong> {t('India office')}</li>
           </ul>
         </div>
       </section>
@@ -154,14 +158,14 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
       {/* Why MindSuite */}
       <section className="careers-section" id="careers-why" aria-labelledby="why-title">
         <div className="careers-inner">
-          <span className="careers-kicker">Why MindSuite</span>
-          <h2 id="why-title">What you can expect here.</h2>
+          <span className="careers-kicker">{t('Why MindSuite')}</span>
+          <h2 id="why-title">{t('What you can expect here.')}</h2>
           <ul className="perk-grid">
             {perks.map((p, i) => (
               <li key={p.title} className={`perk tone-${i % 4}`}>
                 <span className="perk-icon"><Icon name={p.icon} /></span>
-                <h3>{p.title}</h3>
-                <p>{p.text}</p>
+                <h3>{t(p.title)}</h3>
+                <p>{t(p.text)}</p>
               </li>
             ))}
           </ul>
@@ -171,20 +175,20 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
       {/* Disciplines */}
       <section className="careers-section alt" aria-labelledby="where-title">
         <div className="careers-inner">
-          <span className="careers-kicker">Where you could work</span>
-          <h2 id="where-title">One delivery team. Find your place in it.</h2>
+          <span className="careers-kicker">{t('Where you could work')}</span>
+          <h2 id="where-title">{t('One delivery team. Find your place in it.')}</h2>
           <ul className="discipline-grid">
             {DISCIPLINES.map((d, i) => (
               <li key={d.name}>
                 <button type="button" className={`discipline-card tone-${i % 4}`} onClick={() => pickDiscipline(d.name)}>
                   <span className="discipline-num">{String(i + 1).padStart(2, '0')}</span>
                   <span className="perk-icon"><Icon name={d.icon} /></span>
-                  <strong>{d.name}</strong>
-                  <small>{d.area}</small>
+                  <strong>{t(d.name)}</strong>
+                  <small>{t(d.area)}</small>
                   <span className="discipline-foot">
-                    <span>{teamSize(d.group)} on the team</span>
+                    <span>{t('{count} on the team', { count: teamSize(d.group) })}</span>
                     <span className={openCount(d.name) ? 'has-open' : undefined}>
-                      {openCount(d.name)} open
+                      {t('{count} open', { count: openCount(d.name) })}
                     </span>
                   </span>
                 </button>
@@ -192,7 +196,7 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
             ))}
           </ul>
           <a className="careers-link" href="#leadership">
-            Meet the team <ArrowRight aria-hidden="true" />
+            {t('Meet the team')} <ArrowRight aria-hidden="true" />
           </a>
         </div>
       </section>
@@ -200,21 +204,21 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
       {/* Openings */}
       <section className="careers-section" id="careers-openings" aria-labelledby="openings-title">
         <div className="careers-inner">
-          <span className="careers-kicker">Current openings</span>
-          <h2 id="openings-title">Find a role that fits your experience.</h2>
+          <span className="careers-kicker">{t('Current openings')}</span>
+          <h2 id="openings-title">{t('Find a role that fits your experience.')}</h2>
 
           <div className="openings-toolbar">
             <label className="openings-search">
               <SearchIcon aria-hidden="true" />
-              <span className="visually-hidden">Search job titles</span>
+              <span className="visually-hidden">{t('Search job titles')}</span>
               <input
                 type="search"
-                placeholder="Search job titles, skills or locations"
+                placeholder={t('Search job titles, skills or locations')}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
             </label>
-            <div className="openings-filters" role="group" aria-label="Filter by discipline">
+            <div className="openings-filters" role="group" aria-label={t('Filter by discipline')}>
               {['All', ...DISCIPLINES.map((d) => d.name)].map((name) => (
                 <button
                   type="button"
@@ -222,7 +226,7 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
                   aria-pressed={discipline === name}
                   onClick={() => setDiscipline(name)}
                 >
-                  {name}
+                  {t(name)}
                   <span>{name === 'All' ? openings.length : openCount(name)}</span>
                 </button>
               ))}
@@ -235,17 +239,17 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
                 <li key={o.id}>
                   <a className="opening-card" href={`#/careers/${o.id}`}>
                     <div className="opening-main">
-                      <span className="role-discipline">{o.discipline}</span>
+                      <span className="role-discipline">{t(o.discipline)}</span>
                       <h3>{o.title}</h3>
                       {o.summary && <p>{o.summary}</p>}
                     </div>
                     <ul className="role-meta">
                       <li><MapPin aria-hidden="true" />{o.location}</li>
-                      <li><Briefcase aria-hidden="true" />{o.workModel}</li>
+                      <li><Briefcase aria-hidden="true" />{t(o.workModel)}</li>
                       {o.experience && <li><Clock aria-hidden="true" />{o.experience}</li>}
                     </ul>
                     <span className="opening-cta">
-                      View role <ArrowRight aria-hidden="true" />
+                      {t('View role')} <ArrowRight aria-hidden="true" />
                     </span>
                   </a>
                 </li>
@@ -256,16 +260,16 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
               <span className="perk-icon"><Icon name="Users" /></span>
               <h3>
                 {openings.length
-                  ? 'No openings match your search.'
-                  : 'No open roles right now.'}
+                  ? t('No openings match your search.')
+                  : t('No open roles right now.')}
               </h3>
               <p>
                 {openings.length
-                  ? 'Try a broader term, or clear the discipline filter.'
-                  : 'We still want to hear from people who would like to work on connected technology. Send your CV and the kind of role you are looking for, and we will be in touch when something fits.'}
+                  ? t('Try a broader term, or clear the discipline filter.')
+                  : t('We still want to hear from people who would like to work on connected technology. Send your CV and the kind of role you are looking for, and we will be in touch when something fits.')}
               </p>
               <a className="careers-btn primary" href={mailto('CV: general application')}>
-                <Send aria-hidden="true" /> Send your CV
+                <Send aria-hidden="true" /> {t('Send your CV')}
               </a>
             </div>
           )}
@@ -275,14 +279,14 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
       {/* How to apply */}
       <section className="careers-section alt" aria-labelledby="steps-title">
         <div className="careers-inner">
-          <span className="careers-kicker">Application steps</span>
-          <h2 id="steps-title">A clear starting point.</h2>
+          <span className="careers-kicker">{t('Application steps')}</span>
+          <h2 id="steps-title">{t('A clear starting point.')}</h2>
           <ol className="careers-steps">
             {steps.map((s, i) => (
               <li key={s.title}>
                 <span className="step-num">{i + 1}</span>
-                <h3>{s.title}</h3>
-                <p>{s.text}</p>
+                <h3>{t(s.title)}</h3>
+                <p>{t(s.text)}</p>
               </li>
             ))}
           </ol>
@@ -292,10 +296,10 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
       {/* Closing call to action */}
       <section className="careers-cta">
         <div className="careers-inner">
-          <h2>Don’t see your role?</h2>
-          <p>Tell us what you do best and where you would like to grow. We keep promising profiles on file for future openings.</p>
+          <h2>{t('Don’t see your role?')}</h2>
+          <p>{t('Tell us what you do best and where you would like to grow. We keep promising profiles on file for future openings.')}</p>
           <a className="careers-btn primary" href={mailto('CV: general application')}>
-            <Send aria-hidden="true" /> Send your CV to {careersContact.email}
+            <Send aria-hidden="true" /> {t('Send your CV to')} <bdi dir="ltr">{careersContact.email}</bdi>
           </a>
         </div>
       </section>

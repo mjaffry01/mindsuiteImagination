@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Headset, Linkedin, Mail, MessageCircle, Phone, Send, X } from 'lucide-react';
 import { contact, expertChannels } from '../data/company.js';
+import { useT } from '../i18n/index.jsx';
 
 const CHANNELS = [
   {
@@ -19,8 +20,8 @@ const CHANNELS = [
     href: expertChannels.telegram,
     external: true,
   },
-  { key: 'call', label: 'Call us', detail: contact.phone, icon: Phone, href: expertChannels.call },
-  { key: 'email', label: 'Email', detail: contact.email, icon: Mail, href: expertChannels.email },
+  { key: 'call', label: 'Call us', detail: contact.phone, ltr: true, icon: Phone, href: expertChannels.call },
+  { key: 'email', label: 'Email', detail: contact.email, ltr: true, icon: Mail, href: expertChannels.email },
   {
     key: 'linkedin',
     label: 'LinkedIn',
@@ -36,6 +37,7 @@ export default function ExpertConnect() {
   const [open, setOpen] = useState(false);
   const rootRef = useRef(null);
   const toggleRef = useRef(null);
+  const t = useT();
 
   useEffect(() => {
     if (!open) return;
@@ -56,18 +58,18 @@ export default function ExpertConnect() {
 
   return (
     <div className={`expert${open ? ' is-open' : ''}`} ref={rootRef}>
-      <div className="expert-panel" id="expert-panel" role="dialog" aria-label="Talk to an expert" hidden={!open}>
+      <div className="expert-panel" id="expert-panel" role="dialog" aria-label={t('Talk to an expert')} hidden={!open}>
         <header>
           <span className="expert-avatar" aria-hidden="true">
             <Headset />
           </span>
           <div>
-            <strong>Talk to a MindSuite expert</strong>
-            <span>Choose how you would like to connect.</span>
+            <strong>{t('Talk to a MindSuite expert')}</strong>
+            <span>{t('Choose how you would like to connect.')}</span>
           </div>
         </header>
         <ul>
-          {CHANNELS.map(({ key, label, detail, icon: ChannelIcon, href, external }) => (
+          {CHANNELS.map(({ key, label, detail, ltr, icon: ChannelIcon, href, external }) => (
             <li key={key}>
               <a
                 className={`expert-channel ch-${key}`}
@@ -79,8 +81,8 @@ export default function ExpertConnect() {
                   <ChannelIcon />
                 </span>
                 <span className="expert-channel-text">
-                  <strong>{label}</strong>
-                  <small>{detail}</small>
+                  <strong>{t(label)}</strong>
+                  <small>{ltr ? <bdi dir="ltr">{detail}</bdi> : t(detail)}</small>
                 </span>
                 <ArrowUpRight className="expert-channel-go" aria-hidden="true" />
               </a>
@@ -95,7 +97,7 @@ export default function ExpertConnect() {
         className="expert-toggle"
         aria-expanded={open}
         aria-controls="expert-panel"
-        aria-label={open ? 'Close' : 'Talk to an expert'}
+        aria-label={open ? t('Close') : t('Talk to an expert')}
         onClick={() => setOpen((o) => !o)}
       >
         <span className="expert-toggle-icon" aria-hidden="true">
@@ -103,7 +105,7 @@ export default function ExpertConnect() {
         </span>
         {!open && <span className="expert-online" aria-hidden="true" />}
         <span className="expert-toggle-label" aria-hidden="true">
-          Talk to an expert
+          {t('Talk to an expert')}
         </span>
       </button>
     </div>

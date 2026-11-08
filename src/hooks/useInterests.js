@@ -21,7 +21,8 @@ export default function useInterests() {
       return new Set();
     }
   });
-  const [status, setStatus] = useState('');
+  // Screen-reader announcement as { text, vars }: the app translates it when rendering.
+  const [status, setStatus] = useState(null);
 
   const commit = useCallback((updater, message) => {
     setInterests((prev) => {
@@ -31,7 +32,7 @@ export default function useInterests() {
       } catch {}
       return next;
     });
-    setStatus(message);
+    setStatus(typeof message === 'string' ? { text: message } : message);
   }, []);
 
   const current = useRef(interests);
@@ -42,23 +43,26 @@ export default function useInterests() {
       const adding = !current.current.has(id);
       commit(
         (s) => (adding ? s.add(id) : s.delete(id), s),
-        `${offeringById.get(id).name} ${adding ? 'added to' : 'removed from'} your interests.`
+        {
+          text: adding ? '{name} added to your interests.' : '{name} removed from your interests.',
+          vars: { name: offeringById.get(id).name },
+        }
       );
     },
     [commit]
   );
 
   const add = useCallback(
-    (id) => commit((s) => s.add(id), `${offeringById.get(id).name} added to your interests.`),
+    (id) => commit((s) => s.add(id), { text: '{name} added to your interests.', vars: { name: offeringById.get(id).name } }),
     [commit]
   );
   const addMany = useCallback(
     (ids) =>
-      commit((s) => (ids.forEach((id) => s.add(id)), s), `${ids.length} offerings added to your interests.`),
+      commit((s) => (ids.forEach((id) => s.add(id)), s), { text: '{count} offerings added to your interests.', vars: { count: ids.length } }),
     [commit]
   );
   const remove = useCallback(
-    (id) => commit((s) => (s.delete(id), s), `${offeringById.get(id).name} removed.`),
+    (id) => commit((s) => (s.delete(id), s), { text: '{name} removed.', vars: { name: offeringById.get(id).name } }),
     [commit]
   );
   const clear = useCallback(() => commit(() => new Set(), 'All interests cleared.'), [commit]);

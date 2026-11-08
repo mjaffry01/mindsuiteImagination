@@ -16,6 +16,7 @@ import Careers from './components/Careers.jsx';
 import ExpertConnect from './components/ExpertConnect.jsx';
 import InterestToast from './components/InterestToast.jsx';
 import { offeringById } from './data/catalogue.js';
+import { useLanguage } from './i18n/index.jsx';
 
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -25,6 +26,7 @@ export default function App() {
   const [interestsOpen, setInterestsOpen] = useState(false);
   const { interests, status, toggle, add, addMany, remove, clear } = useInterests();
   const current = useReadingPosition();
+  const { t, lang } = useLanguage();
 
   // "I'm interested" on a card: toggle it, and when it was added offer the next step.
   const [interestsStep, setInterestsStep] = useState('list');
@@ -117,7 +119,7 @@ export default function App() {
             className="mobile-location"
             aria-haspopup="dialog"
             aria-controls="catalogue-navigation"
-            aria-label="Browse service families, areas and search offerings"
+            aria-label={t('Browse service families, areas and search offerings')}
             onClick={openSearch}
           >
             <strong>{current.family.name}</strong>
@@ -125,7 +127,7 @@ export default function App() {
               {current.area.name} → {current.name}
             </span>
           </button>
-          <Catalogue interests={interests} onToggle={toggleWithPrompt} />
+          <Catalogue key={lang} interests={interests} onToggle={toggleWithPrompt} />
         </div>
       </div>
 
@@ -145,7 +147,7 @@ export default function App() {
         onClick={() => openInterests('list')}
       >
         <Icon name="ShoppingBag" />
-        Your interests ({interests.size})
+        {t('Your interests ({count})', { count: interests.size })}
       </button>
       <InterestsDialog
         open={interestsOpen}
@@ -162,7 +164,7 @@ export default function App() {
         onDismiss={dismissToast}
       />
       <div className="interests-status" role="status" aria-live="polite">
-        {status}
+        {status ? t(status.text, status.vars) : ''}
       </div>
 
       <BackToTop />

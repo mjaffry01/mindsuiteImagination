@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { ArrowUp } from 'lucide-react';
 import logo from '../assets/logo.png';
 import SiteNav from './SiteNav.jsx';
+import LanguageSwitcher from './LanguageSwitcher.jsx';
+import { useT } from '../i18n/index.jsx';
 
 /**
  * Sticky top bar: logo (back to top) and the section menu. Publishes its height as
@@ -10,6 +12,7 @@ import SiteNav from './SiteNav.jsx';
 export default function SiteHeader() {
   const ref = useRef(null);
   const [scrolled, setScrolled] = useState(false);
+  const t = useT();
 
   useEffect(() => {
     const header = ref.current;
@@ -30,16 +33,17 @@ export default function SiteHeader() {
 
   return (
     <header className={`brand site-header${scrolled ? ' is-scrolled' : ''}`} ref={ref}>
-      <a className="brand-home" href="#top" aria-label="MindSuite — back to top">
+      <a className="brand-home" href="#top" aria-label={t('MindSuite — back to top')}>
         <img src={logo} alt="MindSuite" width="773" height="165" />
       </a>
       <SiteNav />
+      <LanguageSwitcher />
       <div className="mission header-mission">
-        <div className="eyebrow">Our mission</div>
+        <div className="eyebrow">{t('Our mission')}</div>
         <p>
-          <span>Our Customers’ Success.</span>
-          <span>Our People’s Passion.</span>
-          <span>Our World’s Progress.</span>
+          <span>{t('Our Customers’ Success.')}</span>
+          <span>{t('Our People’s Passion.')}</span>
+          <span>{t('Our World’s Progress.')}</span>
         </p>
       </div>
     </header>
@@ -49,6 +53,7 @@ export default function SiteHeader() {
 /** Floating "Back to top" button, shown once the visitor is past the opening screen. */
 export function BackToTop() {
   const [visible, setVisible] = useState(false);
+  const t = useT();
 
   useEffect(() => {
     const onScroll = () => setVisible(scrollY > innerHeight * 0.8);
@@ -61,8 +66,8 @@ export function BackToTop() {
     <a
       href="#top"
       className={`back-to-top${visible ? ' is-visible' : ''}`}
-      aria-label="Back to top"
-      title="Back to top"
+      aria-label={t('Back to top')}
+      title={t('Back to top')}
       aria-hidden={!visible}
       tabIndex={visible ? 0 : -1}
     >

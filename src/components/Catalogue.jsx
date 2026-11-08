@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import Icon from './Icon.jsx';
 import { families } from '../data/catalogue.js';
+import { useT } from '../i18n/index.jsx';
 
 const ORDINALS = ['01', '02', '03', '04', '05', '06', '07', '08', '09'];
 const WORDS = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'];
@@ -24,6 +25,7 @@ function ItemList({ text }) {
 }
 
 const Offering = memo(function Offering({ offering, family, added, onToggle }) {
+  const t = useT();
   const n = offering.id.split('-')[1];
   return (
     <article
@@ -43,7 +45,7 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
           <p className="offering-value">
             <Icon name="TrendingUp" />
             <span>
-              <span className="visually-hidden">Business value: </span>
+              <span className="visually-hidden">{t('Business value:')} </span>
               {offering.value}
             </span>
           </p>
@@ -52,11 +54,11 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
           type="button"
           className="interest-button"
           aria-pressed={added}
-          aria-label={`I'm interested in ${offering.name}`}
+          aria-label={t('I’m interested in {name}', { name: offering.name })}
           onClick={() => onToggle(offering.id)}
         >
           <Icon name={added ? 'Check' : 'Plus'} />
-          {added ? 'Added' : "I'm interested"}
+          {added ? t('Added') : t('I’m interested')}
         </button>
       </div>
       <p className="definition">{offering.definition}</p>
@@ -64,7 +66,7 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
         <div>
           <dt>
             <Icon name="ScanLine" />
-            Typical scope
+            {t('Typical scope')}
           </dt>
           <dd>
             <ItemList text={offering.scope} />
@@ -73,7 +75,7 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
         <div>
           <dt>
             <Icon name="PackageCheck" />
-            What you receive
+            {t('What you receive')}
           </dt>
           <dd>
             <ItemList text={offering.deliverables} />
@@ -86,6 +88,7 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
 
 /** The continuous catalogue: five family sections, each with its service areas and offerings. */
 export default function Catalogue({ interests, onToggle }) {
+  const t = useT();
   return families.map((family) => (
     <section
       key={family.id}
@@ -96,9 +99,9 @@ export default function Catalogue({ interests, onToggle }) {
       <header className="family-header">
         <div className="family-number">
           <span>
-            {ORDINALS[family.index]} / {WORDS[families.length]} CONNECTED FAMILIES
+            {ORDINALS[family.index]} / {t(`${WORDS[families.length]} CONNECTED FAMILIES`)}
           </span>
-          <span>{family.count} offerings</span>
+          <span>{t('{count} offerings', { count: family.count })}</span>
         </div>
         <h2 id={`heading-${family.id}`}>{family.name}</h2>
         <p>{family.tagline}</p>
@@ -135,8 +138,9 @@ export default function Catalogue({ interests, onToggle }) {
       ))}
 
       <p className="family-end">
-        Definitions and typical scope are guidance. Final deliverables, acceptance criteria and ownership
-        are agreed in the proposal.
+        {t(
+          'Definitions and typical scope are guidance. Final deliverables, acceptance criteria and ownership are agreed in the proposal.'
+        )}
       </p>
     </section>
   ));

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Check, Plus, Search as SearchIcon, ShoppingBag, X } from 'lucide-react';
 import Icon from './Icon.jsx';
+import { useT } from '../i18n/index.jsx';
 import {
   CONTACT_METHODS,
   ENQUIRY_INBOX,
@@ -66,7 +67,8 @@ function Highlight({ text, terms }) {
   return parts.map((part, i) => (i % 2 ? <mark key={i}>{part}</mark> : part));
 }
 
-const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
+// Count phrases are looked up whole ("{count} offerings"), so each language can word them its own way.
+const plural = (t, n, word) => t(n === 1 ? `{count} ${word}` : `{count} ${word}s`, { count: n });
 
 /**
  * Browse and search dialog. Families are cards whose service-area chips can be picked
@@ -78,6 +80,7 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
   const [query, setQuery] = useState('');
   const [areas, setAreas] = useState(() => new Set());
   const [showResults, setShowResults] = useState(false);
+  const t = useT();
 
   const searching = Boolean(query.trim());
   const inResults = searching || (showResults && areas.size > 0);
@@ -112,11 +115,16 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
 
   const areaById = new Map(families.flatMap((f) => f.areas.map((a) => [a.id, a])));
 
-  let count = `Browse ${families.length} families and ${areaCount} service areas, or search all ${offerings.length} offerings. Pick several areas to see them together.`;
+  let count = t(
+    'Browse {families} families and {areas} service areas, or search all {offerings} offerings. Pick several areas to see them together.',
+    { families: families.length, areas: areaCount, offerings: offerings.length }
+  );
   if (inResults) {
     count = results.length
-      ? `${plural(results.length, 'offering')}${areas.size ? ` in ${plural(areas.size, 'selected area')}` : ''}`
-      : 'No offerings found. Try a broader term, such as identity, cloud or security.';
+      ? areas.size
+        ? t('{offerings} in {areas}', { offerings: plural(t, results.length, 'offering'), areas: plural(t, areas.size, 'selected area') })
+        : plural(t, results.length, 'offering')
+      : t('No offerings found. Try a broader term, such as identity, cloud or security.');
   }
 
   // Results grouped under their family, in catalogue order.
@@ -128,16 +136,16 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
     <dialog id="catalogue-navigation" aria-labelledby="navigation-title" ref={ref}>
       <header className="navigation-header">
         <div className="navigation-title">
-          <h2 id="navigation-title">Explore offerings</h2>
+          <h2 id="navigation-title">{t('Explore offerings')}</h2>
           <span className="navigation-hint" aria-hidden="true">
-            <kbd>Esc</kbd> to close
+            <kbd>Esc</kbd> {t('to close')}
           </span>
-          <button type="button" className="navigation-close" aria-label="Close" onClick={onClose}>
+          <button type="button" className="navigation-close" aria-label={t('Close')} onClick={onClose}>
             <X aria-hidden="true" />
           </button>
         </div>
         <label htmlFor="offering-search" className="visually-hidden">
-          Search all offerings
+          {t('Search all offerings')}
         </label>
         <div className="search-field">
           <SearchIcon className="search-field-icon" aria-hidden="true" />
@@ -145,7 +153,7 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
             id="offering-search"
             ref={inputRef}
             type="search"
-            placeholder={`Search all ${offerings.length} offerings — try ransomware, SSO or ERP`}
+            placeholder={t('Search all {count} offerings — try ransomware, SSO or ERP', { count: offerings.length })}
             autoComplete="off"
             aria-controls="offering-results"
             value={query}
@@ -160,31 +168,31 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
                 inputRef.current.focus();
               }}
             >
-              Clear
+              {t('Clear')}
             </button>
           )}
         </div>
         {!inResults && (
-          <div className="search-suggestions" role="group" aria-label="Suggested searches">
-            <span>Popular:</span>
+          <div className="search-suggestions" role="group" aria-label={t('Suggested searches')}>
+            <span>{t('Popular:')}</span>
             {SUGGESTIONS.map((s) => (
-              <button type="button" key={s} onClick={() => runSuggestion(s)}>
-                {s}
+              <button type="button" key={s} onClick={() => runSuggestion(t(s))}>
+                {t(s)}
               </button>
             ))}
           </div>
         )}
         {areas.size > 0 && (
-          <div className="area-filter" role="group" aria-label="Selected service areas">
+          <div className="area-filter" role="group" aria-label={t('Selected service areas')}>
             {[...areas].map((id) => (
               <button type="button" key={id} className="area-filter-chip" onClick={() => toggleArea(id)}>
                 {areaById.get(id).name}
                 <X aria-hidden="true" />
-                <span className="visually-hidden">(remove)</span>
+                <span className="visually-hidden">{t('(remove)')}</span>
               </button>
             ))}
             <button type="button" className="area-filter-clear" onClick={clearAreas}>
-              Clear areas
+              {t('Clear areas')}
             </button>
           </div>
         )}
@@ -194,7 +202,7 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
       </header>
 
       {!inResults && (
-        <nav className="family-grid" aria-label="Service families and areas">
+        <nav className="family-grid" aria-label={t('Service families and areas')}>
           {families.map((f) => (
             <section key={f.id} className={`family-card family-tone-${f.index}`}>
               <JumpLink id={f.id} onClose={onClose}>
@@ -205,9 +213,9 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
                   <strong>{f.name}</strong>
                   <small>{f.tagline}</small>
                 </span>
-                <span className="family-card-count">{plural(f.count, 'offering')}</span>
+                <span className="family-card-count">{plural(t, f.count, 'offering')}</span>
               </JumpLink>
-              <div className="area-chips" role="group" aria-label={`${f.name} service areas`}>
+              <div className="area-chips" role="group" aria-label={t('{name} service areas', { name: f.name })}>
                 {f.areas.map((a) => (
                   <button
                     type="button"
@@ -233,7 +241,7 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
             <div className="results-toolbar">
               {areas.size > 0 && !searching && (
                 <button type="button" className="results-back" onClick={() => setShowResults(false)}>
-                  ← Change areas
+                  {t('← Change areas')}
                 </button>
               )}
               <button
@@ -243,7 +251,7 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
                 onClick={() => onAddMany(notAdded.map((o) => o.id))}
               >
                 {notAdded.length ? <Plus aria-hidden="true" /> : <Check aria-hidden="true" />}
-                {notAdded.length ? `Add all ${notAdded.length} to interests` : 'All added to interests'}
+                {notAdded.length ? t('Add all {count} to interests', { count: notAdded.length }) : t('All added to interests')}
               </button>
             </div>
           )}
@@ -263,8 +271,8 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
                         type="button"
                         className="result-check"
                         aria-pressed={added}
-                        aria-label={`${added ? 'Remove' : 'Add'} ${o.name} ${added ? 'from' : 'to'} your interests`}
-                        title={added ? 'In your interests' : 'Add to your interests'}
+                        aria-label={added ? t('Remove {name} from your interests', { name: o.name }) : t('Add {name} to your interests', { name: o.name })}
+                        title={added ? t('In your interests') : t('Add to your interests')}
                         onClick={() => onToggle(o.id)}
                       >
                         {added ? <Check aria-hidden="true" /> : <Plus aria-hidden="true" />}
@@ -293,16 +301,16 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
       <footer className="navigation-footer">
         {!inResults && areas.size > 0 ? (
           <button type="button" className="show-selected" onClick={() => setShowResults(true)}>
-            Show {plural(results.length, 'offering')} from {plural(areas.size, 'area')} →
+            {t('Show {offerings} from {areas} →', { offerings: plural(t, results.length, 'offering'), areas: plural(t, areas.size, 'area') })}
           </button>
         ) : (
           <span className="navigation-footer-count">
             <ShoppingBag aria-hidden="true" />
-            {plural(interests.size, 'offering')} in your interests
+            {t('{offerings} in your interests', { offerings: plural(t, interests.size, 'offering') })}
           </span>
         )}
         <button type="button" className="view-interests" disabled={!interests.size} onClick={onOpenInterests}>
-          View interests
+          {t('View interests')}
         </button>
       </footer>
     </dialog>
@@ -321,23 +329,27 @@ const EMPTY_FORM = {
   website: '', // spam trap, hidden from people
 };
 
-function validate(form) {
+function validate(form, t) {
   const errors = {};
-  if (!form.name.trim()) errors.name = 'Please enter your name.';
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())) errors.email = 'Please enter a valid email address.';
-  if (!form.company.trim()) errors.company = 'Please enter your company.';
+  if (!form.name.trim()) errors.name = t('Please enter your name.');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())) errors.email = t('Please enter a valid email address.');
+  if (!form.company.trim()) errors.company = t('Please enter your company.');
   if (['Phone call', 'WhatsApp'].includes(form.preferredContact) && form.phone.replace(/\D/g, '').length < 7) {
-    errors.phone = `Please add a phone number for ${form.preferredContact === 'WhatsApp' ? 'WhatsApp' : 'a call'}.`;
+    errors.phone =
+      form.preferredContact === 'WhatsApp'
+        ? t('Please add a phone number with country code for WhatsApp.')
+        : t('Please add a phone number with country code for a call.');
   }
-  if (!form.consent) errors.consent = 'Please confirm we may contact you about this request.';
+  if (!form.consent) errors.consent = t('Please confirm we may contact you about this request.');
   return errors;
 }
 
 function Field({ id, label, error, optional, children }) {
+  const t = useT();
   return (
     <div className={`enq-field${error ? ' has-error' : ''}`}>
       <label htmlFor={id}>
-        {label} {optional && <span className="enq-optional">optional</span>}
+        {t(label)} {optional && <span className="enq-optional">{t('optional')}</span>}
       </label>
       {children}
       {error && (
@@ -366,6 +378,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState('');
   const [result, setResult] = useState(null); // { reference, via, offerings }
+  const t = useT();
 
   const selected = [...interests].map((id) => offeringById.get(id)).filter(Boolean);
   const stepIndex = { list: 0, form: 1, done: 2 }[step];
@@ -390,7 +403,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
 
   async function submit(e) {
     e.preventDefault();
-    const found = validate(form);
+    const found = validate(form, t);
     setErrors(found);
     if (Object.keys(found).length) {
       ref.current.querySelector(`#enq-${Object.keys(found)[0]}`)?.focus();
@@ -410,8 +423,8 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
     } catch (err) {
       setSendError(
         err?.status === 429
-          ? `You have sent several requests in a short time. Please wait a few minutes, or email ${ENQUIRY_INBOX}.`
-          : `We could not send your request just now. Please try again, or email ${ENQUIRY_INBOX}.`
+          ? t('You have sent several requests in a short time. Please wait a few minutes, or email {email}.', { email: ENQUIRY_INBOX })
+          : t('We could not send your request just now. Please try again, or email {email}.', { email: ENQUIRY_INBOX })
       );
     } finally {
       setSending(false);
@@ -426,22 +439,24 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
       <div className="interests-header">
         <div>
           <h2 id="interests-title">
-            {step === 'list' ? 'Your interests' : step === 'form' ? 'Request a proposal' : 'Request sent'}
+            {step === 'list' ? t('Your interests') : step === 'form' ? t('Request a proposal') : t('Request sent')}
           </h2>
           <p className="interests-count">
-            {step === 'done' ? `Reference ${result?.reference}` : `${selected.length} offering${selected.length === 1 ? '' : 's'} selected`}
+            {step === 'done'
+              ? t('Reference {ref}', { ref: result?.reference })
+              : t(selected.length === 1 ? '{count} offering selected' : '{count} offerings selected', { count: selected.length })}
           </p>
         </div>
         <button type="button" className="interests-close" autoFocus ref={closeRef} onClick={onClose}>
-          Close
+          {t('Close')}
         </button>
       </div>
 
-      <ol className="enq-steps" aria-label="Progress">
+      <ol className="enq-steps" aria-label={t('Progress')}>
         {STEPS.map((label, i) => (
           <li key={label} className={i < stepIndex ? 'is-done' : i === stepIndex ? 'is-current' : undefined} aria-current={i === stepIndex ? 'step' : undefined}>
             <span>{i < stepIndex ? '✓' : i + 1}</span>
-            {label}
+            {t(label)}
           </li>
         ))}
       </ol>
@@ -449,7 +464,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
       {step === 'list' && (
         <>
           <p className="interests-empty" hidden={selected.length > 0}>
-            Choose “I’m interested” beside any offering to collect it here.
+            {t('Choose “I’m interested” beside any offering to collect it here.')}
           </p>
           <ul className="interests-list" ref={listRef}>
             {selected.map((o) => (
@@ -462,7 +477,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
                 </div>
                 <button
                   type="button"
-                  aria-label={`Remove ${o.name}`}
+                  aria-label={t('Remove {name}', { name: o.name })}
                   onClick={() => {
                     onRemove(o.id);
                     requestAnimationFrame(() =>
@@ -470,7 +485,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
                     );
                   }}
                 >
-                  Remove
+                  {t('Remove')}
                 </button>
               </li>
             ))}
@@ -482,7 +497,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
               disabled={!selected.length}
               onClick={() => setStep('form')}
             >
-              Request a proposal <span aria-hidden="true">→</span>
+              {t('Request a proposal')} <span aria-hidden="true">→</span>
             </button>
             <button
               type="button"
@@ -493,13 +508,17 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
                 closeRef.current.focus();
               }}
             >
-              Clear all
+              {t('Clear all')}
             </button>
           </div>
           {selected.length > 0 && (
             <p className="enq-note">
-              Share a few details and a MindSuite expert will contact you about these {selected.length} offering
-              {selected.length === 1 ? '' : 's'}. Scope and fees are agreed with you before any work starts.
+              {t(
+                selected.length === 1
+                  ? 'Share a few details and a MindSuite expert will contact you about this offering. Scope and fees are agreed with you before any work starts.'
+                  : 'Share a few details and a MindSuite expert will contact you about these {count} offerings. Scope and fees are agreed with you before any work starts.',
+                { count: selected.length }
+              )}
             </p>
           )}
         </>
@@ -509,11 +528,11 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
         <form className="enq-form" onSubmit={submit} noValidate>
           <div className="enq-summary">
             <div>
-              <strong>{selected.length} offering{selected.length === 1 ? '' : 's'}</strong>
+              <strong>{t(selected.length === 1 ? '{count} offering' : '{count} offerings', { count: selected.length })}</strong>
               <span>{selected.map((o) => o.name).join(' · ')}</span>
             </div>
             <button type="button" onClick={() => setStep('list')}>
-              Edit
+              {t('Edit')}
             </button>
           </div>
 
@@ -528,17 +547,17 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
               <input id="enq-company" autoComplete="organization" value={form.company} onChange={set('company')} {...errorProps('company')} />
             </Field>
             <Field id="enq-phone" label="Phone" optional={!['Phone call', 'WhatsApp'].includes(form.preferredContact)} error={errors.phone}>
-              <input id="enq-phone" type="tel" autoComplete="tel" placeholder="+91 …" value={form.phone} onChange={set('phone')} {...errorProps('phone')} />
+              <input id="enq-phone" type="tel" autoComplete="tel" placeholder={t('+ country code and number')} value={form.phone} onChange={set('phone')} {...errorProps('phone')} />
             </Field>
           </div>
 
           <fieldset className="enq-choice">
-            <legend>How should we contact you?</legend>
+            <legend>{t('How should we contact you?')}</legend>
             <div>
               {CONTACT_METHODS.map((m) => (
                 <label key={m} className={form.preferredContact === m ? 'is-on' : undefined}>
                   <input type="radio" name="preferredContact" value={m} checked={form.preferredContact === m} onChange={set('preferredContact')} />
-                  {m}
+                  {t(m)}
                 </label>
               ))}
             </div>
@@ -546,8 +565,10 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
 
           <Field id="enq-timeline" label="When would you like to start?">
             <select id="enq-timeline" value={form.timeline} onChange={set('timeline')}>
-              {TIMELINES.map((t) => (
-                <option key={t}>{t}</option>
+              {TIMELINES.map((value) => (
+                <option key={value} value={value}>
+                  {t(value)}
+                </option>
               ))}
             </select>
           </Field>
@@ -557,7 +578,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
               id="enq-message"
               rows={4}
               maxLength={2000}
-              placeholder="A sentence or two about the challenge, systems involved or the outcome you need."
+              placeholder={t('A sentence or two about the challenge, systems involved or the outcome you need.')}
               value={form.message}
               onChange={set('message')}
             />
@@ -572,7 +593,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
           <div className={`enq-consent${errors.consent ? ' has-error' : ''}`}>
             <label>
               <input type="checkbox" id="enq-consent" checked={form.consent} onChange={set('consent')} {...errorProps('consent')} />
-              <span>MindSuite may contact me about this request using the details above.</span>
+              <span>{t('MindSuite may contact me about this request using the details above.')}</span>
             </label>
             {errors.consent && (
               <p className="enq-error" id="enq-consent-error">
@@ -589,10 +610,10 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
 
           <div className="enq-actions">
             <button type="submit" className="enq-primary" disabled={sending}>
-              {sending ? 'Sending…' : 'Send request'}
+              {sending ? t('Sending…') : t('Send request')}
             </button>
             <button type="button" className="interests-clear" onClick={() => setStep('list')}>
-              Back
+              {t('Back')}
             </button>
           </div>
         </form>
@@ -603,29 +624,36 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
           <span className="enq-done-icon" aria-hidden="true">✓</span>
           {result.via === 'backend' ? (
             <>
-              <h3>Thank you, your request is with our team.</h3>
-              <p>We have sent the details of your {result.offerings.length} selected offering{result.offerings.length === 1 ? '' : 's'} to a MindSuite expert.</p>
+              <h3>{t('Thank you, your request is with our team.')}</h3>
+              <p>
+                {t(
+                  result.offerings.length === 1
+                    ? 'We have sent the details of your selected offering to a MindSuite expert.'
+                    : 'We have sent the details of your {count} selected offerings to a MindSuite expert.',
+                  { count: result.offerings.length }
+                )}
+              </p>
             </>
           ) : (
             <>
-              <h3>Almost done: press Send in your email app.</h3>
+              <h3>{t('Almost done: press Send in your email app.')}</h3>
               <p>
-                Your email app has opened with the full request addressed to {ENQUIRY_INBOX}. Send it to complete your request.
-                If nothing opened, email us at{' '}
+                {t('Your email app has opened with the full request addressed to {email}. Send it to complete your request.', { email: ENQUIRY_INBOX })}{' '}
+                {t('If nothing opened, email us at')}{' '}
                 <a href={`mailto:${ENQUIRY_INBOX}?subject=${encodeURIComponent(`Proposal request ${result.reference}`)}`}>{ENQUIRY_INBOX}</a>{' '}
-                and quote <strong>{result.reference}</strong>.
+                {t('and quote')} <strong>{result.reference}</strong>.
               </p>
             </>
           )}
-          <h4>What happens next</h4>
+          <h4>{t('What happens next')}</h4>
           <ol className="enq-next">
-            <li><strong>Acknowledgement</strong> within one business day.</li>
-            <li><strong>Discovery call</strong> with the relevant practice lead.</li>
-            <li><strong>Scope proposal</strong> with deliverables, acceptance criteria and fees.</li>
+            <li><strong>{t('Acknowledgement')}</strong> {t('within one business day.')}</li>
+            <li><strong>{t('Discovery call')}</strong> {t('with the relevant practice lead.')}</li>
+            <li><strong>{t('Scope proposal')}</strong> {t('with deliverables, acceptance criteria and fees.')}</li>
           </ol>
           <div className="enq-actions">
             <button type="button" className="enq-primary" onClick={onClose}>
-              Done
+              {t('Done')}
             </button>
             {result.via !== 'backend' && (
               <button
@@ -637,7 +665,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
                   onClose();
                 }}
               >
-                I sent it — clear my list
+                {t('I sent it — clear my list')}
               </button>
             )}
           </div>

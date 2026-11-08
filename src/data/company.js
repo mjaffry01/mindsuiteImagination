@@ -26,13 +26,16 @@ export const clients = {
   title: 'Businesses we work with.',
   lead: 'Technology starts with understanding the people and operations behind each business.',
   list: [
-    { name: 'trustangle', logo: null, url: null },
+    { name: 'trustangle', logo: null, url: 'https://trustangle.com/' },
+    // Several companies share this name (wateen.com, wateen.sa, wateen.co): set the right one.
     { name: 'Wateen', logo: null, url: null },
-    { name: 'LYNNC', logo: null, url: null },
-    { name: 'Omniful', logo: null, url: null },
-    { name: 'eddekhar', logo: null, url: null },
+    { name: 'LYNNC', logo: null, url: 'https://lynnc.io/' },
+    { name: 'Omniful', logo: null, url: 'https://www.omniful.ai/' },
+    { name: 'eddekhar', logo: null, url: 'https://eddekhar.com/' },
+    // No confirmed website found for this client yet.
     { name: 'TACHYON', logo: null, url: null },
-    { name: 'reachware', logo: null, url: null },
+    { name: 'reachware', logo: null, url: 'https://reachware.com/' },
+    // Several companies share this name (jigsaw.digital, jigsawdigitalsolutions.com): set the right one.
     { name: 'Jigsaw', logo: null, url: null },
   ],
 };
@@ -40,7 +43,8 @@ export const clients = {
 export const contact = {
   tagline: ['Business systems. Connected technology.', 'A considered path forward.'],
   email: 'info@mindsuite.in',
-  phone: '+91 9100 00 5500',
+  // International format (country code first, grouped as dialled from abroad).
+  phone: '+91 91000 05500',
   address: ['8-1-299/A/108, Shaikpet', 'Hyderabad 500 096, Telangana, India'],
   // Opens the address in Google Maps.
   mapUrl: 'https://www.google.com/maps/search/?api=1&query=8-1-299%2FA%2F108%2C+Shaikpet%2C+Hyderabad+500096',

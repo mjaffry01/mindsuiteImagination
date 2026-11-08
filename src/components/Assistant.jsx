@@ -3,6 +3,7 @@ import Icon from './Icon.jsx';
 import { focusTarget } from './Dialogs.jsx';
 import { offeringById } from '../data/catalogue.js';
 import { localAssistantReply } from '../data/matcher.js';
+import { useT } from '../i18n/index.jsx';
 
 const STORAGE_KEY = 'mindsuite-assistant-position-v1';
 const GREETING = 'Describe what you want to improve. I can help you explore offerings and build your interests list.';
@@ -44,6 +45,7 @@ export default function Assistant({ interests, onAdd }) {
   const history = useRef([]);
   // True once the server confirms AI recommendations are configured.
   const aiReady = useRef(false);
+  const t = useT();
   const petRef = useRef(null);
   const logRef = useRef(null);
   const inputRef = useRef(null);
@@ -182,7 +184,7 @@ export default function Assistant({ interests, onAdd }) {
             notice:
               error.name === 'TimeoutError'
                 ? 'The AI guide took too long, so these are catalogue matches.'
-                : `${error.message && !error.message.includes('fetch') ? error.message + ' ' : ''}These are catalogue matches for now.`,
+                : 'These are catalogue matches for now.',
           };
         }
       } else {
@@ -190,16 +192,18 @@ export default function Assistant({ interests, onAdd }) {
       }
       update(pendingId, {
         text: result.message,
+        vars: result.vars,
         notice: result.notice,
         suggestions: (result.suggestions || []).filter((s) => offeringById.has(s.id)),
       });
-      history.current.push({ role: 'user', content: trimmed }, { role: 'assistant', content: result.message });
+      history.current.push({ role: 'user', content: trimmed }, { role: 'assistant', content: t(result.message, result.vars) });
       if (history.current.length > 10) history.current.splice(0, history.current.length - 10);
     } catch (error) {
       update(pendingId, {
         text:
-          'I could not complete that request. ' +
-          (error.name === 'TimeoutError' ? 'The response took too long.' : 'Please try again or use catalogue search.'),
+          error.name === 'TimeoutError'
+            ? 'I could not complete that request. The response took too long.'
+            : 'I could not complete that request. Please try again or use catalogue search.',
         retry: trimmed,
       });
     } finally {
@@ -220,10 +224,10 @@ export default function Assistant({ interests, onAdd }) {
         className="assistant-pet"
         ref={petRef}
         style={{ left: pos.x, top: pos.y }}
-        aria-label="MindSuite guide. Drag to move, or use arrow keys. Click to chat."
+        aria-label={t('MindSuite guide. Drag to move, or use arrow keys. Click to chat.')}
         aria-expanded={open}
         aria-controls="offering-assistant"
-        title="Drag to move. Click to chat."
+        title={t('Drag to move. Click to chat.')}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={finishDrag}
@@ -239,7 +243,7 @@ export default function Assistant({ interests, onAdd }) {
       >
         <span className="assistant-face" aria-hidden="true" />
         <span className="assistant-pet-label" aria-hidden="true">
-          Help me choose
+          {t('Help me choose')}
         </span>
       </button>
 
@@ -254,31 +258,32 @@ export default function Assistant({ interests, onAdd }) {
       >
         <header className="assistant-header">
           <div>
-            <h2 id="assistant-title">MindSuite guide</h2>
-            <span className="assistant-mode">{mode}</span>
+            <h2 id="assistant-title">{t('MindSuite guide')}</h2>
+            <span className="assistant-mode">{t(mode)}</span>
           </div>
-          <button type="button" className="assistant-minimize" aria-label="Minimize assistant" onClick={() => toggle(false)}>
+          <button type="button" className="assistant-minimize" aria-label={t('Minimize assistant')} onClick={() => toggle(false)}>
             &#8722;
           </button>
         </header>
         <div className="assistant-toolbar">
           <button type="button" className="assistant-reset" disabled={busy} onClick={reset}>
-            New conversation
+            {t('New conversation')}
           </button>
           <button
             type="button"
             className="assistant-position-reset"
             onClick={() => place({ x: innerWidth - 88, y: innerHeight - 160 }, true)}
           >
-            Reset position
+            {t('Reset position')}
           </button>
         </div>
-        <div className="assistant-messages" role="log" aria-live="polite" aria-label="Conversation" ref={logRef}>
+        <div className="assistant-messages" role="log" aria-live="polite" aria-label={t('Conversation')} ref={logRef}>
           {messages.map((m) => (
             <div key={m.id} className={`assistant-message ${m.who}`}>
-              <small>{m.who === 'visitor' ? 'You' : 'MindSuite guide'}</small>
-              <p>{m.text}</p>
-              {m.notice && <p className="assistant-notice">{m.notice}</p>}
+              <small>{m.who === 'visitor' ? t('You') : t('MindSuite guide')}</small>
+              {/* Guide messages may be interface strings (translated here) or AI replies (shown as written). */}
+              <p>{m.who === 'visitor' ? m.text : t(m.text, m.vars)}</p>
+              {m.notice && <p className="assistant-notice">{t(m.notice)}</p>}
               {m.suggestions?.map((s) => {
                 const o = offeringById.get(s.id);
                 const added = interests.has(o.id);
@@ -292,7 +297,7 @@ export default function Assistant({ interests, onAdd }) {
                     <div className="assistant-card-actions">
                       <button type="button" disabled={added} onClick={() => onAdd(o.id)}>
                         <Icon name={added ? 'Check' : 'Plus'} />
-                        {added ? 'Added to interests' : 'Add to my interests'}
+                        {added ? t('Added to interests') : t('Add to my interests')}
                       </button>
                       <a
                         href={`#${o.id}`}
@@ -301,7 +306,7 @@ export default function Assistant({ interests, onAdd }) {
                           focusTarget(o.id);
                         }}
                       >
-                        View details
+                        {t('View details')}
                       </a>
                     </div>
                   </div>
@@ -316,7 +321,7 @@ export default function Assistant({ interests, onAdd }) {
                     ask(m.retry);
                   }}
                 >
-                  Try again
+                  {t('Try again')}
                 </button>
               )}
             </div>
@@ -324,8 +329,8 @@ export default function Assistant({ interests, onAdd }) {
         </div>
         <div className="assistant-prompts">
           {PROMPTS.map(([label, prompt]) => (
-            <button type="button" key={label} onClick={() => ask(prompt)}>
-              {label}
+            <button type="button" key={label} onClick={() => ask(t(prompt))}>
+              {t(label)}
             </button>
           ))}
         </div>
@@ -338,9 +343,9 @@ export default function Assistant({ interests, onAdd }) {
         >
           <textarea
             ref={inputRef}
-            aria-label="Describe your business need"
+            aria-label={t('Describe your business need')}
             maxLength={2000}
-            placeholder="What would you like to improve?"
+            placeholder={t('What would you like to improve?')}
             required
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -352,10 +357,10 @@ export default function Assistant({ interests, onAdd }) {
             }}
           />
           <button type="submit" disabled={busy}>
-            Send
+            {t('Send')}
           </button>
         </form>
-        <p className="assistant-disclosure">{disclosure}</p>
+        <p className="assistant-disclosure">{t(disclosure)}</p>
       </section>
     </>
   );

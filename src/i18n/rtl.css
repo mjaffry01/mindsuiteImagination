@@ -1,0 +1,106 @@
+/* ---------------------------------------------------------------- language switch */
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid #ffffff2e;
+  border-radius: 999px;
+  background: #ffffff0f;
+  flex: 0 0 auto;
+}
+.lang-switch button {
+  min-width: 34px;
+  height: 28px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #cfd6ea;
+  font: 600 12px/1 Arial, Helvetica, sans-serif;
+  letter-spacing: .3px;
+  cursor: pointer;
+  transition: background .2s, color .2s;
+}
+.lang-switch button[lang='ar'] { font: 600 13px/1 'Segoe UI', Tahoma, Arial, sans-serif; letter-spacing: 0; }
+.lang-switch button:hover { color: #fff; background: #ffffff1a; }
+.lang-switch button[aria-pressed='true'] { background: #fff; color: #1d1a36; }
+.lang-switch button:focus-visible { outline: 2px solid #48b8df; outline-offset: 1px; }
+/* Sits with the menu at the end of the header (logo · mission · language · menu). */
+.site-header .lang-switch { order: 3; margin-inline-start: 18px; }
+.site-header .lang-switch + .site-nav,
+.site-header .site-nav { margin-inline-start: 12px; }
+@media (max-width: 600px) {
+  .site-header { gap: 8px; }
+  .site-header img { width: 118px; }
+  .site-header .lang-switch { margin-inline-start: auto; }
+  .lang-switch button { min-width: 28px; height: 26px; padding: 0 6px; font-size: 11px; }
+  .site-header .site-nav { margin-inline-start: 6px; }
+}
+
+/* ---------------------------------------------------------------- Arabic type */
+:root[lang='ar'] body,
+:root[lang='ar'] button,
+:root[lang='ar'] input,
+:root[lang='ar'] textarea,
+:root[lang='ar'] select {
+  font-family: 'Segoe UI', Tahoma, 'Noto Sans Arabic', Arial, sans-serif;
+}
+/* Arabic script has no capitals and does not take letter-spacing. */
+:root[lang='ar'] .eyebrow,
+:root[lang='ar'] .section-eyebrow,
+:root[lang='ar'] .map-heading,
+:root[lang='ar'] .map-label,
+:root[lang='ar'] .family-number,
+:root[lang='ar'] .offering dt,
+:root[lang='ar'] .card-kicker,
+:root[lang='ar'] .careers-kicker,
+:root[lang='ar'] .proof-label,
+:root[lang='ar'] .leader-area {
+  letter-spacing: 0;
+  text-transform: none;
+}
+:root[lang='ar'] h1,
+:root[lang='ar'] h2,
+:root[lang='ar'] h3,
+:root[lang='ar'] h4 { letter-spacing: 0; }
+:root[lang='ar'] .definition,
+:root[lang='ar'] .section-lead,
+:root[lang='ar'] .hero p { line-height: 1.9; }
+
+/* ---------------------------------------------------------------- right-to-left fixes */
+/* Accent bars that sit on the leading edge of a block move to the right. */
+[dir='rtl'] .business-value,
+[dir='rtl'] .offering-value {
+  border-left: 0;
+  border-right: 3px solid currentColor;
+  border-radius: 10px 0 0 10px;
+}
+[dir='rtl'] .area-map {
+  padding: 0 15px 0 0;
+  border-left: 0;
+  border-right: 1px solid var(--map-border);
+}
+[dir='rtl'] .area-map .map-cell:before { left: auto; right: -16px; }
+[dir='rtl'] .area-count { margin-left: 0; margin-right: auto; }
+
+/* Arrows and chevrons that point "forward" flip with the reading direction. */
+[dir='rtl'] .section-link span[aria-hidden='true'],
+[dir='rtl'] .cta span[aria-hidden='true'],
+[dir='rtl'] .careers-btn svg,
+[dir='rtl'] .careers-link svg,
+[dir='rtl'] .opening-cta svg,
+[dir='rtl'] .expert-channel-go,
+[dir='rtl'] .leader-linkedin svg:last-child { transform: scaleX(-1); }
+
+/* Header: the divider before the mission sits on the logo side, and the menu dropdown
+   opens from the left edge. */
+[dir='rtl'] .site-header .header-mission {
+  margin-left: 0; margin-right: 6px; padding-left: 0; padding-right: 26px;
+  border-left: 0; border-right: 1px solid #ffffff26;
+}
+[dir='rtl'] .site-header .site-nav { margin-left: 0; }
+[dir='rtl'] .site-header .site-nav ul { right: auto; left: 0; }
+
+/* Phone numbers, e-mail and references always read left to right. */
+bdi[dir='ltr'] { unicode-bidi: isolate; direction: ltr; }

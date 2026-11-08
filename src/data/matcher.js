@@ -1,9 +1,13 @@
-import { aliases, normalize, offerings } from './catalogue.js';
+import { aliases, catalogueLanguage, normalize, offerings } from './catalogue.js';
 
 const STOPWORDS = new Set(
   ('a an and are as at be but by can do for from get have help how i in into is it its me my need ' +
     'of on or our out so that the their them there this to up us want we what when which who will ' +
-    'with would you your should could make improve better looking like some any about all more')
+    'with would you your should could make improve better looking like some any about all more ' +
+    // French
+    'le la les de des du un une et en pour nous vous notre nos est sont avec sur dans au aux ce cette ces je veux voulons besoin il elle qui que ' +
+    // Arabic (after normalize: no vowel marks, alef variants unified)
+    'في من على الى عن مع نحن نريد هل ما او و ان هذا هذه لدينا لنا')
     .split(' ')
 );
 
@@ -15,15 +19,23 @@ const stem = (word) => {
   return word;
 };
 
-const index = offerings.map((o) => ({
-  offering: o,
-  fields: [
-    [4, normalize(o.name).split(' ')],
-    [2, normalize(o.area.name).split(' ')],
-    [1, normalize(o.family.name).split(' ')],
-    [1, normalize([o.definition, o.scope, o.deliverables, o.value].join(' ')).split(' ')],
-  ],
-}));
+// Rebuilt when the site language changes; English text always stays searchable too (searchText).
+let cached = { lang: null, index: [] };
+function getIndex() {
+  if (cached.lang === catalogueLanguage) return cached.index;
+  const index = offerings.map((o) => ({
+    offering: o,
+    fields: [
+      [4, normalize(o.name).split(' ')],
+      [2, normalize(o.area.name).split(' ')],
+      [1, normalize(o.family.name).split(' ')],
+      [1, normalize([o.definition, o.scope, o.deliverables, o.value].join(' ')).split(' ')],
+      [1, o.searchText.split(' ')],
+    ],
+  }));
+  cached = { lang: catalogueLanguage, index };
+  return index;
+}
 
 /**
  * Offline "catalogue matching": ranks offerings by weighted keyword overlap with the
@@ -41,7 +53,7 @@ export function matchOfferings(text, limit = 3) {
   ];
   if (!terms.length) return [];
 
-  return index
+  return getIndex()
     .map(({ offering, fields }) => {
       let score = 0;
       let hits = 0;
@@ -67,6 +79,7 @@ export function localAssistantReply(text) {
   if (!found.length) {
     return {
       mode: 'catalogue',
+      // Messages are interface strings: the guide translates them when it shows them.
       message:
         'I could not find a close match in the catalogue. Try describing the outcome you want, such as “reduce cloud costs” or “prepare for an audit”, or use the catalogue search.',
       suggestions: [],
@@ -74,7 +87,11 @@ export function localAssistantReply(text) {
   }
   return {
     mode: 'catalogue',
-    message: `Here ${found.length === 1 ? 'is the offering' : `are ${found.length} offerings`} from the catalogue that best match what you described:`,
+    message:
+      found.length === 1
+        ? 'Here is the offering from the catalogue that best matches what you described:'
+        : 'Here are {count} offerings from the catalogue that best match what you described:',
+    vars: { count: found.length },
     suggestions: found.map((o) => ({ id: o.id, reason: o.definition })),
   };
 }

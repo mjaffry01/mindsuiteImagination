@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { useT } from '../i18n/index.jsx';
 
 /** Page sections reachable from the header menu and the footer. */
 export const SECTIONS = [
@@ -60,6 +61,7 @@ export default function SiteNav() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
   const active = useActiveSection();
+  const t = useT();
 
   useEffect(() => {
     if (!open) return;
@@ -79,7 +81,7 @@ export default function SiteNav() {
   }, [open]);
 
   return (
-    <nav className={`site-nav${open ? ' is-open' : ''}`} aria-label="Page sections" ref={ref}>
+    <nav className={`site-nav${open ? ' is-open' : ''}`} aria-label={t('Page sections')} ref={ref}>
       <button
         type="button"
         className="site-nav-toggle"
@@ -87,7 +89,7 @@ export default function SiteNav() {
         aria-controls="site-nav-links"
         onClick={() => setOpen((o) => !o)}
       >
-        Menu <span aria-hidden="true">{open ? '×' : '☰'}</span>
+        {t('Menu')} <span aria-hidden="true">{open ? '×' : '☰'}</span>
       </button>
       <ul id="site-nav-links">
         {SECTIONS.map((s) => (
@@ -97,7 +99,7 @@ export default function SiteNav() {
               aria-current={active === s.id ? 'location' : undefined}
               onClick={() => setOpen(false)}
             >
-              {s.label}
+              {t(s.label)}
             </a>
           </li>
         ))}

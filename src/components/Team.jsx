@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowUpRight, Linkedin, Maximize2, X } from 'lucide-react';
 import { GROUPS, intro, leaders, team } from '../data/team.js';
+import { useT } from '../i18n/index.jsx';
 
 const PREVIEW = 15; // people shown under "All" before "Show everyone"
 
@@ -38,14 +39,15 @@ function Avatar({ person, className }) {
 }
 
 function LeaderCard({ leader, index, onOpen }) {
+  const t = useT();
   return (
     <li className={`leader-card tone-${index % 4}`}>
       <button
         type="button"
         className="leader-portrait"
         onClick={() => onOpen(leader, index)}
-        aria-label={`Enlarge photo of ${leader.name}`}
-        title="Click to enlarge"
+        aria-label={t('Enlarge photo of {name}', { name: leader.name })}
+        title={t('Click to enlarge')}
       >
         <Avatar person={leader} className="leader-portrait-img" />
         <span className="leader-zoom" aria-hidden="true">
@@ -53,15 +55,15 @@ function LeaderCard({ leader, index, onOpen }) {
         </span>
       </button>
       <div className="leader-info">
-        <span className="leader-area">{leader.area}</span>
+        <span className="leader-area">{t(leader.area)}</span>
         <h4>{leader.name}</h4>
-        <p>{leader.role}</p>
+        <p>{t(leader.role)}</p>
         <a
           className="leader-linkedin"
           href={leader.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label={`${leader.name} on LinkedIn (opens in a new tab)`}
+          aria-label={t('{name} on LinkedIn (opens in a new tab)', { name: leader.name })}
         >
           <Linkedin aria-hidden="true" />
           LinkedIn
@@ -74,6 +76,7 @@ function LeaderCard({ leader, index, onOpen }) {
 
 /** Large photo view for a leader; closes with ✕, Esc or a click outside the photo card. */
 function LeaderLightbox({ leader, tone, onClose }) {
+  const t = useT();
   const ref = useRef(null);
   useEffect(() => {
     const dialog = ref.current;
@@ -90,23 +93,23 @@ function LeaderLightbox({ leader, tone, onClose }) {
     <dialog
       ref={ref}
       className={`leader-lightbox tone-${tone}`}
-      aria-label={leader ? `${leader.name}, photo` : 'Leader photo'}
+      aria-label={leader ? t('{name}, photo', { name: leader.name }) : t('Leader photo')}
       onClick={(e) => e.target === ref.current && onClose()}
     >
       {leader && (
         <figure>
           <Avatar person={leader} className="leader-lightbox-img" />
           <figcaption>
-            <span className="leader-area">{leader.area}</span>
+            <span className="leader-area">{t(leader.area)}</span>
             <strong>{leader.name}</strong>
-            <span>{leader.role}</span>
+            <span>{t(leader.role)}</span>
             <a href={leader.linkedin} target="_blank" rel="noopener noreferrer" className="leader-linkedin">
               <Linkedin aria-hidden="true" />
               LinkedIn
               <ArrowUpRight aria-hidden="true" />
             </a>
           </figcaption>
-          <button type="button" className="leader-lightbox-close" aria-label="Close" onClick={onClose} autoFocus>
+          <button type="button" className="leader-lightbox-close" aria-label={t('Close')} onClick={onClose} autoFocus>
             <X aria-hidden="true" />
           </button>
         </figure>
@@ -116,16 +119,17 @@ function LeaderLightbox({ leader, tone, onClose }) {
 }
 
 function PersonCard({ person, delay }) {
+  const t = useT();
   return (
     <li className={`person-card ${groupClass(person.groups[0])}`} style={{ animationDelay: `${delay}ms` }}>
       <Avatar person={person} className="person-avatar" />
       <div className="person-text">
         <strong>{person.name}</strong>
-        <span>{person.role}</span>
+        <span>{t(person.role)}</span>
         <span className="person-tags">
           {person.groups.map((g) => (
             <em key={g} className={groupClass(g)}>
-              {g}
+              {t(g)}
             </em>
           ))}
         </span>
@@ -135,8 +139,8 @@ function PersonCard({ person, delay }) {
         href={person.linkedin}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`${person.name} on LinkedIn (opens in a new tab)`}
-        title="View LinkedIn profile"
+        aria-label={t('{name} on LinkedIn (opens in a new tab)', { name: person.name })}
+        title={t('View LinkedIn profile')}
       >
         <Linkedin aria-hidden="true" />
       </a>
@@ -147,6 +151,7 @@ function PersonCard({ person, delay }) {
 /** Leadership and the delivery team together: portraits up top, a filterable team grid below. */
 export default function Team() {
   const [group, setGroup] = useState('All');
+  const t = useT();
   const [expanded, setExpanded] = useState(false);
   const [zoomed, setZoomed] = useState(null); // { leader, index } while the large photo is open
   const closeZoom = useCallback(() => setZoomed(null), []);
@@ -161,25 +166,25 @@ export default function Team() {
       <div className="company-inner">
         <header className="team-intro">
           <div>
-            <span className="section-eyebrow">{intro.eyebrow}</span>
-            <h2 id="team-title">{intro.title}</h2>
-            <p className="section-lead">{intro.lead}</p>
+            <span className="section-eyebrow">{t(intro.eyebrow)}</span>
+            <h2 id="team-title">{t(intro.title)}</h2>
+            <p className="section-lead">{t(intro.lead)}</p>
           </div>
-          <ul className="team-stats" aria-label="Team at a glance">
+          <ul className="team-stats" aria-label={t('Team at a glance')}>
             <li>
-              <strong>{leaders.length}</strong> leaders
+              <strong>{leaders.length}</strong> {t('leaders')}
             </li>
             <li>
-              <strong>{team.length}</strong> delivery team
+              <strong>{team.length}</strong> {t('delivery team')}
             </li>
             <li>
-              <strong>{GROUPS.length}</strong> practices
+              <strong>{GROUPS.length}</strong> {t('practices')}
             </li>
           </ul>
         </header>
 
         <h3 className="team-subhead">
-          <span>Leadership</span> Executive team
+          <span>{t('Leadership')}</span> {t('Executive team')}
         </h3>
         <ul className="leader-grid">
           {leaders.map((l, i) => (
@@ -194,9 +199,9 @@ export default function Team() {
 
         <div className="team-subhead-row">
           <h3 className="team-subhead" id="delivery-team">
-            <span>Delivery team</span> Consulting, engineering, operations and platform delivery
+            <span>{t('Delivery team')}</span> {t('Consulting, engineering, operations and platform delivery')}
           </h3>
-          <div className="team-filters" role="group" aria-label="Filter the delivery team">
+          <div className="team-filters" role="group" aria-label={t('Filter the delivery team')}>
             {['All', ...GROUPS].map((g) => (
               <button
                 type="button"
@@ -205,7 +210,7 @@ export default function Team() {
                 aria-pressed={group === g}
                 onClick={() => setGroup(g)}
               >
-                {g}
+                {t(g)}
                 <span>{g === 'All' ? team.length : counts[g]}</span>
               </button>
             ))}
@@ -222,7 +227,7 @@ export default function Team() {
         {group === 'All' && filtered.length > PREVIEW && (
           <div className="team-more">
             <button type="button" aria-expanded={expanded} onClick={() => setExpanded((e) => !e)}>
-              {expanded ? 'Show fewer' : `Show everyone · ${filtered.length - PREVIEW} more`}
+              {expanded ? t('Show fewer') : t('Show everyone · {count} more', { count: filtered.length - PREVIEW })}
             </button>
           </div>
         )}
