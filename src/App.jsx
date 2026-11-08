@@ -4,7 +4,9 @@ import MapColumn from './components/MapColumn.jsx';
 import Catalogue from './components/Catalogue.jsx';
 import Assistant from './components/Assistant.jsx';
 import Icon from './components/Icon.jsx';
+import { Clients, Leadership, PlatformEcosystem, ProcessStages } from './components/CompanySections.jsx';
 import { InterestsDialog, SearchDialog } from './components/Dialogs.jsx';
+import { FooterNav } from './components/SiteNav.jsx';
 import useInterests from './hooks/useInterests.js';
 import useReadingPosition from './hooks/useReadingPosition.js';
 
@@ -32,6 +34,7 @@ export default function App() {
   return (
     <>
       <Hero playing={playing} onToggleMotion={() => setPlaying((p) => !p)} />
+      <ProcessStages />
 
       <div id="catalogue" className="catalogue-layout">
         <MapColumn current={current} playing={playing} onOpenSearch={openSearch} />
@@ -53,9 +56,13 @@ export default function App() {
         </div>
       </div>
 
+      <PlatformEcosystem />
+      <Clients />
+      <Leadership />
+
       <footer className="footer">
         <span>MindSuite · Connected capabilities. Clear outcomes.</span>
-        <a href="#top">Back to top ↑</a>
+        <FooterNav />
       </footer>
 
       <button

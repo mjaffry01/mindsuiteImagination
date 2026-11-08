@@ -1,5 +1,6 @@
 import logo from '../assets/logo.png';
 import Globe from './Globe.jsx';
+import SiteNav from './SiteNav.jsx';
 import { offerings } from '../data/catalogue.js';
 
 export default function Hero({ playing, onToggleMotion }) {
@@ -7,6 +8,7 @@ export default function Hero({ playing, onToggleMotion }) {
     <div className="opening-screen">
       <header className="brand">
         <img src={logo} alt="MindSuite" width="773" height="165" />
+        <SiteNav />
         <div className="mission">
           <div className="eyebrow">Our mission</div>
           <p>
