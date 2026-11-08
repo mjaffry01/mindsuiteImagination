@@ -1,0 +1,2113 @@
+[
+ {
+  "name": "Software & Product Engineering",
+  "id": "family-1",
+  "short": "Software & Product",
+  "icon": "code-xml",
+  "areas": [
+   {
+    "id": "family-1-area-1",
+    "name": "Technology Strategy & Advisory",
+    "short": "Strategy & Advisory",
+    "stage": "Build & Transform",
+    "icon": "Route",
+    "offerings": [
+     {
+      "id": "offering-1",
+      "number": "OFFERING 001",
+      "name": "Software Health Check",
+      "definition": "A bounded diagnostic engagement that reviews an application's technical condition and translates findings into business risks and a prioritized improvement roadmap. It establishes where deeper investigation or corrective delivery should begin.",
+      "scope": "Review architecture, code samples, dependencies, deployment practices and operational evidence.",
+      "deliverables": "Health report; risk register; prioritized roadmap; leadership readout.",
+      "value": "Supports informed investment and reduces uncertainty about inherited software.",
+      "icon": "Stethoscope"
+     },
+     {
+      "id": "offering-2",
+      "number": "OFFERING 002",
+      "name": "Software Risk & Health Assessment",
+      "definition": "A structured assessment of software weaknesses that could affect reliability, security, maintainability or continued business operation. Findings are assessed against the application's criticality rather than treated as an undifferentiated technical issue list.",
+      "scope": "Assess technical risks, supportability, dependency health and business impact.",
+      "deliverables": "Evidence-based findings; risk ratings; recommended treatments and owners.",
+      "value": "Helps leaders address the most consequential weaknesses first.",
+      "icon": "ShieldAlert"
+     },
+     {
+      "id": "offering-3",
+      "number": "OFFERING 003",
+      "name": "Technology Due Diligence",
+      "definition": "An independent technical examination of a software asset in an investment, acquisition or partnership decision. It evaluates the credibility of the technology, delivery capability and likely remediation obligations within an agreed evidence boundary.",
+      "scope": "Inspect architecture, code quality, ownership evidence, operations and engineering practices.",
+      "deliverables": "Technical diligence report; key concerns; remediation estimates and open questions.",
+      "value": "Makes technology-related deal assumptions more transparent.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-4",
+      "number": "OFFERING 004",
+      "name": "Architecture Strategy & Roadmap",
+      "definition": "A planning service that defines the desired future structure of applications, data and integrations, then sequences the changes needed to reach it. Trade-offs are recorded against business priorities and constraints.",
+      "scope": "Assess current state; compare design options; define target state and migration stages.",
+      "deliverables": "Architecture blueprint; decision records; dependency map; phased roadmap.",
+      "value": "Aligns technology investment with business growth and operational needs.",
+      "icon": "Route"
+     },
+     {
+      "id": "offering-5",
+      "number": "OFFERING 005",
+      "name": "Architecture Review",
+      "definition": "A focused evaluation of an existing or proposed technical design against agreed quality goals such as availability, performance, security and maintainability. It identifies design risks and practical corrections before or during delivery.",
+      "scope": "Review components, interfaces, data flows, failure modes and deployment assumptions.",
+      "deliverables": "Review findings; design recommendations; prioritized architectural risks.",
+      "value": "Reduces avoidable redesign and highlights critical design assumptions.",
+      "icon": "ClipboardCheck"
+     }
+    ]
+   },
+   {
+    "id": "family-1-area-2",
+    "name": "Digital Product Development",
+    "short": "Product Development",
+    "stage": "Build & Transform",
+    "icon": "AppWindow",
+    "offerings": [
+     {
+      "id": "offering-6",
+      "number": "OFFERING 006",
+      "name": "MVP Launch Package",
+      "definition": "A starting engagement that takes one validated business workflow from definition to a usable minimum viable product. It combines essential discovery, design, build and release work while deliberately limiting features to those needed for early learning.",
+      "scope": "Define the first workflow; prototype; build essential functions; test and release.",
+      "deliverables": "Working first release; acceptance evidence; handover; evolution backlog.",
+      "value": "Enables earlier customer feedback and tests product assumptions.",
+      "icon": "Rocket"
+     },
+     {
+      "id": "offering-7",
+      "number": "OFFERING 007",
+      "name": "Product Discovery & Validation",
+      "definition": "A discovery service that tests whether a proposed product solves a meaningful user problem and identifies the smallest useful scope. It connects user research, commercial assumptions and technical feasibility before substantial development investment.",
+      "scope": "Interview stakeholders and users; map journeys; test hypotheses; prioritize needs.",
+      "deliverables": "Validated problem statement; user journeys; prioritized backlog; feasibility findings.",
+      "value": "Reduces investment in features customers may not need.",
+      "icon": "Compass"
+     },
+     {
+      "id": "offering-8",
+      "number": "OFFERING 008",
+      "name": "UX Design & Prototyping",
+      "definition": "A design service that turns user needs into understandable interaction flows and testable prototypes. It explores how people complete tasks, including errors and accessibility needs, before committing the experience to production code.",
+      "scope": "Map tasks; design screens and states; prototype interactions; conduct usability reviews.",
+      "deliverables": "Wireframes; interactive prototype; design specifications; usability findings.",
+      "value": "Improves task clarity and reduces expensive late design changes.",
+      "icon": "PanelsTopLeft"
+     },
+     {
+      "id": "offering-9",
+      "number": "OFFERING 009",
+      "name": "MVP Development",
+      "definition": "Development of a deliberately limited product release that delivers a usable core workflow and supports real user feedback. The scope balances speed of learning with essential quality, security and operational requirements.",
+      "scope": "Implement agreed backlog; integrate required systems; test core journeys; prepare release.",
+      "deliverables": "Deployable minimum viable product; source code; tests; release documentation.",
+      "value": "Tests demand through a functioning product rather than assumptions alone.",
+      "icon": "Rocket"
+     },
+     {
+      "id": "offering-10",
+      "number": "OFFERING 010",
+      "name": "Web & Mobile App Development",
+      "definition": "Design and development of applications for agreed browser and mobile channels. The service covers the selected user journeys, backend connections and release requirements, with platform choices driven by audience, device needs and operating constraints.",
+      "scope": "Build interfaces and APIs; integrate services; test devices and journeys; prepare releases.",
+      "deliverables": "Application increment; source code; test results; deployment and support handover.",
+      "value": "Gives customers or employees dependable digital access to business services.",
+      "icon": "Smartphone"
+     },
+     {
+      "id": "offering-11",
+      "number": "OFFERING 011",
+      "name": "SaaS Platform Development",
+      "definition": "Development of the shared platform capabilities needed to deliver software as a subscription service. It addresses tenant separation, onboarding and configurable access so multiple customer organizations can use the product under defined operating rules.",
+      "scope": "Design tenancy; implement onboarding, entitlements, configuration and usage controls.",
+      "deliverables": "Platform components; tenant isolation tests; operating guidance; onboarding workflow.",
+      "value": "Supports repeatable customer onboarding and scalable product operations.",
+      "icon": "AppWindow"
+     },
+     {
+      "id": "offering-12",
+      "number": "OFFERING 012",
+      "name": "Product Enhancement & Evolution",
+      "definition": "Incremental improvement of an existing product through new features, usability changes or targeted technical enhancements. Work is prioritized around customer and business outcomes while protecting established functionality through regression testing and controlled releases.",
+      "scope": "Refine feature backlog; implement changes; test compatibility; release and document.",
+      "deliverables": "Tested feature increment; updated documentation; release notes; handover.",
+      "value": "Keeps the product useful as customer and market needs change.",
+      "icon": "AppWindow"
+     }
+    ]
+   },
+   {
+    "id": "family-1-area-3",
+    "name": "Application Modernization",
+    "short": "Modernization",
+    "stage": "Build & Transform",
+    "icon": "RefreshCw",
+    "offerings": [
+     {
+      "id": "offering-13",
+      "number": "OFFERING 013",
+      "name": "Modernization Discovery & Pilot",
+      "definition": "A starting engagement that combines legacy-system discovery with a limited modernization experiment. The pilot tests whether the proposed approach can preserve essential behavior and reduce risk before a wider migration or replacement is approved.",
+      "scope": "Map dependencies; compare options; implement a bounded pilot; evaluate results.",
+      "deliverables": "Modernization assessment; pilot evidence; recommended migration roadmap.",
+      "value": "Replaces speculative transformation plans with evidence from a practical trial.",
+      "icon": "Compass"
+     },
+     {
+      "id": "offering-14",
+      "number": "OFFERING 014",
+      "name": "Technical Debt Assessment & Action Plan",
+      "definition": "An assessment of accumulated technical shortcuts, obsolete components and structural weaknesses that make software costly or risky to change. It converts those issues into a ranked action plan based on business impact and remediation effort.",
+      "scope": "Identify debt; assess change friction; estimate effort; prioritize treatment.",
+      "deliverables": "Technical debt register; impact assessment; sequenced remediation backlog.",
+      "value": "Directs engineering effort toward debt that materially affects delivery or operations.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-15",
+      "number": "OFFERING 015",
+      "name": "Legacy Application Review & Roadmap",
+      "definition": "An evaluation of an older application to determine whether to retain, upgrade, restructure, replace or retire its capabilities. The roadmap considers business dependence, technology support, integration complexity and the practicality of phased change.",
+      "scope": "Inventory functions and dependencies; assess support risks; compare modernization paths.",
+      "deliverables": "Legacy assessment; option comparison; dependency map; transition roadmap.",
+      "value": "Clarifies a sustainable path for business-critical legacy software.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-16",
+      "number": "OFFERING 016",
+      "name": "Framework & Runtime Upgrades",
+      "definition": "A controlled upgrade of application frameworks, language runtimes or supporting libraries to a selected supported version. Compatibility work and regression testing address behavioral changes, removed features and dependencies affected by the upgrade.",
+      "scope": "Review compatibility; update dependencies; adapt code; test and plan rollback.",
+      "deliverables": "Upgraded application; compatibility findings; regression evidence; rollback plan.",
+      "value": "Reduces exposure to unsupported components and enables future maintenance.",
+      "icon": "RefreshCw"
+     },
+     {
+      "id": "offering-17",
+      "number": "OFFERING 017",
+      "name": "Application Architecture Renewal",
+      "definition": "A bounded redesign of an application's internal structure to improve qualities such as modularity, maintainability or scalability while preserving agreed business behavior. It changes how the system is organized rather than replacing every function.",
+      "scope": "Define target boundaries; refactor selected components; test interfaces and behavior.",
+      "deliverables": "Reworked components; design records; regression evidence; migration notes.",
+      "value": "Makes future changes easier and isolates operational or scaling bottlenecks.",
+      "icon": "Blocks"
+     },
+     {
+      "id": "offering-18",
+      "number": "OFFERING 018",
+      "name": "Database Modernization",
+      "definition": "Improvement or migration of the database layer to better support current reliability, performance, maintainability or platform requirements. The work includes validation of data integrity and application behavior across the proposed change.",
+      "scope": "Assess schema and workload; select target changes; migrate or tune; reconcile data.",
+      "deliverables": "Updated database design or platform; migration scripts; validation and rollback evidence.",
+      "value": "Improves the sustainability and fitness of a critical data foundation.",
+      "icon": "Database"
+     },
+     {
+      "id": "offering-19",
+      "number": "OFFERING 019",
+      "name": "Phased Application Re-engineering",
+      "definition": "Progressive replacement or rebuilding of selected application capabilities while the wider business system continues operating. The engagement uses defined transition boundaries, coexistence arrangements and rollback plans to manage disruption.",
+      "scope": "Choose replacement slice; rebuild functions; bridge dependencies; stage cutover.",
+      "deliverables": "Replacement capability; coexistence interfaces; migration tests; cutover plan.",
+      "value": "Spreads transformation risk across manageable releases.",
+      "icon": "RefreshCw"
+     }
+    ]
+   },
+   {
+    "id": "family-1-area-4",
+    "name": "APIs & Business Integration",
+    "short": "APIs & Integration",
+    "stage": "Connect & Secure",
+    "icon": "Cable",
+    "offerings": [
+     {
+      "id": "offering-20",
+      "number": "OFFERING 020",
+      "name": "Business Integration Launch Package",
+      "definition": "A starting integration engagement that connects two named systems for one business-critical workflow. It establishes data ownership, mappings and failure handling so information moves dependably and exceptions have a clear operational owner.",
+      "scope": "Map workflow and records; build connector; test errors; establish monitoring.",
+      "deliverables": "Working integration; mapping specification; exception process; operating handover.",
+      "value": "Reduces repeated manual entry and improves consistency between systems.",
+      "icon": "Rocket"
+     },
+     {
+      "id": "offering-21",
+      "number": "OFFERING 021",
+      "name": "API Design & Development",
+      "definition": "Design and implementation of application programming interfaces that expose business functions or data through explicit, documented contracts. The service addresses request validation, access, errors and compatibility so consumers can integrate predictably.",
+      "scope": "Define contracts; implement endpoints; add authorization and validation; test consumers.",
+      "deliverables": "API specification; implemented endpoints; automated tests; usage documentation.",
+      "value": "Enables reliable reuse of business capabilities across applications.",
+      "icon": "Braces"
+     },
+     {
+      "id": "offering-22",
+      "number": "OFFERING 022",
+      "name": "API Gateway Setup & Configuration",
+      "definition": "Configuration of a gateway that manages how requests reach selected APIs. It applies agreed traffic, access and routing controls at a common entry point while leaving application-specific business logic within the underlying services.",
+      "scope": "Configure routes, authentication integration, quotas, traffic policies and telemetry.",
+      "deliverables": "Gateway configuration; policy documentation; traffic tests; operating guide.",
+      "value": "Improves consistency and visibility in API access management.",
+      "icon": "Network"
+     },
+     {
+      "id": "offering-23",
+      "number": "OFFERING 023",
+      "name": "Business System Integration",
+      "definition": "Implementation of a business workflow spanning multiple applications, with explicit ownership of each data object and transaction state. It includes mapping, synchronization and exception handling rather than treating integration as simple data transfer.",
+      "scope": "Specify interfaces; map data; implement synchronization; handle retries and reconciliation.",
+      "deliverables": "Integration components; interface contracts; test evidence; support runbook.",
+      "value": "Reduces process fragmentation and inconsistent records.",
+      "icon": "Cable"
+     },
+     {
+      "id": "offering-24",
+      "number": "OFFERING 024",
+      "name": "Event-driven Workflow Development",
+      "definition": "Development of workflows that react to business events instead of relying only on direct synchronous requests. The service defines event meaning and handles duplicate delivery, ordering assumptions and recovery for agreed business scenarios.",
+      "scope": "Design event contracts; implement producers and consumers; test replay and failures.",
+      "deliverables": "Event schemas; messaging components; recovery procedures; integration tests.",
+      "value": "Decouples systems and supports responsive business processes.",
+      "icon": "Radio"
+     },
+     {
+      "id": "offering-25",
+      "number": "OFFERING 025",
+      "name": "Partner & Third-party Integration",
+      "definition": "Connection of an internal system to a partner or external provider using its agreed interface. The work covers authentication, data transformation, environment differences and external failure handling so the relationship can operate consistently.",
+      "scope": "Review provider contract; implement adapter; test edge cases; document onboarding.",
+      "deliverables": "Tested connector; mapping rules; error handling; partner onboarding guide.",
+      "value": "Shortens partner onboarding and reduces manual coordination.",
+      "icon": "Cable"
+     },
+     {
+      "id": "offering-26",
+      "number": "OFFERING 026",
+      "name": "Integration Diagnostics & Repair",
+      "definition": "Investigation and correction of a malfunctioning integration within a defined boundary. It traces failures across data, authentication, mappings and message handling, then validates the repair against realistic transactions and recovery scenarios.",
+      "scope": "Analyze logs and failed records; reproduce issues; repair; retest and reconcile.",
+      "deliverables": "Root-cause findings; corrected connector or configuration; test evidence; recovery instructions.",
+      "value": "Restores dependable transaction flow and reduces recurring exceptions.",
+      "icon": "ClipboardCheck"
+     }
+    ]
+   },
+   {
+    "id": "family-1-area-5",
+    "name": "Identity & Access Solutions",
+    "short": "Identity & Access",
+    "stage": "Connect & Secure",
+    "icon": "Fingerprint",
+    "offerings": [
+     {
+      "id": "offering-27",
+      "number": "OFFERING 027",
+      "name": "Identity Platform Starter Package",
+      "definition": "A starting identity engagement that selects an appropriate identity platform and establishes a working foundation for one application. It combines requirements-based choice with initial configuration and validation of the essential sign-in and access flows.",
+      "scope": "Assess identity needs; compare platforms; configure tenant; connect one application.",
+      "deliverables": "Selection rationale; configured foundation; sign-in tests; operating handover.",
+      "value": "Creates a practical basis for consistent application identity management.",
+      "icon": "Fingerprint"
+     },
+     {
+      "id": "offering-28",
+      "number": "OFFERING 028",
+      "name": "Identity Platform Advisory & Selection",
+      "definition": "An advisory service that compares identity platforms against the organization's user populations, integration needs, security requirements and operational constraints. The recommendation explains trade-offs rather than assuming one provider suits every situation.",
+      "scope": "Gather requirements; evaluate federation, lifecycle, hosting and commercial fit.",
+      "deliverables": "Requirements matrix; platform comparison; recommendation; adoption roadmap.",
+      "value": "Reduces mismatch between identity technology and business requirements.",
+      "icon": "Compass"
+     },
+     {
+      "id": "offering-29",
+      "number": "OFFERING 029",
+      "name": "Identity Platform Setup & Configuration",
+      "definition": "Implementation of an agreed identity provider and its foundational configuration. It establishes the selected authentication flows, administrative roles and operational settings required to support applications under a defined identity model.",
+      "scope": "Configure tenant, directories, applications, sign-in policies and administrator access.",
+      "deliverables": "Configured identity platform; access tests; configuration record; operating guide.",
+      "value": "Provides a maintainable foundation for application access.",
+      "icon": "Fingerprint"
+     },
+     {
+      "id": "offering-30",
+      "number": "OFFERING 030",
+      "name": "Single Sign-on & Identity Federation",
+      "definition": "Integration that lets users authenticate through trusted identity providers and access agreed applications without separate credentials for every system. Federation establishes trust across identity domains; application authorization still requires its own access rules.",
+      "scope": "Configure trust and claims; integrate applications; test sign-in, logout and failure cases.",
+      "deliverables": "Federation configuration; application integration; claims mapping; test results.",
+      "value": "Simplifies user access and centralizes authentication management.",
+      "icon": "KeyRound"
+     },
+     {
+      "id": "offering-31",
+      "number": "OFFERING 031",
+      "name": "Roles, Permissions & Access Controls",
+      "definition": "Design and implementation of authorization rules that determine what authenticated users or services may do. It translates business responsibilities into roles, resource permissions and enforceable policies, including tests for prohibited actions.",
+      "scope": "Map responsibilities; design roles and permissions; implement enforcement; test access boundaries.",
+      "deliverables": "Role matrix; access policies; enforcement changes; authorization tests.",
+      "value": "Reduces excessive access and makes responsibilities clearer.",
+      "icon": "LockKeyhole"
+     },
+     {
+      "id": "offering-32",
+      "number": "OFFERING 032",
+      "name": "Identity Platform Migration",
+      "definition": "A controlled transition from one identity system or authentication arrangement to another. It preserves essential user access while addressing account matching, claim differences, application dependencies and staged cutover requirements.",
+      "scope": "Map identities and claims; plan account transition; update integrations; rehearse cutover.",
+      "deliverables": "Migration design; mapping rules; tested integrations; cutover and rollback plan.",
+      "value": "Reduces disruption during identity-platform change.",
+      "icon": "Fingerprint"
+     },
+     {
+      "id": "offering-33",
+      "number": "OFFERING 033",
+      "name": "User Provisioning & Access Lifecycle",
+      "definition": "Automation and control of account creation, access changes and removal as people join, move within or leave an organization. The service connects authoritative identity events to application access and verifies timely deprovisioning.",
+      "scope": "Map lifecycle events; implement provisioning; configure approvals and reconciliation.",
+      "deliverables": "Lifecycle workflows; connector configuration; exception process; access-removal tests.",
+      "value": "Reduces manual administration and stale access.",
+      "icon": "UserRoundCog"
+     }
+    ]
+   },
+   {
+    "id": "family-1-area-6",
+    "name": "Software Quality & Delivery",
+    "short": "Quality & Delivery",
+    "stage": "Deliver & Scale",
+    "icon": "FlaskConical",
+    "offerings": [
+     {
+      "id": "offering-34",
+      "number": "OFFERING 034",
+      "name": "Release Readiness Accelerator",
+      "definition": "A focused engagement that makes one application's release process repeatable and its quality checks visible. It combines prioritized testing and release improvements with evidence that a selected change can be deployed and recovered safely.",
+      "scope": "Assess release gaps; implement key checks; rehearse deployment and rollback.",
+      "deliverables": "Improved release workflow; quality gates; release evidence; handover checklist.",
+      "value": "Builds confidence in shipping a defined application change.",
+      "icon": "GitBranch"
+     },
+     {
+      "id": "offering-35",
+      "number": "OFFERING 035",
+      "name": "Quality Assessment & Test Strategy",
+      "definition": "An assessment of how software quality is managed and a plan for testing the risks that matter most. It defines appropriate test levels, data, environments and ownership rather than recommending automation for every possible check.",
+      "scope": "Review defects and coverage; prioritize risks; define test approach and responsibilities.",
+      "deliverables": "Quality assessment; test strategy; coverage priorities; implementation backlog.",
+      "value": "Focuses quality investment on business-critical failure modes.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-36",
+      "number": "OFFERING 036",
+      "name": "Automated Testing",
+      "definition": "Creation of repeatable software checks that verify selected behaviors automatically. The work selects suitable test levels and stable data so failures provide useful feedback, while keeping maintenance responsibilities explicit.",
+      "scope": "Implement unit, API or journey tests; manage test data; integrate execution.",
+      "deliverables": "Automated test suite; execution reports; maintenance guidance; pipeline integration.",
+      "value": "Shortens feedback cycles and reduces repetitive regression effort.",
+      "icon": "FlaskConical"
+     }
+    ]
+   },
+   {
+    "id": "family-1-area-7",
+    "name": "Application Reliability & Support",
+    "short": "Reliability & Support",
+    "stage": "Deliver & Scale",
+    "icon": "Headset",
+    "offerings": [
+     {
+      "id": "offering-37",
+      "number": "OFFERING 037",
+      "name": "Continuous Reliability Improvement",
+      "definition": "An ongoing improvement discipline that uses incidents, service signals and recurring operational work to prioritize preventive changes. It converts reliability concerns into an owned backlog with measurable evidence of progress.",
+      "scope": "Review service history; rank risks; implement preventive changes; review outcomes.",
+      "deliverables": "Reliability backlog; tested improvements; operating updates; periodic progress review.",
+      "value": "Reduces repeat incidents and improves operational predictability.",
+      "icon": "HeartPulse"
+     },
+     {
+      "id": "offering-38",
+      "number": "OFFERING 038",
+      "name": "Performance & Resilience Testing",
+      "definition": "Controlled testing of how an application behaves under expected load, peak demand and selected failures. It measures capacity limits and recovery behavior against agreed criteria without assuming that passing one test guarantees all production conditions.",
+      "scope": "Design workload and failure scenarios; execute tests; analyze bottlenecks and recovery.",
+      "deliverables": "Performance results; resilience findings; capacity guidance; remediation recommendations.",
+      "value": "Exposes scaling and recovery weaknesses before critical demand.",
+      "icon": "FlaskConical"
+     },
+     {
+      "id": "offering-39",
+      "number": "OFFERING 039",
+      "name": "Managed Application & Platform Support",
+      "definition": "A contracted service for operating and maintaining named applications and platforms after release. Responsibilities, service hours, escalation paths and change boundaries are agreed so incidents and routine work have clear ownership.",
+      "scope": "Monitor agreed services; triage issues; perform maintenance; manage escalation and improvements.",
+      "deliverables": "Support plan; ticket and service reports; maintenance records; improvement backlog.",
+      "value": "Provides operational continuity and a clear route for resolving issues.",
+      "icon": "Headset"
+     }
+    ]
+   }
+  ],
+  "tagline": "Build, modernize and improve your software."
+ },
+ {
+  "name": "DevOps & Platform Engineering",
+  "id": "family-2",
+  "short": "DevOps & Platform",
+  "icon": "workflow",
+  "areas": [
+   {
+    "id": "family-2-area-1",
+    "name": "DevOps Strategy & Advisory",
+    "short": "DevOps Strategy",
+    "stage": "Plan & Automate",
+    "icon": "Route",
+    "offerings": [
+     {
+      "id": "offering-40",
+      "number": "OFFERING 040",
+      "name": "DevOps Health Check",
+      "definition": "A diagnostic review of the practices and systems used to build, release and operate software. It identifies delivery friction and operational risk, then prioritizes practical improvements across tools, workflows and ownership.",
+      "scope": "Review delivery flow, automation, environments and operational practices.",
+      "deliverables": "Health assessment; constraint map; prioritized improvement roadmap.",
+      "value": "Clarifies where DevOps investment can remove the greatest friction.",
+      "icon": "Stethoscope"
+     },
+     {
+      "id": "offering-41",
+      "number": "OFFERING 041",
+      "name": "Delivery Bottleneck Review",
+      "definition": "An examination of the end-to-end change process to locate delays, rework and handoff problems. It uses actual delivery evidence to distinguish tooling issues from process and organizational constraints.",
+      "scope": "Map change flow; measure waiting and rework; analyze handoffs.",
+      "deliverables": "Value-stream map; bottleneck findings; improvement recommendations.",
+      "value": "Targets the constraints that slow business change.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-42",
+      "number": "OFFERING 042",
+      "name": "DevOps Toolchain Strategy & Roadmap",
+      "definition": "A requirements-led plan for the tools and integrations supporting engineering delivery. It evaluates how the toolchain should work together, including adoption, ownership and migration from existing arrangements.",
+      "scope": "Inventory tools; assess gaps and overlaps; compare options; sequence adoption.",
+      "deliverables": "Toolchain architecture; selection criteria; integration and adoption roadmap.",
+      "value": "Reduces fragmented tooling and unnecessary operating complexity.",
+      "icon": "Route"
+     },
+     {
+      "id": "offering-43",
+      "number": "OFFERING 043",
+      "name": "DevOps Operating Model Design",
+      "definition": "Design of the responsibilities and working arrangements through which teams deliver and operate technology. It clarifies service boundaries, decision rights and interactions between product, engineering, platform and operations teams.",
+      "scope": "Define team services, ownership, escalation, change responsibilities and collaboration routines.",
+      "deliverables": "Operating model; responsibility matrix; service boundaries; adoption plan.",
+      "value": "Reduces ambiguous ownership and cross-team handoff delays.",
+      "icon": "BrainCircuit"
+     },
+     {
+      "id": "offering-44",
+      "number": "OFFERING 044",
+      "name": "Engineering & Delivery Maturity Review",
+      "definition": "An evidence-based assessment of engineering and delivery practices against a defined maturity model. It evaluates capabilities and constraints to prioritize improvement, rather than using maturity scores as a substitute for business outcomes.",
+      "scope": "Review development, testing, release and operating practices; validate findings.",
+      "deliverables": "Capability assessment; supporting evidence; prioritized improvement plan.",
+      "value": "Creates a shared baseline for engineering improvement.",
+      "icon": "ClipboardCheck"
+     }
+    ]
+   },
+   {
+    "id": "family-2-area-2",
+    "name": "Cloud Foundations & Automation",
+    "short": "Cloud Foundations",
+    "stage": "Plan & Automate",
+    "icon": "CloudCog",
+    "offerings": [
+     {
+      "id": "offering-45",
+      "number": "OFFERING 045",
+      "name": "Infrastructure Automation Pilot",
+      "definition": "A limited implementation that proves infrastructure can be created and changed through a repeatable, reviewed process. One environment provides evidence and reusable patterns before automation is extended across the estate.",
+      "scope": "Select environment; write infrastructure definitions; test provisioning and controlled changes.",
+      "deliverables": "Versioned infrastructure; pilot environment; validation results; adoption recommendations.",
+      "value": "Tests automation benefits before a broader rollout.",
+      "icon": "CloudCog"
+     },
+     {
+      "id": "offering-46",
+      "number": "OFFERING 046",
+      "name": "Cloud Foundation Setup",
+      "definition": "Configuration of the foundational cloud structure needed to host agreed workloads. It establishes accounts or projects, networks, identity, logging and basic operational controls without assuming that every application is included.",
+      "scope": "Configure resource hierarchy, networking, access, logging and operating baselines.",
+      "deliverables": "Cloud foundation; configuration records; access tests; operating guide.",
+      "value": "Gives workload teams a consistent and controlled starting environment.",
+      "icon": "CloudCog"
+     },
+     {
+      "id": "offering-47",
+      "number": "OFFERING 047",
+      "name": "Infrastructure as Code",
+      "definition": "Management of infrastructure through machine-readable, version-controlled definitions rather than undocumented manual configuration. Changes are reviewed and applied through repeatable workflows with explicit state and access handling.",
+      "scope": "Develop infrastructure modules; establish review, plan and apply workflows; test changes.",
+      "deliverables": "Reusable definitions; deployment workflow; state-management approach; documentation.",
+      "value": "Improves repeatability and traceability of infrastructure changes.",
+      "icon": "CloudCog"
+     },
+     {
+      "id": "offering-48",
+      "number": "OFFERING 048",
+      "name": "Automated Environment Provisioning",
+      "definition": "Automation that creates usable development, test or production environments from agreed templates. It coordinates infrastructure and configuration so teams can obtain consistent environments with fewer manual dependencies.",
+      "scope": "Define environment templates; automate setup; apply access and configuration; validate readiness.",
+      "deliverables": "Provisioning workflow; templates; readiness tests; operating instructions.",
+      "value": "Reduces environment setup delays and inconsistency.",
+      "icon": "UserRoundCog"
+     },
+     {
+      "id": "offering-49",
+      "number": "OFFERING 049",
+      "name": "Configuration & Drift Control",
+      "definition": "Establishment of approved configuration baselines and detection of differences between intended and actual state. The service defines which changes can be corrected automatically and which require review or an exception.",
+      "scope": "Define baselines; detect deviations; configure remediation and exception handling.",
+      "deliverables": "Baseline definitions; drift reports; remediation workflow; ownership rules.",
+      "value": "Reduces unnoticed configuration changes and inconsistent environments.",
+      "icon": "Workflow"
+     },
+     {
+      "id": "offering-50",
+      "number": "OFFERING 050",
+      "name": "Backup & Recovery Implementation",
+      "definition": "Implementation of backup and restoration procedures for agreed workloads and data. The service validates that selected backups can be restored, with recovery objectives and operating responsibilities explicitly defined.",
+      "scope": "Configure backup policies; manage retention and access; test restoration.",
+      "deliverables": "Backup configuration; restore evidence; recovery runbook; responsibility matrix.",
+      "value": "Improves confidence that essential data and services can be recovered.",
+      "icon": "LifeBuoy"
+     },
+     {
+      "id": "offering-51",
+      "number": "OFFERING 051",
+      "name": "Application & Workload Cloud Migration",
+      "definition": "Planning and execution of a defined workload move to a cloud environment. It addresses application dependencies, data transfer and operational readiness, with migration waves and rollback decisions based on tested behavior.",
+      "scope": "Assess dependencies; prepare target; migrate and validate; execute controlled cutover.",
+      "deliverables": "Migration plan; migrated workload; validation results; cutover and rollback guidance.",
+      "value": "Enables platform change while managing business disruption.",
+      "icon": "ArrowRightLeft"
+     }
+    ]
+   },
+   {
+    "id": "family-2-area-3",
+    "name": "Developer Platforms & Productivity",
+    "short": "Developer Platforms",
+    "stage": "Plan & Automate",
+    "icon": "CodeXml",
+    "offerings": [
+     {
+      "id": "offering-52",
+      "number": "OFFERING 052",
+      "name": "Developer Platform Starter Package",
+      "definition": "A starting engagement that establishes a supported path for one application team to build and deploy on a shared platform. It combines a working pattern with the documentation and ownership needed for repeatable use.",
+      "scope": "Select application; establish platform workflow; validate deployment and developer experience.",
+      "deliverables": "Working deployment path; reusable template; operating guide; team handover.",
+      "value": "Reduces repeated setup work and tests platform adoption assumptions.",
+      "icon": "CodeXml"
+     },
+     {
+      "id": "offering-53",
+      "number": "OFFERING 053",
+      "name": "Application Containerization",
+      "definition": "Packaging an application and its runtime dependencies into container images with defined configuration and execution behavior. It includes the adjustments needed for repeatable builds and operation in the selected environment.",
+      "scope": "Create image builds; externalize configuration; assess storage and networking; test runtime.",
+      "deliverables": "Container definitions; images; runtime configuration; validation results.",
+      "value": "Improves deployment consistency across environments.",
+      "icon": "Container"
+     },
+     {
+      "id": "offering-54",
+      "number": "OFFERING 054",
+      "name": "Container Platform Setup",
+      "definition": "Implementation of a platform for deploying and operating containerized workloads. The scope defines cluster services, workload access, deployment patterns and operational responsibilities for the selected hosting arrangement.",
+      "scope": "Configure orchestration, access, networking, storage and workload deployment.",
+      "deliverables": "Platform baseline; workload templates; operating procedures; acceptance tests.",
+      "value": "Creates a managed foundation for running containerized applications.",
+      "icon": "Container"
+     },
+     {
+      "id": "offering-55",
+      "number": "OFFERING 055",
+      "name": "Platform Upgrades & Lifecycle Management",
+      "definition": "Controlled maintenance of platform components through upgrades and lifecycle changes. Compatibility testing, dependency review and rollback preparation help keep the platform supportable without treating each update as an isolated change.",
+      "scope": "Review support status; test upgrades; plan maintenance; validate workloads.",
+      "deliverables": "Upgrade plan; updated components; compatibility evidence; rollback instructions.",
+      "value": "Reduces obsolescence and disruption from unmanaged platform changes.",
+      "icon": "UserRoundCog"
+     },
+     {
+      "id": "offering-56",
+      "number": "OFFERING 056",
+      "name": "GitOps Deployment Automation",
+      "definition": "A deployment approach that uses version-controlled desired state and automated reconciliation to manage environments. Changes are reviewed in the repository, while the deployment system detects and applies the approved state.",
+      "scope": "Define desired-state repositories; configure reconciliation; implement access and promotion controls.",
+      "deliverables": "Deployment repositories; reconciliation configuration; change workflow; recovery guide.",
+      "value": "Improves deployment traceability and consistency.",
+      "icon": "GitBranch"
+     },
+     {
+      "id": "offering-57",
+      "number": "OFFERING 057",
+      "name": "Developer Self-service Workflows",
+      "definition": "Creation of supported workflows through which developers perform approved platform tasks without repeated manual tickets. Templates and guardrails make routine work easier while preserving required review and ownership.",
+      "scope": "Identify repetitive tasks; build templates or portals; define controls; test usability.",
+      "deliverables": "Self-service workflow; reusable templates; usage documentation; support model.",
+      "value": "Reduces platform-team bottlenecks for routine developer needs.",
+      "icon": "CodeXml"
+     }
+    ]
+   },
+   {
+    "id": "family-2-area-4",
+    "name": "Build & Release Automation",
+    "short": "Build & Release",
+    "stage": "Deliver & Secure",
+    "icon": "GitBranch",
+    "offerings": [
+     {
+      "id": "offering-58",
+      "number": "OFFERING 058",
+      "name": "Release Pipeline Starter Package",
+      "definition": "A starting engagement that builds a repeatable delivery pipeline for one application. It connects source changes, builds, checks and deployment into a visible workflow with agreed release controls and recovery behavior.",
+      "scope": "Configure build, tests, artifacts and deployment; validate a release and rollback.",
+      "deliverables": "Working pipeline; release evidence; configuration; team handover.",
+      "value": "Makes application releases more predictable and repeatable.",
+      "icon": "GitBranch"
+     },
+     {
+      "id": "offering-59",
+      "number": "OFFERING 059",
+      "name": "Pipeline Diagnostics & Repair",
+      "definition": "Diagnosis and repair of a pipeline that fails, produces inconsistent outputs or requires excessive manual intervention. Work focuses on reproducible causes and validates the corrected behavior across representative changes.",
+      "scope": "Inspect runs and dependencies; reproduce failures; repair stages; retest.",
+      "deliverables": "Root-cause report; corrected pipeline; validation evidence; maintenance guidance.",
+      "value": "Restores dependable engineering feedback and release flow.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-60",
+      "number": "OFFERING 060",
+      "name": "Automated Builds & Continuous Integration",
+      "definition": "Automation that compiles or packages source changes and runs early checks whenever developers integrate work. Consistent build inputs and versioned outputs help identify regressions before changes reach later release stages.",
+      "scope": "Configure build triggers, automated checks, dependency handling and artifact creation.",
+      "deliverables": "Continuous integration workflow; versioned artifacts; check results; operating notes.",
+      "value": "Finds integration problems earlier and reduces manual build effort.",
+      "icon": "Cable"
+     },
+     {
+      "id": "offering-61",
+      "number": "OFFERING 061",
+      "name": "Deployment Automation & Continuous Delivery",
+      "definition": "Automation that moves tested software through agreed environments and keeps it ready for controlled release. Continuous delivery allows release on demand; it does not require every change to be deployed automatically to production.",
+      "scope": "Automate environment promotion; implement approvals, deployment checks and rollback.",
+      "deliverables": "Delivery workflow; deployment scripts; release records; rollback procedures.",
+      "value": "Reduces manual deployment errors and release coordination effort.",
+      "icon": "GitBranch"
+     },
+     {
+      "id": "offering-62",
+      "number": "OFFERING 062",
+      "name": "Release & Branching Strategy",
+      "definition": "Definition of source-control and release conventions that fit the team's product, deployment and support needs. It clarifies how changes are integrated, versioned, released and corrected without imposing unnecessary branch complexity.",
+      "scope": "Assess release cadence; define branches, versions, hotfixes and integration rules.",
+      "deliverables": "Branching policy; release conventions; worked examples; adoption guidance.",
+      "value": "Reduces integration confusion and inconsistent release practices.",
+      "icon": "Route"
+     },
+     {
+      "id": "offering-63",
+      "number": "OFFERING 063",
+      "name": "Artifact & Dependency Management",
+      "definition": "Management of the packages and dependencies used and produced by software delivery. It establishes trusted repositories, versioning, retention and access rules so builds can use traceable inputs and recoverable outputs.",
+      "scope": "Configure repositories; govern dependencies; define retention and access; validate retrieval.",
+      "deliverables": "Repository setup; dependency policies; artifact lifecycle rules; documentation.",
+      "value": "Improves build reproducibility and control of software components.",
+      "icon": "Workflow"
+     },
+     {
+      "id": "offering-64",
+      "number": "OFFERING 064",
+      "name": "Progressive Rollouts & Rollback",
+      "definition": "Implementation of staged deployment techniques that expose changes gradually and provide an explicit recovery path. Traffic shifts or release cohorts are evaluated against defined health criteria before wider rollout.",
+      "scope": "Select rollout pattern; configure health checks; test rollback and data compatibility.",
+      "deliverables": "Rollout workflow; decision thresholds; rollback procedure; test evidence.",
+      "value": "Limits the impact of a problematic release.",
+      "icon": "Workflow"
+     }
+    ]
+   },
+   {
+    "id": "family-2-area-5",
+    "name": "DevSecOps & Delivery Security",
+    "short": "DevSecOps",
+    "stage": "Deliver & Secure",
+    "icon": "ShieldCheck",
+    "offerings": [
+     {
+      "id": "offering-65",
+      "number": "OFFERING 065",
+      "name": "Secure Delivery Starter Package",
+      "definition": "A starting engagement that integrates agreed security checks into one application's delivery workflow. It establishes usable findings, exception handling and evidence so security becomes part of the release process.",
+      "scope": "Choose relevant checks; integrate tooling; define failure and exception rules.",
+      "deliverables": "Secured pipeline configuration; findings workflow; control evidence; handover.",
+      "value": "Introduces repeatable security checks without an undefined transformation scope.",
+      "icon": "ShieldCheck"
+     },
+     {
+      "id": "offering-66",
+      "number": "OFFERING 066",
+      "name": "Delivery Security Assessment",
+      "definition": "Assessment of security risks across source repositories, build systems, dependencies, artifacts and deployment access. It examines how a change could be tampered with or gain excessive privileges during delivery.",
+      "scope": "Review identities, secrets, dependencies, build trust and deployment permissions.",
+      "deliverables": "Delivery risk assessment; prioritized findings; corrective roadmap.",
+      "value": "Identifies weaknesses beyond the application code itself.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-67",
+      "number": "OFFERING 067",
+      "name": "Pipeline Security & Automated Checks",
+      "definition": "Integration of automated security checks into build and release workflows. Findings are routed through agreed severity, review and exception rules so checks support actionable decisions rather than merely generate reports.",
+      "scope": "Configure relevant scanners; tune rules; integrate gates; define triage ownership.",
+      "deliverables": "Pipeline checks; severity and exception policy; findings reports; operating guide.",
+      "value": "Finds selected security issues earlier in delivery.",
+      "icon": "ShieldCheck"
+     },
+     {
+      "id": "offering-68",
+      "number": "OFFERING 068",
+      "name": "Secrets & Service Identity Management",
+      "definition": "Control of credentials and non-human identities used by applications and automation. It establishes how secrets are stored, accessed, rotated and removed, with permissions restricted to the required workload actions.",
+      "scope": "Inventory credentials; configure storage and access; automate lifecycle; test revocation.",
+      "deliverables": "Secret-management configuration; identity permissions; rotation procedures; audit records.",
+      "value": "Reduces unnecessary credential exposure and long-lived access.",
+      "icon": "Fingerprint"
+     },
+     {
+      "id": "offering-69",
+      "number": "OFFERING 069",
+      "name": "Software Supply Chain Security Controls",
+      "definition": "Controls that improve confidence in the origin and integrity of software components and build outputs. The service addresses dependency visibility, build provenance and verification within a clearly defined delivery boundary.",
+      "scope": "Inventory components; establish provenance; protect build outputs; verify artifacts.",
+      "deliverables": "Component inventory; provenance records; verification controls; implementation guide.",
+      "value": "Makes software inputs and outputs more traceable.",
+      "icon": "ShieldCheck"
+     },
+     {
+      "id": "offering-70",
+      "number": "OFFERING 070",
+      "name": "Policy as Code & Automated Guardrails",
+      "definition": "Implementation of machine-readable rules that check or constrain infrastructure and deployment changes. Guardrails enforce agreed requirements consistently, while an explicit exception process handles legitimate deviations.",
+      "scope": "Translate policies into rules; integrate enforcement; test allowed and denied cases.",
+      "deliverables": "Policy code; test cases; enforcement configuration; exception workflow.",
+      "value": "Reduces inconsistent manual policy checks.",
+      "icon": "BrainCircuit"
+     },
+     {
+      "id": "offering-71",
+      "number": "OFFERING 071",
+      "name": "Control Evidence & Reporting Automation",
+      "definition": "Automation that collects and organizes technical records needed to demonstrate selected delivery controls. It maps evidence to client-defined requirements without implying that automated collection alone establishes compliance.",
+      "scope": "Map controls to records; collect evidence; track exceptions; create reporting views.",
+      "deliverables": "Evidence collection workflow; control mapping; traceable reports; ownership guide.",
+      "value": "Reduces repeated manual evidence gathering.",
+      "icon": "Workflow"
+     }
+    ]
+   },
+   {
+    "id": "family-2-area-6",
+    "name": "Observability & Service Reliability",
+    "short": "Observability",
+    "stage": "Operate & Optimize",
+    "icon": "Activity",
+    "offerings": [
+     {
+      "id": "offering-72",
+      "number": "OFFERING 072",
+      "name": "Service Reliability Starter Package",
+      "definition": "A starting reliability engagement focused on one important user journey. It establishes meaningful service signals, useful alerts and a response path that can be tested before extending coverage to other services.",
+      "scope": "Select critical journey; instrument signals; configure alerts; rehearse response.",
+      "deliverables": "Service dashboard; alert rules; response runbook; readiness findings.",
+      "value": "Connects monitoring to a concrete customer experience.",
+      "icon": "HeartPulse"
+     },
+     {
+      "id": "offering-73",
+      "number": "OFFERING 073",
+      "name": "Observability Health Check",
+      "definition": "An assessment of whether existing telemetry helps teams understand service behavior and diagnose problems. It evaluates coverage, signal quality and operational usefulness rather than simply counting dashboards or collected logs.",
+      "scope": "Review logs, metrics, traces, dashboards and alert practices.",
+      "deliverables": "Telemetry gap analysis; instrumentation plan; signal-quality recommendations.",
+      "value": "Improves the usefulness of existing monitoring investment.",
+      "icon": "Stethoscope"
+     },
+     {
+      "id": "offering-74",
+      "number": "OFFERING 074",
+      "name": "Service Reliability Targets & Alerting",
+      "definition": "Definition of measurable service reliability objectives and alerts that indicate meaningful user impact. The work connects indicators, target levels and response ownership so teams can make explicit reliability trade-offs.",
+      "scope": "Define service indicators and objectives; tune thresholds; assign response routes.",
+      "deliverables": "Reliability objectives; alert configuration; response ownership; review process.",
+      "value": "Makes service expectations and operational action clearer.",
+      "icon": "HeartPulse"
+     },
+     {
+      "id": "offering-75",
+      "number": "OFFERING 075",
+      "name": "Operational Readiness Assessment",
+      "definition": "A readiness assessment of whether a service can be responsibly launched or operated. It checks ownership, monitoring, capacity, recovery and support arrangements, then identifies gaps requiring action before acceptance.",
+      "scope": "Review operating responsibilities, runbooks, release controls and recovery evidence.",
+      "deliverables": "Readiness checklist; gap register; action owners; acceptance recommendations.",
+      "value": "Reduces avoidable surprises after launch or handover.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-76",
+      "number": "OFFERING 076",
+      "name": "Monitoring & Observability",
+      "definition": "Implementation of telemetry and views that help teams detect service problems and investigate their causes. Monitoring tracks known conditions; observability supports deeper investigation using logs, metrics and traces from agreed services.",
+      "scope": "Instrument services; collect telemetry; build dashboards; configure alerts.",
+      "deliverables": "Telemetry configuration; dashboards; alert routing; troubleshooting guidance.",
+      "value": "Improves visibility into user impact and technical behavior.",
+      "icon": "Activity"
+     },
+     {
+      "id": "offering-77",
+      "number": "OFFERING 077",
+      "name": "Incident Investigation & Root Cause Analysis",
+      "definition": "Structured investigation of a service incident to establish what happened, contributing factors and corrective actions. It distinguishes evidence from hypotheses and assigns follow-up work rather than attributing every failure to one simplistic cause.",
+      "scope": "Reconstruct timeline; analyze evidence; identify contributing conditions; define actions.",
+      "deliverables": "Incident review; causal findings; corrective backlog; updated response guidance.",
+      "value": "Reduces recurrence and improves organizational learning.",
+      "icon": "Siren"
+     }
+    ]
+   },
+   {
+    "id": "family-2-area-7",
+    "name": "Cloud Operations & Cost Optimization",
+    "short": "Cloud Operations",
+    "stage": "Operate & Optimize",
+    "icon": "Gauge",
+    "offerings": [
+     {
+      "id": "offering-78",
+      "number": "OFFERING 078",
+      "name": "Cloud Cost & Operations Health Check",
+      "definition": "A combined review of cloud spending and operational ownership. It establishes an understandable baseline and identifies priority cost and operating improvements before recommending specific optimization work.",
+      "scope": "Review bills, resource inventory, utilization and operating responsibilities.",
+      "deliverables": "Cost baseline; ownership map; optimization priorities; operational findings.",
+      "value": "Connects technology spending to accountable operating decisions.",
+      "icon": "Stethoscope"
+     },
+     {
+      "id": "offering-79",
+      "number": "OFFERING 079",
+      "name": "Cloud Cost Review & Savings Roadmap",
+      "definition": "Analysis of cloud consumption and spending to identify waste and practical optimization opportunities. Recommendations consider workload needs and implementation effort, with expected savings treated as estimates requiring validation.",
+      "scope": "Analyze cost allocation, utilization and consumption; rank savings opportunities.",
+      "deliverables": "Cost analysis; prioritized savings roadmap; assumptions and implementation owners.",
+      "value": "Supports better-informed cloud cost decisions.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-80",
+      "number": "OFFERING 080",
+      "name": "Resource Rightsizing & Capacity Optimization",
+      "definition": "Adjustment of compute, storage or service capacity based on measured demand and performance requirements. Changes are validated to avoid reducing resource cost at the expense of essential service quality.",
+      "scope": "Analyze utilization; model capacity needs; change resources; validate performance.",
+      "deliverables": "Rightsizing recommendations; implemented adjustments; performance evidence; rollback plan.",
+      "value": "Improves resource efficiency while preserving agreed service needs.",
+      "icon": "Gauge"
+     },
+     {
+      "id": "offering-81",
+      "number": "OFFERING 081",
+      "name": "Cloud Cost Visibility & Budget Controls",
+      "definition": "Implementation of cost allocation, reporting and budget-alert controls for cloud resources. It makes spending visible to accountable owners and supports investigation of unexpected usage without assuming alerts automatically stop expenditure.",
+      "scope": "Configure ownership tags, allocation rules, cost views and budget notifications.",
+      "deliverables": "Cost dashboards; budget alerts; allocation rules; ownership procedures.",
+      "value": "Improves accountability and early detection of unexpected spending.",
+      "icon": "ChartNoAxesCombined"
+     },
+     {
+      "id": "offering-82",
+      "number": "OFFERING 082",
+      "name": "Platform Patching & Maintenance",
+      "definition": "Planned upkeep of platform components through patching and routine maintenance. Compatibility review, change records and recovery preparation help keep the environment supportable within agreed service windows.",
+      "scope": "Review updates; test compatibility; schedule maintenance; validate and document.",
+      "deliverables": "Maintenance schedule; patched components; change records; rollback guidance.",
+      "value": "Reduces accumulated maintenance risk and unplanned disruption.",
+      "icon": "Headset"
+     },
+     {
+      "id": "offering-83",
+      "number": "OFFERING 083",
+      "name": "Routine Operations Automation",
+      "definition": "Automation of a defined repetitive operational task with appropriate validation, access and failure handling. The objective is a maintainable workflow that operators can understand, supervise and recover when assumptions fail.",
+      "scope": "Map task; implement automation; test exceptions; document ownership.",
+      "deliverables": "Automation scripts or workflow; tests; runbook; handover.",
+      "value": "Reduces repetitive effort and inconsistent manual execution.",
+      "icon": "Workflow"
+     }
+    ]
+   }
+  ],
+  "tagline": "Release faster and operate reliably."
+ },
+ {
+  "name": "AI for Business & Software",
+  "id": "family-3",
+  "short": "AI for Business",
+  "icon": "cpu",
+  "areas": [
+   {
+    "id": "family-3-area-1",
+    "name": "AI Strategy & Readiness",
+    "short": "AI Strategy",
+    "stage": "Plan & Build",
+    "icon": "Route",
+    "offerings": [
+     {
+      "id": "offering-84",
+      "number": "OFFERING 084",
+      "name": "AI Value Sprint",
+      "definition": "A fixed-scope discovery engagement that evaluates one proposed AI use case or a stalled pilot. It compares business value, data readiness, feasibility and risk to recommend a practical next step with explicit success criteria.",
+      "scope": "Baseline workflow; assess data; test key assumptions; define pilot boundary.",
+      "deliverables": "Use-case assessment; feasibility findings; success measures; recommended next scope.",
+      "value": "Avoids investing in AI without a clear business case.",
+      "icon": "BrainCircuit"
+     },
+     {
+      "id": "offering-85",
+      "number": "OFFERING 085",
+      "name": "AI Opportunity Assessment",
+      "definition": "Assessment of candidate AI use cases against business value, feasibility, data availability and operating risk. It prioritizes opportunities where AI is appropriate rather than assuming every automation problem requires a model.",
+      "scope": "Identify workflows; assess value and constraints; compare AI and non-AI options.",
+      "deliverables": "Ranked opportunity portfolio; assumptions; recommended pilot candidates.",
+      "value": "Directs investment toward relevant and feasible applications.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-86",
+      "number": "OFFERING 086",
+      "name": "Data & Access Readiness Review",
+      "definition": "A review of whether the data and access arrangements needed for an AI application are available and usable. It examines quality, permissions, ownership and integration constraints before model or workflow implementation.",
+      "scope": "Review data sources, quality, access, ownership and permitted use.",
+      "deliverables": "Readiness assessment; access requirements; remediation backlog.",
+      "value": "Identifies data constraints before they undermine the AI project.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-87",
+      "number": "OFFERING 087",
+      "name": "AI Application Health Check",
+      "definition": "A diagnostic review of an existing AI application's quality, reliability and operating behavior. It investigates observed failures across prompts, retrieval, model use and integrations to recommend bounded corrective work.",
+      "scope": "Review outputs, evaluations, architecture, usage and failure examples.",
+      "deliverables": "Failure analysis; quality baseline; prioritized improvement plan.",
+      "value": "Clarifies why a pilot or production AI workflow underperforms.",
+      "icon": "Stethoscope"
+     },
+     {
+      "id": "offering-88",
+      "number": "OFFERING 088",
+      "name": "AI Platform Selection & Team Enablement",
+      "definition": "Selection and initial enablement of AI tools or platforms suited to the team's use cases and constraints. It evaluates deployment, data handling, integration and operating needs, then prepares users to apply the chosen approach responsibly.",
+      "scope": "Compare options; assess build versus buy; configure initial access; train team.",
+      "deliverables": "Selection rationale; setup guidance; usage practices; enablement materials.",
+      "value": "Improves fit between AI technology and everyday team needs.",
+      "icon": "Compass"
+     }
+    ]
+   },
+   {
+    "id": "family-3-area-2",
+    "name": "AI-powered Product Experiences",
+    "short": "AI Products",
+    "stage": "Plan & Build",
+    "icon": "BrainCircuit",
+    "offerings": [
+     {
+      "id": "offering-89",
+      "number": "OFFERING 089",
+      "name": "AI Feature Launch Package",
+      "definition": "A bounded engagement that brings an AI feature into an existing product journey. It includes application integration, evaluation and operational controls so the feature can be released with defined permissions, limits and fallback behavior.",
+      "scope": "Design task; integrate model and context; evaluate outputs; add release controls.",
+      "deliverables": "Working feature; evaluation results; permissions and limits; release handover.",
+      "value": "Turns an AI concept into a usable, testable product capability.",
+      "icon": "Rocket"
+     },
+     {
+      "id": "offering-90",
+      "number": "OFFERING 090",
+      "name": "In-app AI Assistants",
+      "definition": "An AI-assisted interface embedded within an application to help users understand features, find information or complete defined tasks. Its context and available actions are limited by the application's permissions and designed responsibilities.",
+      "scope": "Define assistance tasks; connect context; implement interface; evaluate answers.",
+      "deliverables": "Embedded assistant; context integration; evaluation set; fallback behavior.",
+      "value": "Reduces friction when users need guidance inside the product.",
+      "icon": "Bot"
+     },
+     {
+      "id": "offering-91",
+      "number": "OFFERING 091",
+      "name": "AI Summaries & Draft Generation",
+      "definition": "Generation of summaries or first drafts for a specific user task using agreed source material and output formats. The workflow defines required review and checks for unsupported claims, omissions and inappropriate content.",
+      "scope": "Define inputs and templates; configure generation; evaluate quality; add review.",
+      "deliverables": "Generation workflow; output templates; evaluation results; review guidance.",
+      "value": "Reduces drafting effort while preserving human accountability for final content.",
+      "icon": "BrainCircuit"
+     },
+     {
+      "id": "offering-92",
+      "number": "OFFERING 092",
+      "name": "Conversational Access to Product Data & Actions",
+      "definition": "A conversational interface that translates user requests into controlled access to product data or functions. It connects language understanding to explicit application permissions, validation and confirmation rules for consequential actions.",
+      "scope": "Map intents; expose approved functions; enforce access; test queries and actions.",
+      "deliverables": "Conversational workflow; function integrations; permission tests; audit behavior.",
+      "value": "Makes approved application capabilities easier to access.",
+      "icon": "Bot"
+     },
+     {
+      "id": "offering-93",
+      "number": "OFFERING 093",
+      "name": "Multi-tenant AI APIs",
+      "definition": "Shared AI service interfaces designed for multiple customer organizations with separate permissions and usage controls. The service addresses tenant context, quotas, metering and fallback so a shared model integration does not imply shared customer access.",
+      "scope": "Implement tenant-aware APIs; apply quotas and metering; validate isolation.",
+      "deliverables": "AI API contracts; isolation tests; usage records; operating controls.",
+      "value": "Supports controlled AI delivery across multiple customers.",
+      "icon": "AppWindow"
+     }
+    ]
+   },
+   {
+    "id": "family-3-area-3",
+    "name": "Enterprise Search & Knowledge",
+    "short": "Search & Knowledge",
+    "stage": "Assist & Automate",
+    "icon": "Search",
+    "offerings": [
+     {
+      "id": "offering-94",
+      "number": "OFFERING 094",
+      "name": "Support Knowledge Assistant",
+      "definition": "A starting knowledge-assistance solution that searches approved support content and drafts answers with references. It follows agreed access boundaries and provides uncertainty or escalation behavior when the available evidence is insufficient.",
+      "scope": "Connect support sources; configure retrieval; generate referenced answers; evaluate.",
+      "deliverables": "Working assistant; source connections; answer evaluations; escalation guidance.",
+      "value": "Helps teams find relevant support information more quickly.",
+      "icon": "Headset"
+     },
+     {
+      "id": "offering-95",
+      "number": "OFFERING 095",
+      "name": "Knowledge Source Integration & Refresh",
+      "definition": "Connection and ongoing refresh of content sources used by AI search or knowledge applications. It manages ingestion, updates and deletions so the available knowledge reflects the approved source systems and freshness requirements.",
+      "scope": "Build connectors; transform content; schedule refresh; handle deletion and failures.",
+      "deliverables": "Source pipelines; refresh schedule; ingestion monitoring; maintenance guide.",
+      "value": "Reduces stale or missing information in knowledge workflows.",
+      "icon": "Cable"
+     },
+     {
+      "id": "offering-96",
+      "number": "OFFERING 096",
+      "name": "Intelligent Enterprise Search",
+      "definition": "Search that retrieves relevant enterprise information using semantic or combined keyword and semantic techniques. It improves retrieval for agreed tasks while preserving source permissions and measuring relevance against representative queries.",
+      "scope": "Prepare indexes; configure retrieval and ranking; test relevance and access.",
+      "deliverables": "Search experience; index configuration; relevance evaluation; operating guide.",
+      "value": "Reduces time spent locating business information.",
+      "icon": "Search"
+     },
+     {
+      "id": "offering-97",
+      "number": "OFFERING 097",
+      "name": "Knowledge Assistants with Source References",
+      "definition": "An AI answer service that uses retrieved enterprise content and exposes references supporting its response. It distinguishes grounded information from uncertainty and is evaluated for both retrieval quality and answer faithfulness.",
+      "scope": "Configure retrieval and generation; attach references; test unsupported-answer handling.",
+      "deliverables": "Knowledge assistant; reference behavior; evaluation results; content guidance.",
+      "value": "Makes generated answers easier to verify against their sources.",
+      "icon": "Search"
+     },
+     {
+      "id": "offering-98",
+      "number": "OFFERING 098",
+      "name": "Permission-based Knowledge Access",
+      "definition": "Access enforcement for enterprise knowledge retrieval and generated answers. The service carries user, role or tenant permissions into content selection so restricted information is excluded before it can influence an answer.",
+      "scope": "Map source permissions; filter retrieval; validate identity context; test leakage cases.",
+      "deliverables": "Permission mapping; access controls; isolation tests; audit records.",
+      "value": "Protects restricted information in shared knowledge tools.",
+      "icon": "Search"
+     }
+    ]
+   },
+   {
+    "id": "family-3-area-4",
+    "name": "Intelligent Document Processing",
+    "short": "Document Processing",
+    "stage": "Assist & Automate",
+    "icon": "FileText",
+    "offerings": [
+     {
+      "id": "offering-99",
+      "number": "OFFERING 099",
+      "name": "Document Workflow Automation",
+      "definition": "A bounded automation workflow that receives documents, extracts agreed information and checks it before updating another system. Exceptions are routed to people rather than allowing uncertain extraction to become an unchecked business transaction.",
+      "scope": "Define intake and schemas; extract data; validate; route exceptions; integrate.",
+      "deliverables": "Document pipeline; validation rules; reviewer queue; integration tests.",
+      "value": "Reduces manual document handling while retaining exception control.",
+      "icon": "Workflow"
+     },
+     {
+      "id": "offering-100",
+      "number": "OFFERING 100",
+      "name": "Document Classification & Routing",
+      "definition": "Automated identification of document types and routing to the appropriate business process or team. The workflow defines supported categories, confidence handling and the treatment of unfamiliar or ambiguous documents.",
+      "scope": "Define taxonomy; configure classifier; test samples; implement routing and exceptions.",
+      "deliverables": "Classification workflow; category definitions; evaluation results; exception routing.",
+      "value": "Reduces manual sorting and misdirected document work.",
+      "icon": "FileText"
+     },
+     {
+      "id": "offering-101",
+      "number": "OFFERING 101",
+      "name": "Document Data Extraction",
+      "definition": "Conversion of information in documents into structured fields or tables aligned with an agreed schema. Validation and confidence handling address differences in layout, scan quality and document content.",
+      "scope": "Define fields; configure extraction; test representative layouts; manage exceptions.",
+      "deliverables": "Extraction pipeline; data schema; field-quality evaluation; review rules.",
+      "value": "Reduces repetitive transcription of document information.",
+      "icon": "FileText"
+     },
+     {
+      "id": "offering-102",
+      "number": "OFFERING 102",
+      "name": "Document Validation & Cross-checks",
+      "definition": "Verification of extracted document information against business rules, reference data or related documents. It identifies missing, inconsistent or suspicious values and routes discrepancies for resolution rather than silently correcting them.",
+      "scope": "Define checks; compare fields and totals; match references; route discrepancies.",
+      "deliverables": "Validation rules; discrepancy reports; review workflow; test evidence.",
+      "value": "Prevents unreliable extracted data from entering downstream processes.",
+      "icon": "FlaskConical"
+     },
+     {
+      "id": "offering-103",
+      "number": "OFFERING 103",
+      "name": "Document Review & System Integration",
+      "definition": "A workflow through which people review document-processing exceptions and approve validated information for downstream systems. It connects review decisions to reliable updates and traceable processing status.",
+      "scope": "Build reviewer queues; support corrections; integrate target systems; handle retries.",
+      "deliverables": "Review interface; integration workflow; audit trail; exception runbook.",
+      "value": "Keeps automated processing usable when human judgment is needed.",
+      "icon": "ClipboardCheck"
+     }
+    ]
+   },
+   {
+    "id": "family-3-area-5",
+    "name": "AI-powered Business Workflows",
+    "short": "AI Workflows",
+    "stage": "Assist & Automate",
+    "icon": "Workflow",
+    "offerings": [
+     {
+      "id": "offering-104",
+      "number": "OFFERING 104",
+      "name": "Service Request Automation",
+      "definition": "A bounded workflow that interprets incoming service requests, gathers relevant context and prepares or performs permitted next steps. Explicit approval and exception rules govern updates to business systems.",
+      "scope": "Define request types; gather context; draft responses; execute authorized updates.",
+      "deliverables": "Request workflow; integrations; approval rules; evaluation and audit evidence.",
+      "value": "Reduces repetitive request handling and improves routing consistency.",
+      "icon": "Workflow"
+     },
+     {
+      "id": "offering-105",
+      "number": "OFFERING 105",
+      "name": "Request Understanding & Routing",
+      "definition": "Interpretation of incoming messages to identify the requested service, relevant details and appropriate destination. The system handles ambiguity and unsupported requests through defined fallback routes.",
+      "scope": "Define intents and required fields; configure classification; test routing.",
+      "deliverables": "Intent model or rules; routing workflow; evaluation set; fallback process.",
+      "value": "Reduces manual triage and avoidable reassignment.",
+      "icon": "BrainCircuit"
+     },
+     {
+      "id": "offering-106",
+      "number": "OFFERING 106",
+      "name": "AI-assisted Responses & Next Steps",
+      "definition": "AI-generated response drafts or recommended next actions for a human reviewer handling a defined workflow. Suggestions use agreed context and remain subject to review before they become external communication or system changes.",
+      "scope": "Connect context; define response patterns; generate suggestions; evaluate and review.",
+      "deliverables": "Drafting workflow; recommendation templates; quality tests; reviewer guidance.",
+      "value": "Helps staff respond consistently with less preparation effort.",
+      "icon": "Siren"
+     },
+     {
+      "id": "offering-107",
+      "number": "OFFERING 107",
+      "name": "CRM, ERP & Helpdesk Integration",
+      "definition": "Integration that enables an AI workflow to read or update agreed customer, enterprise or service-management records. Business permissions, record ownership and transaction controls remain authoritative across the connection.",
+      "scope": "Map records and actions; connect APIs; enforce access; handle duplicates and failures.",
+      "deliverables": "System connectors; action contracts; permission tests; transaction logs.",
+      "value": "Connects AI assistance to practical business work.",
+      "icon": "Cable"
+     },
+     {
+      "id": "offering-108",
+      "number": "OFFERING 108",
+      "name": "Task Agents with Approval Controls",
+      "definition": "Implementation of an AI agent for a limited task with explicit tool permissions and human approval points. The agent operates within a defined action boundary and records what it proposed, attempted and completed.",
+      "scope": "Define tools and limits; implement approvals; test failures and unauthorized requests.",
+      "deliverables": "Bounded agent; approval workflow; action logs; exception and recovery behavior.",
+      "value": "Automates selected tasks while preserving decision control.",
+      "icon": "Bot"
+     }
+    ]
+   },
+   {
+    "id": "family-3-area-6",
+    "name": "AI-assisted Software Engineering",
+    "short": "AI Engineering",
+    "stage": "Deliver & Optimize",
+    "icon": "RefreshCw",
+    "offerings": [
+     {
+      "id": "offering-109",
+      "number": "OFFERING 109",
+      "name": "Engineering AI Starter Package",
+      "definition": "A starting engagement that configures AI assistance for one engineering workflow and establishes reviewed usage practices. Repository context, quality checks and team handover make the approach repeatable beyond an isolated demonstration.",
+      "scope": "Select workflow; configure tools and context; evaluate results; train team.",
+      "deliverables": "Configured workflow; repository guidance; evaluation evidence; adoption materials.",
+      "value": "Creates a practical baseline for team-wide engineering assistance.",
+      "icon": "CodeXml"
+     },
+     {
+      "id": "offering-110",
+      "number": "OFFERING 110",
+      "name": "AI-assisted Development Pilot",
+      "definition": "A limited delivery experiment in which engineers use AI assistance to complete an agreed software increment. Human review and existing quality controls remain in place while the team evaluates whether the approach is useful and repeatable.",
+      "scope": "Choose increment; establish workflow; deliver reviewed changes; assess results.",
+      "deliverables": "Software increment; review and test evidence; pilot findings; repeatable guidance.",
+      "value": "Tests AI assistance against actual delivery work.",
+      "icon": "BrainCircuit"
+     },
+     {
+      "id": "offering-111",
+      "number": "OFFERING 111",
+      "name": "AI-assisted Software Development",
+      "definition": "Software development in which AI tools support selected tasks such as drafting code, explaining changes or proposing tests. Engineers remain responsible for design, verification and acceptance of the resulting software.",
+      "scope": "Implement agreed changes with AI support; review code; test and document.",
+      "deliverables": "Reviewed code; test evidence; release notes; workflow guidance.",
+      "value": "Can reduce routine effort while retaining engineering accountability.",
+      "icon": "BrainCircuit"
+     },
+     {
+      "id": "offering-112",
+      "number": "OFFERING 112",
+      "name": "AI-assisted DevOps Enablement",
+      "definition": "Enablement of AI assistance for defined infrastructure or delivery tasks, such as proposing configuration changes and explaining automation. Proposed changes are reviewed and tested before they affect environments.",
+      "scope": "Configure repository context; generate proposed changes; validate and review automation.",
+      "deliverables": "Reviewed automation; assistant guidance; tests; controlled operating workflow.",
+      "value": "Helps teams work through repetitive or unfamiliar DevOps tasks.",
+      "icon": "BrainCircuit"
+     },
+     {
+      "id": "offering-113",
+      "number": "OFFERING 113",
+      "name": "AI Coding Tools & Team Onboarding",
+      "definition": "Configuration and adoption support for AI coding tools within an engineering team. It covers approved usage, repository access and review practices so team members understand both productive uses and practical limits.",
+      "scope": "Set up access; configure tools; define usage rules; run onboarding sessions.",
+      "deliverables": "Tool configuration; team guide; training materials; adoption checklist.",
+      "value": "Reduces inconsistent adoption and avoidable misuse of coding assistants.",
+      "icon": "BrainCircuit"
+     },
+     {
+      "id": "offering-114",
+      "number": "OFFERING 114",
+      "name": "Codebase Navigation & Understanding",
+      "definition": "AI-assisted exploration of a codebase to help engineers locate relevant components and understand behavior. Explanations are grounded in repository material and checked against source code rather than treated as authoritative by default.",
+      "scope": "Index approved repositories; configure navigation; test representative engineering questions.",
+      "deliverables": "Code navigation workflow; repository context; validation examples; onboarding guide.",
+      "value": "Reduces time spent orienting engineers in unfamiliar code.",
+      "icon": "BrainCircuit"
+     },
+     {
+      "id": "offering-115",
+      "number": "OFFERING 115",
+      "name": "AI-assisted Code Review & Testing",
+      "definition": "AI assistance that proposes code-review observations or test cases for engineers to evaluate. It complements established review and test processes, with validation of suggested defects, coverage and generated test behavior.",
+      "scope": "Define review tasks; configure context; generate suggestions; measure usefulness.",
+      "deliverables": "Review assistance; proposed tests; quality evaluation; reviewer guidance.",
+      "value": "Helps reviewers identify additional issues and reduce repetitive preparation.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-116",
+      "number": "OFFERING 116",
+      "name": "AI-assisted Pipeline Troubleshooting",
+      "definition": "AI-assisted analysis of delivery-pipeline failures using available logs, configuration and recent changes. It proposes explanations or corrections for engineering review without assuming that a plausible explanation establishes the root cause.",
+      "scope": "Connect pipeline context; summarize failures; propose fixes; validate suggestions.",
+      "deliverables": "Troubleshooting workflow; diagnostic summaries; reviewed correction proposals.",
+      "value": "Reduces the effort needed to understand recurring pipeline failures.",
+      "icon": "GitBranch"
+     }
+    ]
+   },
+   {
+    "id": "family-3-area-7",
+    "name": "AI-assisted IT Operations",
+    "short": "AI Operations",
+    "stage": "Deliver & Optimize",
+    "icon": "BrainCircuit",
+    "offerings": [
+     {
+      "id": "offering-117",
+      "number": "OFFERING 117",
+      "name": "Intelligent Alert Triage",
+      "definition": "Assistance that groups related alerts and adds service context to help operators prioritize investigation. It is evaluated against real alert examples so noise reduction does not conceal distinct or high-impact incidents.",
+      "scope": "Correlate alerts; enrich context; rank cases; validate operator decisions.",
+      "deliverables": "Triage workflow; incident context views; evaluation results; escalation rules.",
+      "value": "Helps operators focus attention on meaningful incident signals.",
+      "icon": "BrainCircuit"
+     },
+     {
+      "id": "offering-118",
+      "number": "OFFERING 118",
+      "name": "AI-assisted Incident Investigation",
+      "definition": "AI-assisted organization of incident evidence into summaries and likely-cause hypotheses. The service supports investigators in examining logs, changes and dependencies while making the distinction between observed facts and suggestions explicit.",
+      "scope": "Connect incident evidence; generate timelines and hypotheses; support validation.",
+      "deliverables": "Investigation assistant; evidence summaries; hypothesis records; review process.",
+      "value": "Speeds orientation during incident investigation.",
+      "icon": "Siren"
+     },
+     {
+      "id": "offering-119",
+      "number": "OFFERING 119",
+      "name": "Guided Recovery with Approval Controls",
+      "definition": "A guided operational workflow that retrieves relevant recovery procedures and coordinates permitted actions. Approval gates, validation and rollback boundaries control when a recommendation may become a real environment change.",
+      "scope": "Connect runbooks; define action permissions; implement approvals; test recovery steps.",
+      "deliverables": "Guided workflow; approval records; execution logs; recovery validation.",
+      "value": "Reduces recovery coordination effort while preserving operator control.",
+      "icon": "LifeBuoy"
+     },
+     {
+      "id": "offering-120",
+      "number": "OFFERING 120",
+      "name": "Incident Summaries & Follow-up Actions",
+      "definition": "Generation of structured incident summaries and proposed follow-up actions from approved incident records. A reviewer verifies the timeline, impact and ownership before the record is used for communication or improvement tracking.",
+      "scope": "Gather incident records; draft summary; propose actions; review and publish internally.",
+      "deliverables": "Reviewed incident report; action list; ownership suggestions; source references.",
+      "value": "Reduces post-incident documentation effort.",
+      "icon": "Siren"
+     }
+    ]
+   },
+   {
+    "id": "family-3-area-8",
+    "name": "AI Quality & Operations",
+    "short": "AI Quality",
+    "stage": "Deliver & Optimize",
+    "icon": "FlaskConical",
+    "offerings": [
+     {
+      "id": "offering-121",
+      "number": "OFFERING 121",
+      "name": "AI Reliability & Operations",
+      "definition": "A diagnostic and operating service for accepted AI workflows that monitors quality, source changes, failures and usage. Improvements are scoped against a defined baseline rather than assuming a model remains reliable after deployment.",
+      "scope": "Establish baseline; monitor quality and cost; investigate failures; implement agreed improvements.",
+      "deliverables": "AI operating plan; evaluations; monitoring reports; improvement backlog.",
+      "value": "Supports continued usefulness as data, models and usage change.",
+      "icon": "HeartPulse"
+     },
+     {
+      "id": "offering-122",
+      "number": "OFFERING 122",
+      "name": "AI Quality Evaluation & Regression Testing",
+      "definition": "A repeatable evaluation process that measures AI behavior on representative examples and detects regressions after changes. It defines relevant quality criteria and tests failure cases instead of relying only on demonstrations or average scores.",
+      "scope": "Build test datasets; define scoring; run comparisons; investigate regressions.",
+      "deliverables": "Evaluation dataset; scoring rubric; regression reports; release recommendations.",
+      "value": "Makes AI quality decisions more evidence-based.",
+      "icon": "FlaskConical"
+     },
+     {
+      "id": "offering-123",
+      "number": "OFFERING 123",
+      "name": "AI Permissions, Approvals & Audit Controls",
+      "definition": "Implementation of access boundaries, decision approvals and traceable records for AI-supported workflows. Controls govern the surrounding application and tools rather than relying on instructions to the model as the only protection.",
+      "scope": "Enforce permissions; define approval steps; log actions; test bypass scenarios.",
+      "deliverables": "Access controls; approval workflow; audit records; boundary-test results.",
+      "value": "Preserves accountability when AI participates in business processes.",
+      "icon": "LockKeyhole"
+     },
+     {
+      "id": "offering-124",
+      "number": "OFFERING 124",
+      "name": "AI Deployment & Cost Controls",
+      "definition": "Deployment and operating controls for AI services that manage release changes, usage and expenditure. The service defines monitoring, limits and fallback or rollback behavior for the selected model and application arrangement.",
+      "scope": "Configure releases; monitor usage; set limits; validate rollback and fallback.",
+      "deliverables": "Deployment workflow; usage controls; monitoring views; recovery guide.",
+      "value": "Improves control over AI operating cost and release risk.",
+      "icon": "ChartNoAxesCombined"
+     },
+     {
+      "id": "offering-125",
+      "number": "OFFERING 125",
+      "name": "Continuous AI Improvement & Maintenance",
+      "definition": "Ongoing, scoped maintenance of an AI workflow based on evaluation results and operating feedback. It addresses changes to content, prompts, integrations or model configuration while preserving evidence of whether quality improved or regressed.",
+      "scope": "Review evaluations; prioritize changes; maintain sources and integrations; retest.",
+      "deliverables": "Maintained workflow; change records; evaluation comparisons; improvement backlog.",
+      "value": "Keeps the workflow aligned with evolving business information and needs.",
+      "icon": "Headset"
+     }
+    ]
+   }
+  ],
+  "tagline": "Automate work and put knowledge to use."
+ },
+ {
+  "name": "Cybersecurity",
+  "id": "family-4",
+  "short": "Cybersecurity",
+  "icon": "shield-check",
+  "areas": [
+   {
+    "id": "family-4-area-1",
+    "name": "Threat Assessment & Testing",
+    "short": "Threat Assessment",
+    "stage": "Assess",
+    "icon": "ClipboardCheck",
+    "offerings": [
+     {
+      "id": "offering-126",
+      "number": "OFFERING 126",
+      "name": "Threat Modeling & Attack Path Review",
+      "definition": "A structured examination of how important assets could be misused or compromised through their architecture and dependencies. It identifies plausible attack paths and prioritizes preventive controls based on business impact and feasibility.",
+      "scope": "Map assets and trust boundaries; model threats; assess attack paths; rank treatments.",
+      "deliverables": "Threat model; attack-path findings; prioritized control recommendations.",
+      "value": "Helps teams address important design risks before incidents occur.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-127",
+      "number": "OFFERING 127",
+      "name": "Threat Intelligence",
+      "definition": "Collection and analysis of relevant threat information to support security decisions. It connects external indicators, exposure reports and adversary activity to the organization's actual assets and priorities rather than forwarding unfiltered threat feeds.",
+      "scope": "Define intelligence needs; monitor relevant sources; validate findings; brief stakeholders.",
+      "deliverables": "Threat briefs; contextual indicators; exposure findings; recommended actions.",
+      "value": "Improves prioritization of security attention.",
+      "icon": "ScanLine"
+     },
+     {
+      "id": "offering-128",
+      "number": "OFFERING 128",
+      "name": "Red & Purple Team Simulation",
+      "definition": "An authorized adversary simulation that tests whether selected security defenses and response processes work in practice. Red-team activity pursues agreed objectives; purple-team collaboration helps defenders examine and improve detection during or after testing.",
+      "scope": "Agree rules and objectives; simulate attacks; review detection and response; retest improvements.",
+      "deliverables": "Exercise plan; evidence; detection gaps; improvement recommendations.",
+      "value": "Tests operational defenses against realistic attack behavior.",
+      "icon": "ShieldCheck"
+     },
+     {
+      "id": "offering-129",
+      "number": "OFFERING 129",
+      "name": "Penetration Testing",
+      "definition": "An authorized, scoped attempt to identify and validate exploitable weaknesses in selected applications or infrastructure. It produces evidence-based findings and remediation guidance within agreed rules, with retesting defined separately or explicitly included.",
+      "scope": "Define targets and rules; test weaknesses; validate impact; report and retest as agreed.",
+      "deliverables": "Technical findings; risk priorities; remediation guidance; agreed retest results.",
+      "value": "Identifies exploitable weaknesses before an attacker can use them.",
+      "icon": "ScanLine"
+     }
+    ]
+   },
+   {
+    "id": "family-4-area-2",
+    "name": "Infrastructure & Data Protection",
+    "short": "Data Protection",
+    "stage": "Protect",
+    "icon": "ShieldCheck",
+    "offerings": [
+     {
+      "id": "offering-130",
+      "number": "OFFERING 130",
+      "name": "AI & Generative AI Security",
+      "definition": "A bounded review of AI and generative-AI systems that combines system inventory, data-access review and adversarial testing. It examines prompt-based attacks, information leakage and action boundaries, then recommends practical controls and usage rules.",
+      "scope": "Inventory AI workflows; review data access; test misuse; define guardrails.",
+      "deliverables": "AI exposure inventory; security findings; control plan; usage guidance.",
+      "value": "Clarifies risks introduced by business adoption of generative AI.",
+      "icon": "ShieldCheck"
+     },
+     {
+      "id": "offering-131",
+      "number": "OFFERING 131",
+      "name": "Network & Endpoint Security",
+      "definition": "Design and implementation of safeguards for endpoints and network communication. The service coordinates device protection, network segmentation and monitoring around the actual operating environment rather than treating each control as a standalone installation.",
+      "scope": "Assess devices and traffic; configure protection and segmentation; validate detection.",
+      "deliverables": "Security configurations; segmentation rules; test results; operating procedures.",
+      "value": "Reduces opportunities for compromise and uncontrolled lateral movement.",
+      "icon": "ShieldCheck"
+     },
+     {
+      "id": "offering-132",
+      "number": "OFFERING 132",
+      "name": "Cloud-native Security",
+      "definition": "Security assessment and implementation for cloud accounts, services, containers and orchestration environments. It addresses cloud-specific configuration and access risks while clarifying the responsibilities retained by the organization and those of its providers.",
+      "scope": "Review cloud posture; harden configurations; manage workload access; enable monitoring.",
+      "deliverables": "Posture findings; implemented controls; access rules; monitoring guidance.",
+      "value": "Reduces cloud misconfiguration and unnecessary exposure.",
+      "icon": "ShieldCheck"
+     },
+     {
+      "id": "offering-133",
+      "number": "OFFERING 133",
+      "name": "Data Protection",
+      "definition": "A coordinated approach to identifying sensitive data and protecting it throughout storage, use and transfer. It aligns classification, access restrictions, loss-prevention controls and encryption with the organization's data handling requirements.",
+      "scope": "Classify data; map flows; configure protection; manage exceptions and validation.",
+      "deliverables": "Data-handling rules; protection configurations; findings; operating procedures.",
+      "value": "Reduces unintended exposure of important business information.",
+      "icon": "ShieldCheck"
+     },
+     {
+      "id": "offering-134",
+      "number": "OFFERING 134",
+      "name": "AI Security",
+      "definition": "Security assessment and improvement of selected AI models, copilots and their supporting workflows. It examines how inputs, retrieved data and tool permissions could produce unauthorized disclosure or behavior, within a defined technical scope.",
+      "scope": "Review AI architecture; test prompt attacks and leakage; improve access boundaries.",
+      "deliverables": "AI security findings; prioritized mitigations; validation tests; control guidance.",
+      "value": "Helps teams secure a specific AI implementation.",
+      "icon": "ShieldCheck"
+     },
+     {
+      "id": "offering-135",
+      "number": "OFFERING 135",
+      "name": "OT / ICS Security",
+      "definition": "Security work for operational technology and industrial control systems where availability and physical process safety constrain changes. The service prioritizes asset visibility, separation and controlled access while coordinating testing and remediation with operational owners.",
+      "scope": "Inventory assets; assess communication paths; review access; plan safe improvements.",
+      "deliverables": "Asset view; segmentation recommendations; access controls; staged remediation plan.",
+      "value": "Improves industrial security without ignoring operating constraints.",
+      "icon": "ShieldCheck"
+     }
+    ]
+   },
+   {
+    "id": "family-4-area-3",
+    "name": "Identity & Zero Trust",
+    "short": "Identity & Zero Trust",
+    "stage": "Protect",
+    "icon": "Fingerprint",
+    "offerings": [
+     {
+      "id": "offering-136",
+      "number": "OFFERING 136",
+      "name": "Identity & Privileged Access Management",
+      "definition": "Management of workforce, privileged and machine access across agreed systems. It combines identity lifecycle control with restrictions and oversight for high-privilege activity so access can be justified, reviewed and removed when no longer needed.",
+      "scope": "Inventory identities; define least privilege; configure privileged access; review lifecycle.",
+      "deliverables": "Access model; privileged-access controls; review process; audit evidence.",
+      "value": "Reduces excessive and unmanaged access to critical systems.",
+      "icon": "LockKeyhole"
+     },
+     {
+      "id": "offering-137",
+      "number": "OFFERING 137",
+      "name": "Zero Trust Architecture",
+      "definition": "An architecture approach in which access decisions depend on verified identities, resource context and policy rather than implicit trust in network location. The engagement defines a practical transition design across selected users, devices and applications.",
+      "scope": "Assess access paths; define policy enforcement; design segmentation and identity controls.",
+      "deliverables": "Reference architecture; access patterns; phased roadmap; validation criteria.",
+      "value": "Limits unnecessary trust and improves consistency of access decisions.",
+      "icon": "Blocks"
+     }
+    ]
+   },
+   {
+    "id": "family-4-area-4",
+    "name": "Security Leadership & Risk",
+    "short": "Leadership & Risk",
+    "stage": "Govern",
+    "icon": "ShieldCheck",
+    "offerings": [
+     {
+      "id": "offering-138",
+      "number": "OFFERING 138",
+      "name": "vCISO & Board Advisory",
+      "definition": "A security-leadership engagement that combines fractional executive guidance with board-level risk communication. It translates technical concerns into priorities, ownership and investment decisions while maintaining oversight of the security program and relevant vendors.",
+      "scope": "Review posture; set roadmap; advise leadership; prepare board reporting.",
+      "deliverables": "Security roadmap; board materials; decision recommendations; oversight cadence.",
+      "value": "Connects security investment to executive business decisions.",
+      "icon": "Compass"
+     },
+     {
+      "id": "offering-139",
+      "number": "OFFERING 139",
+      "name": "vCISO Services",
+      "definition": "Provision of part-time security leadership to guide an organization's security program without a full-time executive appointment. Responsibilities and authority are agreed across priorities, policies, risk treatment and coordination with internal teams.",
+      "scope": "Establish priorities; guide program work; coordinate stakeholders; report progress.",
+      "deliverables": "Security plan; governance cadence; risk updates; leadership advice.",
+      "value": "Provides accountable security direction at an agreed engagement level.",
+      "icon": "BriefcaseBusiness"
+     },
+     {
+      "id": "offering-140",
+      "number": "OFFERING 140",
+      "name": "Security Governance",
+      "definition": "Definition of the policies, responsibilities and decision processes through which an organization manages security. Governance clarifies who sets requirements, accepts risk and verifies performance, rather than treating security as a collection of tools.",
+      "scope": "Define policies, decision rights, control ownership and oversight routines.",
+      "deliverables": "Governance framework; policy set; responsibility matrix; review calendar.",
+      "value": "Makes security decisions and ownership consistent.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-141",
+      "number": "OFFERING 141",
+      "name": "Cyber Risk Management",
+      "definition": "A process for identifying, assessing and treating cyber risks in business terms. It connects threats and weaknesses to consequences, accountable owners and treatment decisions while making assessment assumptions explicit.",
+      "scope": "Identify scenarios; assess likelihood and impact; assign owners; plan treatment.",
+      "deliverables": "Risk register; assessment rationale; treatment plan; reporting approach.",
+      "value": "Helps leaders prioritize risk-reduction investment.",
+      "icon": "ShieldAlert"
+     }
+    ]
+   },
+   {
+    "id": "family-4-area-5",
+    "name": "Compliance & Audit Readiness",
+    "short": "Compliance & Audit",
+    "stage": "Govern",
+    "icon": "ClipboardCheck",
+    "offerings": [
+     {
+      "id": "offering-142",
+      "number": "OFFERING 142",
+      "name": "Compliance & Audit Readiness",
+      "definition": "An engagement that organizes applicable control requirements and supporting evidence into a coordinated audit-readiness program. It includes gap analysis and remediation planning, while formal certification or audit conclusions remain with the relevant independent assessor.",
+      "scope": "Map requirements; test readiness; organize evidence; plan corrective actions.",
+      "deliverables": "Control mapping; evidence index; gap assessment; remediation plan.",
+      "value": "Reduces fragmented preparation for multiple assurance requirements.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-143",
+      "number": "OFFERING 143",
+      "name": "Compliance Programs",
+      "definition": "Implementation and maintenance of a structured program for meeting selected compliance requirements. It assigns control responsibilities, evidence routines and review activities so compliance work becomes repeatable rather than a one-time document exercise.",
+      "scope": "Define applicable controls; assign owners; establish evidence collection and review.",
+      "deliverables": "Compliance plan; control ownership; evidence schedule; reporting process.",
+      "value": "Makes recurring compliance obligations easier to manage.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-144",
+      "number": "OFFERING 144",
+      "name": "Audit Readiness & Assurance",
+      "definition": "A focused readiness review of control design, operation and supporting evidence before an audit or assurance activity. It identifies gaps and corrective actions without representing the readiness reviewer as the final certifying authority.",
+      "scope": "Review evidence; test selected controls; identify gaps; track remediation.",
+      "deliverables": "Readiness report; evidence findings; remediation tracker; audit preparation guidance.",
+      "value": "Improves the quality and completeness of audit preparation.",
+      "icon": "ClipboardCheck"
+     }
+    ]
+   },
+   {
+    "id": "family-4-area-6",
+    "name": "Vulnerability & Exposure Management",
+    "short": "Vulnerability & Exposure",
+    "stage": "Expose",
+    "icon": "ScanLine",
+    "offerings": [
+     {
+      "id": "offering-145",
+      "number": "OFFERING 145",
+      "name": "Vulnerability Management",
+      "definition": "An ongoing process for discovering, prioritizing and addressing technical vulnerabilities across defined assets. It combines scanning with asset context, ownership and verification so the process measures closure rather than merely accumulating findings.",
+      "scope": "Define coverage; scan; validate and prioritize; assign remediation; verify closure.",
+      "deliverables": "Vulnerability inventory; prioritized work queue; remediation reports; retest evidence.",
+      "value": "Focuses remediation on relevant and consequential weaknesses.",
+      "icon": "ScanLine"
+     },
+     {
+      "id": "offering-146",
+      "number": "OFFERING 146",
+      "name": "Application Security & Secure Development",
+      "definition": "Integration of security activities into application design, development and release. It combines requirements, review and suitable testing to help engineering teams prevent and detect weaknesses as part of their normal delivery process.",
+      "scope": "Define security requirements; review designs; integrate code and runtime checks; manage findings.",
+      "deliverables": "Secure-development practices; test configurations; remediation backlog; developer guidance.",
+      "value": "Reduces avoidable application weaknesses throughout delivery.",
+      "icon": "ShieldCheck"
+     },
+     {
+      "id": "offering-147",
+      "number": "OFFERING 147",
+      "name": "Attack Surface & Exposure Management",
+      "definition": "Discovery and assessment of exposed assets and reachable weaknesses from an attacker-oriented perspective. It connects asset visibility, exposure validation and business importance rather than relying only on a vulnerability identifier list.",
+      "scope": "Discover internet-facing assets; verify ownership; assess exposure; prioritize paths.",
+      "deliverables": "Attack-surface inventory; validated exposures; prioritized treatment recommendations.",
+      "value": "Makes overlooked external exposure visible and actionable.",
+      "icon": "ScanLine"
+     },
+     {
+      "id": "offering-148",
+      "number": "OFFERING 148",
+      "name": "Remediation Management",
+      "definition": "Coordination of security fixes from finding through verified closure. It establishes accountable owners, due dates, exceptions and retesting so remediation progresses across teams and unresolved risk remains visible.",
+      "scope": "Assign findings; track work; manage exceptions; coordinate retests.",
+      "deliverables": "Remediation tracker; ownership and deadlines; exception records; closure evidence.",
+      "value": "Reduces stalled findings and unclear responsibility.",
+      "icon": "ShieldCheck"
+     }
+    ]
+   },
+   {
+    "id": "family-4-area-7",
+    "name": "Monitoring & Incident Response",
+    "short": "Incident Response",
+    "stage": "Recover",
+    "icon": "Siren",
+    "offerings": [
+     {
+      "id": "offering-149",
+      "number": "OFFERING 149",
+      "name": "Incident & Ransomware Readiness",
+      "definition": "A preparedness engagement that brings together incident procedures and ransomware recovery considerations before a crisis. It uses exercises to test decisions, communications, isolation and restoration assumptions under realistic disruption scenarios.",
+      "scope": "Review playbooks and backups; define decisions; run tabletop; prioritize gaps.",
+      "deliverables": "Readiness assessment; response and recovery plans; exercise findings; action list.",
+      "value": "Helps leadership and operators rehearse coordinated response.",
+      "icon": "ShieldAlert"
+     },
+     {
+      "id": "offering-150",
+      "number": "OFFERING 150",
+      "name": "SOC & Security Monitoring",
+      "definition": "Operation or enablement of a security monitoring function that collects relevant signals and coordinates investigation and escalation. Coverage, staffing hours and response responsibilities must be agreed explicitly rather than inferred from the term SOC.",
+      "scope": "Integrate telemetry; configure detection; triage alerts; escalate and report.",
+      "deliverables": "Monitoring configuration; detection rules; incident queue; service reporting.",
+      "value": "Improves visibility and coordination for suspected security incidents.",
+      "icon": "Activity"
+     },
+     {
+      "id": "offering-151",
+      "number": "OFFERING 151",
+      "name": "Security Incident Response",
+      "definition": "Preparation and execution support for handling security incidents through defined roles, analysis, containment and communication. The scope clarifies whether the engagement provides readiness planning, retained assistance or active incident support.",
+      "scope": "Define playbooks; investigate evidence; coordinate containment; support communications.",
+      "deliverables": "Response plan or incident record; containment actions; recovery recommendations; lessons learned.",
+      "value": "Reduces confusion and delay during security incidents.",
+      "icon": "Siren"
+     },
+     {
+      "id": "offering-152",
+      "number": "OFFERING 152",
+      "name": "Digital Forensics",
+      "definition": "Specialist collection and examination of digital evidence to reconstruct events and support an investigation. Evidence handling, integrity and documentation are planned explicitly, with the investigation boundary and intended use agreed in advance.",
+      "scope": "Preserve evidence; collect artifacts; analyze activity; document timeline and findings.",
+      "deliverables": "Evidence inventory; analysis report; event timeline; documented handling record.",
+      "value": "Provides a defensible technical account of observed events.",
+      "icon": "Fingerprint"
+     }
+    ]
+   },
+   {
+    "id": "family-4-area-8",
+    "name": "Resilience & Continuity",
+    "short": "Resilience",
+    "stage": "Recover",
+    "icon": "LifeBuoy",
+    "offerings": [
+     {
+      "id": "offering-153",
+      "number": "OFFERING 153",
+      "name": "Ransomware Readiness",
+      "definition": "Assessment and rehearsal of the organization's ability to withstand and recover from ransomware disruption. It examines backup integrity, isolation options and decision-making so recovery assumptions are tested before an extortion scenario occurs.",
+      "scope": "Review backups; assess isolation; define decisions; rehearse recovery scenario.",
+      "deliverables": "Readiness findings; decision playbook; backup-test evidence; improvement plan.",
+      "value": "Improves preparation for destructive or extortion-driven disruption.",
+      "icon": "ShieldAlert"
+     },
+     {
+      "id": "offering-154",
+      "number": "OFFERING 154",
+      "name": "Business Continuity",
+      "definition": "Planning for continuity of critical business processes during disruption to systems, sites, people or suppliers. It defines operational alternatives and priorities beyond technical restoration alone, then tests whether those arrangements are practical.",
+      "scope": "Analyze business impact; define continuity strategies; assign roles; exercise plans.",
+      "deliverables": "Business continuity plan; process priorities; exercise results; action backlog.",
+      "value": "Helps essential business activities continue during disruption.",
+      "icon": "LifeBuoy"
+     },
+     {
+      "id": "offering-155",
+      "number": "OFFERING 155",
+      "name": "Recovery Planning & Disaster Recovery Testing",
+      "definition": "Definition and testing of recovery arrangements for selected systems and data. It translates business recovery priorities into technical restoration procedures and measures whether agreed recovery objectives are achievable under the tested scenario.",
+      "scope": "Set objectives; document dependencies; rehearse restoration; record gaps.",
+      "deliverables": "Disaster recovery plan; measured recovery results; validation evidence; improvement actions.",
+      "value": "Replaces assumed recoverability with tested evidence.",
+      "icon": "LifeBuoy"
+     }
+    ]
+   }
+  ],
+  "tagline": "Understand risk, strengthen protection and prepare for incidents."
+ },
+ {
+  "name": "ERP & Business Systems",
+  "id": "family-5",
+  "short": "ERP & Business",
+  "icon": "database",
+  "areas": [
+   {
+    "id": "family-5-area-1",
+    "name": "Discovery, Selection & Design",
+    "short": "Discovery & Design",
+    "stage": "Plan & Select",
+    "icon": "Compass",
+    "offerings": [
+     {
+      "id": "offering-156",
+      "number": "OFFERING 156",
+      "name": "ERP Discovery & Blueprint",
+      "definition": "A starting ERP engagement that clarifies business workflows and the intended system direction before implementation. It combines discovery, fit-gap decisions and an initial blueprint so investment begins from an agreed operating requirement.",
+      "scope": "Map priority processes; assess fit; define platform direction and implementation boundary.",
+      "deliverables": "ERP blueprint; requirements; fit-gap decisions; recommended roadmap.",
+      "value": "Reduces ambiguity before committing to a major system implementation.",
+      "icon": "Route"
+     },
+     {
+      "id": "offering-157",
+      "number": "OFFERING 157",
+      "name": "Business Process Discovery & Blueprint",
+      "definition": "Detailed discovery of current business processes and design of the intended future workflow. It connects activities, roles, data and controls into a blueprint that business owners can validate before system configuration begins.",
+      "scope": "Map current and future processes; define owners, requirements and exceptions.",
+      "deliverables": "Process maps; requirements backlog; fit-gap register; approved blueprint.",
+      "value": "Aligns the implementation around agreed business behavior.",
+      "icon": "Route"
+     },
+     {
+      "id": "offering-158",
+      "number": "OFFERING 158",
+      "name": "ERP Platform Selection & Solution Design",
+      "definition": "Selection of an ERP platform and design of a solution that fits the organization's operating requirements. The service compares functional fit and constraints, then defines modules, data, integrations and access for the chosen direction.",
+      "scope": "Evaluate platforms; assess modules and licensing assumptions; design solution boundaries.",
+      "deliverables": "Selection matrix; solution blueprint; integration and data approach; rollout recommendations.",
+      "value": "Reduces mismatch between platform capabilities and business needs.",
+      "icon": "Compass"
+     }
+    ]
+   },
+   {
+    "id": "family-5-area-2",
+    "name": "ERP Implementation & Configuration",
+    "short": "ERP Implementation",
+    "stage": "Implement & Connect",
+    "icon": "Building2",
+    "offerings": [
+     {
+      "id": "offering-159",
+      "number": "OFFERING 159",
+      "name": "ERP Configuration & Implementation",
+      "definition": "Configuration and implementation of an ERP system around agreed business workflows. It establishes modules, records, access and approvals, with testing and handover defined for the selected entities and operating scope.",
+      "scope": "Configure modules and master data; define roles and workflows; test business scenarios.",
+      "deliverables": "Configured ERP; setup documentation; test evidence; operating handover.",
+      "value": "Provides a connected system for agreed operational and financial processes.",
+      "icon": "Building2"
+     },
+     {
+      "id": "offering-160",
+      "number": "OFFERING 160",
+      "name": "ERP Customization & Extensions",
+      "definition": "Development of ERP extensions where standard configuration cannot meet an agreed business requirement. The work evaluates upgrade implications and maintenance ownership so customization is deliberate rather than a default substitute for process design.",
+      "scope": "Assess fit gap; design extension; implement scripts or components; test compatibility.",
+      "deliverables": "Extension code; technical documentation; regression tests; maintenance guidance.",
+      "value": "Supports necessary differentiation while making customization costs visible.",
+      "icon": "Building2"
+     },
+     {
+      "id": "offering-161",
+      "number": "OFFERING 161",
+      "name": "Workflow Testing & User Acceptance",
+      "definition": "Validation that configured ERP workflows work end to end and can be accepted by business users. Testing includes ordinary transactions, exceptions, permissions and integration behavior against agreed acceptance criteria.",
+      "scope": "Define scenarios; prepare data; run tests; manage defects; obtain business acceptance.",
+      "deliverables": "Test cases; execution results; defect log; user acceptance record.",
+      "value": "Reduces operational surprises at go-live.",
+      "icon": "FlaskConical"
+     },
+     {
+      "id": "offering-162",
+      "number": "OFFERING 162",
+      "name": "NetSuite Order-to-Cash",
+      "definition": "Implementation or improvement of the order-to-cash workflow within a scoped NetSuite environment. It connects sales orders, fulfillment, invoicing and receipt processing while addressing exceptions and the relevant financial reconciliation requirements.",
+      "scope": "Map transaction flow; configure agreed steps; integrate interfaces; test reconciliation.",
+      "deliverables": "Configured workflow; transaction tests; exception procedures; user guidance.",
+      "value": "Improves traceability from customer order to receivable settlement.",
+      "icon": "Receipt"
+     },
+     {
+      "id": "offering-163",
+      "number": "OFFERING 163",
+      "name": "Odoo Sales, Inventory & Purchasing",
+      "definition": "Configuration of selected Odoo applications to connect sales, stock and purchasing workflows. The service defines how quotations, deliveries, replenishment and supplier transactions interact within the chosen edition, modules and business scope.",
+      "scope": "Map process; configure modules; define inventory and purchasing rules; test scenarios.",
+      "deliverables": "Configured workflow; module setup; transaction tests; role-based guidance.",
+      "value": "Improves coordination between customer demand and inventory supply.",
+      "icon": "Boxes"
+     },
+     {
+      "id": "offering-164",
+      "number": "OFFERING 164",
+      "name": "ERPNext Manufacturing Flow",
+      "definition": "Configuration of an ERPNext manufacturing workflow connecting materials, bills of materials, work orders and finished output. It aligns the selected production process with stock movements and the information needed by operations.",
+      "scope": "Map production flow; configure items and bills; test material and work-order transactions.",
+      "deliverables": "Manufacturing configuration; master-data structure; scenario tests; operator guidance.",
+      "value": "Improves visibility of material requirements and production progress.",
+      "icon": "Factory"
+     },
+     {
+      "id": "offering-165",
+      "number": "OFFERING 165",
+      "name": "Reachware iPaaS Integration",
+      "definition": "Implementation of agreed integration flows using Reachware as the integration platform. It connects selected business systems through explicit mappings, operational monitoring and exception handling, subject to available connectors and platform capabilities.",
+      "scope": "Confirm connectors; map records; build flows; test errors and ownership.",
+      "deliverables": "Integration flows; mapping specifications; monitoring setup; support runbook.",
+      "value": "Reduces manual movement of information across connected systems.",
+      "icon": "Cable"
+     },
+     {
+      "id": "offering-166",
+      "number": "OFFERING 166",
+      "name": "Microsoft Dynamics 365 Finance & Customer Workflows",
+      "definition": "Design and configuration of selected Dynamics 365 applications for agreed finance or customer workflows. Scope depends on the specific products and editions selected; the service does not assume every Dynamics application is included.",
+      "scope": "Map processes; confirm apps and licensing; configure workflows; integrate and test.",
+      "deliverables": "Solution design; configured workflows; integration tests; handover materials.",
+      "value": "Connects financial or customer processes within a defined Microsoft solution.",
+      "icon": "Workflow"
+     }
+    ]
+   },
+   {
+    "id": "family-5-area-3",
+    "name": "Data Migration & Integration",
+    "short": "Data & Integration",
+    "stage": "Implement & Connect",
+    "icon": "Cable",
+    "offerings": [
+     {
+      "id": "offering-167",
+      "number": "OFFERING 167",
+      "name": "ERP Data Migration & Cutover",
+      "definition": "A bounded migration engagement that moves agreed ERP data and coordinates transition to the target system. It combines trial migrations, business reconciliation and cutover decisions so acceptance is based on verified records and balances.",
+      "scope": "Define migration scope; prepare data; trial imports; reconcile; execute cutover.",
+      "deliverables": "Migration scripts; reconciled data; business sign-off; cutover and rollback plan.",
+      "value": "Reduces disruption and uncertainty during ERP transition.",
+      "icon": "ArrowRightLeft"
+     },
+     {
+      "id": "offering-168",
+      "number": "OFFERING 168",
+      "name": "ERP Data Migration & Reconciliation",
+      "definition": "Preparation and transfer of ERP data with explicit checks that the target records reflect the approved source. It addresses cleansing, mapping and reconciliation rather than treating successful file import as proof of correctness.",
+      "scope": "Profile and clean data; map fields; trial load; reconcile records and totals.",
+      "deliverables": "Mapping rules; migration routines; reconciliation results; exception log.",
+      "value": "Improves trust in the data used after implementation.",
+      "icon": "ArrowRightLeft"
+     },
+     {
+      "id": "offering-169",
+      "number": "OFFERING 169",
+      "name": "ERP Integration with CRM, Commerce, POS & Legacy Apps",
+      "definition": "Integration of an ERP with customer, commerce, point-of-sale or legacy applications. The design defines authoritative records, transaction timing and recovery behavior so updates remain consistent across the business workflow.",
+      "scope": "Specify interfaces; map data ownership; implement synchronization; test retries and duplicates.",
+      "deliverables": "Integration components; interface specification; exception handling; operating guide.",
+      "value": "Reduces duplicated entry and mismatched transaction states.",
+      "icon": "Cable"
+     },
+     {
+      "id": "offering-170",
+      "number": "OFFERING 170",
+      "name": "Salesforce CRM & CRM-to-ERP Handoff",
+      "definition": "Configuration of agreed Salesforce customer-management workflows and their handoff to an ERP. It connects the commercial process to fulfillment or financial processing, with status returned to the CRM where required.",
+      "scope": "Map customer and order flow; configure CRM; integrate handoff and status updates.",
+      "deliverables": "CRM configuration; ERP connector; mapping and tests; exception procedures.",
+      "value": "Improves continuity between sales activity and operational execution.",
+      "icon": "Cable"
+     },
+     {
+      "id": "offering-171",
+      "number": "OFFERING 171",
+      "name": "Shopify & Commerce-to-ERP Integration",
+      "definition": "Integration of Shopify commerce activity with the selected ERP or business systems. It defines product, order, stock, fulfillment and returns behavior so customer-facing information and back-office records can be reconciled.",
+      "scope": "Map records; connect interfaces; handle inventory, returns and failures; reconcile.",
+      "deliverables": "Commerce integration; mapping rules; reconciliation checks; support procedures.",
+      "value": "Reduces manual order handling and inconsistent stock or fulfillment information.",
+      "icon": "Cable"
+     }
+    ]
+   },
+   {
+    "id": "family-5-area-4",
+    "name": "Go-live, Support & Optimization",
+    "short": "Support & Optimization",
+    "stage": "Support & Optimize",
+    "icon": "Rocket",
+    "offerings": [
+     {
+      "id": "offering-172",
+      "number": "OFFERING 172",
+      "name": "ERP Health Check & Improvement",
+      "definition": "A focused review of an existing ERP followed by a prioritized improvement to one important constraint. It combines diagnosis with bounded corrective work rather than assuming a complete reimplementation is necessary.",
+      "scope": "Assess pain points; prioritize issue; implement agreed fix; validate workflow.",
+      "deliverables": "Health findings; targeted improvement; test evidence; next-step recommendations.",
+      "value": "Creates a practical improvement path for an underperforming ERP.",
+      "icon": "Stethoscope"
+     },
+     {
+      "id": "offering-173",
+      "number": "OFFERING 173",
+      "name": "Training, Handover & Go-live Readiness",
+      "definition": "Preparation of business users and operating teams to adopt and support a system at go-live. It combines role-based learning, practical guidance and explicit transition responsibilities so handover is operationally usable.",
+      "scope": "Train roles; document procedures; prepare support handover; confirm cutover responsibilities.",
+      "deliverables": "Training materials; user guides; handover records; readiness checklist.",
+      "value": "Improves adoption and reduces avoidable disruption during transition.",
+      "icon": "Rocket"
+     },
+     {
+      "id": "offering-174",
+      "number": "OFFERING 174",
+      "name": "ERP Support & Maintenance",
+      "definition": "An agreed post-launch service for triage, maintenance and ongoing ERP support. It defines service hours, responsibilities and the distinction between incident resolution and new change requests so expectations remain clear.",
+      "scope": "Handle issues; perform maintenance; manage escalations; prioritize agreed changes.",
+      "deliverables": "Support scope; ticket reports; maintenance records; operating reviews.",
+      "value": "Provides continuity and clear ownership after go-live.",
+      "icon": "Headset"
+     },
+     {
+      "id": "offering-175",
+      "number": "OFFERING 175",
+      "name": "ERP Review & Targeted Improvement",
+      "definition": "A scoped assessment and correction of a specific ERP problem, such as a workflow, report, configuration gap or integration. It starts with the observed business issue and validates that the selected change addresses it.",
+      "scope": "Diagnose issue; define improvement; configure or develop fix; test with users.",
+      "deliverables": "Review findings; implemented correction; user validation; updated guidance.",
+      "value": "Addresses a concrete operating problem without unnecessary transformation scope.",
+      "icon": "ClipboardCheck"
+     },
+     {
+      "id": "offering-176",
+      "number": "OFFERING 176",
+      "name": "ERP Reporting & Operational Dashboards",
+      "definition": "Design and implementation of ERP reports and dashboards using agreed source data and calculation rules. It clarifies definitions, access and refresh needs so finance and operations can interpret the same measure consistently.",
+      "scope": "Define measures; validate sources; build reports; test reconciliation and access.",
+      "deliverables": "Report specifications; dashboards; reconciliation evidence; user guidance.",
+      "value": "Improves visibility of business performance using consistent definitions.",
+      "icon": "ChartNoAxesCombined"
+     }
+    ]
+   }
+  ],
+  "tagline": "Connect business processes and improve operational visibility."
+ }
+]
