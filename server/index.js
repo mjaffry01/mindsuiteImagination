@@ -16,6 +16,7 @@ import { dirname, extname, join, normalize, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import nodemailer from 'nodemailer';
 import { CONTACT_METHODS, TIMELINES, enquiryEmail, makeReference } from '../src/lib/enquiry.js';
+import { assistantError, createAssistant } from './assistant.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..');
@@ -39,6 +40,10 @@ const config = {
   sendAck: env.SEND_ACK !== 'false',
   allowedOrigins: (env.ALLOWED_ORIGINS || '').split(',').map((s) => s.trim()).filter(Boolean),
   rateLimit: { max: Number(env.RATE_LIMIT_MAX) || 5, windowMs: (Number(env.RATE_LIMIT_MINUTES) || 15) * 60_000 },
+  assistantRateLimit: {
+    max: Number(env.ASSISTANT_RATE_LIMIT_MAX) || 30,
+    windowMs: (Number(env.ASSISTANT_RATE_LIMIT_MINUTES) || 15) * 60_000,
+  },
 };
 
 // ---------------------------------------------------------------- catalogue lookup
@@ -182,18 +187,26 @@ function ackMail(e) {
 }
 
 // ---------------------------------------------------------------- rate limiting
-const hits = new Map(); // ip -> timestamps
-function rateLimited(ip) {
-  const now = Date.now();
-  const recent = (hits.get(ip) || []).filter((t) => now - t < config.rateLimit.windowMs);
-  recent.push(now);
-  hits.set(ip, recent);
-  return recent.length > config.rateLimit.max;
+function makeLimiter({ max, windowMs }) {
+  const hits = new Map(); // ip -> timestamps
+  setInterval(() => {
+    const now = Date.now();
+    for (const [ip, ts] of hits) if (ts.every((t) => now - t >= windowMs)) hits.delete(ip);
+  }, 60_000).unref();
+  return (ip) => {
+    const now = Date.now();
+    const recent = (hits.get(ip) || []).filter((t) => now - t < windowMs);
+    recent.push(now);
+    hits.set(ip, recent);
+    return recent.length > max;
+  };
 }
-setInterval(() => {
-  const now = Date.now();
-  for (const [ip, ts] of hits) if (ts.every((t) => now - t >= config.rateLimit.windowMs)) hits.delete(ip);
-}, 60_000).unref();
+const rateLimited = makeLimiter(config.rateLimit);
+const assistantLimited = makeLimiter(config.assistantRateLimit);
+const clientIp = (req) => (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress;
+
+// ---------------------------------------------------------------- assistant (Claude)
+const assistant = createAssistant(catalogue);
 
 // ---------------------------------------------------------------- HTTP helpers
 function send(res, status, data, headers = {}) {
@@ -206,7 +219,7 @@ function corsHeaders(req) {
   if (!origin || !config.allowedOrigins.includes(origin)) return {};
   return {
     'Access-Control-Allow-Origin': origin,
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
     Vary: 'Origin',
   };
@@ -279,7 +292,7 @@ async function serveStatic(req, res) {
 async function handleEnquiry(req, res) {
   const cors = corsHeaders(req);
   if (!originAllowed(req)) return send(res, 403, { error: 'Origin not allowed' }, cors);
-  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket.remoteAddress;
+  const ip = clientIp(req);
   if (rateLimited(ip)) return send(res, 429, { error: 'Too many requests. Please try again later.' }, cors);
 
   let body;
@@ -312,9 +325,42 @@ async function handleEnquiry(req, res) {
   }
 }
 
+async function handleAssistant(req, res) {
+  const cors = corsHeaders(req);
+  if (!originAllowed(req)) return send(res, 403, { error: 'Origin not allowed' }, cors);
+  if (req.method === 'GET') return send(res, 200, { mode: assistant.enabled ? 'ai' : 'catalogue' }, cors);
+  if (!assistant.enabled) return send(res, 503, { mode: 'catalogue', error: 'AI recommendations are not configured.' }, cors);
+  if (assistantLimited(clientIp(req))) {
+    return send(res, 429, { error: 'You have sent a lot of messages. Please wait a few minutes and try again.' }, cors);
+  }
+
+  let body;
+  try {
+    body = await readJson(req, 48 * 1024);
+  } catch (err) {
+    return send(res, err.status || 400, { error: err.message }, cors);
+  }
+  try {
+    const { status, body: out } = await assistant.reply(body?.messages);
+    return send(res, status, out, cors);
+  } catch (err) {
+    console.error('[assistant] request failed:', err);
+    const { status, error } = assistantError(err);
+    return send(res, status, { error }, cors);
+  }
+}
+
 const server = createServer(async (req, res) => {
   const { pathname } = new URL(req.url, 'http://x');
   try {
+    if (pathname === '/api/assistant') {
+      if (req.method === 'OPTIONS') {
+        res.writeHead(204, corsHeaders(req));
+        return res.end();
+      }
+      if (req.method === 'GET' || req.method === 'POST') return await handleAssistant(req, res);
+      return send(res, 405, { error: 'Method not allowed' }, { Allow: 'GET, POST, OPTIONS' });
+    }
     if (pathname === '/api/enquiry') {
       if (req.method === 'OPTIONS') {
         res.writeHead(204, corsHeaders(req));
@@ -334,6 +380,11 @@ const server = createServer(async (req, res) => {
 
 server.listen(config.port, () => {
   console.log(`MindSuite server on http://localhost:${config.port}  (mail mode: ${mode})`);
+  console.log(
+    assistant.enabled
+      ? `  Guide: AI recommendations with ${assistant.model}`
+      : '  Guide: no ANTHROPIC_API_KEY set, so the website uses its built-in keyword matching.'
+  );
   if (mode === 'preview') console.log('  No SMTP_HOST set: emails are saved to server/outbox instead of being sent.');
   else {
     transport

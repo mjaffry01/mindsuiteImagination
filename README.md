@@ -60,7 +60,19 @@ full request addressed to info@mindsuite.in, so the form still works on purely s
 - **Static host + separate API:** deploy `dist/` anywhere, run `npm run server` elsewhere, build with
   `VITE_ENQUIRY_URL=https://api.your-domain/api/enquiry`, and set `ALLOWED_ORIGINS` to the site's URL.
 
-## AI recommendations (optional)
-The guide matches catalogue terms locally by default. To use an AI backend, set
-`VITE_ASSISTANT_URL` to an endpoint that accepts `POST {messages}` and returns
-`{message, mode, suggestions: [{id, reason}]}` (and `GET` → `{mode}`).
+## AI recommendations ("Help me choose" guide)
+The guide uses Claude (`claude-opus-5-5`) through the same Node server, at `/api/assistant`
+(`server/assistant.js`). The whole catalogue is sent as a cached system prompt, so the guide
+recommends only real offerings and asks a clarifying question when a need is vague.
+
+1. Create an API key at https://console.anthropic.com and put it in `.env` as `ANTHROPIC_API_KEY`
+   (never in the website code: GitHub Pages files are public).
+2. Build the site with `VITE_ASSISTANT_URL=/api/assistant` (or the full URL of your API host, and add
+   the site's address to `ALLOWED_ORIGINS`).
+3. `npm run server` logs `Guide: AI recommendations with claude-opus-5-5` when it is ready.
+
+Without a key, or whenever the server is unreachable, the guide falls back to its built-in keyword
+matching, so the website keeps working. Each visitor is limited to `ASSISTANT_RATE_LIMIT_MAX`
+messages per `ASSISTANT_RATE_LIMIT_MINUTES`. Every reply logs its token use. The catalogue is about
+33,000 tokens: while it is cached a reply costs roughly 1–3 US cents, and the first message after
+5 quiet minutes re-caches it for about 15–20 cents.

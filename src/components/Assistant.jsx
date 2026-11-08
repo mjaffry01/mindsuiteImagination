@@ -42,6 +42,8 @@ export default function Assistant({ interests, onAdd }) {
       : 'Matches use catalogue terms. Your messages stay in this browser.'
   );
   const history = useRef([]);
+  // True once the server confirms AI recommendations are configured.
+  const aiReady = useRef(false);
   const petRef = useRef(null);
   const logRef = useRef(null);
   const inputRef = useRef(null);
@@ -94,14 +96,18 @@ export default function Assistant({ interests, onAdd }) {
       .then((r) => r.json())
       .then((result) => {
         const ai = result.mode === 'ai';
+        aiReady.current = ai;
         setMode(ai ? 'AI recommendations' : 'Catalogue matching');
         setDisclosure(
           ai
-            ? 'Messages are sent to our AI provider to suggest offerings.'
-            : 'Matches use catalogue terms. AI recommendations are awaiting configuration.'
+            ? 'Messages are sent to our AI provider (Anthropic) to suggest offerings.'
+            : 'Matches use catalogue terms. Your messages stay in this browser.'
         );
       })
-      .catch(() => setMode('Connection unavailable'));
+      .catch(() => {
+        setMode('Catalogue matching');
+        setDisclosure('Matches use catalogue terms. Your messages stay in this browser.');
+      });
   }, []);
 
   useEffect(() => {
@@ -159,16 +165,26 @@ export default function Assistant({ interests, onAdd }) {
     ]);
     try {
       let result;
-      if (REMOTE_URL) {
-        const response = await fetch(REMOTE_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ messages: [...history.current, { role: 'user', content: trimmed }].slice(-11) }),
-          signal: AbortSignal.timeout(35000),
-        });
-        result = await response.json();
-        if (!response.ok) throw new Error(result.error || 'Please try again.');
-        setMode(result.mode === 'ai' ? 'AI recommendations' : 'Catalogue matching');
+      if (REMOTE_URL && aiReady.current) {
+        try {
+          const response = await fetch(REMOTE_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ messages: [...history.current, { role: 'user', content: trimmed }].slice(-11) }),
+            signal: AbortSignal.timeout(45000),
+          });
+          result = await response.json();
+          if (!response.ok) throw new Error(result.error || 'Please try again.');
+        } catch (error) {
+          // Keep helping: answer from the catalogue and say why.
+          result = {
+            ...localAssistantReply(trimmed),
+            notice:
+              error.name === 'TimeoutError'
+                ? 'The AI guide took too long, so these are catalogue matches.'
+                : `${error.message && !error.message.includes('fetch') ? error.message + ' ' : ''}These are catalogue matches for now.`,
+          };
+        }
       } else {
         result = localAssistantReply(trimmed);
       }
