@@ -31,7 +31,7 @@ export default function Hero({ playing, onToggleMotion }) {
             transformation. Scroll to discover each offering, what it includes and the outcomes it delivers.
           </p>
           <a className="cta" href="#catalogue">
-            Explore our capabilities <span aria-hidden="true">↓</span>
+            Explore our offerings <span aria-hidden="true">↓</span>
           </a>
           {/* Shown on smaller screens, where the header has no room for the mission. */}
           <div className="mission hero-mission">

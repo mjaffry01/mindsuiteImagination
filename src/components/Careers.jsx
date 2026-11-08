@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowRight, Briefcase, Clock, MapPin, Search as SearchIcon, Send, X } from 'lucide-react';
 import Icon from './Icon.jsx';
 import DotField from './DotField.jsx';
+import Globe from './Globe.jsx';
 import { DISCIPLINES, careersContact, hero, openings, perks, steps } from '../data/careers.js';
 import { leaders, team } from '../data/team.js';
 
@@ -84,7 +85,7 @@ function RoleDrawer({ role, onClose }) {
   );
 }
 
-export default function Careers({ roleId }) {
+export default function Careers({ roleId, playing, onToggleMotion }) {
   const [query, setQuery] = useState('');
   const [discipline, setDiscipline] = useState('All');
 
@@ -119,14 +120,18 @@ export default function Careers({ roleId }) {
   return (
     <main className="careers-page">
       {/* Hero */}
-      <section className="careers-hero globe-scene" aria-labelledby="careers-title">
+      <section className="hero careers-hero globe-scene" aria-labelledby="careers-title">
+        <Globe playing={playing} />
         <DotField />
-        <div className="careers-hero-inner">
-          <span className="careers-eyebrow">{hero.eyebrow}</span>
+        <button className="motion" type="button" aria-pressed={!playing} onClick={onToggleMotion}>
+          {playing ? 'Pause motion' : 'Resume motion'}
+        </button>
+        <div className="hero-content careers-hero-inner">
+          <div className="eyebrow">{hero.eyebrow}</div>
           <h1 id="careers-title">
             {hero.title[0]}
             <br />
-            <span>{hero.title[1]}</span>
+            <span className="cyan">{hero.title[1]}</span>
           </h1>
           <p>{hero.lead}</p>
           <div className="careers-hero-actions">

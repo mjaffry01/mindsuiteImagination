@@ -1066,17 +1066,12 @@ img.platform-logo { max-width: 80%; max-height: 72px; margin: auto; object-fit: 
 .careers-btn.ghost:hover { background: #ffffff14; }
 
 /* Hero */
-.careers-hero {
-  position: relative; overflow: hidden; isolation: isolate;
-  padding: clamp(64px, 10vh, 120px) 6vw clamp(56px, 9vh, 96px); color: #f1f2f8;
-  background: radial-gradient(900px 420px at 85% 10%, #4b4a8066, transparent 70%), var(--soft-night-2, #283152);
-}
-.careers-hero-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
-.careers-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #c6b9f2; }
-.careers-hero h1 { margin-top: 18px; font-size: clamp(36px, 5vw, 64px); line-height: 1.05; letter-spacing: -1.8px; }
-.careers-hero h1 span { color: #8ad3e3; }
-.careers-hero p { max-width: 640px; margin-top: 22px; font-size: 17px; line-height: 1.75; color: #d3d8e8; }
-.careers-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+/* Layout, colours, globe and type come from the home page's .hero rules. */
+.careers-hero { min-height: calc(100svh - var(--header-h)); }
+.careers-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.careers-hero .careers-btn { border-radius: 5px; padding: 15px 20px; }
+.careers-hero .careers-btn.primary { background: #f3f2f9; color: #2a3150; box-shadow: none; }
+.careers-hero .careers-btn.primary:hover { background: #fff; }
 .careers-stats { list-style: none; margin: 42px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .careers-stats li {
   display: flex; flex-direction: column; gap: 2px; min-width: 130px; padding: 14px 18px; border-radius: 14px;

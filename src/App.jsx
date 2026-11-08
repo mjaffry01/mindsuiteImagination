@@ -98,7 +98,7 @@ export default function App() {
     <>
       <SiteHeader />
       {route.page === 'careers' ? (
-        <Careers roleId={route.roleId} />
+        <Careers roleId={route.roleId} playing={playing} onToggleMotion={() => setPlaying((p) => !p)} />
       ) : (
         <>
       <Hero playing={playing} onToggleMotion={() => setPlaying((p) => !p)} />
