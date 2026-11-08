@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 /** Page sections reachable from the header menu and the footer. */
 export const SECTIONS = [
-  { id: 'catalogue', label: 'Capabilities' },
+  { id: 'catalogue', label: 'Offerings' },
   { id: 'platforms', label: 'Platforms' },
   { id: 'clients', label: 'Clients' },
   { id: 'leadership', label: 'Team' },
