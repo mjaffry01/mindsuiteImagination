@@ -12,7 +12,7 @@
  * The public address comes from SITE_URL (default: the GitHub Pages site). Set it when the site
  * moves, e.g. SITE_URL=https://www.mindsuite.in npm run build
  */
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -231,10 +231,13 @@ const PRERENDER_STYLE =
   + '.seo-prerender h1{max-width:620px;margin:0;color:#f1f2f8;font-size:clamp(32px,4.5vw,61px);font-weight:600;line-height:1.1;letter-spacing:-1.5px}'
   + '.seo-prerender p{max-width:620px;margin:25px 0 0}'
   + '.seo-prerender a{color:#b9a7ef}'
+  + '.seo-prerender{overflow-x:clip}.seo-prerender h1,.seo-prerender p{position:relative}'
+  + '.seo-logo{position:absolute;top:14px;left:5%;width:190px;height:auto}'
+  + '.seo-globe{position:absolute;top:calc(48svh + 5px);left:76%;width:calc(2*min(32vw,300px));overflow:visible;transform:translate(-50%,-50%);pointer-events:none;-webkit-mask-image:linear-gradient(90deg,#0007,#000 90%);mask-image:linear-gradient(90deg,#0007,#000 90%)}'
   // Only the heading and first paragraph share the first screen, like the real hero.
   + '.seo-prerender>h1+p+*{margin-top:100svh}'
-  + '@media(max-width:900px){.seo-prerender{padding-inline:25px}.seo-prerender p{font-size:15px}}'
-  + '@media(max-width:600px){.seo-prerender{padding-top:140px}.seo-prerender h1{font-size:clamp(30px,7.5vw,42px)}}'
+  + '@media(max-width:900px){.seo-prerender{padding-inline:25px}.seo-prerender p{font-size:15px}.seo-logo{top:19px;left:18px;width:150px}.seo-globe{top:calc(48svh - 45px)}}'
+  + '@media(max-width:600px){.seo-prerender{padding-top:140px}.seo-prerender h1{font-size:clamp(30px,7.5vw,42px)}.seo-logo{top:24px;width:104px}.seo-globe{top:calc(48svh + 27px)}}'
   + '</style>';
 
 // The home heading uses the same three colours as the real hero, so the switch is seamless.
@@ -244,6 +247,30 @@ const heroHeading = (html) =>
     .replace('Securely.', '<span style="color:#8ad3e3">Securely.</span>')
     .replace('Business.', '<span style="color:#e3b2cf">Business.</span>');
 
+/** First frame of the animated hero globe (components/Globe.jsx) as lightweight inline SVG. */
+function globeSvg() {
+  const rad = Math.PI / 180;
+  const point = (lat, lon) => {
+    const x = Math.cos(lat) * Math.sin(lon);
+    const y = Math.sin(lat);
+    const z = Math.cos(lat) * Math.cos(lon);
+    return `${(100 * x).toFixed(1)} ${(100 * (y * 0.985 - z * 0.17)).toFixed(1)}`;
+  };
+  const line = (points) => `M${points.join(' ')}`;
+  const paths = [];
+  for (let lat = -75; lat <= 75; lat += 15) {
+    const points = [];
+    for (let lon = 0; lon <= 360; lon += 10) points.push(point(lat * rad, lon * rad));
+    paths.push(line(points));
+  }
+  for (let lon = 0; lon < 360; lon += 20) {
+    const points = [];
+    for (let lat = -90; lat <= 90; lat += 8) points.push(point(lat * rad, lon * rad));
+    paths.push(line(points));
+  }
+  return `<svg class="seo-globe" viewBox="-100 -100 200 200" aria-hidden="true"><path d="${paths.join('')}" fill="none" stroke="#8db7e9" stroke-opacity=".25" stroke-width=".7" vector-effect="non-scaling-stroke"/></svg>`;
+}
+
 /** Writes every page, sitemap.xml and robots.txt into `outDir`. */
 export async function writeSeoPages({ root, outDir, site = process.env.SITE_URL || DEFAULT_SITE }) {
   site = site.replace(/\/+$/, '');
@@ -252,10 +279,17 @@ export async function writeSeoPages({ root, outDir, site = process.env.SITE_URL 
     throw new Error('index.html is missing the seo:start / seo:end / seo:content markers');
   }
   const pages = buildPages(await loadData(root), site);
+  // The logo is requested straight away instead of waiting for the app to start.
+  const base = template.match(/src="([^"]*?)assets\/index-/)?.[1] ?? '/';
+  const logoFile = readdirSync(join(outDir, 'assets')).find((f) => /^logo-.*\.png$/.test(f));
+  if (!logoFile) throw new Error('Built logo not found in assets');
+  const logoUrl = `${base}assets/${logoFile}`;
+  const logo = `<img class="seo-logo" src="${logoUrl}" alt="MindSuite" width="773" height="165" fetchpriority="high" />`;
+  const globe = globeSvg();
   for (const page of pages) {
     const html = template
-      .replace(/<!-- seo:start[\s\S]*?<!-- seo:end -->/, head(page, site))
-      .replace('<!-- seo:content -->', `${PRERENDER_STYLE}<main class="seo-prerender"><h1>${page.path ? esc(page.h1) : heroHeading(esc(page.h1))}</h1>${page.body}</main>`);
+      .replace(/<!-- seo:start[\s\S]*?<!-- seo:end -->/, `${head(page, site)}\n    <link rel="preload" as="image" href="${logoUrl}" fetchpriority="high" />`)
+      .replace('<!-- seo:content -->', `${PRERENDER_STYLE}<main class="seo-prerender">${logo}${page.path ? '' : globe}<h1>${page.path ? esc(page.h1) : heroHeading(esc(page.h1))}</h1>${page.body}</main>`);
     const dir = page.path ? join(outDir, page.path) : outDir;
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, 'index.html'), html);
