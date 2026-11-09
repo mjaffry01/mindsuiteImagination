@@ -150,7 +150,8 @@ export default function App() {
     // Jump again once late layout (fonts, images) has settled, then let the address follow.
     const t = setTimeout(() => {
       jump();
-      setAddressReady(true);
+      // Give the reading position a moment to catch up before the address follows it.
+      setTimeout(() => setAddressReady(true), 250);
     }, 150);
     return () => clearTimeout(t);
   }, []);
