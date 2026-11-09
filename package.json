@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.6.0",
+    "docx": "9.15.3",
     "libphonenumber-js": "1.13.13",
     "lucide-react": "0.468.0",
     "nodemailer": "10.2.1",

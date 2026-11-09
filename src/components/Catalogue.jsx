@@ -45,7 +45,7 @@ function OfferingActions({ offering, added, onToggle }) {
   );
 }
 
-const Offering = memo(function Offering({ offering, family, added, onToggle }) {
+export const Offering = memo(function Offering({ offering, family, added, onToggle }) {
   const t = useT();
   const n = offering.id.split('-')[1];
   const deliverables = offering.deliverables.split(';').filter((d) => d.trim()).length;

@@ -1753,6 +1753,33 @@ img.platform-logo { max-width: 80%; max-height: 72px; margin: auto; object-fit: 
 .family-map .map-cell.is-dragging { z-index: 5; cursor: grabbing; transform: scale(1.08); filter: brightness(1.08); transition: background .25s, color .25s, transform .15s; }
 @media (prefers-reduced-motion: reduce) { .family-map .map-cell { transition: none; } }
 
+/* ---------- Sharing and documents ---------- */
+.enq-primary { min-height: 44px; }
+.doc-actions { position: relative; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; }
+.doc-actions .share { position: relative; }
+.doc-actions .share-menu { top: auto; bottom: calc(100% + 8px); inset-inline-end: auto; inset-inline-start: 0; }
+.doc-button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 16px; border: 1px solid #d9d3e8; border-radius: 999px;
+  background: #fff; color: #4d3f85; font: 600 14px/1 Arial, Helvetica, sans-serif; cursor: pointer; transition: background .2s, border-color .2s;
+}
+.doc-button svg { width: 16px; height: 16px; }
+.doc-button:hover:not(:disabled) { background: #efebf8; border-color: #a99ad6; }
+.doc-button:disabled { opacity: .55; cursor: default; }
+.doc-error { flex-basis: 100%; margin: 0; font-size: 13px; color: #b3364a; }
+.doc-error:empty { display: none; }
+.share-item:disabled { opacity: .6; }
+.shared-page { min-height: 70vh; background: #f7f6fb; }
+.shared-hero { padding: clamp(40px, 7vh, 72px) 6vw 36px; background: #283152; color: #f1f2f8; }
+.shared-hero .eyebrow { color: #bfb4f4; margin-bottom: 14px; }
+.shared-hero h1 { margin: 0; font-size: clamp(28px, 4vw, 46px); line-height: 1.15; letter-spacing: -1px; }
+.shared-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 24px; }
+.shared-actions .doc-actions { margin-top: 0; }
+.shared-actions .doc-actions .share-menu { top: calc(100% + 8px); bottom: auto; }
+.shared-actions .enq-primary { display: inline-flex; align-items: center; gap: 8px; }
+.shared-actions .enq-primary svg { width: 16px; height: 16px; }
+.shared-list { max-width: 980px; margin: 0 auto; padding: 32px 6vw 56px; background: transparent; }
+.shared-browse { display: flex; margin: 8px auto 0; }
+
 /* ---------- Bottom bar on phones: main actions within thumb reach ---------- */
 .offering-foot { display: none; }
 .mobile-tabs { display: none; }

@@ -10,6 +10,7 @@ import { families, inEnglish, offerings } from '../data/catalogue.js';
  *   /offerings/<offering-slug>  one offering (the address that the Share button sends)
  *   /platforms /clients /about /team
  *   /careers, /careers/<role-id>
+ *   /shared?o=12,45,88      a set of offerings someone shared
  *
  * Careers is its own page (pushed to history, so Back works). On the main page the address
  * follows what the visitor is reading (replaced, so scrolling doesn't fill the history).
@@ -55,6 +56,7 @@ function readLocation() {
   if (hash) return { page: 'careers', roleId: hash[1] || null };
   const [first, second] = pathSlug().split('/');
   if (first === 'careers') return { page: 'careers', roleId: second || null };
+  if (first === 'shared') return { page: 'shared', roleId: null };
   return { page: 'main', roleId: null };
 }
 
@@ -86,6 +88,9 @@ export const initialTargetId = () => {
   if (first === 'offerings' && second) return OFFERING_BY_SLUG.get(second) || 'catalogue';
   return idForSlug(first);
 };
+
+/** Address that opens several offerings together. */
+export const sharedUrl = (list) => `${location.origin}${pathFor('shared')}?o=${list.map((o) => o.id.split('-')[1]).join(',')}`;
 
 /** Full shareable address of one offering. */
 export const offeringUrl = (offering) => location.origin + pathFor(`offerings/${offeringSlug(offering)}`);

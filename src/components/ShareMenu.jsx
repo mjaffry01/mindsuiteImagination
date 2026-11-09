@@ -1,22 +1,25 @@
 import { useEffect, useId, useRef, useState } from 'react';
-import { Check, Link2, Linkedin, Mail, MessageCircle, MoreHorizontal, Send, Share2 } from 'lucide-react';
+import { Check, FileDown, FileText, Link2, Linkedin, Mail, MessageCircle, MoreHorizontal, Send, Share2 } from 'lucide-react';
 import { useT } from '../i18n/index.jsx';
-import { offeringUrl } from '../hooks/useRoute.js';
+import { offeringUrl, sharedUrl } from '../hooks/useRoute.js';
+import useOfferingDocs from '../hooks/useOfferingDocs.js';
 
 const enc = encodeURIComponent;
 
 /**
  * Share one offering: LinkedIn, WhatsApp, Email and Telegram, plus Copy link (and the
  * device's own share sheet where available). Links open the offering's own address,
- * e.g. …/offerings/software-health-check.
+ * e.g. …/offerings/software-health-check. Given `offerings` instead, it shares them all as
+ * one link. A single offering's menu also offers its PDF and Word copy.
  */
-export default function ShareMenu({ offering }) {
+export default function ShareMenu({ offering, offerings, label, disabled = false }) {
   const t = useT();
   const [open, setOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const rootRef = useRef(null);
   const toggleRef = useRef(null);
   const menuId = useId();
+  const { savePdf, saveWord, preparing, failed } = useOfferingDocs();
 
   useEffect(() => {
     if (!open) return;
@@ -35,9 +38,10 @@ export default function ShareMenu({ offering }) {
     };
   }, [open]);
 
-  const url = offeringUrl(offering);
-  const text = `${offering.name} — ${offering.value}`;
-  const subject = `${offering.name} | MindSuite`;
+  const url = offering ? offeringUrl(offering) : sharedUrl(offerings);
+  const heading = offering ? offering.name : t('{count} MindSuite offerings', { count: offerings.length });
+  const text = offering ? `${offering.name} — ${offering.value}` : heading;
+  const subject = `${heading} | MindSuite`;
   const channels = [
     { key: 'linkedin', label: 'LinkedIn', icon: Linkedin, href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc(url)}` },
     { key: 'whatsapp', label: 'WhatsApp', icon: MessageCircle, href: `https://wa.me/?text=${enc(`${text}\n${url}`)}` },
@@ -72,18 +76,20 @@ export default function ShareMenu({ offering }) {
       <button
         type="button"
         ref={toggleRef}
-        className="share-toggle"
+        className={label ? 'doc-button' : 'share-toggle'}
+        disabled={disabled}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={menuId}
-        aria-label={t('Share {name}', { name: offering.name })}
+        aria-label={t('Share {name}', { name: heading })}
         title={t('Share')}
         onClick={() => setOpen((o) => !o)}
       >
         <Share2 aria-hidden="true" focusable="false" />
+        {label}
       </button>
       {open && (
-        <div className="share-menu" id={menuId} role="menu" aria-label={t('Share {name}', { name: offering.name })}>
+        <div className="share-menu" id={menuId} role="menu" aria-label={t('Share {name}', { name: heading })}>
           {channels.map(({ key, label, icon: ChannelIcon, href, sameTab }) => (
             <a
               key={key}
@@ -107,9 +113,36 @@ export default function ShareMenu({ offering }) {
               {t('More apps…')}
             </button>
           )}
+          {offering && (
+            <>
+              <button
+                type="button"
+                role="menuitem"
+                className="share-item"
+                onClick={() => {
+                  setOpen(false);
+                  savePdf([offering]);
+                }}
+              >
+                <FileDown aria-hidden="true" focusable="false" />
+                {t('Download PDF')}
+              </button>
+              <button
+                type="button"
+                role="menuitem"
+                className="share-item"
+                disabled={preparing}
+                onClick={() => saveWord([offering])}
+              >
+                <FileText aria-hidden="true" focusable="false" />
+                {preparing ? t('Preparing…') : t('Download Word')}
+              </button>
+            </>
+          )}
           <span className="visually-hidden" role="status" aria-live="polite">
             {copied ? t('Link copied') : ''}
           </span>
+          {failed && <span className="doc-error">{t('The document could not be created. Please try again.')}</span>}
         </div>
       )}
     </div>

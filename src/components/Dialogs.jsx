@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Check, ChevronDown, Plus, Search as SearchIcon, ClipboardList, X } from 'lucide-react';
 import Icon from './Icon.jsx';
 import { focusTarget } from '../lib/focus.js';
+import OfferingDocActions from './OfferingDocActions.jsx';
 import PhoneInput from './PhoneInput.jsx';
 import { checkPhone, guessCountry } from '../lib/phone.js';
 import { useT } from '../i18n/index.jsx';
@@ -685,6 +686,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
               {t('Clear all')}
             </button>
           </div>
+          {selected.length > 0 && <OfferingDocActions offerings={selected} />}
           {selected.length > 0 && (
             <p className="enq-note">
               {t(

@@ -29,6 +29,7 @@ import { useLanguage } from './i18n/index.jsx';
 
 // Loaded on demand, so the first screen downloads only what it needs.
 const Careers = lazy(() => import('./components/Careers.jsx'));
+const SharedOfferings = lazy(() => import('./components/SharedOfferings.jsx'));
 const GuidedTour = lazy(() => import('./components/GuidedTour.jsx'));
 const Assistant = lazy(() => import('./components/Assistant.jsx'));
 const InterestsDialog = lazy(() => import('./components/Dialogs.jsx').then((m) => ({ default: m.InterestsDialog })));
@@ -167,7 +168,7 @@ export default function App() {
     jump();
     const { page, roleId } = getRoute();
     if (page === 'careers') history.replaceState({ page, roleId }, '', pathFor(roleId ? `careers/${roleId}` : 'careers'));
-    else history.replaceState({ page }, '', location.pathname);
+    else history.replaceState({ page }, '', page === 'shared' ? location.pathname + location.search : location.pathname); // a shared link keeps its list of offerings
     // Jump again once late layout (fonts, images) has settled, then let the address follow.
     const t = setTimeout(() => {
       jump();
@@ -198,6 +199,7 @@ export default function App() {
     const named = { platforms: 'Platforms', clients: 'Clients', about: 'About us', leadership: 'Team' };
     let title;
     if (route.page === 'careers') title = `${t('Careers')} | MindSuite`;
+    if (route.page === 'shared') title = `${t('Offerings shared with you')} | MindSuite`;
     else if (sharedOffering.current) title = `${current.name} | MindSuite`;
     else if (activeSection === 'catalogue') title = `${readingFamily.name} | MindSuite`;
     else if (named[activeSection]) title = `${t(named[activeSection])} | MindSuite`;
@@ -215,6 +217,15 @@ export default function App() {
       {route.page === 'careers' ? (
         <Suspense fallback={<main className="careers-page" id="main-content" />}>
           <Careers roleId={route.roleId} playing={playing} onToggleMotion={() => setPlaying((p) => !p)} />
+        </Suspense>
+      ) : route.page === 'shared' ? (
+        <Suspense fallback={<main className="shared-page" id="main-content" />}>
+          <SharedOfferings
+            interests={interests}
+            onToggle={toggleWithPrompt}
+            onAddMany={addMany}
+            onOpenEnquiry={() => openInterests('list')}
+          />
         </Suspense>
       ) : (
         <main id="main-content" tabIndex={-1}>

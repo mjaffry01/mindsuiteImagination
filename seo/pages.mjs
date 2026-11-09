@@ -13,6 +13,7 @@
  * moves, e.g. SITE_URL=https://www.mindsuite.in npm run build
  */
 import { mkdirSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { globeSvg } from '../src/lib/globeSvg.js';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -247,30 +248,6 @@ const heroHeading = (html) =>
     .replace('Securely.', '<span style="color:#8ad3e3">Securely.</span>')
     .replace('Business.', '<span style="color:#e3b2cf">Business.</span>');
 
-/** First frame of the animated hero globe (components/Globe.jsx) as lightweight inline SVG. */
-function globeSvg() {
-  const rad = Math.PI / 180;
-  const point = (lat, lon) => {
-    const x = Math.cos(lat) * Math.sin(lon);
-    const y = Math.sin(lat);
-    const z = Math.cos(lat) * Math.cos(lon);
-    return `${(100 * x).toFixed(1)} ${(100 * (y * 0.985 - z * 0.17)).toFixed(1)}`;
-  };
-  const line = (points) => `M${points.join(' ')}`;
-  const paths = [];
-  for (let lat = -75; lat <= 75; lat += 15) {
-    const points = [];
-    for (let lon = 0; lon <= 360; lon += 10) points.push(point(lat * rad, lon * rad));
-    paths.push(line(points));
-  }
-  for (let lon = 0; lon < 360; lon += 20) {
-    const points = [];
-    for (let lat = -90; lat <= 90; lat += 8) points.push(point(lat * rad, lon * rad));
-    paths.push(line(points));
-  }
-  return `<svg class="seo-globe" viewBox="-100 -100 200 200" aria-hidden="true"><path d="${paths.join('')}" fill="none" stroke="#8db7e9" stroke-opacity=".25" stroke-width=".7" vector-effect="non-scaling-stroke"/></svg>`;
-}
-
 /** Writes every page, sitemap.xml and robots.txt into `outDir`. */
 export async function writeSeoPages({ root, outDir, site = process.env.SITE_URL || DEFAULT_SITE }) {
   site = site.replace(/\/+$/, '');
@@ -285,7 +262,7 @@ export async function writeSeoPages({ root, outDir, site = process.env.SITE_URL 
   if (!logoFile) throw new Error('Built logo not found in assets');
   const logoUrl = `${base}assets/${logoFile}`;
   const logo = `<img class="seo-logo" src="${logoUrl}" alt="MindSuite" width="773" height="165" fetchpriority="high" />`;
-  const globe = globeSvg();
+  const globe = globeSvg('seo-globe');
   for (const page of pages) {
     const html = template
       .replace(/<!-- seo:start[\s\S]*?<!-- seo:end -->/, `${head(page, site)}\n    <link rel="preload" as="image" href="${logoUrl}" fetchpriority="high" />`)
@@ -293,6 +270,16 @@ export async function writeSeoPages({ root, outDir, site = process.env.SITE_URL 
     const dir = page.path ? join(outDir, page.path) : outDir;
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, 'index.html'), html);
+    if (!page.path) {
+      // Shared sets of offerings (/shared?o=1,2,3) are personal, so they stay out of search results.
+      mkdirSync(join(outDir, 'shared'), { recursive: true });
+      writeFileSync(
+        join(outDir, 'shared', 'index.html'),
+        html
+          .replace(/<main class="seo-prerender">[\s\S]*<\/main>/, `<main class="seo-prerender">${logo}<h1>Offerings shared with you</h1></main>`)
+          .replace('<link rel="canonical"', '<meta name="robots" content="noindex" />\n    <link rel="canonical"')
+      );
+    }
     if (!page.path) writeFileSync(join(outDir, '404.html'), html.replace('<link rel="canonical"', '<meta name="robots" content="noindex" />\n    <link rel="canonical"'));
   }
   const today = new Date().toISOString().slice(0, 10);
