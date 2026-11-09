@@ -84,7 +84,7 @@ function buildPages({ company, team, careers, catalogue }, site) {
     title: 'MindSuite — Software, cloud, AI, cybersecurity and ERP services',
     description: `Explore ${total} MindSuite offerings across software engineering, DevOps, AI, cybersecurity, ERP, IT staffing, managed services and business transformation, each with scope, deliverables and business value.`,
     h1: 'Architect Intelligence. Integrate Securely. Transform Business.',
-    body: `<p>MindSuite's connected capabilities: ${catalogue.length} service families and ${total} defined offerings, each with what it includes and the outcomes it delivers.</p><h2>Service families</h2>${familyLinks}<p>${link('platforms', 'Platforms')} · ${link('clients', 'Clients')} · ${link('about', 'About us')} · ${link('team', 'Team')} · ${link('careers', 'Careers')}</p>`,
+    body: `<p>Explore MindSuite’s connected capabilities - from software and AI to cybersecurity, platform engineering, ERP and business systems, IT staffing, managed services, support and business transformation. Scroll to discover each offering, what it includes and the outcomes it delivers.</p><h2>Service families</h2>${familyLinks}<p>${link('platforms', 'Platforms')} · ${link('clients', 'Clients')} · ${link('about', 'About us')} · ${link('team', 'Team')} · ${link('careers', 'Careers')}</p>`,
     jsonld: [org, { '@type': 'WebSite', '@id': `${site}/#website`, name: 'MindSuite', url: url(''), publisher: { '@id': org['@id'] } }],
   });
 
@@ -225,7 +225,24 @@ function head(page, site) {
 
 // Shown for a moment before the app starts, and to anything that reads the page without JavaScript.
 const PRERENDER_STYLE =
-  '<style>.seo-prerender{max-width:860px;margin:0 auto;padding:110px 24px 60px;font:16px/1.7 Arial,Helvetica,sans-serif;color:#dfe4f2;background:#1d2340}.seo-prerender h1{font-size:34px;line-height:1.2;color:#fff}.seo-prerender a{color:#b9a7ef}</style>';
+  '<style>'
+  + '.seo-prerender{position:relative;box-sizing:border-box;min-height:100svh;padding:max(110px,calc(50svh - 240px)) max(25px,6vw) 60px;background:#283152;color:#d3d8e8;font:16px/1.75 Arial,Helvetica,sans-serif}'
+  + '.seo-prerender:before{content:"";position:absolute;inset:0 0 auto;height:70px;background:#222a45;border-bottom:1px solid #39436a}'
+  + '.seo-prerender h1{max-width:620px;margin:0;color:#f1f2f8;font-size:clamp(32px,4.5vw,61px);font-weight:600;line-height:1.1;letter-spacing:-1.5px}'
+  + '.seo-prerender p{max-width:620px;margin:25px 0 0}'
+  + '.seo-prerender a{color:#b9a7ef}'
+  // Only the heading and first paragraph share the first screen, like the real hero.
+  + '.seo-prerender>h1+p+*{margin-top:100svh}'
+  + '@media(max-width:900px){.seo-prerender{padding-inline:25px}.seo-prerender p{font-size:15px}}'
+  + '@media(max-width:600px){.seo-prerender{padding-top:140px}.seo-prerender h1{font-size:clamp(30px,7.5vw,42px)}}'
+  + '</style>';
+
+// The home heading uses the same three colours as the real hero, so the switch is seamless.
+const heroHeading = (html) =>
+  html
+    .replace('Intelligence.', '<span style="color:#c6b9f2">Intelligence.</span>')
+    .replace('Securely.', '<span style="color:#8ad3e3">Securely.</span>')
+    .replace('Business.', '<span style="color:#e3b2cf">Business.</span>');
 
 /** Writes every page, sitemap.xml and robots.txt into `outDir`. */
 export async function writeSeoPages({ root, outDir, site = process.env.SITE_URL || DEFAULT_SITE }) {
@@ -238,7 +255,7 @@ export async function writeSeoPages({ root, outDir, site = process.env.SITE_URL 
   for (const page of pages) {
     const html = template
       .replace(/<!-- seo:start[\s\S]*?<!-- seo:end -->/, head(page, site))
-      .replace('<!-- seo:content -->', `${PRERENDER_STYLE}<main class="seo-prerender"><h1>${esc(page.h1)}</h1>${page.body}</main>`);
+      .replace('<!-- seo:content -->', `${PRERENDER_STYLE}<main class="seo-prerender"><h1>${page.path ? esc(page.h1) : heroHeading(esc(page.h1))}</h1>${page.body}</main>`);
     const dir = page.path ? join(outDir, page.path) : outDir;
     mkdirSync(dir, { recursive: true });
     writeFileSync(join(dir, 'index.html'), html);
