@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Icon from './Icon.jsx';
-import { focusTarget } from './Dialogs.jsx';
+import { focusTarget } from '../lib/focus.js';
 import { offeringById } from '../data/catalogue.js';
 import { localAssistantReply } from '../data/matcher.js';
 import { useT } from '../i18n/index.jsx';

@@ -121,7 +121,7 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
   };
 
   return (
-    <main className="careers-page">
+    <main className="careers-page" id="main-content" tabIndex={-1}>
       {/* Hero */}
       <section className="hero careers-hero globe-scene" aria-labelledby="careers-title">
         <Globe playing={playing} />

@@ -1,22 +1,25 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
 import Hero from './components/Hero.jsx';
 import MapColumn from './components/MapColumn.jsx';
 import Catalogue from './components/Catalogue.jsx';
-import Assistant from './components/Assistant.jsx';
 import Icon from './components/Icon.jsx';
 import { Clients, PlatformEcosystem } from './components/CompanySections.jsx';
 import Team from './components/Team.jsx';
-import { InterestsDialog, SearchDialog } from './components/Dialogs.jsx';
 import SiteFooter from './components/SiteFooter.jsx';
 import SiteHeader, { BackToTop } from './components/SiteHeader.jsx';
 import useInterests from './hooks/useInterests.js';
 import useReadingPosition from './hooks/useReadingPosition.js';
 import useRoute, { BASE_URL, getRoute, navigate } from './hooks/useRoute.js';
-import Careers from './components/Careers.jsx';
 import ExpertConnect from './components/ExpertConnect.jsx';
 import InterestToast from './components/InterestToast.jsx';
 import { offeringById } from './data/catalogue.js';
 import { useLanguage } from './i18n/index.jsx';
+
+// Loaded on demand, so the first screen downloads only what it needs.
+const Careers = lazy(() => import('./components/Careers.jsx'));
+const Assistant = lazy(() => import('./components/Assistant.jsx'));
+const InterestsDialog = lazy(() => import('./components/Dialogs.jsx').then((m) => ({ default: m.InterestsDialog })));
+const SearchDialog = lazy(() => import('./components/Dialogs.jsx').then((m) => ({ default: m.SearchDialog })));
 
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -24,6 +27,11 @@ export default function App() {
   const [playing, setPlaying] = useState(() => !prefersReducedMotion());
   const [searchOpen, setSearchOpen] = useState(false);
   const [interestsOpen, setInterestsOpen] = useState(false);
+  const [mounted, setMounted] = useState({ search: false, interests: false });
+  useEffect(() => {
+    if (searchOpen || interestsOpen)
+      setMounted((m) => ({ search: m.search || searchOpen, interests: m.interests || interestsOpen }));
+  }, [searchOpen, interestsOpen]);
   const { interests, status, toggle, add, addMany, remove, clear } = useInterests();
   const current = useReadingPosition();
   const { t, lang } = useLanguage();
@@ -51,6 +59,7 @@ export default function App() {
   }, []);
 
   // Keep the opening screen clear: the empty interests button appears once the visitor scrolls on.
+  const route = useRoute();
   const [pastHero, setPastHero] = useState(false);
   useEffect(() => {
     const onScroll = () => setPastHero(scrollY > innerHeight * 0.5);
@@ -58,6 +67,11 @@ export default function App() {
     addEventListener('scroll', onScroll, { passive: true });
     return () => removeEventListener('scroll', onScroll);
   }, []);
+  // On small or short screens the floating helpers wait until the visitor leaves the opening
+  // screen, so they never cover the headline, text or main button (see .at-hero in CSS).
+  useEffect(() => {
+    document.documentElement.classList.toggle('at-hero', !pastHero && route.page === 'main');
+  }, [pastHero, route.page]);
 
   // Service map can collapse to a thin icon rail; the choice is remembered per browser.
   const [mapCollapsed, setMapCollapsed] = useState(() => {
@@ -80,7 +94,6 @@ export default function App() {
   const closeSearch = useCallback(() => setSearchOpen(false), []);
   const closeInterests = useCallback(() => setInterestsOpen(false), []);
 
-  const route = useRoute();
 
   // The address bar always shows the site's base URL. In-page links (#catalogue,
   // #family-1-area-2, #offering-12, #top …) just scroll, and "#/careers" links switch page
@@ -88,7 +101,10 @@ export default function App() {
   useEffect(() => {
     const scrollToId = (id) => {
       if (id === 'top') return window.scrollTo({ top: 0, behavior: 'smooth' });
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const target = document.getElementById(id);
+      if (!target) return;
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (id === 'main-content') target.focus({ preventScroll: true });
     };
     const onClick = (e) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -128,11 +144,17 @@ export default function App() {
 
   return (
     <>
+      {/* First stop for keyboard users: jump past the header to the page content. */}
+      <a className="skip-link" href="#main-content">
+        {t('Skip to main content')}
+      </a>
       <SiteHeader />
       {route.page === 'careers' ? (
-        <Careers roleId={route.roleId} playing={playing} onToggleMotion={() => setPlaying((p) => !p)} />
+        <Suspense fallback={<main className="careers-page" id="main-content" />}>
+          <Careers roleId={route.roleId} playing={playing} onToggleMotion={() => setPlaying((p) => !p)} />
+        </Suspense>
       ) : (
-        <>
+        <main id="main-content" tabIndex={-1}>
       <Hero playing={playing} onToggleMotion={() => setPlaying((p) => !p)} />
 
       <div id="catalogue" className={`catalogue-layout${mapCollapsed ? ' is-rail' : ''}`}>
@@ -164,7 +186,7 @@ export default function App() {
       <PlatformEcosystem />
       <Clients />
       <Team />
-        </>
+        </main>
       )}
 
       <SiteFooter />
@@ -179,14 +201,18 @@ export default function App() {
         <Icon name="ShoppingBag" />
         {t('Your interests ({count})', { count: interests.size })}
       </button>
-      <InterestsDialog
-        open={interestsOpen}
-        onClose={closeInterests}
-        interests={interests}
-        onRemove={remove}
-        onClear={clear}
-        startStep={interestsStep}
-      />
+      {mounted.interests && (
+        <Suspense fallback={null}>
+          <InterestsDialog
+            open={interestsOpen}
+            onClose={closeInterests}
+            interests={interests}
+            onRemove={remove}
+            onClear={clear}
+            startStep={interestsStep}
+          />
+        </Suspense>
+      )}
       <InterestToast
         toast={toast}
         onRequest={() => openInterests('form')}
@@ -199,18 +225,24 @@ export default function App() {
 
       <BackToTop />
       <ExpertConnect />
-      <SearchDialog
-        open={searchOpen}
-        onClose={closeSearch}
-        interests={interests}
-        onToggle={toggle}
-        onAddMany={addMany}
-        onOpenInterests={() => {
-          setSearchOpen(false);
-          openInterests('list');
-        }}
-      />
-      <Assistant interests={interests} onAdd={add} />
+      {mounted.search && (
+        <Suspense fallback={null}>
+          <SearchDialog
+            open={searchOpen}
+            onClose={closeSearch}
+            interests={interests}
+            onToggle={toggle}
+            onAddMany={addMany}
+            onOpenInterests={() => {
+              setSearchOpen(false);
+              openInterests('list');
+            }}
+          />
+        </Suspense>
+      )}
+      <Suspense fallback={null}>
+        <Assistant interests={interests} onAdd={add} />
+      </Suspense>
     </>
   );
 }

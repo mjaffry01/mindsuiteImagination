@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Check, Plus, Search as SearchIcon, ShoppingBag, X } from 'lucide-react';
 import Icon from './Icon.jsx';
+import { focusTarget } from '../lib/focus.js';
 import PhoneInput from './PhoneInput.jsx';
 import { checkPhone, guessCountry } from '../lib/phone.js';
 import { useT } from '../i18n/index.jsx';
@@ -40,13 +41,6 @@ function useModal(open, onClose) {
   return ref;
 }
 
-/** Focus the destination after the browser's hash scroll, so keyboard users land there. */
-export function focusTarget(id) {
-  const target = document.getElementById(id);
-  if (!target) return;
-  target.setAttribute('tabindex', '-1');
-  target.focus({ preventScroll: true });
-}
 
 function JumpLink({ id, onClose, children }) {
   return (
