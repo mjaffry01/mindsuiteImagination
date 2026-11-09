@@ -3,6 +3,7 @@ import { PanelLeftOpen } from 'lucide-react';
 import Hero from './components/Hero.jsx';
 import MapColumn from './components/MapColumn.jsx';
 import MobileMapDrawer from './components/MobileMapDrawer.jsx';
+import MobileTabBar from './components/MobileTabBar.jsx';
 import Catalogue from './components/Catalogue.jsx';
 import Icon from './components/Icon.jsx';
 import { About, Clients, PlatformEcosystem } from './components/CompanySections.jsx';
@@ -106,6 +107,11 @@ export default function App() {
   const openSearch = useCallback(() => setSearchOpen(true), []);
   const [mapDrawerOpen, setMapDrawerOpen] = useState(false); // phones: the left pane as a drawer
   const closeMapDrawer = useCallback(() => setMapDrawerOpen(false), []);
+  // The drawer and search jump to catalogue sections, so from Careers they switch page first.
+  const onMainPage = (action) => () => {
+    if (getRoute().page !== 'main') navigate('main');
+    action();
+  };
   const closeSearch = useCallback(() => setSearchOpen(false), []);
   const closeInterests = useCallback(() => setInterestsOpen(false), []);
   // Guided tour: starts from the top of the main page (from Careers it switches page first).
@@ -253,6 +259,12 @@ export default function App() {
 
       <SiteFooter onStartTour={() => startTour()} />
       {mapDrawerOpen && <MobileMapDrawer current={current} onClose={closeMapDrawer} onOpenSearch={openSearch} />}
+      <MobileTabBar
+        enquiryCount={interests.size}
+        onOpenMap={onMainPage(() => setMapDrawerOpen(true))}
+        onOpenSearch={onMainPage(openSearch)}
+        onOpenEnquiry={() => openInterests('list')}
+      />
       {tourOpen && (
         <Suspense fallback={null}>
           <GuidedTour open={tourOpen} onClose={closeTour} />

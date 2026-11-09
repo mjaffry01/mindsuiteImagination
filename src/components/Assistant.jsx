@@ -116,6 +116,18 @@ export default function Assistant({ interests, onAdd }) {
     if (logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight;
   }, [messages, open]);
 
+  // The bottom bar on phones opens the guide; the expert panel takes its place when opened.
+  useEffect(() => {
+    const onToggle = () => setOpen((o) => !o);
+    const onExpert = () => setOpen(false);
+    addEventListener('mindsuite:toggle-guide', onToggle);
+    addEventListener('mindsuite:toggle-expert', onExpert);
+    return () => {
+      removeEventListener('mindsuite:toggle-guide', onToggle);
+      removeEventListener('mindsuite:toggle-expert', onExpert);
+    };
+  }, []);
+
   const toggle = (value) => {
     setOpen(value);
     requestAnimationFrame(() => (value ? inputRef.current : petRef.current)?.focus());

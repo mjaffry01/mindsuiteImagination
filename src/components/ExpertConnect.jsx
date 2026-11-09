@@ -41,7 +41,10 @@ export default function ExpertConnect() {
 
   useEffect(() => {
     if (!open) return;
-    const onPointer = (e) => !rootRef.current.contains(e.target) && setOpen(false);
+    const onPointer = (e) => {
+      // The bottom-bar button toggles the panel itself.
+      if (!rootRef.current.contains(e.target) && !e.target.closest?.('.tab-expert')) setOpen(false);
+    };
     const onKey = (e) => {
       if (e.key === 'Escape') {
         setOpen(false);
@@ -55,6 +58,12 @@ export default function ExpertConnect() {
       document.removeEventListener('keydown', onKey);
     };
   }, [open]);
+
+  useEffect(() => {
+    const onToggle = () => setOpen((o) => !o);
+    addEventListener('mindsuite:toggle-expert', onToggle);
+    return () => removeEventListener('mindsuite:toggle-expert', onToggle);
+  }, []);
 
   return (
     <div className={`expert${open ? ' is-open' : ''}`} ref={rootRef}>

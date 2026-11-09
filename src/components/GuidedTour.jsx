@@ -24,14 +24,14 @@ const STEPS = [
     text: 'Read the whole site, including every offering, in English, Arabic or French.',
   },
   {
-    target: ['.map-column', '.mobile-location'],
+    target: ['.map-column', '.tab-offerings'],
     title: 'Your service map',
     text: 'It follows you as you scroll. Pick a family or an area to jump straight there.',
-    phoneText: 'This bar shows where you are. Tap it to see every service family and area, or to search.',
+    phoneText: 'Tap Offerings any time to open your service map and jump to any family or area.',
     scrollTo: 'catalogue',
   },
   {
-    target: ['.catalogue-search-launch', '.rail-btn[aria-haspopup="dialog"]'],
+    target: ['.catalogue-search-launch', '.rail-btn[aria-haspopup="dialog"]', '.tab-search'],
     title: 'Search everything',
     text: 'Search all {count} offerings, or browse by service family and area.',
     scrollTo: 'catalogue',
@@ -49,17 +49,17 @@ const STEPS = [
     scrollTo: 'offering-1',
   },
   {
-    target: '.enquiry-counter',
+    target: ['.enquiry-counter', '.tab-enquiry'],
     title: 'Your enquiry',
     text: 'Shows how many offerings you have collected. Open it to review them and request a proposal.',
   },
   {
-    target: '.assistant-pet',
+    target: ['.assistant-pet', '.tab-guide'],
     title: 'Not sure where to start?',
     text: 'Describe what you want to improve and the guide suggests matching offerings.',
   },
   {
-    target: '.expert-toggle',
+    target: ['.expert-toggle', '.tab-expert'],
     title: 'Talk to an expert',
     text: 'Prefer a conversation? Reach us on WhatsApp, Telegram, phone, email or LinkedIn.',
   },
