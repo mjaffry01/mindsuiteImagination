@@ -1,5 +1,5 @@
 import { useId } from 'react';
-import { ArrowDownToLine, ChevronsDown } from 'lucide-react';
+import { Waves, Zap } from 'lucide-react';
 import { setScrollMotion, useScrollMotion } from '../lib/smoothScroll.js';
 import { useT } from '../i18n/index.jsx';
 
@@ -10,12 +10,10 @@ export default function ScrollMotionSwitch() {
   const labelId = useId();
   return (
     <div className="scroll-switch" title={t('Smooth scrolling')}>
-      <span className="scroll-switch-label">
-        {on ? <ChevronsDown aria-hidden="true" /> : <ArrowDownToLine aria-hidden="true" />}
-        <span className="visually-hidden" id={labelId}>
-          {t('Smooth scrolling')}
-        </span>
+      <span className="visually-hidden" id={labelId}>
+        {t('Smooth scrolling')}
       </span>
+      <Zap className={`scroll-switch-icon${on ? '' : ' is-active'}`} aria-hidden="true" />
       <button
         type="button"
         role="switch"
@@ -26,6 +24,7 @@ export default function ScrollMotionSwitch() {
       >
         <span aria-hidden="true" />
       </button>
+      <Waves className={`scroll-switch-icon${on ? ' is-active' : ''}`} aria-hidden="true" />
     </div>
   );
 }
