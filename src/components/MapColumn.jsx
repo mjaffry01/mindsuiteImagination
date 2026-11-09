@@ -3,6 +3,7 @@ import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import Globe from './Globe.jsx';
 import HexFamilyMap from './HexFamilyMap.jsx';
 import ScrollMotionSwitch from './ScrollMotionSwitch.jsx';
+import AllDetailsButton from './AllDetailsButton.jsx';
 import Icon from './Icon.jsx';
 import { families, offerings } from '../data/catalogue.js';
 import { useT } from '../i18n/index.jsx';
@@ -135,7 +136,10 @@ export default function MapColumn({ current, playing, onOpenSearch, collapsed, o
         {t('Search all {count} offerings', { count: offerings.length })} <span aria-hidden="true">&#8599;</span>
       </button>
 
-      <ScrollMotionSwitch />
+      <div className="map-tools">
+        <AllDetailsButton />
+        <ScrollMotionSwitch />
+      </div>
       <HexFamilyMap currentId={family.id} />
 
       <div className="map-label">{t('Service areas')}</div>

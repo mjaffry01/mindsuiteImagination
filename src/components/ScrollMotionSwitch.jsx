@@ -1,5 +1,5 @@
 import { useId } from 'react';
-import { ChevronsDown } from 'lucide-react';
+import { ArrowDownToLine, ChevronsDown } from 'lucide-react';
 import { setScrollMotion, useScrollMotion } from '../lib/smoothScroll.js';
 import { useT } from '../i18n/index.jsx';
 
@@ -9,10 +9,12 @@ export default function ScrollMotionSwitch() {
   const on = useScrollMotion();
   const labelId = useId();
   return (
-    <div className="scroll-switch">
-      <span className="scroll-switch-label" id={labelId}>
-        <ChevronsDown aria-hidden="true" />
-        {t('Smooth scrolling')}
+    <div className="scroll-switch" title={t('Smooth scrolling')}>
+      <span className="scroll-switch-label">
+        {on ? <ChevronsDown aria-hidden="true" /> : <ArrowDownToLine aria-hidden="true" />}
+        <span className="visually-hidden" id={labelId}>
+          {t('Smooth scrolling')}
+        </span>
       </span>
       <button
         type="button"

@@ -26,8 +26,20 @@ const STEPS = [
   {
     target: ['.map-column', '.tab-offerings'],
     title: 'Your service map',
-    text: 'It follows you as you scroll. Pick a family or an area to jump straight there.',
-    phoneText: 'Tap Offerings any time to open your service map and jump to any family or area.',
+    text: 'It follows you as you scroll. Pick a family or an area to jump there, or drag the hexagons to rearrange them.',
+    phoneText: 'Tap Offerings any time to open your service map, jump to any family or area, open all details or turn smooth scrolling on or off.',
+    scrollTo: 'catalogue',
+  },
+  {
+    target: '.map-column .all-details',
+    title: 'Open all details',
+    text: 'Show or hide the details of every offering with one click.',
+    scrollTo: 'catalogue',
+  },
+  {
+    target: '.map-column .scroll-switch',
+    title: 'Smooth scrolling',
+    text: 'On, the page glides to where you are going. Off, it goes there straight away.',
     scrollTo: 'catalogue',
   },
   {
@@ -35,6 +47,12 @@ const STEPS = [
     title: 'Search everything',
     text: 'Search all {count} offerings, or browse by service family and area.',
     scrollTo: 'catalogue',
+  },
+  {
+    target: '#offering-1 .offering-toggle',
+    title: 'See the details',
+    text: 'Use the arrow to open or close what an offering includes and what you receive.',
+    scrollTo: 'offering-1',
   },
   {
     target: ['#offering-1 .offering-actions .interest-button', '#offering-1 .offering-foot .interest-button'],
@@ -45,13 +63,13 @@ const STEPS = [
   {
     target: ['#offering-1 .offering-actions .share-toggle', '#offering-1 .offering-foot .share-toggle'],
     title: 'Share an offering',
-    text: 'Send any offering to a colleague on LinkedIn, WhatsApp, email or Telegram.',
+    text: 'Send any offering to a colleague, or download it as a PDF or Word brochure.',
     scrollTo: 'offering-1',
   },
   {
     target: ['.enquiry-counter', '.tab-enquiry'],
     title: 'Your enquiry',
-    text: 'Shows how many offerings you have collected. Open it to review them and request a proposal.',
+    text: 'Shows how many offerings you have collected. Open it to share them, download a brochure or request a proposal.',
   },
   {
     target: ['.assistant-pet', '.tab-guide'],

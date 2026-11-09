@@ -1,9 +1,20 @@
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useSyncExternalStore } from 'react';
+import { ChevronDown } from 'lucide-react';
 import Icon from './Icon.jsx';
 import ShareMenu from './ShareMenu.jsx';
 import { families } from '../data/catalogue.js';
 import { useT } from '../i18n/index.jsx';
 import { startCatalogueStages, useCatalogueProgress } from '../lib/catalogueStages.js';
+import { toggleOfferingDetails, useOpenOfferings } from '../lib/offeringDetails.js';
+
+// Same width at which the card's buttons move to its end (sections.css).
+const phoneWidth = () => matchMedia('(max-width: 900px)');
+const isPhone = () => phoneWidth().matches;
+const subscribePhone = (fn) => {
+  const query = phoneWidth();
+  query.addEventListener('change', fn);
+  return () => query.removeEventListener('change', fn);
+};
 
 const ORDINALS = ['01', '02', '03', '04', '05', '06', '07', '08', '09'];
 const WORDS = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'];
@@ -46,7 +57,7 @@ function OfferingActions({ offering, added, onToggle }) {
   );
 }
 
-export const Offering = memo(function Offering({ offering, family, added, onToggle }) {
+export const Offering = memo(function Offering({ offering, family, added, onToggle, collapsible = false, open = true, actionsAt = 'both' }) {
   const t = useT();
   const n = offering.id.split('-')[1];
   const deliverables = offering.deliverables.split(';').filter((d) => d.trim()).length;
@@ -73,10 +84,28 @@ export const Offering = memo(function Offering({ offering, family, added, onTogg
             </span>
           </p>
         </div>
-        <div className="offering-actions">
-          <OfferingActions offering={offering} added={added} onToggle={onToggle} />
-        </div>
+        {actionsAt !== 'foot' && (
+          <div className="offering-actions">
+            <OfferingActions offering={offering} added={added} onToggle={onToggle} />
+          </div>
+        )}
       </div>
+      {collapsible && (
+        <button
+          type="button"
+          className="offering-toggle"
+          aria-expanded={open}
+          aria-controls={`offering-details-${n}`}
+          aria-label={`${open ? t('Hide details') : t('View details')}: ${offering.name}`}
+          title={open ? t('Hide details') : t('View details')}
+          onClick={() => toggleOfferingDetails(offering.id)}
+        >
+          <ChevronDown aria-hidden="true" />
+        </button>
+      )}
+      <div id={`offering-details-${n}`} hidden={!open}>
+      {open && (
+      <>
       <p className="definition">{offering.definition}</p>
       <dl>
         <div>
@@ -99,10 +128,15 @@ export const Offering = memo(function Offering({ offering, family, added, onTogg
           </dd>
         </div>
       </dl>
-      {/* Phones: the actions come after the details, where the reader's thumb already is. */}
-      <div className="offering-foot">
-        <OfferingActions offering={offering} added={added} onToggle={onToggle} />
+      </>
+      )}
       </div>
+      {/* Phones: the actions come after the details, where the reader's thumb already is. */}
+      {actionsAt !== 'top' && (
+        <div className="offering-foot">
+          <OfferingActions offering={offering} added={added} onToggle={onToggle} />
+        </div>
+      )}
     </article>
   );
 });
@@ -111,6 +145,8 @@ export const Offering = memo(function Offering({ offering, family, added, onTogg
 export default function Catalogue({ interests, onToggle }) {
   const t = useT();
   const limit = useCatalogueProgress();
+  const openCards = useOpenOfferings();
+  const phone = useSyncExternalStore(subscribePhone, isPhone);
   useEffect(startCatalogueStages, []);
 
   let left = limit; // cards still allowed on the page in this pass
@@ -170,12 +206,15 @@ export default function Catalogue({ interests, onToggle }) {
               family={family}
               added={interests.has(o.id)}
               onToggle={onToggle}
+              collapsible
+              actionsAt={phone ? 'foot' : 'top'}
+              open={openCards.has(o.id)}
             />
           ))}
         </section>
       ))}
 
-      {complete && <p className="family-end">
+      {complete && family.index === families.length - 1 && <p className="family-end">
         {t(
           'Definitions and typical scope are guidance. Final deliverables, acceptance criteria and ownership are agreed in the proposal.'
         )}

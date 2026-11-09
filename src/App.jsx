@@ -28,6 +28,7 @@ import { offeringById } from './data/catalogue.js';
 import { useLanguage } from './i18n/index.jsx';
 import { smoothScrollTo } from './lib/smoothScroll.js';
 import { ensureCatalogue, useCatalogueDone } from './lib/catalogueStages.js';
+import { revealOffering } from './lib/offeringDetails.js';
 
 // Loaded on demand, so the first screen downloads only what it needs.
 const Careers = lazy(() => import('./components/Careers.jsx'));
@@ -135,6 +136,7 @@ export default function App() {
     const scrollToId = (id) => {
       if (id === 'top') return smoothScrollTo(null);
       ensureCatalogue();
+      revealOffering(id);
       const target = document.getElementById(id);
       if (!target) return;
       smoothScrollTo(target);

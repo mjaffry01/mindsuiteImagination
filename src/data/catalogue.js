@@ -4,7 +4,7 @@ import raw from './catalogue.json';
 export const families = raw.map((family, familyIndex) => ({
   ...family,
   index: familyIndex,
-  theme: familyIndex % 2 === 1 ? 'dark' : 'light',
+  theme: 'light', // every family stays light: flipping to dark while reading was hard on the eyes
   count: family.areas.reduce((sum, area) => sum + area.offerings.length, 0),
 }));
 

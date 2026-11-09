@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronDown, Search as SearchIcon, X } from 'lucide-react';
 import Icon from './Icon.jsx';
 import ScrollMotionSwitch from './ScrollMotionSwitch.jsx';
+import AllDetailsButton from './AllDetailsButton.jsx';
 import { SECTIONS, sectionHref } from './SiteNav.jsx';
 import { focusTarget } from '../lib/focus.js';
 import { families, offerings } from '../data/catalogue.js';
@@ -138,7 +139,10 @@ export default function MobileMapDrawer({ current, onClose, onOpenSearch }) {
           <span>{t('{n} of {total} offerings', { n: current.index + 1, total: offerings.length })}</span>
         </footer>
 
-        <ScrollMotionSwitch />
+        <div className="map-tools">
+          <AllDetailsButton />
+          <ScrollMotionSwitch />
+        </div>
 
         {/* Search and close sit at the bottom, where the thumb is. */}
         <div className="drawer-actions">
