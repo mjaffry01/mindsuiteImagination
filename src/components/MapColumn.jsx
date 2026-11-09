@@ -1,22 +1,10 @@
 import { useState } from 'react';
 import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import Globe from './Globe.jsx';
+import HexFamilyMap from './HexFamilyMap.jsx';
 import Icon from './Icon.jsx';
 import { families, offerings } from '../data/catalogue.js';
 import { useT } from '../i18n/index.jsx';
-
-const HEX_WIDTH = 112;
-const HEX_HEIGHT = (HEX_WIDTH * Math.sqrt(3)) / 2;
-const COLS = 3;
-
-function hexStyle(i) {
-  return {
-    width: HEX_WIDTH,
-    height: HEX_HEIGHT,
-    left: (i % COLS) * HEX_WIDTH * 0.75,
-    top: Math.floor(i / COLS) * HEX_HEIGHT + ((i % COLS) % 2) * (HEX_HEIGHT / 2),
-  };
-}
 
 /** Floating label for rail icons (a CSS tooltip would be clipped by the column's scroll area). */
 function useRailTip() {
@@ -146,30 +134,7 @@ export default function MapColumn({ current, playing, onOpenSearch, collapsed, o
         {t('Search all {count} offerings', { count: offerings.length })} <span aria-hidden="true">&#8599;</span>
       </button>
 
-      <div className="map-label">{t('Service families')}</div>
-      <nav
-        className="hex-map family-map"
-        aria-label={t('Jump to a service family')}
-        style={{
-          width: HEX_WIDTH * 2.5,
-          height: Math.ceil(families.length / COLS) * HEX_HEIGHT + HEX_HEIGHT / 2,
-        }}
-      >
-        {families.map((f, i) => (
-          <a
-            key={f.id}
-            href={`#${f.id}`}
-            className="map-cell"
-            aria-label={f.name}
-            title={f.name}
-            aria-current={String(f.id === family.id)}
-            style={hexStyle(i)}
-          >
-            <Icon name={f.icon} className="" />
-            <span>{f.short}</span>
-          </a>
-        ))}
-      </nav>
+      <HexFamilyMap currentId={family.id} />
 
       <div className="map-label">{t('Service areas')}</div>
       <h3 className="area-family-title">{family.name}</h3>

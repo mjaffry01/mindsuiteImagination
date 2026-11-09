@@ -1745,6 +1745,14 @@ img.platform-logo { max-width: 80%; max-height: 72px; margin: auto; object-fit: 
   .proof-stats li + li { padding-left: 0; padding-inline-start: 0; border: 0; }
 }
 
+/* ---------- Service-family hexagons: drag to rearrange ---------- */
+.hex-label { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.hex-label small { font-size: 10.5px; letter-spacing: 0; text-transform: none; opacity: .85; }
+.hex-label button { min-height: 28px; padding: 0 6px; border: 0; background: none; color: inherit; font: inherit; letter-spacing: 0; text-transform: none; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+.family-map .map-cell { cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-user-drag: none; -webkit-touch-callout: none; transition: left .22s ease, top .22s ease, background .25s, color .25s, filter .25s, transform .15s; }
+.family-map .map-cell.is-dragging { z-index: 5; cursor: grabbing; transform: scale(1.08); filter: brightness(1.08); transition: background .25s, color .25s, transform .15s; }
+@media (prefers-reduced-motion: reduce) { .family-map .map-cell { transition: none; } }
+
 /* ---------- Bottom bar on phones: main actions within thumb reach ---------- */
 .offering-foot { display: none; }
 .mobile-tabs { display: none; }
