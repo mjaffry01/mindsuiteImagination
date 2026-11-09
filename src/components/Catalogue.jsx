@@ -48,6 +48,7 @@ function OfferingActions({ offering, added, onToggle }) {
 const Offering = memo(function Offering({ offering, family, added, onToggle }) {
   const t = useT();
   const n = offering.id.split('-')[1];
+  const deliverables = offering.deliverables.split(';').filter((d) => d.trim()).length;
   return (
     <article
       className="offering"
@@ -90,6 +91,7 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
           <dt>
             <Icon name="PackageCheck" />
             {t('What you receive')}
+            {deliverables > 1 && <span className="offering-count">{deliverables}</span>}
           </dt>
           <dd>
             <ItemList text={offering.deliverables} />

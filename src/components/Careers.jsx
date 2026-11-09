@@ -148,7 +148,7 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
           <ul className="careers-stats" aria-label={t('MindSuite at a glance')}>
             <li><strong>{peopleCount}</strong> {t('people listed')}</li>
             <li><strong>{DISCIPLINES.length}</strong> {t('disciplines')}</li>
-            <li><strong>{openings.length}</strong> {openings.length === 1 ? t('open role') : t('open roles')}</li>
+            {openings.length > 0 && <li><strong>{openings.length}</strong> {openings.length === 1 ? t('open role') : t('open roles')}</li>}
             <li><strong>{t('Hyderabad')}</strong> {t('India office')}</li>
           </ul>
         </div>

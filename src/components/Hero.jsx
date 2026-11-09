@@ -1,14 +1,18 @@
 import { ChevronDown } from 'lucide-react';
 import Globe from './Globe.jsx';
 import DotField from './DotField.jsx';
-import { areaCount, families, offerings } from '../data/catalogue.js';
+import { offerings } from '../data/catalogue.js';
 import { clients } from '../data/company.js';
+import { leaders, team } from '../data/team.js';
 import { useT } from '../i18n/index.jsx';
 
+// Calculated from the site's own data, so they stay true as the content changes.
+const deliverableCount = offerings.reduce((sum, o) => sum + o.deliverables.split(';').filter((d) => d.trim()).length, 0);
 const STATS = [
-  { value: families.length, label: 'service families' },
-  { value: areaCount, label: 'service areas' },
   { value: offerings.length, label: 'defined offerings' },
+  { value: deliverableCount, label: 'named deliverables' },
+  { value: leaders.length + team.length, label: 'team members' },
+  { value: clients.list.length, label: 'client businesses' },
 ];
 
 export default function Hero({ playing, onToggleMotion, onStartTour }) {

@@ -1738,6 +1738,13 @@ img.platform-logo { max-width: 80%; max-height: 72px; margin: auto; object-fit: 
   .lang-select:focus-within { outline: 2px solid #48b8df; outline-offset: 1px; }
 }
 
+.offering-count { display: inline-grid; place-items: center; min-width: 18px; height: 18px; margin-inline-start: 7px; padding: 0 5px; border-radius: 999px; background: var(--soft-violet); color: #fff; font-size: 10.5px; letter-spacing: 0; vertical-align: 1px; }
+
+@media (max-width: 520px) {
+  .proof-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+  .proof-stats li + li { padding-left: 0; padding-inline-start: 0; border: 0; }
+}
+
 /* ---------- Bottom bar on phones: main actions within thumb reach ---------- */
 .offering-foot { display: none; }
 .mobile-tabs { display: none; }
