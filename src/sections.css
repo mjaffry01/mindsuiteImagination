@@ -1739,6 +1739,7 @@ img.platform-logo { max-width: 80%; max-height: 72px; margin: auto; object-fit: 
 }
 
 /* ---------- Bottom bar on phones: main actions within thumb reach ---------- */
+.offering-foot { display: none; }
 .mobile-tabs { display: none; }
 @media (max-width: 900px) {
   :root { --tabs-h: calc(60px + env(safe-area-inset-bottom, 0px)); }
@@ -1766,8 +1767,13 @@ img.platform-logo { max-width: 80%; max-height: 72px; margin: auto; object-fit: 
   .expert { left: 12px; right: 12px; bottom: calc(var(--tabs-h) + 10px); }
   #offering-assistant { top: auto !important; bottom: calc(var(--tabs-h) + 10px) !important; max-height: calc(100dvh - var(--tabs-h) - 90px); }
   .interest-toast { bottom: calc(var(--tabs-h) + 10px); }
-  /* In the drawer, search sits where the thumb is. */
-  .drawer-search { order: 3; margin-top: 8px; }
+  /* The Offerings tab does this bar's job, so it scrolls away and leaves room for reading. */
+  .mobile-location { position: static; }
+  .area-section, .offering, .family-section { scroll-margin-top: 12px; }
+  /* Phones: card actions move from the heading to the end of the card. */
+  .offering-heading .offering-actions { display: none; }
+  .offering-foot { display: flex; align-items: center; gap: 10px; margin-top: 16px; }
+  .offering-foot .interest-button { flex: 1; min-height: 48px; margin: 0; font-family: inherit; font-size: 14px; font-weight: 600; }
 }
 
 /* ---------- Service map drawer on phones and small tablets ---------- */
@@ -1786,7 +1792,10 @@ img.platform-logo { max-width: 80%; max-height: 72px; margin: auto; object-fit: 
 @media (prefers-reduced-motion: reduce) { #service-map-drawer, #service-map-drawer::backdrop { animation: none; } }
 html.map-drawer-open { overflow: hidden; }
 .drawer-panel { display: flex; flex-direction: column; height: 100%; padding: 10px 10px max(10px, env(safe-area-inset-bottom)); }
-.drawer-header { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-inline-start: 8px; }
+.drawer-header { display: flex; align-items: center; min-height: 44px; padding-inline-start: 8px; }
+.drawer-actions { display: flex; align-items: center; gap: 8px; flex: none; margin-top: 8px; }
+.drawer-actions .drawer-search { flex: 1; min-width: 0; margin: 0; }
+.drawer-actions .drawer-close { flex: none; background: #ffffff14; }
 .drawer-header h2 { margin: 0; font-size: 16px; font-weight: 600; color: #f1f2f8; }
 .drawer-close { display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 10px; background: none; color: #d3d8e8; cursor: pointer; }
 .drawer-close svg { width: 20px; height: 20px; }
@@ -1807,6 +1816,7 @@ html.map-drawer-open { overflow: hidden; }
 .drawer-family[aria-expanded='true'] .drawer-chevron { transform: rotate(180deg); }
 .is-current > .drawer-family { background: #ffffff1a; font-weight: 600; }
 .drawer-list ul { list-style: none; margin: 2px 0 6px; padding: 0; padding-inline-start: 28px; }
+.drawer-list ul.drawer-company { padding-inline-start: 0; }
 .drawer-list li a { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 44px; padding: 4px 10px; border-radius: 8px; color: #cfd5e6; font-size: 13.5px; line-height: 1.3; text-decoration: none; }
 .drawer-list li a small { flex: none; font-size: 11.5px; color: #a7b0c9; }
 .drawer-list li a[aria-current='location'] { background: var(--soft-violet); color: #fff; }

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ChevronDown, Search as SearchIcon, X } from 'lucide-react';
 import Icon from './Icon.jsx';
+import { SECTIONS, sectionHref } from './SiteNav.jsx';
 import { focusTarget } from '../lib/focus.js';
 import { families, offerings } from '../data/catalogue.js';
 import { useT } from '../i18n/index.jsx';
@@ -75,24 +76,7 @@ export default function MobileMapDrawer({ current, onClose, onOpenSearch }) {
       <div className="drawer-panel">
         <header className="drawer-header">
           <h2 id="service-map-drawer-title">{t('Your service map')}</h2>
-          <button type="button" className="drawer-close" aria-label={t('Close')} onClick={slideClosed}>
-            <X aria-hidden="true" />
-          </button>
         </header>
-
-        <button
-          type="button"
-          className="drawer-search"
-          aria-haspopup="dialog"
-          aria-controls="catalogue-navigation"
-          onClick={() => {
-            closeNow();
-            onOpenSearch();
-          }}
-        >
-          <SearchIcon aria-hidden="true" />
-          {t('Search all {count} offerings', { count: offerings.length })}
-        </button>
 
         <nav className="drawer-list" aria-label={t('Service families')}>
           <div className="drawer-label">{t('Service families')}</div>
@@ -135,6 +119,16 @@ export default function MobileMapDrawer({ current, onClose, onOpenSearch }) {
               </section>
             );
           })}
+          <div className="drawer-label">{t('Company')}</div>
+          <ul className="drawer-company">
+            {SECTIONS.filter((s) => s.id !== 'catalogue').map((s) => (
+              <li key={s.id}>
+                <a href={sectionHref(s)} onClick={() => (s.page ? closeNow() : jumpTo(s.id))}>
+                  <span>{t(s.label)}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </nav>
 
         <footer className="drawer-reading">
@@ -142,6 +136,26 @@ export default function MobileMapDrawer({ current, onClose, onOpenSearch }) {
           <strong>{current.name}</strong>
           <span>{t('{n} of {total} offerings', { n: current.index + 1, total: offerings.length })}</span>
         </footer>
+
+        {/* Search and close sit at the bottom, where the thumb is. */}
+        <div className="drawer-actions">
+          <button
+            type="button"
+            className="drawer-search"
+            aria-haspopup="dialog"
+            aria-controls="catalogue-navigation"
+            onClick={() => {
+              closeNow();
+              onOpenSearch();
+            }}
+          >
+            <SearchIcon aria-hidden="true" />
+            {t('Search all {count} offerings', { count: offerings.length })}
+          </button>
+          <button type="button" className="drawer-close" aria-label={t('Close')} onClick={slideClosed}>
+            <X aria-hidden="true" />
+          </button>
+        </div>
       </div>
     </dialog>
   );

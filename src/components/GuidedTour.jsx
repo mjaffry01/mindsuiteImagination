@@ -37,13 +37,13 @@ const STEPS = [
     scrollTo: 'catalogue',
   },
   {
-    target: '#offering-1 .interest-button',
+    target: ['#offering-1 .offering-actions .interest-button', '#offering-1 .offering-foot .interest-button'],
     title: 'Add to enquiry',
     text: 'Collect the offerings you are interested in. You can then request one proposal for all of them.',
     scrollTo: 'offering-1',
   },
   {
-    target: '#offering-1 .share-toggle',
+    target: ['#offering-1 .offering-actions .share-toggle', '#offering-1 .offering-foot .share-toggle'],
     title: 'Share an offering',
     text: 'Send any offering to a colleague on LinkedIn, WhatsApp, email or Telegram.',
     scrollTo: 'offering-1',
@@ -163,7 +163,8 @@ export default function GuidedTour({ open, onClose }) {
       const el = findTarget(step.target);
       const r = el?.getBoundingClientRect();
       const header = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 70;
-      if (!el || r.top < header || r.bottom > innerHeight - 40) anchor?.scrollIntoView({ block: step.scrollTo === 'catalogue' ? 'start' : 'center', behavior: 'instant' });
+      if (el?.closest('.offering-foot')) el.scrollIntoView({ block: 'center', behavior: 'instant' }); // bottom of a tall card
+      else if (!el || r.top < header || r.bottom > innerHeight - 40) anchor?.scrollIntoView({ block: step.scrollTo === 'catalogue' ? 'start' : 'center', behavior: 'instant' });
     }
     measure();
     const timers = [60, 250].map((ms) => setTimeout(measure, ms));

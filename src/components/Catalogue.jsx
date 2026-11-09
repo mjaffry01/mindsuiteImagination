@@ -25,6 +25,26 @@ function ItemList({ text }) {
   );
 }
 
+function OfferingActions({ offering, added, onToggle }) {
+  const t = useT();
+  return (
+    <>
+      <button
+        type="button"
+        className="interest-button"
+        aria-pressed={added}
+        aria-label={t('Add {name} to your enquiry', { name: offering.name })}
+        title={t('Collect offerings here, then request one proposal for all of them.')}
+        onClick={() => onToggle(offering.id)}
+      >
+        <Icon name={added ? 'Check' : 'Plus'} />
+        {added ? t('Added to enquiry') : t('Add to enquiry')}
+      </button>
+      <ShareMenu offering={offering} />
+    </>
+  );
+}
+
 const Offering = memo(function Offering({ offering, family, added, onToggle }) {
   const t = useT();
   const n = offering.id.split('-')[1];
@@ -52,18 +72,7 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
           </p>
         </div>
         <div className="offering-actions">
-        <button
-          type="button"
-          className="interest-button"
-          aria-pressed={added}
-          aria-label={t('Add {name} to your enquiry', { name: offering.name })}
-          title={t('Collect offerings here, then request one proposal for all of them.')}
-          onClick={() => onToggle(offering.id)}
-        >
-          <Icon name={added ? 'Check' : 'Plus'} />
-          {added ? t('Added to enquiry') : t('Add to enquiry')}
-        </button>
-        <ShareMenu offering={offering} />
+          <OfferingActions offering={offering} added={added} onToggle={onToggle} />
         </div>
       </div>
       <p className="definition">{offering.definition}</p>
@@ -87,6 +96,10 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
           </dd>
         </div>
       </dl>
+      {/* Phones: the actions come after the details, where the reader's thumb already is. */}
+      <div className="offering-foot">
+        <OfferingActions offering={offering} added={added} onToggle={onToggle} />
+      </div>
     </article>
   );
 });
