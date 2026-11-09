@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, ShoppingBag } from 'lucide-react';
 import logo from '../assets/logo.png';
 import SiteNav from './SiteNav.jsx';
 import LanguageSwitcher from './LanguageSwitcher.jsx';
@@ -9,7 +9,7 @@ import { useT } from '../i18n/index.jsx';
  * Sticky top bar: logo (back to top) and the section menu. Publishes its height as
  * --header-h so sticky columns and anchor jumps can sit below it.
  */
-export default function SiteHeader() {
+export default function SiteHeader({ enquiryCount = 0, onOpenEnquiry }) {
   const ref = useRef(null);
   const [scrolled, setScrolled] = useState(false);
   const t = useT();
@@ -37,6 +37,7 @@ export default function SiteHeader() {
         <img src={logo} alt="MindSuite" width="773" height="165" />
       </a>
       <SiteNav />
+      <EnquiryCounter count={enquiryCount} onOpen={onOpenEnquiry} />
       <LanguageSwitcher />
       <div className="mission header-mission">
         <div className="eyebrow">{t('Our mission')}</div>
@@ -47,6 +48,41 @@ export default function SiteHeader() {
         </p>
       </div>
     </header>
+  );
+}
+
+/** Header shortlist counter: how many offerings are in the enquiry; opens the list. */
+function EnquiryCounter({ count, onOpen }) {
+  const t = useT();
+  // A short pulse whenever an offering is added, so the visitor sees where it went.
+  const [bump, setBump] = useState(false);
+  const previous = useRef(count);
+  useEffect(() => {
+    if (count > previous.current) {
+      setBump(true);
+      const timer = setTimeout(() => setBump(false), 700);
+      previous.current = count;
+      return () => clearTimeout(timer);
+    }
+    previous.current = count;
+  }, [count]);
+
+  return (
+    <button
+      type="button"
+      className={`enquiry-counter${count ? ' has-items' : ''}${bump ? ' is-bumped' : ''}`}
+      aria-haspopup="dialog"
+      aria-controls="interests-dialog"
+      aria-label={t('Your enquiry: {count} offerings', { count })}
+      title={t('Collect offerings here, then request one proposal for all of them.')}
+      onClick={onOpen}
+    >
+      <ShoppingBag aria-hidden="true" focusable="false" />
+      <span className="enquiry-counter-label">{t('Enquiry')}</span>
+      <span className="enquiry-counter-count" aria-hidden="true">
+        {count}
+      </span>
+    </button>
   );
 }
 

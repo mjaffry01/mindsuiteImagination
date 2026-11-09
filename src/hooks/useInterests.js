@@ -44,7 +44,7 @@ export default function useInterests() {
       commit(
         (s) => (adding ? s.add(id) : s.delete(id), s),
         {
-          text: adding ? '{name} added to your interests.' : '{name} removed from your interests.',
+          text: adding ? '{name} added to your enquiry.' : '{name} removed from your enquiry.',
           vars: { name: offeringById.get(id).name },
         }
       );
@@ -53,19 +53,19 @@ export default function useInterests() {
   );
 
   const add = useCallback(
-    (id) => commit((s) => s.add(id), { text: '{name} added to your interests.', vars: { name: offeringById.get(id).name } }),
+    (id) => commit((s) => s.add(id), { text: '{name} added to your enquiry.', vars: { name: offeringById.get(id).name } }),
     [commit]
   );
   const addMany = useCallback(
     (ids) =>
-      commit((s) => (ids.forEach((id) => s.add(id)), s), { text: '{count} offerings added to your interests.', vars: { count: ids.length } }),
+      commit((s) => (ids.forEach((id) => s.add(id)), s), { text: '{count} offerings added to your enquiry.', vars: { count: ids.length } }),
     [commit]
   );
   const remove = useCallback(
     (id) => commit((s) => (s.delete(id), s), { text: '{name} removed.', vars: { name: offeringById.get(id).name } }),
     [commit]
   );
-  const clear = useCallback(() => commit(() => new Set(), 'All interests cleared.'), [commit]);
+  const clear = useCallback(() => commit(() => new Set(), 'Enquiry list cleared.'), [commit]);
 
   useEffect(() => {
     const onStorage = (e) => {

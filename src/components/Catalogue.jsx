@@ -54,11 +54,12 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
           type="button"
           className="interest-button"
           aria-pressed={added}
-          aria-label={t('I’m interested in {name}', { name: offering.name })}
+          aria-label={t('Add {name} to your enquiry', { name: offering.name })}
+          title={t('Collect offerings here, then request one proposal for all of them.')}
           onClick={() => onToggle(offering.id)}
         >
           <Icon name={added ? 'Check' : 'Plus'} />
-          {added ? t('Added') : t('I’m interested')}
+          {added ? t('Added to enquiry') : t('Add to enquiry')}
         </button>
       </div>
       <p className="definition">{offering.definition}</p>

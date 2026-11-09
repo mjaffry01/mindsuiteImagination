@@ -36,7 +36,7 @@ export default function App() {
   const current = useReadingPosition();
   const { t, lang } = useLanguage();
 
-  // "I'm interested" on a card: toggle it, and when it was added offer the next step.
+  // "Add to enquiry" on a card: toggle it, and when it was added offer the next step.
   const [interestsStep, setInterestsStep] = useState('list');
   const [toast, setToast] = useState(null);
   const interestsRef = useRef(interests);
@@ -148,7 +148,7 @@ export default function App() {
       <a className="skip-link" href="#main-content">
         {t('Skip to main content')}
       </a>
-      <SiteHeader />
+      <SiteHeader enquiryCount={interests.size} onOpenEnquiry={() => openInterests('list')} />
       {route.page === 'careers' ? (
         <Suspense fallback={<main className="careers-page" id="main-content" />}>
           <Careers roleId={route.roleId} playing={playing} onToggleMotion={() => setPlaying((p) => !p)} />
@@ -199,7 +199,7 @@ export default function App() {
         onClick={() => openInterests('list')}
       >
         <Icon name="ShoppingBag" />
-        {t('Your interests ({count})', { count: interests.size })}
+        {t('Your enquiry ({count})', { count: interests.size })}
       </button>
       {mounted.interests && (
         <Suspense fallback={null}>

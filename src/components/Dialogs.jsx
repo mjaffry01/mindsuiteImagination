@@ -250,7 +250,7 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
                 onClick={() => onAddMany(notAdded.map((o) => o.id))}
               >
                 {notAdded.length ? <Plus aria-hidden="true" /> : <Check aria-hidden="true" />}
-                {notAdded.length ? t('Add all {count} to interests', { count: notAdded.length }) : t('All added to interests')}
+                {notAdded.length ? t('Add all {count} to enquiry', { count: notAdded.length }) : t('All added to enquiry')}
               </button>
             </div>
           )}
@@ -270,8 +270,8 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
                         type="button"
                         className="result-check"
                         aria-pressed={added}
-                        aria-label={added ? t('Remove {name} from your interests', { name: o.name }) : t('Add {name} to your interests', { name: o.name })}
-                        title={added ? t('In your interests') : t('Add to your interests')}
+                        aria-label={added ? t('Remove {name} from your enquiry', { name: o.name }) : t('Add {name} to your enquiry', { name: o.name })}
+                        title={added ? t('In your enquiry') : t('Add to your enquiry')}
                         onClick={() => onToggle(o.id)}
                       >
                         {added ? <Check aria-hidden="true" /> : <Plus aria-hidden="true" />}
@@ -305,11 +305,11 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
         ) : (
           <span className="navigation-footer-count">
             <ShoppingBag aria-hidden="true" />
-            {t('{offerings} in your interests', { offerings: plural(t, interests.size, 'offering') })}
+            {t('{offerings} in your enquiry', { offerings: plural(t, interests.size, 'offering') })}
           </span>
         )}
         <button type="button" className="view-interests" disabled={!interests.size} onClick={onOpenInterests}>
-          {t('View interests')}
+          {t('View enquiry')}
         </button>
       </footer>
     </dialog>
@@ -514,7 +514,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
         <div>
           <h2 id="interests-title">
             {step === 'list'
-              ? t('Your interests')
+              ? t('Your enquiry')
               : step === 'form'
                 ? t('Request a proposal')
                 : step === 'review'
@@ -544,7 +544,7 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
       {step === 'list' && (
         <>
           <p className="interests-empty" hidden={selected.length > 0}>
-            {t('Choose “I’m interested” beside any offering to collect it here.')}
+            {t('Choose “Add to enquiry” on any offering to collect it here. You can then send one request for all of them.')}
           </p>
           <ul className="interests-list" ref={listRef}>
             {selected.map((o) => (

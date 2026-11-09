@@ -6,7 +6,7 @@ import { localAssistantReply } from '../data/matcher.js';
 import { useT } from '../i18n/index.jsx';
 
 const STORAGE_KEY = 'mindsuite-assistant-position-v1';
-const GREETING = 'Describe what you want to improve. I can help you explore offerings and build your interests list.';
+const GREETING = 'Describe what you want to improve. I can help you explore offerings and build your enquiry.';
 const PROMPTS = [
   ['Single sign-on', 'We need single sign-on for our applications'],
   ['Ransomware', 'We want to prepare for ransomware recovery'],
@@ -297,7 +297,7 @@ export default function Assistant({ interests, onAdd }) {
                     <div className="assistant-card-actions">
                       <button type="button" disabled={added} onClick={() => onAdd(o.id)}>
                         <Icon name={added ? 'Check' : 'Plus'} />
-                        {added ? t('Added to interests') : t('Add to my interests')}
+                        {added ? t('Added to enquiry') : t('Add to my enquiry')}
                       </button>
                       <a
                         href={`#${o.id}`}

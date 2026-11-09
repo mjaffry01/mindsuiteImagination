@@ -18,7 +18,7 @@ export default function InterestToast({ toast, onRequest, onView, onDismiss }) {
         <Check />
       </span>
       <div className="interest-toast-text">
-        <strong>{tr('Added to your interests')}</strong>
+        <strong>{tr('Added to your enquiry')}</strong>
         <span>
           {toast.name} · {tr('{count} selected', { count: toast.count })}
         </span>
