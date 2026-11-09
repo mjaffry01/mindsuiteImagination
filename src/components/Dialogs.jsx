@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Check, Plus, Search as SearchIcon, ShoppingBag, X } from 'lucide-react';
+import { Check, ChevronDown, Plus, Search as SearchIcon, ShoppingBag, X } from 'lucide-react';
 import Icon from './Icon.jsx';
 import { focusTarget } from '../lib/focus.js';
 import PhoneInput from './PhoneInput.jsx';
@@ -68,7 +68,15 @@ function JumpLink({ id, onClose, children }) {
   );
 }
 
-const SUGGESTIONS = ['Ransomware', 'SSO', 'ERP', 'Cloud cost', 'AI assistant', 'Staff augmentation', 'Managed services'];
+const SUGGESTIONS = ['Ransomware', 'SSO', 'ERP', 'Staff augmentation'];
+
+// First question of the browse wizard; each goal narrows the catalogue to a few families.
+const GOALS = [
+  { id: 'build', title: 'Build', text: 'Software, AI and the people to deliver them.', icon: 'code-xml', families: ['family-1', 'family-3', 'family-6'] },
+  { id: 'run', title: 'Run', text: 'Reliable platforms, managed IT and support.', icon: 'server-cog', families: ['family-2', 'family-7', 'family-8'] },
+  { id: 'protect', title: 'Protect', text: 'Understand risk and prepare for incidents.', icon: 'shield-check', families: ['family-4'] },
+  { id: 'transform', title: 'Transform', text: 'Connected business systems and better ways of working.', icon: 'trending-up', families: ['family-5', 'family-9'] },
+];
 
 /** Wraps each occurrence of the search terms in <mark> so matches stand out. */
 function Highlight({ text, terms }) {
@@ -91,6 +99,8 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
   const [query, setQuery] = useState('');
   const [areas, setAreas] = useState(() => new Set());
   const [showResults, setShowResults] = useState(false);
+  const [goal, setGoal] = useState(null); // null, a GOALS id, or 'all'
+  const [openFamily, setOpenFamily] = useState(null);
   const t = useT();
 
   const searching = Boolean(query.trim());
@@ -108,8 +118,19 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
     if (!open) return;
     // On touch screens, focusing the box would open the keyboard over the map.
     if (matchMedia('(hover: hover)').matches) inputRef.current?.focus();
-    ref.current?.querySelector('.family-card.is-current')?.scrollIntoView({ block: 'nearest' });
-  }, [open, ref]);
+    // Each visit starts at the first question.
+    setGoal(null);
+    setOpenFamily(null);
+  }, [open]);
+
+  useEffect(() => {
+    if (open && openFamily) ref.current?.querySelector('.family-card.is-open')?.scrollIntoView({ block: 'nearest' });
+  }, [open, openFamily, ref]);
+
+  const pickGoal = (g) => {
+    setGoal(g.id);
+    setOpenFamily(g.families.length === 1 ? g.families[0] : null);
+  };
 
   const toggleArea = (id) =>
     setAreas((prev) => {
@@ -129,10 +150,9 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
 
   const areaById = new Map(families.flatMap((f) => f.areas.map((a) => [a.id, a])));
 
-  let count = t(
-    'Browse {families} families and {areas} service areas, or search all {offerings} offerings. Pick several areas to see them together.',
-    { families: families.length, areas: areaCount, offerings: offerings.length }
-  );
+  let count = goal
+    ? t('Open a family to see its service areas. Pick several areas to see them together.')
+    : t('Start with your goal, or search all {offerings} offerings.', { offerings: offerings.length });
   if (inResults) {
     count = results.length
       ? areas.size
@@ -142,6 +162,9 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
   }
 
   // Results grouped under their family, in catalogue order.
+  const activeGoal = GOALS.find((g) => g.id === goal);
+  const shownFamilies = activeGoal ? families.filter((f) => activeGoal.families.includes(f.id)) : families;
+
   const groups = families
     .map((f) => ({ family: f, items: results.filter((o) => o.family.id === f.id) }))
     .filter((g) => g.items.length);
@@ -186,7 +209,7 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
             </button>
           )}
         </div>
-        {!inResults && (
+        {!inResults && !goal && (
           <div className="search-suggestions" role="group" aria-label={t('Suggested searches')}>
             <span>{t('Popular:')}</span>
             {SUGGESTIONS.map((s) => (
@@ -215,38 +238,88 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
         </p>
       </header>
 
-      {!inResults && (
-        <nav className="family-grid" aria-label={t('Service families and areas')}>
-          {families.map((f) => (
-            <section key={f.id} className={`family-card family-tone-${f.index}${f.id === currentFamilyId ? ' is-current' : ''}`}>
-              <JumpLink id={f.id} onClose={onClose}>
-                <span className="family-card-icon">
-                  <Icon name={f.icon} />
-                </span>
-                <span className="family-card-text">
-                  {f.id === currentFamilyId && <span className="family-card-here">{t('You are here')}</span>}
-                  <strong>{f.name}</strong>
-                  <small>{f.tagline}</small>
-                </span>
-                <span className="family-card-count">{plural(t, f.count, 'offering')}</span>
-              </JumpLink>
-              <div className="area-chips" role="group" aria-label={t('{name} service areas', { name: f.name })}>
-                {f.areas.map((a) => (
-                  <button
-                    type="button"
-                    key={a.id}
-                    className="area-chip"
-                    aria-pressed={areas.has(a.id)}
-                    onClick={() => toggleArea(a.id)}
-                  >
-                    {areas.has(a.id) && <Check aria-hidden="true" />}
-                    {a.name}
-                    <span className="area-chip-count">{a.offerings.length}</span>
-                  </button>
-                ))}
-              </div>
-            </section>
+      {!inResults && !goal && (
+        <nav className="goal-grid" aria-label={t('What would you like to do?')}>
+          <h3>{t('What would you like to do?')}</h3>
+          {GOALS.map((g) => (
+            <button type="button" key={g.id} className="goal-card" onClick={() => pickGoal(g)}>
+              <span className="goal-card-icon">
+                <Icon name={g.icon} />
+              </span>
+              <span className="goal-card-text">
+                <strong>{t(g.title)}</strong>
+                <small>{t(g.text)}</small>
+              </span>
+            </button>
           ))}
+          <button type="button" className="goal-all" onClick={() => setGoal('all')}>
+            {t('See all {count} families', { count: families.length })}
+          </button>
+        </nav>
+      )}
+
+      {!inResults && goal && (
+        <nav className="family-grid is-wizard" aria-label={t('Service families and areas')}>
+          <div className="wizard-back">
+            <button type="button" className="results-back" onClick={() => setGoal(null)}>
+              {t('← All goals')}
+            </button>
+            {activeGoal && <strong>{t(activeGoal.title)}</strong>}
+          </div>
+          {shownFamilies.map((f) => {
+            const isOpen = openFamily === f.id;
+            return (
+              <section
+                key={f.id}
+                className={`family-card family-tone-${f.index}${f.id === currentFamilyId ? ' is-current' : ''}${isOpen ? ' is-open' : ''}`}
+              >
+                <button
+                  type="button"
+                  className="family-card-toggle"
+                  aria-expanded={isOpen}
+                  aria-controls={`${f.id}-areas`}
+                  onClick={() => setOpenFamily(isOpen ? null : f.id)}
+                >
+                  <span className="family-card-icon">
+                    <Icon name={f.icon} />
+                  </span>
+                  <span className="family-card-text">
+                    {f.id === currentFamilyId && <span className="family-card-here">{t('You are here')}</span>}
+                    <strong>{f.name}</strong>
+                    <small>{f.tagline}</small>
+                  </span>
+                  <span className="family-card-count">{plural(t, f.count, 'offering')}</span>
+                  <ChevronDown className="family-card-chevron" aria-hidden="true" />
+                </button>
+                <div id={`${f.id}-areas`} className="family-card-body" hidden={!isOpen}>
+                  {isOpen && (
+                    <>
+                      <div className="area-chips" role="group" aria-label={t('{name} service areas', { name: f.name })}>
+                        {f.areas.map((a) => (
+                          <button
+                            type="button"
+                            key={a.id}
+                            className="area-chip"
+                            aria-pressed={areas.has(a.id)}
+                            onClick={() => toggleArea(a.id)}
+                          >
+                            {areas.has(a.id) && <Check aria-hidden="true" />}
+                            {a.name}
+                            <span className="area-chip-count">{a.offerings.length}</span>
+                          </button>
+                        ))}
+                      </div>
+                      <div className="family-card-go">
+                        <JumpLink id={f.id} onClose={onClose}>
+                          {t('Go to this family')}
+                        </JumpLink>
+                      </div>
+                    </>
+                  )}
+                </div>
+              </section>
+            );
+          })}
         </nav>
       )}
 

@@ -1,7 +1,8 @@
 import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronDown, Map as MapIcon } from 'lucide-react';
+import { PanelLeftOpen } from 'lucide-react';
 import Hero from './components/Hero.jsx';
 import MapColumn from './components/MapColumn.jsx';
+import MobileMapDrawer from './components/MobileMapDrawer.jsx';
 import Catalogue from './components/Catalogue.jsx';
 import Icon from './components/Icon.jsx';
 import { About, Clients, PlatformEcosystem } from './components/CompanySections.jsx';
@@ -103,6 +104,8 @@ export default function App() {
   }, []);
 
   const openSearch = useCallback(() => setSearchOpen(true), []);
+  const [mapDrawerOpen, setMapDrawerOpen] = useState(false); // phones: the left pane as a drawer
+  const closeMapDrawer = useCallback(() => setMapDrawerOpen(false), []);
   const closeSearch = useCallback(() => setSearchOpen(false), []);
   const closeInterests = useCallback(() => setInterestsOpen(false), []);
   // Guided tour: starts from the top of the main page (from Careers it switches page first).
@@ -224,18 +227,18 @@ export default function App() {
             type="button"
             className="mobile-location"
             aria-haspopup="dialog"
-            aria-controls="catalogue-navigation"
+            aria-expanded={mapDrawerOpen}
+            aria-controls="service-map-drawer"
             aria-label={t('Browse service families, areas and search offerings')}
-            onClick={openSearch}
+            onClick={() => setMapDrawerOpen(true)}
           >
-            <MapIcon className="mobile-location-icon" aria-hidden="true" />
+            <PanelLeftOpen className="mobile-location-icon" aria-hidden="true" />
             <span className="mobile-location-text">
               <small>{t('Your service map')}</small>
               <strong>
                 {current.family.name} · {current.area.name}
               </strong>
             </span>
-            <ChevronDown className="mobile-location-open" aria-hidden="true" />
           </button>
           <Catalogue key={lang} interests={interests} onToggle={toggleWithPrompt} />
         </div>
@@ -249,6 +252,7 @@ export default function App() {
       )}
 
       <SiteFooter onStartTour={() => startTour()} />
+      {mapDrawerOpen && <MobileMapDrawer current={current} onClose={closeMapDrawer} onOpenSearch={openSearch} />}
       {tourOpen && (
         <Suspense fallback={null}>
           <GuidedTour open={tourOpen} onClose={closeTour} />

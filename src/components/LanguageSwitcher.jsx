@@ -6,6 +6,7 @@ const SHORT = { en: 'EN', ar: 'عربي', fr: 'FR' };
 export default function LanguageSwitcher() {
   const { lang, setLang, t } = useLanguage();
   return (
+    <>
     <div className="lang-switch" role="group" aria-label={t('Language')}>
       {LANGUAGES.map((l) => (
         <button
@@ -22,5 +23,17 @@ export default function LanguageSwitcher() {
         </button>
       ))}
     </div>
+    {/* Phones: one full-size control, because three 44px buttons do not fit in the header. */}
+    <label className="lang-select">
+      <span aria-hidden="true">{SHORT[lang]}</span>
+      <select aria-label={t('Language')} value={lang} onChange={(e) => setLang(e.target.value)}>
+        {LANGUAGES.map((l) => (
+          <option key={l.code} value={l.code} lang={l.code}>
+            {l.label}
+          </option>
+        ))}
+      </select>
+    </label>
+    </>
   );
 }

@@ -19,7 +19,7 @@ const STEPS = [
     text: 'Offerings, platforms, clients, team, careers and about us are always one click away.',
   },
   {
-    target: '.lang-switch',
+    target: ['.lang-switch', '.lang-select'],
     title: 'Choose your language',
     text: 'Read the whole site, including every offering, in English, Arabic or French.',
   },
