@@ -82,6 +82,34 @@ export default function App() {
 
   const route = useRoute();
 
+  // In-page links (#catalogue, #family-1-area-2, #offering-12, #top …) scroll smoothly
+  // without writing the anchor into the address bar. Only the Careers page has its own URL.
+  useEffect(() => {
+    const scrollToId = (id) => {
+      if (id === 'top') return window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    const onClick = (e) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const link = e.target.closest?.('a[href^="#"]');
+      if (!link || link.target === '_blank') return;
+      const id = decodeURIComponent(link.getAttribute('href').slice(1));
+      if (!id || id.startsWith('/')) return; // "#/careers" is a page, not an anchor
+      e.preventDefault();
+      if (document.getElementById(id) || id === 'top') {
+        // Let dialogs that close on this click finish closing before scrolling.
+        setTimeout(() => scrollToId(id), 0);
+      } else if (location.hash.startsWith('#/')) {
+        // From Careers back to a section of the main page: clean address, then scroll.
+        history.pushState(null, '', location.pathname + location.search);
+        dispatchEvent(new HashChangeEvent('hashchange'));
+        setTimeout(() => scrollToId(id), 150);
+      }
+    };
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, []);
+
   // The main page renders after the browser's own hash lookup (and again when coming back
   // from Careers), so honour anchors such as #family-1-area-1 once they are in the DOM.
   useEffect(() => {

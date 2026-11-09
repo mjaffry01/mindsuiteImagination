@@ -21,11 +21,12 @@ const loaders = {
 
 function initialLanguage() {
   const fromUrl = new URLSearchParams(location.search).get('lang');
-  if (LANGUAGES.some((l) => l.code === fromUrl)) return fromUrl;
+  // The visitor's own choice comes first; a ?lang= link only sets the language for first visits.
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (LANGUAGES.some((l) => l.code === saved)) return saved;
   } catch {}
+  if (LANGUAGES.some((l) => l.code === fromUrl)) return fromUrl;
   const browser = (navigator.language || '').slice(0, 2);
   return LANGUAGES.some((l) => l.code === browser) ? browser : 'en';
 }
@@ -76,11 +77,7 @@ export function LanguageProvider({ children }) {
     try {
       localStorage.setItem(STORAGE_KEY, code);
     } catch {}
-    // Keep shared links in the chosen language without reloading the page.
-    const url = new URL(location.href);
-    if (code === 'en') url.searchParams.delete('lang');
-    else url.searchParams.set('lang', code);
-    history.replaceState(history.state, '', url);
+    // The address bar stays as it is; the choice is remembered in this browser.
     setLangState(code);
   }, []);
 
