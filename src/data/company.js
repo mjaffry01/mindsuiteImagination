@@ -6,6 +6,45 @@
  * placeholder is shown. Links left as null render as plain text instead of a link.
  */
 
+/** About us. Wording follows mindsuite.in (company page and home page). */
+export const about = {
+  eyebrow: 'About MindSuite',
+  title: 'One accountable partner, from strategy to support.',
+  lead: 'MindSuite Informatics brings business systems and technology services together: software engineering, cloud and DevOps, AI, cybersecurity and ERP. Based in Hyderabad, India, we deliver for businesses across the Middle East, the Gulf, Western markets and beyond.',
+  facts: [
+    { value: 'Hyderabad', label: 'Headquarters, India' },
+    { value: 'Middle East · Gulf · West', label: 'Regions we serve' },
+  ],
+  mission: [
+    { title: 'Our Customers’ Success.', text: 'Own challenges. Earn trust. Create value.' },
+    { title: 'Our People’s Passion.', text: 'Think boldly. Grow continuously. Achieve the extraordinary.' },
+    { title: 'Our World’s Progress.', text: 'Create opportunities. Move communities forward.' },
+  ],
+  principles: [
+    {
+      icon: 'ClipboardCheck',
+      title: 'Scope before promises',
+      text: 'Every engagement begins with a defined outcome: agreed deliverables, clear acceptance criteria and named ownership.',
+    },
+    {
+      icon: 'Cable',
+      title: 'Work with the systems already in use',
+      text: 'We build around the platforms you run today. Platform names describe technical scope, not badges.',
+    },
+    {
+      icon: 'ShieldCheck',
+      title: 'Evidence before claims',
+      text: 'Case studies and results are published only with project evidence and customer approval.',
+    },
+    {
+      icon: 'LifeBuoy',
+      title: 'Support you can plan',
+      text: 'Handover, documentation and the scope of ongoing support are agreed with you, not left open.',
+    },
+  ],
+  journey: ['Discovery', 'Architecture', 'Delivery', 'Integration', 'Handover', 'Support'],
+};
+
 export const ecosystem = {
   eyebrow: 'Enterprise technology ecosystem',
   title: ['The right platform.', 'A connected business.'],

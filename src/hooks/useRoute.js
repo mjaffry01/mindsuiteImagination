@@ -8,7 +8,7 @@ import { families, inEnglish, offerings } from '../data/catalogue.js';
  *   /offerings              the catalogue
  *   /<family-slug>          a service family, e.g. /software-product, /cybersecurity
  *   /offerings/<offering-slug>  one offering (the address that the Share button sends)
- *   /platforms /clients /team
+ *   /platforms /clients /about /team
  *   /careers, /careers/<role-id>
  *
  * Careers is its own page (pushed to history, so Back works). On the main page the address
@@ -31,7 +31,7 @@ export const familySlug = (family) => slugify(inEnglish(family).short);
 export const offeringSlug = (offering) => slugify(inEnglish(offering).name);
 const OFFERING_BY_SLUG = new Map(offerings.map((o) => [offeringSlug(o), o.id]));
 
-const SECTION_SLUGS = { catalogue: 'offerings', platforms: 'platforms', clients: 'clients', leadership: 'team' };
+const SECTION_SLUGS = { catalogue: 'offerings', platforms: 'platforms', clients: 'clients', about: 'about', leadership: 'team' };
 const SLUG_TO_ID = Object.fromEntries([
   ...Object.entries(SECTION_SLUGS).map(([id, slug]) => [slug, id]),
   ...families.map((f) => [familySlug(f), f.id]),

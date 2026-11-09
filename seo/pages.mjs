@@ -84,7 +84,7 @@ function buildPages({ company, team, careers, catalogue }, site) {
     title: 'MindSuite — Software, cloud, AI, cybersecurity and ERP services',
     description: `Explore ${total} MindSuite offerings across software engineering, DevOps, AI, cybersecurity, ERP, IT staffing, managed services and business transformation, each with scope, deliverables and business value.`,
     h1: 'Architect Intelligence. Integrate Securely. Transform Business.',
-    body: `<p>MindSuite's connected capabilities: ${catalogue.length} service families and ${total} defined offerings, each with what it includes and the outcomes it delivers.</p><h2>Service families</h2>${familyLinks}<p>${link('platforms', 'Platforms')} · ${link('clients', 'Clients')} · ${link('team', 'Team')} · ${link('careers', 'Careers')}</p>`,
+    body: `<p>MindSuite's connected capabilities: ${catalogue.length} service families and ${total} defined offerings, each with what it includes and the outcomes it delivers.</p><h2>Service families</h2>${familyLinks}<p>${link('platforms', 'Platforms')} · ${link('clients', 'Clients')} · ${link('about', 'About us')} · ${link('team', 'Team')} · ${link('careers', 'Careers')}</p>`,
     jsonld: [org, { '@type': 'WebSite', '@id': `${site}/#website`, name: 'MindSuite', url: url(''), publisher: { '@id': org['@id'] } }],
   });
 
@@ -162,6 +162,23 @@ function buildPages({ company, team, careers, catalogue }, site) {
     h1: clients.title,
     body: `<p>${esc(clients.lead)}</p><ul>${clients.list.map((c) => `<li>${c.url ? `<a href="${esc(c.url)}" rel="noopener">${esc(c.name)}</a>` : esc(c.name)}</li>`).join('')}</ul>`,
     jsonld: [org, crumbs([['MindSuite', ''], ['Clients', 'clients']])],
+  });
+  const { about } = company;
+  pages.push({
+    path: 'about',
+    title: 'About MindSuite Informatics | MindSuite',
+    description: clip(about.lead),
+    h1: about.title,
+    body: `<p>${esc(about.lead)}</p><h2>Our mission</h2><ul>${about.mission
+      .map((m) => `<li><strong>${esc(m.title)}</strong> ${esc(m.text)}</li>`)
+      .join('')}</ul><h2>How we work</h2><ul>${about.principles
+      .map((p) => `<li><strong>${esc(p.title)}</strong> — ${esc(p.text)}</li>`)
+      .join('')}</ul><p>${esc(about.journey.join(' → '))}</p><p>${link('team', 'Meet the team')} · ${link('offerings', 'Explore our offerings')}</p>`,
+    jsonld: [
+      { '@type': 'AboutPage', name: 'About MindSuite', url: url('about'), about: { '@id': org['@id'] } },
+      { ...org, description: about.lead, areaServed: ['Middle East', 'Gulf', 'Western markets'] },
+      crumbs([['MindSuite', ''], ['About us', 'about']]),
+    ],
   });
   pages.push({
     path: 'team',

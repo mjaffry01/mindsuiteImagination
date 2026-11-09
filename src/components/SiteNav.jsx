@@ -9,6 +9,7 @@ export const SECTIONS = [
   { id: 'clients', label: 'Clients' },
   { id: 'leadership', label: 'Team' },
   { id: 'careers', label: 'Careers', href: '#/careers', page: true },
+  { id: 'about', label: 'About us' },
 ];
 
 export const sectionHref = (s) => s.href || `#${s.id}`;

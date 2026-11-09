@@ -1,4 +1,6 @@
-import { clients, ecosystem } from '../data/company.js';
+import { about, clients, ecosystem } from '../data/company.js';
+import Icon from './Icon.jsx';
+import { areaCount, families, offerings } from '../data/catalogue.js';
 import { useT } from '../i18n/index.jsx';
 
 const pad = (n) => String(n).padStart(2, '0');
@@ -77,6 +79,79 @@ export function PlatformEcosystem() {
             </li>
           ))}
         </ul>
+      </div>
+    </section>
+  );
+}
+
+export function About() {
+  const t = useT();
+  const facts = [
+    { value: families.length, label: t('service families') },
+    { value: offerings.length, label: t('defined offerings') },
+    { value: areaCount, label: t('service areas') },
+    ...about.facts.map((f) => ({ value: t(f.value), label: t(f.label) })),
+  ];
+  return (
+    <section className="company-section about-section" id="about" aria-labelledby="about-title">
+      <div className="company-inner">
+        <div className="about-head">
+          <SectionIntro id="about-title" eyebrow={about.eyebrow} title={about.title}>
+            <p className="section-lead">{t(about.lead)}</p>
+          </SectionIntro>
+          <ul className="about-facts">
+            {facts.map((f) => (
+              <li key={f.label}>
+                <strong>{f.value}</strong>
+                <span>{f.label}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <h3 className="about-subhead">{t('Our mission')}</h3>
+        <ul className="about-mission">
+          {about.mission.map((m, i) => (
+            <li key={m.title} className={`mission-${i}`}>
+              <strong>{t(m.title)}</strong>
+              <span>{t(m.text)}</span>
+            </li>
+          ))}
+        </ul>
+
+        <h3 className="about-subhead">{t('How we work')}</h3>
+        <ul className="about-principles">
+          {about.principles.map((p) => (
+            <li key={p.title}>
+              <span className="about-icon" aria-hidden="true">
+                <Icon name={p.icon} />
+              </span>
+              <strong>{t(p.title)}</strong>
+              <p>{t(p.text)}</p>
+            </li>
+          ))}
+        </ul>
+
+        <div className="about-journey">
+          <span className="about-journey-label">{t('One delivery journey')}</span>
+          <ol>
+            {about.journey.map((step, i) => (
+              <li key={step}>
+                <span aria-hidden="true">{i + 1}</span>
+                {t(step)}
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="about-actions">
+          <a className="section-link" href="#leadership">
+            {t('Meet the team')} <span aria-hidden="true">→</span>
+          </a>
+          <a className="section-link" href="#catalogue">
+            {t('Explore our offerings')} <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
     </section>
   );

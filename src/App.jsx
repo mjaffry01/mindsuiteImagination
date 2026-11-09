@@ -3,7 +3,7 @@ import Hero from './components/Hero.jsx';
 import MapColumn from './components/MapColumn.jsx';
 import Catalogue from './components/Catalogue.jsx';
 import Icon from './components/Icon.jsx';
-import { Clients, PlatformEcosystem } from './components/CompanySections.jsx';
+import { About, Clients, PlatformEcosystem } from './components/CompanySections.jsx';
 import Team from './components/Team.jsx';
 import SiteFooter from './components/SiteFooter.jsx';
 import SiteHeader, { BackToTop } from './components/SiteHeader.jsx';
@@ -174,7 +174,7 @@ export default function App() {
 
   // The browser tab names what is on screen, in the visitor's language.
   useEffect(() => {
-    const named = { platforms: 'Platforms', clients: 'Clients', leadership: 'Team' };
+    const named = { platforms: 'Platforms', clients: 'Clients', about: 'About us', leadership: 'Team' };
     let title;
     if (route.page === 'careers') title = `${t('Careers')} | MindSuite`;
     else if (sharedOffering.current) title = `${current.name} | MindSuite`;
@@ -228,6 +228,7 @@ export default function App() {
       <PlatformEcosystem />
       <Clients />
       <Team />
+      <About />
         </main>
       )}
 
