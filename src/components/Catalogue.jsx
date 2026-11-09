@@ -1,8 +1,9 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import Icon from './Icon.jsx';
 import ShareMenu from './ShareMenu.jsx';
 import { families } from '../data/catalogue.js';
 import { useT } from '../i18n/index.jsx';
+import { startCatalogueStages, useCatalogueProgress } from '../lib/catalogueStages.js';
 
 const ORDINALS = ['01', '02', '03', '04', '05', '06', '07', '08', '09'];
 const WORDS = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'];
@@ -109,7 +110,24 @@ export const Offering = memo(function Offering({ offering, family, added, onTogg
 /** The continuous catalogue: five family sections, each with its service areas and offerings. */
 export default function Catalogue({ interests, onToggle }) {
   const t = useT();
-  return families.map((family) => (
+  const limit = useCatalogueProgress();
+  useEffect(startCatalogueStages, []);
+
+  let left = limit; // cards still allowed on the page in this pass
+  return families.map((family) => {
+    if (left <= 0) return null;
+    let complete = true;
+    const areas = family.areas.map((area) => {
+      if (left <= 0) {
+        complete = false;
+        return null;
+      }
+      const shown = area.offerings.slice(0, left);
+      left -= shown.length;
+      if (shown.length < area.offerings.length) complete = false;
+      return { area, shown };
+    });
+    return (
     <section
       key={family.id}
       className={`family-section ${family.theme}`}
@@ -127,7 +145,7 @@ export default function Catalogue({ interests, onToggle }) {
         <p>{family.tagline}</p>
       </header>
 
-      {family.areas.map((area) => (
+      {areas.filter(Boolean).map(({ area, shown }) => (
         <section
           key={area.id}
           className="area-section"
@@ -145,7 +163,7 @@ export default function Catalogue({ interests, onToggle }) {
             <Icon name={area.icon} />
             {area.name}
           </h3>
-          {area.offerings.map((o) => (
+          {shown.map((o) => (
             <Offering
               key={o.id}
               offering={o}
@@ -157,11 +175,12 @@ export default function Catalogue({ interests, onToggle }) {
         </section>
       ))}
 
-      <p className="family-end">
+      {complete && <p className="family-end">
         {t(
           'Definitions and typical scope are guidance. Final deliverables, acceptance criteria and ownership are agreed in the proposal.'
         )}
-      </p>
+      </p>}
     </section>
-  ));
+    );
+  });
 }

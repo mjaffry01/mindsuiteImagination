@@ -26,6 +26,7 @@ import ExpertConnect from './components/ExpertConnect.jsx';
 import InterestToast from './components/InterestToast.jsx';
 import { offeringById } from './data/catalogue.js';
 import { useLanguage } from './i18n/index.jsx';
+import { ensureCatalogue, useCatalogueDone } from './lib/catalogueStages.js';
 
 // Loaded on demand, so the first screen downloads only what it needs.
 const Careers = lazy(() => import('./components/Careers.jsx'));
@@ -49,6 +50,7 @@ export default function App() {
   }, [searchOpen, interestsOpen]);
   const { interests, status, toggle, add, addMany, remove, clear } = useInterests();
   const current = useReadingPosition();
+  const catalogueDone = useCatalogueDone();
   const { t, lang } = useLanguage();
 
   // "Add to enquiry" on a card: toggle it, and when it was added offer the next step.
@@ -131,6 +133,7 @@ export default function App() {
   useEffect(() => {
     const scrollToId = (id) => {
       if (id === 'top') return window.scrollTo({ top: 0, behavior: 'smooth' });
+      ensureCatalogue();
       const target = document.getElementById(id);
       if (!target) return;
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -261,14 +264,19 @@ export default function App() {
         </div>
       </div>
 
-      <PlatformEcosystem />
-      <Clients />
-      <Team />
-      <About />
+      {/* These follow the catalogue, so they appear once it is complete and never jump. */}
+      {catalogueDone && (
+        <>
+          <PlatformEcosystem />
+          <Clients />
+          <Team />
+          <About />
+        </>
+      )}
         </main>
       )}
 
-      <SiteFooter onStartTour={() => startTour()} />
+      {(route.page !== 'main' || catalogueDone) && <SiteFooter onStartTour={() => startTour()} />}
       {mapDrawerOpen && <MobileMapDrawer current={current} onClose={closeMapDrawer} onOpenSearch={openSearch} />}
       <MobileTabBar
         enquiryCount={interests.size}
