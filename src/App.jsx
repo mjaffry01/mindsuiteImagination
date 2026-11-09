@@ -1,4 +1,5 @@
 import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react';
+import { ChevronDown, Map as MapIcon } from 'lucide-react';
 import Hero from './components/Hero.jsx';
 import MapColumn from './components/MapColumn.jsx';
 import Catalogue from './components/Catalogue.jsx';
@@ -26,6 +27,7 @@ import { useLanguage } from './i18n/index.jsx';
 
 // Loaded on demand, so the first screen downloads only what it needs.
 const Careers = lazy(() => import('./components/Careers.jsx'));
+const GuidedTour = lazy(() => import('./components/GuidedTour.jsx'));
 const Assistant = lazy(() => import('./components/Assistant.jsx'));
 const InterestsDialog = lazy(() => import('./components/Dialogs.jsx').then((m) => ({ default: m.InterestsDialog })));
 const SearchDialog = lazy(() => import('./components/Dialogs.jsx').then((m) => ({ default: m.SearchDialog })));
@@ -36,6 +38,7 @@ export default function App() {
   const [playing, setPlaying] = useState(() => !prefersReducedMotion());
   const [searchOpen, setSearchOpen] = useState(false);
   const [interestsOpen, setInterestsOpen] = useState(false);
+  const [tourOpen, setTourOpen] = useState(false);
   const [mounted, setMounted] = useState({ search: false, interests: false });
   useEffect(() => {
     if (searchOpen || interestsOpen)
@@ -102,6 +105,15 @@ export default function App() {
   const openSearch = useCallback(() => setSearchOpen(true), []);
   const closeSearch = useCallback(() => setSearchOpen(false), []);
   const closeInterests = useCallback(() => setInterestsOpen(false), []);
+  // Guided tour: starts from the top of the main page (from Careers it switches page first).
+  const closeTour = useCallback(() => setTourOpen(false), []);
+  const startTour = () => {
+    setSearchOpen(false);
+    setInterestsOpen(false);
+    if (getRoute().page !== 'main') navigate('main');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    setTimeout(() => setTourOpen(true), 120);
+  };
 
 
   // In-page links (#catalogue, #family-1-area-2, #offering-12, #top …) just scroll; the
@@ -197,7 +209,7 @@ export default function App() {
         </Suspense>
       ) : (
         <main id="main-content" tabIndex={-1}>
-      <Hero playing={playing} onToggleMotion={() => setPlaying((p) => !p)} />
+      <Hero playing={playing} onToggleMotion={() => setPlaying((p) => !p)} onStartTour={() => startTour()} />
 
       <div id="catalogue" className={`catalogue-layout${mapCollapsed ? ' is-rail' : ''}`}>
         <MapColumn
@@ -216,10 +228,14 @@ export default function App() {
             aria-label={t('Browse service families, areas and search offerings')}
             onClick={openSearch}
           >
-            <strong>{current.family.name}</strong>
-            <span>
-              {current.area.name} → {current.name}
+            <MapIcon className="mobile-location-icon" aria-hidden="true" />
+            <span className="mobile-location-text">
+              <small>{t('Your service map')}</small>
+              <strong>
+                {current.family.name} · {current.area.name}
+              </strong>
             </span>
+            <ChevronDown className="mobile-location-open" aria-hidden="true" />
           </button>
           <Catalogue key={lang} interests={interests} onToggle={toggleWithPrompt} />
         </div>
@@ -232,7 +248,12 @@ export default function App() {
         </main>
       )}
 
-      <SiteFooter />
+      <SiteFooter onStartTour={() => startTour()} />
+      {tourOpen && (
+        <Suspense fallback={null}>
+          <GuidedTour open={tourOpen} onClose={closeTour} />
+        </Suspense>
+      )}
 
       <button
         type="button"
@@ -273,6 +294,7 @@ export default function App() {
           <SearchDialog
             open={searchOpen}
             onClose={closeSearch}
+            currentFamilyId={current.family.id}
             interests={interests}
             onToggle={toggle}
             onAddMany={addMany}

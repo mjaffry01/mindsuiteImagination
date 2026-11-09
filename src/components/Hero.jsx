@@ -11,7 +11,7 @@ const STATS = [
   { value: offerings.length, label: 'defined offerings' },
 ];
 
-export default function Hero({ playing, onToggleMotion }) {
+export default function Hero({ playing, onToggleMotion, onStartTour }) {
   const t = useT();
   return (
     <div className="opening-screen">
@@ -35,6 +35,9 @@ export default function Hero({ playing, onToggleMotion }) {
           <a className="cta" href="#catalogue">
             {t('Explore our offerings')} <span aria-hidden="true">↓</span>
           </a>
+          <button type="button" className="cta cta-tour" onClick={onStartTour}>
+            {t('Take a quick tour')}
+          </button>
           {/* Shown on smaller screens, where the header has no room for the mission. */}
           <div className="mission hero-mission">
             <div className="eyebrow">{t('Our mission')}</div>

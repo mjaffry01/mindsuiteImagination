@@ -85,7 +85,7 @@ const plural = (t, n, word) => t(n === 1 ? `{count} ${word}` : `{count} ${word}s
  * Browse and search dialog. Families are cards whose service-area chips can be picked
  * several at a time; results can be ticked to add many offerings to "Your interests".
  */
-export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, onOpenInterests }) {
+export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, onOpenInterests, currentFamilyId }) {
   const ref = useModal(open, onClose);
   const inputRef = useRef(null);
   const [query, setQuery] = useState('');
@@ -105,8 +105,11 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
   const notAdded = results.filter((o) => !interests.has(o.id));
 
   useEffect(() => {
-    if (open) inputRef.current?.focus();
-  }, [open]);
+    if (!open) return;
+    // On touch screens, focusing the box would open the keyboard over the map.
+    if (matchMedia('(hover: hover)').matches) inputRef.current?.focus();
+    ref.current?.querySelector('.family-card.is-current')?.scrollIntoView({ block: 'nearest' });
+  }, [open, ref]);
 
   const toggleArea = (id) =>
     setAreas((prev) => {
@@ -215,12 +218,13 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
       {!inResults && (
         <nav className="family-grid" aria-label={t('Service families and areas')}>
           {families.map((f) => (
-            <section key={f.id} className={`family-card family-tone-${f.index}`}>
+            <section key={f.id} className={`family-card family-tone-${f.index}${f.id === currentFamilyId ? ' is-current' : ''}`}>
               <JumpLink id={f.id} onClose={onClose}>
                 <span className="family-card-icon">
                   <Icon name={f.icon} />
                 </span>
                 <span className="family-card-text">
+                  {f.id === currentFamilyId && <span className="family-card-here">{t('You are here')}</span>}
                   <strong>{f.name}</strong>
                   <small>{f.tagline}</small>
                 </span>

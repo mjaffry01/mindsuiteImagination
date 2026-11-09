@@ -7,7 +7,7 @@ import { useT } from '../i18n/index.jsx';
 const iconProps = { 'aria-hidden': true, focusable: 'false' };
 
 /** Site footer: brand and tagline, contact details, section links and a closing bar. */
-export default function SiteFooter() {
+export default function SiteFooter({ onStartTour }) {
   const tel = contact.phone.replace(/[^\d+]/g, ''); // e.g. +919100005500
   const year = new Date().getFullYear();
   const t = useT();
@@ -79,6 +79,9 @@ export default function SiteFooter() {
 
       <div className="footer-bar">
         <span>© {year} MindSuite. {t('Connected capabilities. Clear outcomes.')}</span>
+        <button type="button" className="footer-tour" onClick={onStartTour}>
+          {t('Take a tour')}
+        </button>
         <a href="#top" className="footer-top">
           {t('Back to top')} <ArrowUp {...iconProps} />
         </a>
