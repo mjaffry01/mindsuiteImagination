@@ -87,9 +87,6 @@ export function LanguageProvider({ children }) {
     return { lang: active, dir: meta.dir, t, setLang, ready: active === lang };
   }, [dict, active, meta.dir, lang, setLang]);
 
-  useEffect(() => {
-    document.title = value.t('MindSuite Imagination — Our offerings');
-  }, [value]);
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }

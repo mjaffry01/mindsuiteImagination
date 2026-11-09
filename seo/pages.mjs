@@ -1,0 +1,239 @@
+/**
+ * Search engine optimisation, done at build time.
+ *
+ * For every readable address (home, /offerings, /platforms, /clients, /team, /careers, the nine
+ * family pages and all 231 offering pages) this writes an HTML page with:
+ *   - its own <title>, meta description and canonical URL
+ *   - Open Graph / Twitter tags for link previews
+ *   - JSON-LD structured data (Organization, WebSite, Service, ItemList, BreadcrumbList)
+ *   - the page's main text inside #root, readable without JavaScript (React replaces it on load)
+ * plus sitemap.xml and robots.txt.
+ *
+ * The public address comes from SITE_URL (default: the GitHub Pages site). Set it when the site
+ * moves, e.g. SITE_URL=https://www.mindsuite.in npm run build
+ */
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+const DEFAULT_SITE = 'https://mjaffry01.github.io/mindsuiteImagination';
+
+// Same rule as slugify() in src/hooks/useRoute.js: "Software & Product" → "software-product".
+export const slugify = (text) =>
+  text
+    .toLowerCase()
+    .replace(/&/g, ' ')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
+const esc = (s) =>
+  String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+const clip = (s, max = 158) => {
+  const text = String(s).replace(/\s+/g, ' ').trim();
+  return text.length <= max ? text : `${text.slice(0, max - 1).replace(/[\s,;:.-]+\S*$/, '')}…`;
+};
+const items = (text) => String(text).split(';').map((s) => s.trim().replace(/\.$/, '')).filter(Boolean);
+const json = (data) => JSON.stringify(data).replace(/</g, '\\u003c');
+
+async function loadData(root) {
+  const load = (p) => import(pathToFileURL(join(root, p)).href);
+  const [company, team, careers] = await Promise.all([
+    load('src/data/company.js'),
+    load('src/data/team.js'),
+    load('src/data/careers.js'),
+  ]);
+  const catalogue = JSON.parse(readFileSync(join(root, 'src/data/catalogue.json'), 'utf8'));
+  return { company, team, careers, catalogue };
+}
+
+/** Builds the list of pages: { path, title, description, h1, body (HTML), jsonld[] }. */
+function buildPages({ company, team, careers, catalogue }, site) {
+  const url = (path) => `${site}/${path ? `${path}/` : ''}`;
+  const total = catalogue.reduce((n, f) => n + f.areas.reduce((m, a) => m + a.offerings.length, 0), 0);
+  const { contact } = company;
+  const org = {
+    '@type': 'Organization',
+    '@id': `${site}/#organization`,
+    name: 'MindSuite',
+    legalName: 'MindSuite Informatics Private Limited',
+    url: url(''),
+    logo: `${site}/og-image.png`,
+    email: contact.email,
+    telephone: contact.phone.replace(/\s+/g, ''),
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: contact.address[0],
+      addressLocality: 'Hyderabad',
+      postalCode: '500096',
+      addressRegion: 'Telangana',
+      addressCountry: 'IN',
+    },
+    sameAs: [contact.linkedin],
+  };
+  const crumbs = (trail) => ({
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: url(path) })),
+  });
+  const link = (path, text) => `<a href="${esc(url(path))}">${esc(text)}</a>`;
+  const familyLinks = `<ul>${catalogue.map((f) => `<li>${link(slugify(f.short), f.name)} — ${esc(f.tagline || '')}</li>`).join('')}</ul>`;
+
+  const pages = [];
+
+  pages.push({
+    path: '',
+    title: 'MindSuite — Software, cloud, AI, cybersecurity and ERP services',
+    description: `Explore ${total} MindSuite offerings across software engineering, DevOps, AI, cybersecurity, ERP, IT staffing, managed services and business transformation, each with scope, deliverables and business value.`,
+    h1: 'Architect Intelligence. Integrate Securely. Transform Business.',
+    body: `<p>MindSuite's connected capabilities: ${catalogue.length} service families and ${total} defined offerings, each with what it includes and the outcomes it delivers.</p><h2>Service families</h2>${familyLinks}<p>${link('platforms', 'Platforms')} · ${link('clients', 'Clients')} · ${link('team', 'Team')} · ${link('careers', 'Careers')}</p>`,
+    jsonld: [org, { '@type': 'WebSite', '@id': `${site}/#website`, name: 'MindSuite', url: url(''), publisher: { '@id': org['@id'] } }],
+  });
+
+  pages.push({
+    path: 'offerings',
+    title: `All ${total} offerings | MindSuite`,
+    description: `Browse all ${total} MindSuite offerings in ${catalogue.length} service families, with definitions, typical scope, deliverables and business value.`,
+    h1: 'Our offerings',
+    body: familyLinks,
+    jsonld: [org, crumbs([['MindSuite', ''], ['Offerings', 'offerings']])],
+  });
+
+  for (const f of catalogue) {
+    const slug = slugify(f.short);
+    const offeringsOf = f.areas.flatMap((a) => a.offerings.map((o) => ({ ...o, area: a })));
+    pages.push({
+      path: slug,
+      title: `${f.name} services | MindSuite`,
+      description: clip(`${f.tagline} ${offeringsOf.length} offerings across ${f.areas.map((a) => a.name).join(', ')}.`),
+      h1: f.name,
+      body: `<p>${esc(f.tagline)}</p>${f.areas
+        .map((a) => `<h2>${esc(a.name)}</h2><ul>${a.offerings.map((o) => `<li>${link(`offerings/${slugify(o.name)}`, o.name)} — ${esc(o.value)}</li>`).join('')}</ul>`)
+        .join('')}`,
+      jsonld: [
+        org,
+        crumbs([['MindSuite', ''], ['Offerings', 'offerings'], [f.name, slug]]),
+        {
+          '@type': 'ItemList',
+          name: `${f.name} offerings`,
+          itemListElement: offeringsOf.map((o, i) => ({ '@type': 'ListItem', position: i + 1, url: url(`offerings/${slugify(o.name)}`), name: o.name })),
+        },
+      ],
+    });
+    for (const o of offeringsOf) {
+      const path = `offerings/${slugify(o.name)}`;
+      pages.push({
+        path,
+        title: `${o.name} — ${f.short} | MindSuite`,
+        description: clip(o.definition),
+        h1: o.name,
+        body: `<p><strong>${esc(o.value)}</strong></p><p>${esc(o.definition)}</p><h2>Typical scope</h2><ul>${items(o.scope)
+          .map((s) => `<li>${esc(s)}</li>`)
+          .join('')}</ul><h2>What you receive</h2><ul>${items(o.deliverables).map((s) => `<li>${esc(s)}</li>`).join('')}</ul><p>${link(slug, `${f.name}: ${o.area.name}`)}</p>`,
+        jsonld: [
+          org,
+          crumbs([['MindSuite', ''], [f.name, slug], [o.name, path]]),
+          {
+            '@type': 'Service',
+            name: o.name,
+            description: o.definition,
+            serviceType: o.area.name,
+            category: f.name,
+            url: url(path),
+            provider: { '@id': org['@id'] },
+            areaServed: ['IN', 'SA', 'AE', 'QA', 'KW', 'BH', 'OM', 'GB', 'US'],
+          },
+        ],
+      });
+    }
+  }
+
+  const { ecosystem, clients } = company;
+  pages.push({
+    path: 'platforms',
+    title: 'Technology platforms: NetSuite, Odoo, ERPNext, Salesforce | MindSuite',
+    description: clip(ecosystem.lead),
+    h1: ecosystem.title.join(' '),
+    body: `<p>${esc(ecosystem.lead)}</p><ul>${ecosystem.platforms.map((p) => `<li>${esc(p.name)} — ${esc(p.caption)}</li>`).join('')}</ul>`,
+    jsonld: [org, crumbs([['MindSuite', ''], ['Platforms', 'platforms']])],
+  });
+  pages.push({
+    path: 'clients',
+    title: 'Clients | MindSuite',
+    description: clip(`${clients.lead} Businesses MindSuite works with include ${clients.list.map((c) => c.name).join(', ')}.`),
+    h1: clients.title,
+    body: `<p>${esc(clients.lead)}</p><ul>${clients.list.map((c) => `<li>${c.url ? `<a href="${esc(c.url)}" rel="noopener">${esc(c.name)}</a>` : esc(c.name)}</li>`).join('')}</ul>`,
+    jsonld: [org, crumbs([['MindSuite', ''], ['Clients', 'clients']])],
+  });
+  pages.push({
+    path: 'team',
+    title: 'Leadership and team | MindSuite',
+    description: clip(team.intro.lead),
+    h1: team.intro.title,
+    body: `<p>${esc(team.intro.lead)}</p><h2>Leadership</h2><ul>${team.leaders.map((l) => `<li>${esc(l.name)} — ${esc(l.role)}</li>`).join('')}</ul>`,
+    jsonld: [
+      { ...org, employee: team.leaders.map((l) => ({ '@type': 'Person', name: l.name, jobTitle: l.role, sameAs: l.linkedin ? [l.linkedin] : undefined })) },
+      crumbs([['MindSuite', ''], ['Team', 'team']]),
+    ],
+  });
+  pages.push({
+    path: 'careers',
+    title: 'Careers at MindSuite',
+    description: clip(careers.hero.lead),
+    h1: careers.hero.title.join(' '),
+    body: `<p>${esc(careers.hero.lead)}</p><h2>Why MindSuite</h2><ul>${careers.perks.map((p) => `<li><strong>${esc(p.title)}</strong> — ${esc(p.text)}</li>`).join('')}</ul>`,
+    jsonld: [org, crumbs([['MindSuite', ''], ['Careers', 'careers']])],
+  });
+
+  return pages.map((p) => ({ ...p, url: url(p.path) }));
+}
+
+function head(page, site) {
+  const graph = { '@context': 'https://schema.org', '@graph': page.jsonld };
+  return `<title>${esc(page.title)}</title>
+    <meta name="description" content="${esc(page.description)}" />
+    <link rel="canonical" href="${esc(page.url)}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MindSuite" />
+    <meta property="og:title" content="${esc(page.title)}" />
+    <meta property="og:description" content="${esc(page.description)}" />
+    <meta property="og:url" content="${esc(page.url)}" />
+    <meta property="og:image" content="${esc(site)}/og-image.png" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:locale:alternate" content="ar_SA" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="${esc(page.title)}" />
+    <meta name="twitter:description" content="${esc(page.description)}" />
+    <script type="application/ld+json">${json(graph)}</script>`;
+}
+
+// Shown for a moment before the app starts, and to anything that reads the page without JavaScript.
+const PRERENDER_STYLE =
+  '<style>.seo-prerender{max-width:860px;margin:0 auto;padding:110px 24px 60px;font:16px/1.7 Arial,Helvetica,sans-serif;color:#dfe4f2;background:#1d2340}.seo-prerender h1{font-size:34px;line-height:1.2;color:#fff}.seo-prerender a{color:#b9a7ef}</style>';
+
+/** Writes every page, sitemap.xml and robots.txt into `outDir`. */
+export async function writeSeoPages({ root, outDir, site = process.env.SITE_URL || DEFAULT_SITE }) {
+  site = site.replace(/\/+$/, '');
+  const template = readFileSync(join(outDir, 'index.html'), 'utf8');
+  if (!template.includes('<!-- seo:start') || !template.includes('<!-- seo:content -->')) {
+    throw new Error('index.html is missing the seo:start / seo:end / seo:content markers');
+  }
+  const pages = buildPages(await loadData(root), site);
+  for (const page of pages) {
+    const html = template
+      .replace(/<!-- seo:start[\s\S]*?<!-- seo:end -->/, head(page, site))
+      .replace('<!-- seo:content -->', `${PRERENDER_STYLE}<main class="seo-prerender"><h1>${esc(page.h1)}</h1>${page.body}</main>`);
+    const dir = page.path ? join(outDir, page.path) : outDir;
+    mkdirSync(dir, { recursive: true });
+    writeFileSync(join(dir, 'index.html'), html);
+    if (!page.path) writeFileSync(join(outDir, '404.html'), html.replace('<link rel="canonical"', '<meta name="robots" content="noindex" />\n    <link rel="canonical"'));
+  }
+  const today = new Date().toISOString().slice(0, 10);
+  writeFileSync(
+    join(outDir, 'sitemap.xml'),
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages
+      .map((p) => `  <url><loc>${esc(p.url)}</loc><lastmod>${today}</lastmod><priority>${p.path === '' ? '1.0' : p.path.startsWith('offerings/') ? '0.6' : '0.8'}</priority></url>`)
+      .join('\n')}\n</urlset>\n`
+  );
+  writeFileSync(join(outDir, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${site}/sitemap.xml\n`);
+  return pages.length;
+}

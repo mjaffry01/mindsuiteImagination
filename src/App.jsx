@@ -172,6 +172,18 @@ export default function App() {
     showSection(slug);
   }, [addressReady, route.page, activeSection, readingFamily, current]);
 
+  // The browser tab names what is on screen, in the visitor's language.
+  useEffect(() => {
+    const named = { platforms: 'Platforms', clients: 'Clients', leadership: 'Team' };
+    let title;
+    if (route.page === 'careers') title = `${t('Careers')} | MindSuite`;
+    else if (sharedOffering.current) title = `${current.name} | MindSuite`;
+    else if (activeSection === 'catalogue') title = `${readingFamily.name} | MindSuite`;
+    else if (named[activeSection]) title = `${t(named[activeSection])} | MindSuite`;
+    else title = t('MindSuite Imagination — Our offerings');
+    document.title = title;
+  }, [route.page, activeSection, readingFamily, current, lang, t]);
+
   return (
     <>
       {/* First stop for keyboard users: jump past the header to the page content. */}
