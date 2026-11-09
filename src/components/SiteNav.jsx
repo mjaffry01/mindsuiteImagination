@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import useRoute from '../hooks/useRoute.js';
 import { useT } from '../i18n/index.jsx';
 
 /** Page sections reachable from the header menu and the footer. */
@@ -15,11 +16,12 @@ export const sectionHref = (s) => s.href || `#${s.id}`;
 /** Id of the section the visitor is currently in ('' while on the opening screen). */
 function useActiveSection() {
   const [active, setActive] = useState('');
+  const route = useRoute();
   useEffect(() => {
     let queued = false;
     const update = () => {
       queued = false;
-      if (location.hash.startsWith('#/careers')) {
+      if (route.page === 'careers') {
         setActive('careers');
         return;
       }
@@ -52,7 +54,7 @@ function useActiveSection() {
       removeEventListener('resize', onScroll);
       removeEventListener('hashchange', onScroll);
     };
-  }, []);
+  }, [route.page]);
   return active;
 }
 

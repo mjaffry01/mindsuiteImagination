@@ -11,7 +11,7 @@ import SiteFooter from './components/SiteFooter.jsx';
 import SiteHeader, { BackToTop } from './components/SiteHeader.jsx';
 import useInterests from './hooks/useInterests.js';
 import useReadingPosition from './hooks/useReadingPosition.js';
-import useRoute from './hooks/useRoute.js';
+import useRoute, { BASE_URL, getRoute, navigate } from './hooks/useRoute.js';
 import Careers from './components/Careers.jsx';
 import ExpertConnect from './components/ExpertConnect.jsx';
 import InterestToast from './components/InterestToast.jsx';
@@ -82,8 +82,9 @@ export default function App() {
 
   const route = useRoute();
 
-  // In-page links (#catalogue, #family-1-area-2, #offering-12, #top …) scroll smoothly
-  // without writing the anchor into the address bar. Only the Careers page has its own URL.
+  // The address bar always shows the site's base URL. In-page links (#catalogue,
+  // #family-1-area-2, #offering-12, #top …) just scroll, and "#/careers" links switch page
+  // through history.state (Back still works) without changing the URL.
   useEffect(() => {
     const scrollToId = (id) => {
       if (id === 'top') return window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -94,35 +95,36 @@ export default function App() {
       const link = e.target.closest?.('a[href^="#"]');
       if (!link || link.target === '_blank') return;
       const id = decodeURIComponent(link.getAttribute('href').slice(1));
-      if (!id || id.startsWith('/')) return; // "#/careers" is a page, not an anchor
+      if (!id) return;
       e.preventDefault();
-      if (document.getElementById(id) || id === 'top') {
-        // Let dialogs that close on this click finish closing before scrolling.
-        setTimeout(() => scrollToId(id), 0);
-      } else if (location.hash.startsWith('#/')) {
-        // From Careers back to a section of the main page: clean address, then scroll.
-        history.pushState(null, '', location.pathname + location.search);
-        dispatchEvent(new HashChangeEvent('hashchange'));
+      const page = id.match(/^\/careers(?:\/([\w-]+))?/);
+      if (page) return navigate('careers', page[1] || null);
+      if (getRoute().page !== 'main') {
+        // From Careers to a section of the main page: switch page, then scroll once it renders.
+        navigate('main');
         setTimeout(() => scrollToId(id), 150);
+        return;
       }
+      // Let dialogs that close on this click finish closing before scrolling.
+      setTimeout(() => scrollToId(id), 0);
     };
     document.addEventListener('click', onClick);
     return () => document.removeEventListener('click', onClick);
   }, []);
 
-  // The main page renders after the browser's own hash lookup (and again when coming back
-  // from Careers), so honour anchors such as #family-1-area-1 once they are in the DOM.
+  // Older shared links (#family-1-area-1, #/careers/<role>, ?lang=ar) still open the right
+  // place once; then the address is tidied back to the base URL.
   useEffect(() => {
-    if (route.page !== 'main') return;
     const id = decodeURIComponent(location.hash.slice(1));
-    const target = id && document.getElementById(id);
-    if (!target) return;
-    const jump = () => target.scrollIntoView({ behavior: 'instant', block: 'start' });
+    const target = id && !id.startsWith('/') ? document.getElementById(id) : null;
+    const jump = () => target?.scrollIntoView({ behavior: 'instant', block: 'start' });
     jump();
     // Jump again once late layout (fonts, images) has settled.
     const t = setTimeout(jump, 120);
+    const { page, roleId } = getRoute();
+    history.replaceState({ page, roleId }, '', BASE_URL);
     return () => clearTimeout(t);
-  }, [route.page]);
+  }, []);
 
   return (
     <>

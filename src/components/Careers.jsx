@@ -6,6 +6,7 @@ import Globe from './Globe.jsx';
 import { DISCIPLINES, careersContact, hero, openings, perks, steps } from '../data/careers.js';
 import { leaders, team } from '../data/team.js';
 import { useLanguage, useT } from '../i18n/index.jsx';
+import { getRoute, navigate } from '../hooks/useRoute.js';
 
 const peopleCount = leaders.length + team.length;
 const teamSize = (group) => team.filter((p) => p.groups.includes(group)).length;
@@ -21,7 +22,7 @@ function scrollToId(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-/** Side panel with the full role description; open state lives in the URL (#/careers/<id>). */
+/** Side panel with the full role description; open state lives in history.state, not the URL. */
 function RoleDrawer({ role, onClose }) {
   const ref = useRef(null);
   const { t, lang } = useLanguage();
@@ -101,9 +102,7 @@ export default function Careers({ roleId, playing, onToggleMotion }) {
 
   const openRole = openings.find((o) => o.id === roleId) || null;
   const closeRole = useCallback(() => {
-    if (!location.hash.startsWith('#/careers/')) return;
-    history.replaceState(null, '', '#/careers');
-    dispatchEvent(new HashChangeEvent('hashchange'));
+    if (getRoute().page === 'careers' && getRoute().roleId) navigate('careers', null, { replace: true });
   }, []);
 
   const filtered = useMemo(() => {
