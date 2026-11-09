@@ -120,6 +120,7 @@ export default function App() {
   // Guided tour: starts from the top of the main page (from Careers it switches page first).
   const closeTour = useCallback(() => setTourOpen(false), []);
   const startTour = () => {
+    ensureCatalogue();
     setSearchOpen(false);
     setInterestsOpen(false);
     if (getRoute().page !== 'main') navigate('main');

@@ -32,6 +32,9 @@ export default function useReadingPosition() {
         const el = document.getElementById(markerId(o));
         return el ? el.getBoundingClientRect().top + scrollY : Infinity;
       });
+      // Cards above the ones built so far count as already passed, keeping the list in order.
+      const firstBuilt = tops.findIndex((top) => top !== Infinity);
+      for (let i = 0; i < firstBuilt; i += 1) tops[i] = -Infinity;
       track();
     }
 

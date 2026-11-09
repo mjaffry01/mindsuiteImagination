@@ -3,7 +3,7 @@ import Icon from './Icon.jsx';
 import ShareMenu from './ShareMenu.jsx';
 import { families } from '../data/catalogue.js';
 import { useT } from '../i18n/index.jsx';
-import { startCatalogueStages, useCatalogueProgress } from '../lib/catalogueStages.js';
+import { startCatalogueStages, useCatalogueWindow } from '../lib/catalogueStages.js';
 
 const ORDINALS = ['01', '02', '03', '04', '05', '06', '07', '08', '09'];
 const WORDS = ['ZERO', 'ONE', 'TWO', 'THREE', 'FOUR', 'FIVE', 'SIX', 'SEVEN', 'EIGHT', 'NINE'];
@@ -110,23 +110,20 @@ export const Offering = memo(function Offering({ offering, family, added, onTogg
 /** The continuous catalogue: five family sections, each with its service areas and offerings. */
 export default function Catalogue({ interests, onToggle }) {
   const t = useT();
-  const limit = useCatalogueProgress();
+  const { start, end } = useCatalogueWindow();
   useEffect(startCatalogueStages, []);
 
-  let left = limit; // cards still allowed on the page in this pass
+  let position = 0; // this card's place in the whole catalogue
   return families.map((family) => {
-    if (left <= 0) return null;
     let complete = true;
     const areas = family.areas.map((area) => {
-      if (left <= 0) {
-        complete = false;
-        return null;
-      }
-      const shown = area.offerings.slice(0, left);
-      left -= shown.length;
+      const from = position;
+      position += area.offerings.length;
+      const shown = area.offerings.filter((_, i) => from + i >= start && from + i < end);
       if (shown.length < area.offerings.length) complete = false;
-      return { area, shown };
+      return shown.length ? { area, shown } : null;
     });
+    if (!areas.some(Boolean)) return null;
     return (
     <section
       key={family.id}
