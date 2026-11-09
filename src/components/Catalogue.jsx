@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import Icon from './Icon.jsx';
+import ShareMenu from './ShareMenu.jsx';
 import { families } from '../data/catalogue.js';
 import { useT } from '../i18n/index.jsx';
 
@@ -50,6 +51,7 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
             </span>
           </p>
         </div>
+        <div className="offering-actions">
         <button
           type="button"
           className="interest-button"
@@ -61,6 +63,8 @@ const Offering = memo(function Offering({ offering, family, added, onToggle }) {
           <Icon name={added ? 'Check' : 'Plus'} />
           {added ? t('Added to enquiry') : t('Add to enquiry')}
         </button>
+        <ShareMenu offering={offering} />
+        </div>
       </div>
       <p className="definition">{offering.definition}</p>
       <dl>

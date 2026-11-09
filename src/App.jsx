@@ -9,7 +9,16 @@ import SiteFooter from './components/SiteFooter.jsx';
 import SiteHeader, { BackToTop } from './components/SiteHeader.jsx';
 import useInterests from './hooks/useInterests.js';
 import useReadingPosition from './hooks/useReadingPosition.js';
-import useRoute, { BASE_URL, getRoute, navigate } from './hooks/useRoute.js';
+import useRoute, {
+  familySlug,
+  getRoute,
+  initialTargetId,
+  navigate,
+  pathFor,
+  sectionSlug,
+  showSection,
+} from './hooks/useRoute.js';
+import { useActiveSection } from './components/SiteNav.jsx';
 import ExpertConnect from './components/ExpertConnect.jsx';
 import InterestToast from './components/InterestToast.jsx';
 import { offeringById } from './data/catalogue.js';
@@ -95,9 +104,8 @@ export default function App() {
   const closeInterests = useCallback(() => setInterestsOpen(false), []);
 
 
-  // The address bar always shows the site's base URL. In-page links (#catalogue,
-  // #family-1-area-2, #offering-12, #top …) just scroll, and "#/careers" links switch page
-  // through history.state (Back still works) without changing the URL.
+  // In-page links (#catalogue, #family-1-area-2, #offering-12, #top …) just scroll; the
+  // address then follows what is on screen (see below). "#/careers" links switch page.
   useEffect(() => {
     const scrollToId = (id) => {
       if (id === 'top') return window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -128,19 +136,40 @@ export default function App() {
     return () => document.removeEventListener('click', onClick);
   }, []);
 
-  // Older shared links (#family-1-area-1, #/careers/<role>, ?lang=ar) still open the right
-  // place once; then the address is tidied back to the base URL.
+  // Opening an address such as /ai-for-business or /team (or an older #section link) jumps
+  // to that section; ?lang= and old #anchors are then dropped from the address.
+  const [addressReady, setAddressReady] = useState(false);
   useEffect(() => {
-    const id = decodeURIComponent(location.hash.slice(1));
-    const target = id && !id.startsWith('/') ? document.getElementById(id) : null;
+    const id = initialTargetId();
+    const target = id ? document.getElementById(id) : null;
     const jump = () => target?.scrollIntoView({ behavior: 'instant', block: 'start' });
     jump();
-    // Jump again once late layout (fonts, images) has settled.
-    const t = setTimeout(jump, 120);
     const { page, roleId } = getRoute();
-    history.replaceState({ page, roleId }, '', BASE_URL);
+    if (page === 'careers') history.replaceState({ page, roleId }, '', pathFor(roleId ? `careers/${roleId}` : 'careers'));
+    else history.replaceState({ page }, '', location.pathname);
+    // Jump again once late layout (fonts, images) has settled, then let the address follow.
+    const t = setTimeout(() => {
+      jump();
+      setAddressReady(true);
+    }, 150);
     return () => clearTimeout(t);
   }, []);
+
+  // While reading the main page, the address names the section: /software-product,
+  // /ai-for-business … inside the catalogue, then /platforms, /clients, /team.
+  const activeSection = useActiveSection();
+  const readingFamily = current.family;
+  // A shared offering link keeps its own address until the visitor reads on to another offering.
+  const sharedOffering = useRef(initialTargetId()?.startsWith('offering-') ? initialTargetId() : null);
+  useEffect(() => {
+    if (!addressReady || route.page !== 'main') return;
+    if (sharedOffering.current) {
+      if (current.id === sharedOffering.current) return;
+      sharedOffering.current = null;
+    }
+    const slug = activeSection === 'catalogue' ? familySlug(readingFamily) : sectionSlug(activeSection) || '';
+    showSection(slug);
+  }, [addressReady, route.page, activeSection, readingFamily, current]);
 
   return (
     <>

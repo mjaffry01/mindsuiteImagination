@@ -38,6 +38,18 @@ function useModal(open, onClose) {
     dialog.addEventListener('close', onClose);
     return () => dialog.removeEventListener('close', onClose);
   }, [onClose]);
+  // Esc always closes. Browsers do this for modal dialogs too, but some skip the first Esc
+  // (for example right after the dialog opened without a click), so handle it explicitly.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => {
+      if (e.key !== 'Escape' || e.defaultPrevented) return;
+      e.preventDefault();
+      onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open, onClose]);
   return ref;
 }
 
@@ -527,9 +539,14 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
               : t(selected.length === 1 ? '{count} offering selected' : '{count} offerings selected', { count: selected.length })}
           </p>
         </div>
-        <button type="button" className="interests-close" autoFocus ref={closeRef} onClick={onClose}>
-          {t('Close')}
-        </button>
+        <div className="interests-close-wrap">
+          <span className="navigation-hint" aria-hidden="true">
+            <kbd>Esc</kbd> {t('to close')}
+          </span>
+          <button type="button" className="interests-close" autoFocus ref={closeRef} onClick={onClose}>
+            {t('Close')}
+          </button>
+        </div>
       </div>
 
       <ol className="enq-steps" aria-label={t('Progress')}>

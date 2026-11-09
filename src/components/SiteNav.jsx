@@ -14,7 +14,7 @@ export const SECTIONS = [
 export const sectionHref = (s) => s.href || `#${s.id}`;
 
 /** Id of the section the visitor is currently in ('' while on the opening screen). */
-function useActiveSection() {
+export function useActiveSection() {
   const [active, setActive] = useState('');
   const route = useRoute();
   useEffect(() => {

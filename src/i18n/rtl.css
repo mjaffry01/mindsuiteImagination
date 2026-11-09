@@ -142,3 +142,16 @@ bdi[dir='ltr'] { unicode-bidi: isolate; direction: ltr; }
   .enquiry-counter svg { display: none; }
   .lang-switch button { min-width: 23px; padding: 0 4px; font-size: 10.5px; }
 }
+
+/* Header controls (menu · enquiry · language) sit as one evenly spaced group:
+   the header's 24px gap is pulled in to 12px between them. */
+.site-header .site-nav + .enquiry-counter { margin-inline-start: -12px; }
+.site-header .enquiry-counter + .lang-switch { margin-inline-start: -12px; }
+@media (max-width: 600px) {
+  .site-header .site-nav + .enquiry-counter,
+  .site-header .enquiry-counter + .lang-switch { margin-inline-start: 0; }
+}
+/* When the mission is not in the header, keep menu · enquiry · language together at the end. */
+@media (max-width: 1480px) {
+  .site-header .site-nav { margin-inline-start: auto; }
+}
