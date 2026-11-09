@@ -1,4 +1,4 @@
-import { Bot, Headset, PanelLeftOpen, Search as SearchIcon, ShoppingBag } from 'lucide-react';
+import { Bot, Headset, PanelLeftOpen, Search as SearchIcon, ClipboardList } from 'lucide-react';
 import { useT } from '../i18n/index.jsx';
 
 const toggleGuide = () => dispatchEvent(new Event('mindsuite:toggle-guide'));
@@ -29,7 +29,7 @@ export default function MobileTabBar({ enquiryCount, onOpenMap, onOpenSearch, on
         onClick={onOpenEnquiry}
       >
         <span className="tab-icon">
-          <ShoppingBag aria-hidden="true" />
+          <ClipboardList aria-hidden="true" />
           {enquiryCount > 0 && <span className="tab-badge">{enquiryCount}</span>}
         </span>
         {t('Enquiry')}

@@ -1,6 +1,6 @@
 import {
   Activity, AppWindow, ArrowRightLeft, Blocks, Bot, Boxes, Braces, BrainCircuit, BriefcaseBusiness,
-  Building2, Cable, ChartNoAxesCombined, Check, ClipboardCheck, Cloud, CloudCog, CodeXml, Compass,
+  Building2, Cable, ChartNoAxesCombined, Check, ClipboardCheck, ClipboardList, Cloud, CloudCog, CodeXml, Compass,
   Container, Cpu, Database, Factory, FileText, Fingerprint, FlaskConical, Gauge, GitBranch, Headset,
   HeartPulse, KeyRound, Layers, LifeBuoy, LockKeyhole, Network, PackageCheck, PanelsTopLeft, Plus,
   Radio, Receipt, RefreshCw, Rocket, Route, ScanLine, Search, ShieldAlert, ShieldCheck, ShoppingBag,
@@ -10,7 +10,7 @@ import {
 
 const registry = {
   Activity, AppWindow, ArrowRightLeft, Blocks, Bot, Boxes, Braces, BrainCircuit, BriefcaseBusiness,
-  Building2, Cable, ChartNoAxesCombined, Check, ClipboardCheck, Cloud, CloudCog, CodeXml, Compass,
+  Building2, Cable, ChartNoAxesCombined, Check, ClipboardCheck, ClipboardList, Cloud, CloudCog, CodeXml, Compass,
   Container, Cpu, Database, Factory, FileText, Fingerprint, FlaskConical, Gauge, GitBranch, Headset,
   HeartPulse, KeyRound, Layers, LifeBuoy, LockKeyhole, Network, PackageCheck, PanelsTopLeft, Plus,
   Radio, Receipt, RefreshCw, Rocket, Route, ScanLine, Search, ShieldAlert, ShieldCheck, ShoppingBag,

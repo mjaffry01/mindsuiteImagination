@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Check, ChevronDown, Plus, Search as SearchIcon, ShoppingBag, X } from 'lucide-react';
+import { Check, ChevronDown, Plus, Search as SearchIcon, ClipboardList, X } from 'lucide-react';
 import Icon from './Icon.jsx';
 import { focusTarget } from '../lib/focus.js';
 import PhoneInput from './PhoneInput.jsx';
@@ -393,7 +393,7 @@ export function SearchDialog({ open, onClose, interests, onToggle, onAddMany, on
           </button>
         ) : (
           <span className="navigation-footer-count">
-            <ShoppingBag aria-hidden="true" />
+            <ClipboardList aria-hidden="true" />
             {t('{offerings} in your enquiry', { offerings: plural(t, interests.size, 'offering') })}
           </span>
         )}

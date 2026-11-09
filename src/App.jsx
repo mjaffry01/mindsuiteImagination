@@ -278,7 +278,7 @@ export default function App() {
         aria-controls="interests-dialog"
         onClick={() => openInterests('list')}
       >
-        <Icon name="ShoppingBag" />
+        <Icon name="ClipboardList" />
         {t('Your enquiry ({count})', { count: interests.size })}
       </button>
       {mounted.interests && (

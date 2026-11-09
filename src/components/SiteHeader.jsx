@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUp, ShoppingBag } from 'lucide-react';
+import { ArrowUp, ClipboardList } from 'lucide-react';
 import logo from '../assets/logo.png';
 import SiteNav from './SiteNav.jsx';
 import LanguageSwitcher from './LanguageSwitcher.jsx';
@@ -77,7 +77,7 @@ function EnquiryCounter({ count, onOpen }) {
       title={t('Collect offerings here, then request one proposal for all of them.')}
       onClick={onOpen}
     >
-      <ShoppingBag aria-hidden="true" focusable="false" />
+      <ClipboardList aria-hidden="true" focusable="false" />
       <span className="enquiry-counter-label">{t('Enquiry')}</span>
       <span className="enquiry-counter-count" aria-hidden="true">
         {count}
