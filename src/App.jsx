@@ -26,6 +26,7 @@ import ExpertConnect from './components/ExpertConnect.jsx';
 import InterestToast from './components/InterestToast.jsx';
 import { offeringById } from './data/catalogue.js';
 import { useLanguage } from './i18n/index.jsx';
+import { smoothScrollTo } from './lib/smoothScroll.js';
 import { ensureCatalogue, useCatalogueDone } from './lib/catalogueStages.js';
 
 // Loaded on demand, so the first screen downloads only what it needs.
@@ -132,11 +133,11 @@ export default function App() {
   // address then follows what is on screen (see below). "#/careers" links switch page.
   useEffect(() => {
     const scrollToId = (id) => {
-      if (id === 'top') return window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (id === 'top') return smoothScrollTo(null);
       ensureCatalogue();
       const target = document.getElementById(id);
       if (!target) return;
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      smoothScrollTo(target);
       if (id === 'main-content') target.focus({ preventScroll: true });
     };
     const onClick = (e) => {

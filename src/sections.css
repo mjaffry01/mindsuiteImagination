@@ -1780,6 +1780,60 @@ img.platform-logo { max-width: 80%; max-height: 72px; margin: auto; object-fit: 
 .shared-list { max-width: 980px; margin: 0 auto; padding: 32px 6vw 56px; background: transparent; }
 .shared-browse { display: flex; margin: 8px auto 0; }
 
+/* ---------- Smooth scrolling switch ---------- */
+.scroll-switch-label { display: inline-flex; align-items: center; gap: 7px; }
+.scroll-switch-label svg { flex: none; width: 16px; height: 16px; color: var(--soft-violet); }
+.drawer-panel .scroll-switch-label svg { color: #c9bdf0; }
+.scroll-switch { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; color: var(--map-muted, #6c7790); font-size: 12px; }
+.scroll-switch-toggle { position: relative; flex: none; width: 40px; height: 22px; padding: 0; border: 0; border-radius: 999px; background: #aab0c4; cursor: pointer; transition: background .2s; }
+.scroll-switch-toggle span { position: absolute; top: 3px; inset-inline-start: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px #0003; transition: inset-inline-start .2s; }
+.scroll-switch-toggle[aria-checked='true'] { background: var(--soft-violet); }
+.scroll-switch-toggle[aria-checked='true'] span { inset-inline-start: 21px; }
+.scroll-switch-toggle:focus-visible { outline: 2px solid #48b8df; outline-offset: 2px; }
+.drawer-panel .scroll-switch { flex: none; min-height: 44px; margin-top: 4px; padding-inline: 10px; color: #cfd5e6; font-size: 13.5px; }
+@media (pointer: coarse) { .scroll-switch-toggle::after { content: ''; position: absolute; inset: -11px -2px; } }
+
+/* ---------- Service map: light and dark blend instead of snapping ---------- */
+/* Registering the colours lets the browser animate them; everything using them follows. */
+@property --map-ink { syntax: '<color>'; inherits: true; initial-value: #333c55; }
+@property --map-muted { syntax: '<color>'; inherits: true; initial-value: #6c7790; }
+@property --map-card { syntax: '<color>'; inherits: true; initial-value: #fdfcffeb; }
+@property --map-border { syntax: '<color>'; inherits: true; initial-value: #e0dcea; }
+@property --map-wash-top { syntax: '<color>'; inherits: true; initial-value: #f1f0f7ef; }
+@property --map-wash-bottom { syntax: '<color>'; inherits: true; initial-value: #f1f0f7cc; }
+.map-column {
+  --map-wash-top: #f1f0f7ef; --map-wash-bottom: #f1f0f7cc;
+  transition: background-color .8s cubic-bezier(.4, 0, .2, 1), color .8s cubic-bezier(.4, 0, .2, 1), border-color .8s cubic-bezier(.4, 0, .2, 1),
+    --map-ink .8s cubic-bezier(.4, 0, .2, 1), --map-muted .8s cubic-bezier(.4, 0, .2, 1), --map-card .8s cubic-bezier(.4, 0, .2, 1), --map-border .8s cubic-bezier(.4, 0, .2, 1),
+    --map-wash-top .8s cubic-bezier(.4, 0, .2, 1), --map-wash-bottom .8s cubic-bezier(.4, 0, .2, 1);
+}
+.map-column.dark { --map-wash-top: #2a3352ed; --map-wash-bottom: #2a3352d0; }
+.map-column:after, .map-column.dark:after { background: linear-gradient(180deg, var(--map-wash-top), var(--map-wash-bottom)); }
+.family-map .map-cell { transition: left .22s ease, top .22s ease, background-color .8s cubic-bezier(.4, 0, .2, 1), color .8s cubic-bezier(.4, 0, .2, 1), filter .25s, transform .15s; }
+.family-map .map-cell:before { transition: background-color .8s cubic-bezier(.4, 0, .2, 1); }
+.family-map .map-cell.is-dragging { transition: background-color .25s, color .25s, transform .15s; }
+/* The hexagon you have just reached arrives with a soft pulse. */
+@keyframes hex-arrive { 0% { transform: scale(.9); filter: brightness(1.25); } 55% { transform: scale(1.07); filter: brightness(1.12); } 100% { transform: none; filter: none; } }
+.family-map .map-cell[aria-current='true']:not(.is-dragging) { z-index: 2; animation: hex-arrive .7s cubic-bezier(.34, 1.3, .64, 1); }
+@media (prefers-reduced-motion: reduce) { .family-map .map-cell[aria-current='true'] { animation: none; } }
+
+/* ---------- Service families melt into each other instead of meeting at a hard line ---------- */
+.catalogue-content .family-section { --band: 340px; --band-from: #f7f6fb; --band-to: #2a3352; position: relative; padding-bottom: calc(64px + var(--band)); }
+.catalogue-content .family-section.dark { --band-from: #2a3352; --band-to: #f7f6fb; }
+.catalogue-content #family-9 { --band: 120px; --band-to: #fdfcff; }
+.catalogue-content .family-section::after {
+  content: ''; position: absolute; inset: auto 0 0; height: var(--band); pointer-events: none;
+  background: linear-gradient(180deg,
+    var(--band-from) 0%,
+    color-mix(in oklab, var(--band-from), var(--band-to) 7%) 18%,
+    color-mix(in oklab, var(--band-from), var(--band-to) 28%) 36%,
+    color-mix(in oklab, var(--band-from), var(--band-to) 50%) 50%,
+    color-mix(in oklab, var(--band-from), var(--band-to) 72%) 64%,
+    color-mix(in oklab, var(--band-from), var(--band-to) 93%) 82%,
+    var(--band-to) 100%);
+}
+@media (max-width: 900px) { .catalogue-content .family-section { --band: 220px; } }
+
 /* ---------- Bottom bar on phones: main actions within thumb reach ---------- */
 .offering-foot { display: none; }
 .mobile-tabs { display: none; }
