@@ -63,9 +63,12 @@ export function enquiryEmail(enquiry) {
     `Name: ${contact.name}`,
     `Email: ${contact.email}`,
     `Company: ${contact.company}`,
-    contact.phone ? `Phone: ${contact.phone}` : null,
+    `Phone: ${contact.phone || '(not given)'}`,
     `Preferred contact: ${contact.preferredContact}`,
     `Timeline: ${enquiry.timeline}`,
+    enquiry.submittedAt
+      ? `Received: ${new Date(enquiry.submittedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' })} IST`
+      : null,
     '',
     'What they want to achieve:',
     enquiry.message || '(not provided)',

@@ -48,7 +48,10 @@ const config = {
         }
       : null,
   from: env.MAIL_FROM || 'MindSuite <no-reply@mindsuite.in>',
-  to: env.MAIL_TO || 'info@mindsuite.in',
+  // The team copy (every detail the visitor entered) goes to MAIL_TO; when the visitor replies
+  // to their acknowledgement, the reply goes to MAIL_REPLY_TO.
+  to: env.MAIL_TO || 'no-reply@mindsuite.in',
+  replyTo: env.MAIL_REPLY_TO || 'info@mindsuite.in',
   cc: env.MAIL_CC || '',
   sendAck: env.SEND_ACK !== 'false',
   allowedOrigins: (env.ALLOWED_ORIGINS || '').split(',').map((s) => s.trim()).filter(Boolean),
@@ -192,11 +195,13 @@ function offeringsHtml(offerings) {
 function teamMail(e) {
   const { subject, body } = enquiryEmail(e);
   const row = (k, v) =>
-    v ? `<tr><td style="padding:4px 14px 4px 0;color:#6c7790">${k}</td><td style="padding:4px 0">${esc(v)}</td></tr>` : '';
+    v ? `<tr><td style="padding:4px 14px 4px 0;color:#6c7790">${k}</td><td style="padding:4px 0">${v}</td></tr>` : '';
+  const link = (href, text) => `<a href="${esc(href)}">${esc(text)}</a>`;
+  const when = new Date(e.submittedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' }) + ' IST';
   const html = `<div style="font-family:Arial,sans-serif;font-size:14px;color:#2b3350;line-height:1.5">
   <h2 style="margin:0 0 4px">New proposal request</h2>
   <p style="margin:0 0 16px;color:#6c7790">Reference <strong>${esc(e.reference)}</strong></p>
-  <table style="border-collapse:collapse">${row('Name', e.contact.name)}${row('Email', e.contact.email)}${row('Company', e.contact.company)}${row('Phone', e.contact.phone)}${row('Preferred contact', e.contact.preferredContact)}${row('Timeline', e.timeline)}</table>
+  <table style="border-collapse:collapse">${row('Name', esc(e.contact.name))}${row('Email', link(`mailto:${e.contact.email}`, e.contact.email))}${row('Phone', e.contact.phone ? link(`tel:${e.contact.phone.replace(/[^\d+]/g, '')}`, e.contact.phone) : esc('(not given)'))}${row('Company', esc(e.contact.company))}${row('Preferred contact', esc(e.contact.preferredContact))}${row('Timeline', esc(e.timeline))}${row('Received', esc(when))}</table>
   <p style="margin:18px 0 4px;font-weight:bold">What they want to achieve</p>
   <p style="margin:0;white-space:pre-wrap">${esc(e.message || '(not provided)')}</p>
   <p style="margin:18px 0 0;font-weight:bold">Offerings of interest (${e.offerings.length})</p>${offeringsHtml(e.offerings)}
@@ -244,7 +249,7 @@ function ackMail(e) {
   return {
     from: config.from,
     to: e.contact.email,
-    replyTo: config.to,
+    replyTo: config.replyTo,
     subject: `We received your request (${e.reference})`,
     text,
     html,

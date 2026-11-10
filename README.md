@@ -35,7 +35,8 @@ answer directly) and sends the visitor an acknowledgement.
    SMTP_USER=no-reply@mindsuite.in
    SMTP_PASS=app-password-here       # use an app password where the provider requires one
    MAIL_FROM="MindSuite <no-reply@mindsuite.in>"
-   MAIL_TO=info@mindsuite.in
+   MAIL_TO=no-reply@mindsuite.in     # team copy with everything the visitor entered
+   MAIL_REPLY_TO=info@mindsuite.in   # where the visitor's replies go
    ```
 3. `npm start`. The log shows `SMTP ready: …` when the account connects.
 
