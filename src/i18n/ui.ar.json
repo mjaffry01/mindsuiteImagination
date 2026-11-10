@@ -570,5 +570,19 @@
  "{offerings} in your enquiry": "{offerings} ضمن طلبك",
  "{offerings} in {areas}": "{offerings} في {areas}",
  "← All goals": "→ جميع الأهداف",
- "← Change areas": "→ تغيير المجالات"
+ "← Change areas": "→ تغيير المجالات",
+ "Listen to our offerings": "استمع إلى عروضنا",
+ "Voice tour": "جولة صوتية",
+ "Stop {n} of {total}": "المحطة {n} من {total}",
+ "Close voice tour": "إغلاق الجولة الصوتية",
+ "Go to stop {n}: {title}": "الانتقال إلى المحطة {n}: {title}",
+ "Previous stop": "المحطة السابقة",
+ "Next stop": "المحطة التالية",
+ "Listen again": "الاستماع من جديد",
+ "Play": "تشغيل",
+ "Pause": "إيقاف مؤقت",
+ "Playback speed: {rate}": "سرعة التشغيل: {rate}",
+ "Hide captions": "إخفاء النص",
+ "Show captions": "إظهار النص",
+ "Open your enquiry": "افتح طلبك"
 }

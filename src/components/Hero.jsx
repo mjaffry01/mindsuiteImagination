@@ -1,4 +1,4 @@
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Compass, Headphones, LayoutGrid } from 'lucide-react';
 import Globe from './Globe.jsx';
 import DotField from './DotField.jsx';
 import { offerings } from '../data/catalogue.js';
@@ -15,7 +15,7 @@ const STATS = [
   { value: clients.list.length, label: 'client businesses' },
 ];
 
-export default function Hero({ playing, onToggleMotion, onStartTour }) {
+export default function Hero({ playing, onToggleMotion, onStartTour, onStartVoice }) {
   const t = useT();
   return (
     <div className="opening-screen">
@@ -36,11 +36,17 @@ export default function Hero({ playing, onToggleMotion, onStartTour }) {
               'Explore MindSuite’s connected capabilities - from software and AI to cybersecurity, platform engineering, ERP and business systems, IT staffing, managed services, support and business transformation. Scroll to discover each offering, what it includes and the outcomes it delivers.'
             )}
           </p>
-          <a className="cta" href="#catalogue">
-            {t('Explore our offerings')} <span aria-hidden="true">↓</span>
+          <a className="cta cta-icon" href="#catalogue">
+            <LayoutGrid aria-hidden="true" />
+            {t('Explore our offerings')} <span className="cta-arrow" aria-hidden="true">↓</span>
           </a>
-          <button type="button" className="cta cta-tour" onClick={onStartTour}>
+          <button type="button" className="cta cta-icon cta-tour" onClick={onStartTour}>
+            <Compass aria-hidden="true" />
             {t('Take a quick tour')}
+          </button>
+          <button type="button" className="cta cta-icon cta-tour" onClick={onStartVoice}>
+            <Headphones aria-hidden="true" />
+            {t('Listen to our offerings')}
           </button>
           {/* Shown on smaller screens, where the header has no room for the mission. */}
           <div className="mission hero-mission">

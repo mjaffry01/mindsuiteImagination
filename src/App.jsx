@@ -37,6 +37,7 @@ const Careers = lazy(() => import('./components/Careers.jsx'));
 const SharedOfferings = lazy(() => import('./components/SharedOfferings.jsx'));
 const Privacy = lazy(() => import('./components/Privacy.jsx'));
 const GuidedTour = lazy(() => import('./components/GuidedTour.jsx'));
+const VoiceTour = lazy(() => import('./components/VoiceTour.jsx'));
 const Assistant = lazy(() => import('./components/Assistant.jsx'));
 const InterestsDialog = lazy(() => import('./components/Dialogs.jsx').then((m) => ({ default: m.InterestsDialog })));
 const SearchDialog = lazy(() => import('./components/Dialogs.jsx').then((m) => ({ default: m.SearchDialog })));
@@ -48,6 +49,7 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [interestsOpen, setInterestsOpen] = useState(false);
   const [tourOpen, setTourOpen] = useState(false);
+  const [voiceOpen, setVoiceOpen] = useState(false);
   const [mounted, setMounted] = useState({ search: false, interests: false });
   useEffect(() => {
     if (searchOpen || interestsOpen)
@@ -127,7 +129,16 @@ export default function App() {
     setInterestsOpen(false);
     if (getRoute().page !== 'main') navigate('main');
     window.scrollTo({ top: 0, behavior: 'instant' });
+    setVoiceOpen(false);
     setTimeout(() => setTourOpen(true), 120);
+  };
+  // Voice tour of the offerings: narrated, family by family, on the main page.
+  const closeVoice = useCallback(() => setVoiceOpen(false), []);
+  const startVoice = () => {
+    setSearchOpen(false);
+    setInterestsOpen(false);
+    setTourOpen(false);
+    setVoiceOpen(true);
   };
 
 
@@ -245,7 +256,7 @@ export default function App() {
         </Suspense>
       ) : (
         <main id="main-content" tabIndex={-1}>
-      <Hero playing={playing} onToggleMotion={() => setPlaying((p) => !p)} onStartTour={() => startTour()} />
+      <Hero playing={playing} onToggleMotion={() => setPlaying((p) => !p)} onStartTour={() => startTour()} onStartVoice={startVoice} />
 
       <div id="catalogue" className={`catalogue-layout${mapCollapsed ? ' is-rail' : ''}`}>
         <MapColumn
@@ -297,6 +308,11 @@ export default function App() {
         onOpenSearch={onMainPage(openSearch)}
         onOpenEnquiry={() => openInterests('list')}
       />
+      {voiceOpen && route.page === 'main' && (
+        <Suspense fallback={null}>
+          <VoiceTour onClose={closeVoice} onOpenEnquiry={() => openInterests('list')} />
+        </Suspense>
+      )}
       {tourOpen && (
         <Suspense fallback={null}>
           <GuidedTour open={tourOpen} onClose={closeTour} />
