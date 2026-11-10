@@ -38,17 +38,18 @@ const json = (data) => JSON.stringify(data).replace(/</g, '\\u003c');
 
 async function loadData(root) {
   const load = (p) => import(pathToFileURL(join(root, p)).href);
-  const [company, team, careers] = await Promise.all([
+  const [company, team, careers, privacy] = await Promise.all([
     load('src/data/company.js'),
     load('src/data/team.js'),
     load('src/data/careers.js'),
+    load('src/data/privacy.js'),
   ]);
   const catalogue = JSON.parse(readFileSync(join(root, 'src/data/catalogue.json'), 'utf8'));
-  return { company, team, careers, catalogue };
+  return { company, team, careers, privacy, catalogue };
 }
 
 /** Builds the list of pages: { path, title, description, h1, body (HTML), jsonld[] }. */
-function buildPages({ company, team, careers, catalogue }, site) {
+function buildPages({ company, team, careers, privacy, catalogue }, site, deployment) {
   const url = (path) => `${site}/${path ? `${path}/` : ''}`;
   const total = catalogue.reduce((n, f) => n + f.areas.reduce((m, a) => m + a.offerings.length, 0), 0);
   const { contact } = company;
@@ -201,6 +202,27 @@ function buildPages({ company, team, careers, catalogue }, site) {
     jsonld: [org, crumbs([['MindSuite', ''], ['Careers', 'careers']])],
   });
 
+  // Same text as the Privacy page in the app (src/data/privacy.js).
+  const privacyBlock = (b) => {
+    if (b.p) return `<p>${esc(b.p)}</p>`;
+    if (b.items) return `<ul>${b.items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>`;
+    if (b.storage) return `<ul>${privacy.STORAGE_ROWS.map((r) => `<li><strong>${esc(r.name)}</strong> (${esc(r.kind)}): ${esc(r.use)}</li>`).join('')}</ul>`;
+    if (b.contact)
+      return `<p>${esc(privacy.GRIEVANCE_OFFICER)}, MindSuite Informatics Private Limited, ${esc(contact.address.join(', '))}. <a href="mailto:${privacy.PRIVACY_EMAIL}">${privacy.PRIVACY_EMAIL}</a></p>`;
+    return '';
+  };
+  pages.push({
+    path: 'privacy',
+    title: 'Privacy and Cookies | MindSuite',
+    description: 'How MindSuite handles personal data on this website: no cookies or trackers, what the proposal form collects, why, and your rights under India’s DPDP Act and Saudi Arabia’s PDPL.',
+    h1: 'Privacy and Cookies',
+    body: `<p>Version ${privacy.PRIVACY_VERSION}, effective ${privacy.PRIVACY_EFFECTIVE}.</p>${privacy
+      .privacySections(deployment)
+      .map((s) => `<h2>${esc(s.title)}</h2>${s.blocks.map(privacyBlock).join('')}`)
+      .join('')}`,
+    jsonld: [org, crumbs([['MindSuite', ''], ['Privacy and Cookies', 'privacy']])],
+  });
+
   return pages.map((p) => ({ ...p, url: url(p.path) }));
 }
 
@@ -249,13 +271,13 @@ const heroHeading = (html) =>
     .replace('Business.', '<span style="color:#e3b2cf">Business.</span>');
 
 /** Writes every page, sitemap.xml and robots.txt into `outDir`. */
-export async function writeSeoPages({ root, outDir, site = process.env.SITE_URL || DEFAULT_SITE }) {
+export async function writeSeoPages({ root, outDir, site = process.env.SITE_URL || DEFAULT_SITE, deployment = {} }) {
   site = site.replace(/\/+$/, '');
   const template = readFileSync(join(outDir, 'index.html'), 'utf8');
   if (!template.includes('<!-- seo:start') || !template.includes('<!-- seo:content -->')) {
     throw new Error('index.html is missing the seo:start / seo:end / seo:content markers');
   }
-  const pages = buildPages(await loadData(root), site);
+  const pages = buildPages(await loadData(root), site, deployment);
   // The logo is requested straight away instead of waiting for the app to start.
   const base = template.match(/src="([^"]*?)assets\/index-/)?.[1] ?? '/';
   const logoFile = readdirSync(join(outDir, 'assets')).find((f) => /^logo-.*\.png$/.test(f));

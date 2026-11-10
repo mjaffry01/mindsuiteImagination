@@ -285,12 +285,7 @@ export default function GuidedTour({ open, onClose }) {
               ref={nextRef}
               className="tour-next"
               href="#catalogue"
-              onClick={() => {
-                try {
-                  localStorage.setItem('mindsuite-tour-done', '1');
-                } catch {}
-                onClose();
-              }}
+              onClick={onClose}
             >
               {t('Explore our offerings')}
             </a>

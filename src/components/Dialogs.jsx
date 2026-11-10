@@ -6,6 +6,7 @@ import OfferingDocActions from './OfferingDocActions.jsx';
 import PhoneInput from './PhoneInput.jsx';
 import { checkPhone, guessCountry } from '../lib/phone.js';
 import { useT } from '../i18n/index.jsx';
+import { pathFor } from '../hooks/useRoute.js';
 import {
   CONTACT_METHODS,
   ENQUIRY_INBOX,
@@ -776,7 +777,13 @@ export function InterestsDialog({ open, onClose, interests, onRemove, onClear, s
           <div className={`enq-consent${errors.consent ? ' has-error' : ''}`}>
             <label>
               <input type="checkbox" id="enq-consent" checked={form.consent} onChange={set('consent')} {...errorProps('consent')} />
-              <span>{t('MindSuite may contact me about this request using the details above.')}</span>
+              <span>
+                {t('MindSuite may contact me about this request using the details above.')}{' '}
+                <a href={pathFor('privacy')} target="_blank" rel="noopener">
+                  {t('How we use your details')} <span aria-hidden="true">↗</span>
+                  <span className="visually-hidden"> {t('(opens in a new tab)')}</span>
+                </a>
+              </span>
             </label>
             {errors.consent && (
               <p className="enq-error" id="enq-consent-error">

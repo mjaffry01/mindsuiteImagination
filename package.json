@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:mindsuite": "vite build --mode mindsuite",
     "preview": "vite preview",
     "server": "node --env-file-if-exists=.env server/index.js",
     "start": "npm run build && npm run server"

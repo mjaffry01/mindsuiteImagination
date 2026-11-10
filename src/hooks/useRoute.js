@@ -10,6 +10,7 @@ import { families, inEnglish, offerings } from '../data/catalogue.js';
  *   /offerings/<offering-slug>  one offering (the address that the Share button sends)
  *   /platforms /clients /about /team
  *   /careers, /careers/<role-id>
+ *   /privacy                the Privacy and Cookies notice
  *   /shared?o=12,45,88      a set of offerings someone shared
  *
  * Careers is its own page (pushed to history, so Back works). On the main page the address
@@ -57,6 +58,7 @@ function readLocation() {
   const [first, second] = pathSlug().split('/');
   if (first === 'careers') return { page: 'careers', roleId: second || null };
   if (first === 'shared') return { page: 'shared', roleId: null };
+  if (first === 'privacy') return { page: 'privacy', roleId: null };
   return { page: 'main', roleId: null };
 }
 
@@ -68,7 +70,8 @@ const notify = () => listeners.forEach((fn) => fn(current));
 export function navigate(page, roleId = null, { replace = false } = {}) {
   if (current.page === page && current.roleId === roleId) return;
   current = { page, roleId };
-  const url = page === 'careers' ? pathFor(roleId ? `careers/${roleId}` : 'careers') : pathFor('');
+  const url =
+    page === 'careers' ? pathFor(roleId ? `careers/${roleId}` : 'careers') : page === 'privacy' ? pathFor('privacy') : pathFor('');
   history[replace ? 'replaceState' : 'pushState']({ page, roleId }, '', url);
   notify();
 }

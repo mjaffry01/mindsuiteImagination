@@ -130,6 +130,11 @@ export default function MobileMapDrawer({ current, onClose, onOpenSearch }) {
                 </a>
               </li>
             ))}
+            <li>
+              <a href="#/privacy" onClick={closeNow}>
+                <span>{t('Privacy and Cookies')}</span>
+              </a>
+            </li>
           </ul>
         </nav>
 

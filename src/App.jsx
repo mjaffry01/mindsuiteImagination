@@ -29,10 +29,13 @@ import { useLanguage } from './i18n/index.jsx';
 import { smoothScrollTo } from './lib/smoothScroll.js';
 import { ensureCatalogue, useCatalogueDone } from './lib/catalogueStages.js';
 import { revealOffering } from './lib/offeringDetails.js';
+import { preferenceStorage } from './lib/consent.js';
+import CookieBanner from './components/CookieBanner.jsx';
 
 // Loaded on demand, so the first screen downloads only what it needs.
 const Careers = lazy(() => import('./components/Careers.jsx'));
 const SharedOfferings = lazy(() => import('./components/SharedOfferings.jsx'));
+const Privacy = lazy(() => import('./components/Privacy.jsx'));
 const GuidedTour = lazy(() => import('./components/GuidedTour.jsx'));
 const Assistant = lazy(() => import('./components/Assistant.jsx'));
 const InterestsDialog = lazy(() => import('./components/Dialogs.jsx').then((m) => ({ default: m.InterestsDialog })));
@@ -95,16 +98,14 @@ export default function App() {
   // Service map can collapse to a thin icon rail; the choice is remembered per browser.
   const [mapCollapsed, setMapCollapsed] = useState(() => {
     try {
-      return localStorage.getItem('mindsuite-map-collapsed') === '1';
+      return preferenceStorage.getItem('mindsuite-map-collapsed') === '1';
     } catch {
       return false;
     }
   });
   const toggleMap = useCallback(() => {
     setMapCollapsed((c) => {
-      try {
-        localStorage.setItem('mindsuite-map-collapsed', c ? '0' : '1');
-      } catch {}
+      preferenceStorage.setItem('mindsuite-map-collapsed', c ? '0' : '1');
       return !c;
     });
   }, []);
@@ -151,6 +152,9 @@ export default function App() {
       e.preventDefault();
       const page = id.match(/^\/careers(?:\/([\w-]+))?/);
       if (page) return navigate('careers', page[1] || null);
+      if (id === '/privacy') return navigate('privacy');
+      // A link to a part of the page already open (such as the privacy contents) just scrolls.
+      if (getRoute().page !== 'main' && document.getElementById(id)) return smoothScrollTo(document.getElementById(id));
       if (getRoute().page !== 'main') {
         // From Careers to a section of the main page: switch page, then scroll once it renders.
         navigate('main');
@@ -174,6 +178,7 @@ export default function App() {
     jump();
     const { page, roleId } = getRoute();
     if (page === 'careers') history.replaceState({ page, roleId }, '', pathFor(roleId ? `careers/${roleId}` : 'careers'));
+    else if (page === 'privacy') history.replaceState({ page }, '', pathFor('privacy'));
     else history.replaceState({ page }, '', page === 'shared' ? location.pathname + location.search : location.pathname); // a shared link keeps its list of offerings
     // Jump again once late layout (fonts, images) has settled, then let the address follow.
     const t = setTimeout(() => {
@@ -205,7 +210,8 @@ export default function App() {
     const named = { platforms: 'Platforms', clients: 'Clients', about: 'About us', leadership: 'Team' };
     let title;
     if (route.page === 'careers') title = `${t('Careers')} | MindSuite`;
-    if (route.page === 'shared') title = `${t('Offerings shared with you')} | MindSuite`;
+    if (route.page === 'privacy') title = `${t('Privacy and Cookies')} | MindSuite`;
+    else if (route.page === 'shared') title = `${t('Offerings shared with you')} | MindSuite`;
     else if (sharedOffering.current) title = `${current.name} | MindSuite`;
     else if (activeSection === 'catalogue') title = `${readingFamily.name} | MindSuite`;
     else if (named[activeSection]) title = `${t(named[activeSection])} | MindSuite`;
@@ -223,6 +229,10 @@ export default function App() {
       {route.page === 'careers' ? (
         <Suspense fallback={<main className="careers-page" id="main-content" />}>
           <Careers roleId={route.roleId} playing={playing} onToggleMotion={() => setPlaying((p) => !p)} />
+        </Suspense>
+      ) : route.page === 'privacy' ? (
+        <Suspense fallback={<main className="careers-page" id="main-content" />}>
+          <Privacy playing={playing} onToggleMotion={() => setPlaying((p) => !p)} />
         </Suspense>
       ) : route.page === 'shared' ? (
         <Suspense fallback={<main className="shared-page" id="main-content" />}>
@@ -326,6 +336,7 @@ export default function App() {
       </div>
 
       <BackToTop />
+      <CookieBanner />
       <ExpertConnect />
       {mounted.search && (
         <Suspense fallback={null}>

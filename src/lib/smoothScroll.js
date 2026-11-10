@@ -1,4 +1,5 @@
 import { useSyncExternalStore } from 'react';
+import { preferenceStorage } from './consent.js';
 
 const STORAGE_KEY = 'mindsuite-scroll-motion-v1';
 const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -6,7 +7,7 @@ const reducedMotion = () => matchMedia('(prefers-reduced-motion: reduce)').match
 // The visitor's own choice wins; until they make one, follow their device's motion setting.
 function savedChoice() {
   try {
-    const saved = localStorage.getItem(STORAGE_KEY);
+    const saved = preferenceStorage.getItem(STORAGE_KEY);
     if (saved === 'on' || saved === 'off') return saved === 'on';
   } catch {}
   return !reducedMotion();
@@ -17,9 +18,7 @@ const listeners = new Set();
 
 export function setScrollMotion(on) {
   motionOn = on;
-  try {
-    localStorage.setItem(STORAGE_KEY, on ? 'on' : 'off');
-  } catch {}
+  preferenceStorage.setItem(STORAGE_KEY, on ? 'on' : 'off');
   listeners.forEach((fn) => fn());
 }
 

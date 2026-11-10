@@ -4,6 +4,7 @@ import { focusTarget } from '../lib/focus.js';
 import { offeringById } from '../data/catalogue.js';
 import { localAssistantReply } from '../data/matcher.js';
 import { useT } from '../i18n/index.jsx';
+import { preferenceStorage } from '../lib/consent.js';
 
 const STORAGE_KEY = 'mindsuite-assistant-position-v1';
 const GREETING = 'Describe what you want to improve. I can help you explore offerings and build your enquiry.';
@@ -20,7 +21,7 @@ let nextId = 1;
 
 function savedPosition() {
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    const saved = JSON.parse(preferenceStorage.getItem(STORAGE_KEY));
     if (Number.isFinite(saved?.x) && Number.isFinite(saved?.y)) {
       return { x: saved.x * innerWidth, y: saved.y * innerHeight };
     }
@@ -57,9 +58,7 @@ export default function Assistant({ interests, onAdd }) {
   }
 
   const persist = (p) => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ x: p.x / innerWidth, y: p.y / innerHeight }));
-    } catch {}
+    preferenceStorage.setItem(STORAGE_KEY, JSON.stringify({ x: p.x / innerWidth, y: p.y / innerHeight }));
   };
 
   const place = useCallback((p, save = false) => {

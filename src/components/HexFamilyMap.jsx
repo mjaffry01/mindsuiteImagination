@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import Icon from './Icon.jsx';
 import { families } from '../data/catalogue.js';
 import { useT } from '../i18n/index.jsx';
+import { preferenceStorage } from '../lib/consent.js';
 
 const HEX_WIDTH = 112;
 const HEX_HEIGHT = (HEX_WIDTH * Math.sqrt(3)) / 2;
@@ -20,7 +21,7 @@ function slot(i) {
 
 function savedOrder() {
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    const saved = JSON.parse(preferenceStorage.getItem(STORAGE_KEY));
     const valid = Array.isArray(saved) && saved.length === DEFAULT_ORDER.length && DEFAULT_ORDER.every((id) => saved.includes(id));
     if (valid) return saved;
   } catch {}
@@ -28,10 +29,8 @@ function savedOrder() {
 }
 
 function save(order) {
-  try {
-    if (SAME(order, DEFAULT_ORDER)) localStorage.removeItem(STORAGE_KEY);
-    else localStorage.setItem(STORAGE_KEY, JSON.stringify(order));
-  } catch {}
+  if (SAME(order, DEFAULT_ORDER)) preferenceStorage.removeItem(STORAGE_KEY);
+  else preferenceStorage.setItem(STORAGE_KEY, JSON.stringify(order));
 }
 
 const moved = (order, id, to) => {

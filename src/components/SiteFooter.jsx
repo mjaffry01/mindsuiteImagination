@@ -3,6 +3,7 @@ import logo from '../assets/logo.png';
 import { SECTIONS, sectionHref } from './SiteNav.jsx';
 import { contact } from '../data/company.js';
 import { useT } from '../i18n/index.jsx';
+import { openCookieSettings } from '../lib/consent.js';
 
 const iconProps = { 'aria-hidden': true, focusable: 'false' };
 
@@ -79,6 +80,12 @@ export default function SiteFooter({ onStartTour }) {
 
       <div className="footer-bar">
         <span>© {year} MindSuite. {t('Connected capabilities. Clear outcomes.')}</span>
+        <span className="footer-legal">
+          <a href="#/privacy">{t('Privacy and Cookies')}</a>
+          <button type="button" className="footer-cookies" onClick={openCookieSettings}>
+            {t('Cookie settings')}
+          </button>
+        </span>
         <button type="button" className="footer-tour" onClick={onStartTour}>
           {t('Take a tour')}
         </button>

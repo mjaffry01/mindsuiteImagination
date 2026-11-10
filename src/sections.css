@@ -2032,3 +2032,98 @@ html.map-drawer-open { overflow: hidden; }
 /* While touring, the floating helpers are shown even over the opening screen on phones. */
 html.tour-open .assistant-pet, html.tour-open .expert, html.tour-open .interests-launcher { visibility: visible !important; opacity: 1 !important; transform: none !important; }
 @media (prefers-reduced-motion: reduce) { .tour-spotlight, .tour-card { transition: none; } }
+
+/* ---------- Cookie banner: one clear choice, never in the way ---------- */
+.cookie-banner {
+  position: fixed; inset-inline-start: 20px; bottom: 20px; z-index: 70; display: grid; grid-template-columns: auto 1fr; gap: 6px 14px;
+  width: min(540px, calc(100vw - 40px)); padding: 18px 20px; border: 1px solid #ddd8ea; border-radius: 14px; background: #fff; color: #333c55;
+  box-shadow: 0 18px 50px #1b20383d; font: 14px/1.6 Arial, Helvetica, sans-serif; outline: none;
+}
+.cookie-banner:focus-visible { outline: 2px solid #48b8df; outline-offset: 2px; }
+.cookie-icon { width: 26px; height: 26px; margin-top: 2px; color: #7461ad; }
+.cookie-text h2 { margin: 0 0 4px; font-size: 16px; line-height: 1.35; color: #2b3350; }
+.cookie-text p { margin: 0; font-size: 13.5px; color: #4a536b; }
+.cookie-text a { color: #5b4a99; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+.cookie-text .cookie-current { margin-top: 6px; font-size: 12.5px; color: #6b5aa6; }
+.cookie-actions { grid-column: 2; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+.cookie-actions button {
+  min-height: 44px; padding: 0 20px; border-radius: 10px; font: 600 14px Arial, Helvetica, sans-serif; cursor: pointer; transition: background .15s, border-color .15s;
+}
+.cookie-allow { border: 1px solid #7461ad; background: #7461ad; color: #fff; }
+.cookie-allow:hover { background: #64529c; }
+/* Both answers are equally easy to pick: refusing is not hidden or faded. */
+.cookie-essential { border: 1px solid #7461ad; background: #fff; color: #4b3d86; }
+.cookie-essential:hover { background: #f1eefa; }
+.cookie-actions button:focus-visible, .cookie-close:focus-visible { outline: 2px solid #48b8df; outline-offset: 2px; }
+.cookie-close {
+  position: absolute; top: 8px; inset-inline-end: 8px; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0;
+  border-radius: 10px; background: none; color: #5d6680; cursor: pointer;
+}
+.cookie-close:hover { background: #f1eefa; }
+.cookie-close svg { width: 18px; height: 18px; }
+.cookie-banner:has(.cookie-close) .cookie-text { padding-inline-end: 34px; }
+@media (max-width: 900px) {
+  .cookie-banner { inset-inline: 12px; bottom: calc(var(--tabs-h, 0px) + 12px); width: auto; padding: 16px; grid-template-columns: 1fr; }
+  .cookie-icon { display: none; }
+  .cookie-actions { grid-column: 1; }
+  .cookie-actions button { flex: 1 1 0; }
+}
+
+.footer-legal { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px 22px; }
+.footer-legal a, .footer-cookies { color: #c5cfe2; text-decoration: underline; text-underline-offset: 3px; }
+.footer-cookies { border: 0; background: none; padding: 0; font: inherit; cursor: pointer; }
+.footer-legal a:hover, .footer-cookies:hover { color: #fff; }
+@media (pointer: coarse) { .footer-legal a, .footer-cookies { display: inline-flex; align-items: center; min-height: 44px; } }
+
+/* ---------- Privacy and Cookies page ---------- */
+.privacy-hero { min-height: min(560px, calc(78svh - var(--header-h, 70px))); }
+.privacy-hero .privacy-meta { margin-top: 18px; font-size: 13px; color: #b9b2d0; }
+.privacy-layout { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 56px; align-items: start; }
+.privacy-toc { position: sticky; top: calc(var(--header-h, 70px) + 24px); }
+.privacy-toc ol { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 2px; counter-reset: toc; }
+.privacy-toc li { counter-increment: toc; }
+.privacy-toc a {
+  display: flex; gap: 10px; padding: 7px 10px; border-radius: 8px; color: #48526a; font-size: 13.5px; line-height: 1.4; text-decoration: none;
+}
+.privacy-toc a:before { content: counter(toc, decimal-leading-zero); color: #6f63a3; font-size: 11.5px; padding-top: 1px; }
+.privacy-toc a:hover { background: #ece9f5; color: #2b3350; }
+.privacy-text { max-width: 780px; }
+.privacy-text section { padding: 30px 0; border-bottom: 1px solid #e3dfec; scroll-margin-top: calc(var(--header-h, 70px) + 16px); }
+.privacy-text section:first-child { padding-top: 0; }
+.privacy-text h2 { display: flex; align-items: baseline; gap: 12px; margin: 0 0 14px; font-size: 23px; line-height: 1.3; letter-spacing: -.3px; color: #2b3350; }
+.privacy-num { font-size: 13px; font-weight: 700; color: #6f63a3; letter-spacing: .5px; }
+.privacy-text p, .privacy-text li { font-size: 15.5px; line-height: 1.75; color: #3d4660; }
+.privacy-text p + p, .privacy-text ul + p, .privacy-text p + ul { margin-top: 12px; }
+.privacy-text ul { margin: 0; padding-inline-start: 22px; display: grid; gap: 6px; }
+.privacy-text li::marker { color: #7461ad; }
+.privacy-table-wrap { margin: 18px 0; overflow-x: auto; border: 1px solid #e0dcea; border-radius: 12px; background: #fff; }
+.privacy-table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.55; }
+.privacy-table th, .privacy-table td { padding: 13px 16px; text-align: start; vertical-align: top; border-bottom: 1px solid #ece9f3; color: #3d4660; }
+.privacy-table thead th { background: #f4f2fa; font-size: 12px; letter-spacing: .6px; text-transform: uppercase; color: #514a85; }
+.privacy-table tbody th { font-weight: 600; color: #2b3350; white-space: nowrap; }
+.privacy-table tr:last-child > * { border-bottom: 0; }
+.privacy-kind { display: inline-block; padding: 3px 10px; border-radius: 999px; background: #e3f2ea; color: #1f5c42; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.privacy-kind.is-optional { background: #efebfa; color: #4b3d86; }
+.privacy-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; padding: 18px; border-radius: 12px; background: #fff; border: 1px solid #e0dcea; }
+.privacy-text .privacy-status { flex-basis: 100%; margin: 0; font-size: 14px; color: #4b3d86; }
+.privacy-controls .careers-btn { min-height: 44px; }
+.privacy-controls .careers-btn.ghost { color: #4b3d86; border-color: #c9c0e6; background: #fff; }
+.privacy-controls .careers-btn.ghost:hover { background: #f1eefa; }
+.privacy-contact { display: grid; gap: 6px; padding: 18px 20px; border-radius: 12px; background: #fff; border: 1px solid #e0dcea; font-style: normal; font-size: 15px; color: #3d4660; }
+.privacy-contact strong { color: #2b3350; }
+.privacy-contact-line { display: flex; align-items: flex-start; gap: 10px; color: inherit; }
+a.privacy-contact-line { color: #5b4a99; font-weight: 600; min-height: 32px; align-items: center; }
+.privacy-contact-line svg { flex: none; width: 17px; height: 17px; margin-top: 4px; color: #7461ad; }
+a.privacy-contact-line svg { margin-top: 0; }
+@media (max-width: 900px) {
+  .privacy-layout { grid-template-columns: 1fr; gap: 28px; }
+  .privacy-toc { position: static; padding: 16px; border-radius: 12px; background: #fff; border: 1px solid #e0dcea; }
+  .privacy-text h2 { font-size: 20px; }
+  .privacy-text p, .privacy-text li { font-size: 15px; }
+  .privacy-table thead { display: none; }
+  .privacy-table tr { display: grid; gap: 4px; padding: 14px 16px; border-bottom: 1px solid #ece9f3; }
+  .privacy-table tr:last-child { border-bottom: 0; }
+  .privacy-table th, .privacy-table td { padding: 0; border: 0; }
+  .privacy-table tbody th { white-space: normal; }
+  .privacy-controls .careers-btn { flex: 1 1 100%; justify-content: center; }
+}
