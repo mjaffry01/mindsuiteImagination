@@ -59,7 +59,7 @@ function buildPages({ company, team, careers, privacy, catalogue }, site, deploy
     name: 'MindSuite',
     legalName: 'MindSuite Informatics Private Limited',
     url: url(''),
-    logo: `${site}/og-image.png`,
+    logo: `${site}/icon-512.png`,
     email: contact.email,
     telephone: contact.phone.replace(/\s+/g, ''),
     address: {
@@ -102,8 +102,11 @@ function buildPages({ company, team, careers, privacy, catalogue }, site, deploy
   for (const f of catalogue) {
     const slug = slugify(f.short);
     const offeringsOf = f.areas.flatMap((a) => a.offerings.map((o) => ({ ...o, area: a })));
+    // Link-preview image for this family and its offerings (made by seo/make-share-images.py).
+    const image = `share/${slug}.png`;
     pages.push({
       path: slug,
+      image,
       title: `${f.name} services | MindSuite`,
       description: clip(`${f.tagline} ${offeringsOf.length} offerings across ${f.areas.map((a) => a.name).join(', ')}.`),
       h1: f.name,
@@ -124,6 +127,7 @@ function buildPages({ company, team, careers, privacy, catalogue }, site, deploy
       const path = `offerings/${slugify(o.name)}`;
       pages.push({
         path,
+        image,
         title: `${o.name} — ${f.short} | MindSuite`,
         description: clip(o.definition),
         h1: o.name,
@@ -229,6 +233,9 @@ function buildPages({ company, team, careers, privacy, catalogue }, site, deploy
 
 function head(page, site) {
   const graph = { '@context': 'https://schema.org', '@graph': page.jsonld };
+  // 1200 x 627 branded cards (seo/make-share-images.py): LinkedIn and others crop anything else badly.
+  const image = `${site}/${page.image || 'share/mindsuite.png'}`;
+  const imageAlt = `MindSuite — ${page.h1.replace(/\s+/g, ' ')}`;
   return `<title>${esc(page.title)}</title>
     <meta name="description" content="${esc(page.description)}" />
     <link rel="canonical" href="${esc(page.url)}" />
@@ -237,13 +244,20 @@ function head(page, site) {
     <meta property="og:title" content="${esc(page.title)}" />
     <meta property="og:description" content="${esc(page.description)}" />
     <meta property="og:url" content="${esc(page.url)}" />
-    <meta property="og:image" content="${esc(site)}/og-image.png" />
+    <meta property="og:image" content="${esc(image)}" />
+    <meta property="og:image:secure_url" content="${esc(image)}" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="627" />
+    <meta property="og:image:alt" content="${esc(imageAlt)}" />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:locale:alternate" content="ar_SA" />
     <meta property="og:locale:alternate" content="fr_FR" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${esc(page.title)}" />
     <meta name="twitter:description" content="${esc(page.description)}" />
+    <meta name="twitter:image" content="${esc(image)}" />
+    <meta name="twitter:image:alt" content="${esc(imageAlt)}" />
     <script type="application/ld+json">${json(graph)}</script>`;
 }
 
