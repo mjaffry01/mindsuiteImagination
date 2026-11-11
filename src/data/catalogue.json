@@ -1500,7 +1500,7 @@
      {
       "id": "offering-127",
       "number": "OFFERING 127",
-      "name": "Threat Intelligence",
+      "name": "Cyber Threat Intelligence",
       "definition": "Collection and analysis of relevant threat information to support security decisions. It connects external indicators, exposure reports and adversary activity to the organization's actual assets and priorities rather than forwarding unfiltered threat feeds.",
       "scope": "Define intelligence needs; monitor relevant sources; validate findings; brief stakeholders.",
       "deliverables": "Threat briefs; contextual indicators; exposure findings; recommended actions.",
@@ -1510,7 +1510,7 @@
      {
       "id": "offering-128",
       "number": "OFFERING 128",
-      "name": "Red & Purple Team Simulation",
+      "name": "Red Team & Purple Team Exercises",
       "definition": "An authorized adversary simulation that tests whether selected security defenses and response processes work in practice. Red-team activity pursues agreed objectives; purple-team collaboration helps defenders examine and improve detection during or after testing.",
       "scope": "Agree rules and objectives; simulate attacks; review detection and response; retest improvements.",
       "deliverables": "Exercise plan; evidence; detection gaps; improvement recommendations.",
@@ -1559,7 +1559,7 @@
      {
       "id": "offering-132",
       "number": "OFFERING 132",
-      "name": "Cloud-native Security",
+      "name": "Cloud Native Security",
       "definition": "Security assessment and implementation for cloud accounts, services, containers and orchestration environments. It addresses cloud-specific configuration and access risks while clarifying the responsibilities retained by the organization and those of its providers.",
       "scope": "Review cloud posture; harden configurations; manage workload access; enable monitoring.",
       "deliverables": "Posture findings; implemented controls; access rules; monitoring guidance.",
@@ -1637,7 +1637,7 @@
      {
       "id": "offering-138",
       "number": "OFFERING 138",
-      "name": "vCISO & Board Advisory",
+      "name": "Executive Security Advisory",
       "definition": "A security-leadership engagement that combines fractional executive guidance with board-level risk communication. It translates technical concerns into priorities, ownership and investment decisions while maintaining oversight of the security program and relevant vendors.",
       "scope": "Review posture; set roadmap; advise leadership; prepare board reporting.",
       "deliverables": "Security roadmap; board materials; decision recommendations; oversight cadence.",
@@ -1647,7 +1647,7 @@
      {
       "id": "offering-139",
       "number": "OFFERING 139",
-      "name": "vCISO Services",
+      "name": "vCISO Retainer Services",
       "definition": "Provision of part-time security leadership to guide an organization's security program without a full-time executive appointment. Responsibilities and authority are agreed across priorities, policies, risk treatment and coordination with internal teams.",
       "scope": "Establish priorities; guide program work; coordinate stakeholders; report progress.",
       "deliverables": "Security plan; governance cadence; risk updates; leadership advice.",
@@ -1696,7 +1696,7 @@
      {
       "id": "offering-143",
       "number": "OFFERING 143",
-      "name": "Compliance Programs",
+      "name": "Compliance Program Management",
       "definition": "Implementation and maintenance of a structured program for meeting selected compliance requirements. It assigns control responsibilities, evidence routines and review activities so compliance work becomes repeatable rather than a one-time document exercise.",
       "scope": "Define applicable controls; assign owners; establish evidence collection and review.",
       "deliverables": "Compliance plan; control ownership; evidence schedule; reporting process.",
@@ -1804,7 +1804,7 @@
      {
       "id": "offering-152",
       "number": "OFFERING 152",
-      "name": "Digital Forensics",
+      "name": "Digital Forensics & Incident Investigation",
       "definition": "Specialist collection and examination of digital evidence to reconstruct events and support an investigation. Evidence handling, integrity and documentation are planned explicitly, with the investigation boundary and intended use agreed in advance.",
       "scope": "Preserve evidence; collect artifacts; analyze activity; document timeline and findings.",
       "deliverables": "Evidence inventory; analysis report; event timeline; documented handling record.",
@@ -1833,7 +1833,7 @@
      {
       "id": "offering-154",
       "number": "OFFERING 154",
-      "name": "Business Continuity",
+      "name": "Business Continuity Planning (BCP)",
       "definition": "Planning for continuity of critical business processes during disruption to systems, sites, people or suppliers. It defines operational alternatives and priorities beyond technical restoration alone, then tests whether those arrangements are practical.",
       "scope": "Analyze business impact; define continuity strategies; assign roles; exercise plans.",
       "deliverables": "Business continuity plan; process priorities; exercise results; action backlog.",

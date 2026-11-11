@@ -220,7 +220,8 @@ function buildPages({ company, team, careers, privacy, catalogue }, site, deploy
       .privacySections(deployment)
       .map((s) => `<h2>${esc(s.title)}</h2>${s.blocks.map(privacyBlock).join('')}`)
       .join('')}`,
-    jsonld: [org, crumbs([['MindSuite', ''], ['Privacy and Cookies', 'privacy']])],
+    // Privacy and grievance questions go to the privacy address, never the general one.
+    jsonld: [{ ...org, email: privacy.PRIVACY_EMAIL }, crumbs([['MindSuite', ''], ['Privacy and Cookies', 'privacy']])],
   });
 
   return pages.map((p) => ({ ...p, url: url(p.path) }));

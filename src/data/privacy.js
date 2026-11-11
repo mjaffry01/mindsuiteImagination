@@ -80,10 +80,10 @@ export function privacySections({ server = false, remoteGuide = false } = {}) {
       blocks: [
         server
           ? {
-              p: 'When you send the form, our website server emails your request to our team at info@mindsuite.in through our Microsoft 365 business email, and sends you a copy as confirmation. To stop repeated sending, the server holds your connection’s IP address in memory for up to 15 minutes. Its log notes the request reference and your email address.',
+              p: 'When you send the form, our website server emails your request to our team through our Microsoft 365 business email, and sends you a copy as confirmation. To stop repeated sending, the server holds your connection’s IP address in memory for up to 15 minutes. Its log notes the request reference and your email address.',
             }
           : {
-              p: 'When you send the form, it opens your own email app with your request filled in, addressed to info@mindsuite.in. Nothing is sent until you press send there.',
+              p: 'When you send the form, it opens your own email app with your request filled in, addressed to MindSuite. Nothing is sent until you press send there.',
             },
         {
           p: 'Requests are kept in our Microsoft 365 business mailbox, which Microsoft may store in data centres outside India and Saudi Arabia. Only the staff who handle enquiries can read them.',

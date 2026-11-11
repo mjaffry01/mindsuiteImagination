@@ -3,12 +3,13 @@ import logo from '../assets/logo.png';
 import { SECTIONS, sectionHref } from './SiteNav.jsx';
 import { contact } from '../data/company.js';
 import { useT } from '../i18n/index.jsx';
+import { goHome, pathFor } from '../hooks/useRoute.js';
 import { openCookieSettings } from '../lib/consent.js';
 
 const iconProps = { 'aria-hidden': true, focusable: 'false' };
 
 /** Site footer: brand and tagline, contact details, section links and a closing bar. */
-export default function SiteFooter({ onStartTour }) {
+export default function SiteFooter({ onStartTour, email = contact.email }) {
   const tel = contact.phone.replace(/[^\d+]/g, ''); // e.g. +919100005500
   const year = new Date().getFullYear();
   const t = useT();
@@ -17,7 +18,7 @@ export default function SiteFooter({ onStartTour }) {
     <footer className="site-footer">
       <div className="footer-main">
         <div className="footer-brand">
-          <a href="#top" className="footer-logo" aria-label={t('MindSuite — back to top')}>
+          <a href={pathFor('')} onClick={goHome} className="footer-logo" aria-label={t('MindSuite — home page')}>
             <img src={logo} alt="MindSuite" width="773" height="165" />
           </a>
           <p className="footer-tagline">
@@ -40,11 +41,11 @@ export default function SiteFooter({ onStartTour }) {
         <div className="footer-col">
           <h2 className="footer-heading">{t('Get in touch')}</h2>
           <address className="footer-contact">
-            <a href={`mailto:${contact.email}`}>
+            <a href={`mailto:${email}`}>
               <span className="footer-icon"><Mail {...iconProps} /></span>
               <span>
                 <small>{t('Email')}</small>
-                <bdi dir="ltr">{contact.email}</bdi>
+                <bdi dir="ltr">{email}</bdi>
               </span>
             </a>
             <a href={`tel:${tel}`}>

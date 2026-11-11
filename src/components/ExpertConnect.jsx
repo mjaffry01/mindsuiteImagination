@@ -33,7 +33,11 @@ const CHANNELS = [
 ];
 
 /** Floating "Talk to an expert" button with WhatsApp, Telegram, call, email and LinkedIn. */
-export default function ExpertConnect() {
+export default function ExpertConnect({ email }) {
+  // A page can show its own address instead of the general one (the Privacy page shows privacy@).
+  const channels = email
+    ? CHANNELS.map((c) => (c.key === 'email' ? { ...c, detail: email, href: `mailto:${email}` } : c))
+    : CHANNELS;
   const [open, setOpen] = useState(false);
   const rootRef = useRef(null);
   const toggleRef = useRef(null);
@@ -78,7 +82,7 @@ export default function ExpertConnect() {
           </div>
         </header>
         <ul>
-          {CHANNELS.map(({ key, label, detail, ltr, icon: ChannelIcon, href, external }) => (
+          {channels.map(({ key, label, detail, ltr, icon: ChannelIcon, href, external }) => (
             <li key={key}>
               <a
                 className={`expert-channel ch-${key}`}

@@ -4,6 +4,7 @@ import logo from '../assets/logo.png';
 import SiteNav from './SiteNav.jsx';
 import LanguageSwitcher from './LanguageSwitcher.jsx';
 import { useT } from '../i18n/index.jsx';
+import { goHome, pathFor } from '../hooks/useRoute.js';
 
 /**
  * Sticky top bar: logo (back to top) and the section menu. Publishes its height as
@@ -33,7 +34,7 @@ export default function SiteHeader({ enquiryCount = 0, onOpenEnquiry }) {
 
   return (
     <header className={`brand site-header${scrolled ? ' is-scrolled' : ''}`} ref={ref}>
-      <a className="brand-home" href="#top" aria-label={t('MindSuite — back to top')}>
+      <a className="brand-home" href={pathFor('')} onClick={goHome} aria-label={t('MindSuite — home page')}>
         <img src={logo} alt="MindSuite" width="773" height="165" />
       </a>
       <SiteNav />

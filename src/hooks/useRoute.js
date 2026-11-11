@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { families, inEnglish, offerings } from '../data/catalogue.js';
+import { smoothScrollTo } from '../lib/smoothScroll.js';
 
 /**
  * Readable addresses, e.g. https://…/mindsuiteImagination/ai-for-business
@@ -32,6 +33,18 @@ export const familySlug = (family) => slugify(inEnglish(family).short);
 /** "Software Health Check" → "software-health-check" (English name; titles are unique). */
 export const offeringSlug = (offering) => slugify(inEnglish(offering).name);
 const OFFERING_BY_SLUG = new Map(offerings.map((o) => [offeringSlug(o), o.id]));
+// Addresses of offerings that were renamed, so links shared under the old name still open them.
+const FORMER_SLUGS = {
+  'threat-intelligence': 'offering-127',
+  'red-purple-team-simulation': 'offering-128',
+  'cloud-native-security': 'offering-132',
+  'vciso-board-advisory': 'offering-138',
+  'vciso-services': 'offering-139',
+  'compliance-programs': 'offering-143',
+  'digital-forensics': 'offering-152',
+  'business-continuity': 'offering-154',
+};
+for (const [slug, id] of Object.entries(FORMER_SLUGS)) if (!OFFERING_BY_SLUG.has(slug)) OFFERING_BY_SLUG.set(slug, id);
 
 const SECTION_SLUGS = { catalogue: 'offerings', platforms: 'platforms', clients: 'clients', about: 'about', leadership: 'team' };
 const SLUG_TO_ID = Object.fromEntries([
@@ -99,6 +112,19 @@ export const sharedUrl = (list) => `${location.origin}${pathFor('shared')}?o=${l
 export const offeringUrl = (offering) => location.origin + pathFor(`offerings/${offeringSlug(offering)}`);
 
 export const getRoute = () => current;
+
+/**
+ * Click handler for the MindSuite logo: from any page (Privacy, Careers, a shared list) it
+ * opens the home page at the top; on the home page it scrolls back to the top.
+ * Ctrl/Cmd-click and middle-click still open the home address in a new tab.
+ */
+export function goHome(e) {
+  if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  if (current.page === 'main') return smoothScrollTo(null);
+  navigate('main');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
 
 addEventListener('popstate', () => {
   current = readLocation();

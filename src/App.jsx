@@ -9,6 +9,7 @@ import Icon from './components/Icon.jsx';
 import { About, Clients, PlatformEcosystem } from './components/CompanySections.jsx';
 import Team from './components/Team.jsx';
 import SiteFooter from './components/SiteFooter.jsx';
+import { PRIVACY_EMAIL } from './data/privacy.js';
 import SiteHeader, { BackToTop } from './components/SiteHeader.jsx';
 import useInterests from './hooks/useInterests.js';
 import useReadingPosition from './hooks/useReadingPosition.js';
@@ -82,6 +83,8 @@ export default function App() {
 
   // Keep the opening screen clear: the empty interests button appears once the visitor scrolls on.
   const route = useRoute();
+  // The Privacy page shows only the privacy address, in its footer and expert panel too.
+  const pageEmail = route.page === 'privacy' ? PRIVACY_EMAIL : undefined;
   const [pastHero, setPastHero] = useState(false);
   useEffect(() => {
     const onScroll = () => setPastHero(scrollY > innerHeight * 0.5);
@@ -289,7 +292,7 @@ export default function App() {
         </main>
       )}
 
-      {(route.page !== 'main' || catalogueDone) && <SiteFooter onStartTour={() => startTour()} />}
+      {(route.page !== 'main' || catalogueDone) && <SiteFooter onStartTour={() => startTour()} email={pageEmail} />}
       {mapDrawerOpen && <MobileMapDrawer current={current} onClose={closeMapDrawer} onOpenSearch={openSearch} />}
       <MobileTabBar
         enquiryCount={interests.size}
@@ -337,7 +340,7 @@ export default function App() {
 
       <BackToTop />
       <CookieBanner />
-      <ExpertConnect />
+      <ExpertConnect email={pageEmail} />
       {mounted.search && (
         <Suspense fallback={null}>
           <SearchDialog
