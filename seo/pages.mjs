@@ -264,11 +264,11 @@ function head(page, site) {
 // Shown for a moment before the app starts, and to anything that reads the page without JavaScript.
 const PRERENDER_STYLE =
   '<style>'
-  + '.seo-prerender{position:relative;box-sizing:border-box;min-height:100svh;padding:max(110px,calc(50svh - 240px)) max(25px,6vw) 60px;background:#283152;color:#d3d8e8;font:16px/1.75 Arial,Helvetica,sans-serif}'
-  + '.seo-prerender:before{content:"";position:absolute;inset:0 0 auto;height:70px;background:#222a45;border-bottom:1px solid #39436a}'
-  + '.seo-prerender h1{max-width:620px;margin:0;color:#f1f2f8;font-size:clamp(32px,4.5vw,61px);font-weight:600;line-height:1.1;letter-spacing:-1.5px}'
+  + '.seo-prerender{position:relative;box-sizing:border-box;min-height:100svh;padding:max(110px,calc(50svh - 240px)) max(25px,6vw) 60px;background:#2b2654;color:#d6d3e8;font:16px/1.75 Aller,Arial,Helvetica,sans-serif}'
+  + '.seo-prerender:before{content:"";position:absolute;inset:0 0 auto;height:70px;background:#242047;border-bottom:1px solid #3c396a}'
+  + '.seo-prerender h1{max-width:620px;margin:0;color:#f2f1f8;font-size:clamp(32px,4.5vw,61px);font-weight:600;line-height:1.1;letter-spacing:-1.5px}'
   + '.seo-prerender p{max-width:620px;margin:25px 0 0}'
-  + '.seo-prerender a{color:#b9a7ef}'
+  + '.seo-prerender a{color:#bda7ef}'
   + '.seo-prerender{overflow-x:clip}.seo-prerender h1,.seo-prerender p{position:relative}'
   + '.seo-logo{position:absolute;top:14px;left:5%;width:190px;height:auto}'
   + '.seo-globe{position:absolute;top:calc(48svh + 5px);left:76%;width:calc(2*min(32vw,300px));overflow:visible;transform:translate(-50%,-50%);pointer-events:none;-webkit-mask-image:linear-gradient(90deg,#0007,#000 90%);mask-image:linear-gradient(90deg,#0007,#000 90%)}'
@@ -281,9 +281,9 @@ const PRERENDER_STYLE =
 // The home heading uses the same three colours as the real hero, so the switch is seamless.
 const heroHeading = (html) =>
   html
-    .replace('Intelligence.', '<span style="color:#c6b9f2">Intelligence.</span>')
-    .replace('Securely.', '<span style="color:#8ad3e3">Securely.</span>')
-    .replace('Business.', '<span style="color:#e3b2cf">Business.</span>');
+    .replace('Intelligence.', '<span style="color:#c2b3e3">Intelligence.</span>')
+    .replace('Securely.', '<span style="color:#54c9eb">Securely.</span>')
+    .replace('Business.', '<span style="color:#dd8fbd">Business.</span>');
 
 /** Writes every page, sitemap.xml and robots.txt into `outDir`. */
 export async function writeSeoPages({ root, outDir, site = process.env.SITE_URL || DEFAULT_SITE, deployment = {} }) {

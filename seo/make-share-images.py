@@ -23,10 +23,10 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "public"
 W, H = 1200, 627
 
-NAVY_TOP, NAVY_BOTTOM = (29, 35, 64), (40, 49, 82)
-INK, MUTED = (241, 242, 248), (196, 203, 224)
-VIOLET, CYAN, PINK = (198, 185, 242), (138, 211, 227), (227, 178, 207)
-BRAND = [(82, 201, 234), (101, 83, 165), (211, 138, 187)]  # logo: cyan, violet, pink
+NAVY_TOP, NAVY_BOTTOM = (31, 27, 66), (43, 38, 84)  # deep brand purple, as on the site
+INK, MUTED = (243, 241, 250), (204, 199, 226)
+VIOLET, CYAN, PINK = (194, 179, 227), (84, 201, 235), (221, 143, 189)  # hero words: light brand purple, #54C9EB, #DD8FBD
+BRAND = [(84, 201, 235), (120, 93, 168), (221, 143, 189)]  # brand cyan #54C9EB, purple #785DA8, pink #DD8FBD
 
 
 def font(bold, size):
@@ -57,7 +57,7 @@ def background():
     lines = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(lines)
     cx, cy, r = 930, 330, 300
-    col = (141, 183, 233, 46)
+    col = (164, 158, 216, 50)
     for lat in range(-75, 76, 15):
         y = cy - r * math.sin(math.radians(lat))
         rx = r * math.cos(math.radians(lat))
@@ -70,12 +70,15 @@ def background():
     # Logo mark at the globe's centre with a soft glow.
     big = mark.resize((250, 250), Image.LANCZOS)
     glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    glow.paste((116, 97, 173, 120), (cx - 125, cy - 125), big.split()[3])
+    glow.paste((120, 93, 168, 130), (cx - 125, cy - 125), big.split()[3])
     glow = glow.filter(ImageFilter.GaussianBlur(28))
     img.paste(glow, (0, 0), glow)
     img.paste(big, (cx - 125, cy - 125), big)
-    # Brand stripe along the bottom edge.
+    # Brand gradient band (#785DA8 → #5650A2, left to right) above the colour stripe.
     d = ImageDraw.Draw(img)
+    for x in range(W):
+        t = x / (W - 1)
+        d.line((x, H - 30, x, H - 8), fill=tuple(round(a + (b - a) * t) for a, b in zip((120, 93, 168), (86, 80, 162))))
     for i, c in enumerate(BRAND):
         d.rectangle((i * W // 3, H - 8, (i + 1) * W // 3, H), fill=c)
     # Wordmark top left.

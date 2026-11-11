@@ -1,5 +1,5 @@
 /** First frame of the animated hero globe (components/Globe.jsx) as lightweight inline SVG. */
-export function globeSvg(className, { color = '#8db7e9', opacity = 0.25 } = {}) {
+export function globeSvg(className, { color = '#9c8de9', opacity = 0.25 } = {}) {
   const rad = Math.PI / 180;
   const point = (lat, lon) => {
     const x = Math.cos(lat) * Math.sin(lon);

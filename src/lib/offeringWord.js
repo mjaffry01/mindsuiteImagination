@@ -22,9 +22,9 @@ import {
 } from 'docx';
 import { TAGLINE, companyFacts, contactLine, preparedDate, toItems, toneFor } from './offeringDocument.js';
 
-const NAVY = '222A45';
-const VIOLET = '4F4185';
-const MUTED = '6C7790';
+const NAVY = '242047';
+const VIOLET = '5650A2';
+const MUTED = '726C90';
 const PAGE = { width: 11906, height: 16838 };
 const NO_BORDER = { style: BorderStyle.NONE, size: 0, color: 'FFFFFF' };
 const NO_BORDERS = { top: NO_BORDER, bottom: NO_BORDER, left: NO_BORDER, right: NO_BORDER };
@@ -94,13 +94,13 @@ export async function buildWordDocument(list, { t, lang, dir, logoBytes, stats, 
   const cover = darkPage([
     para(logo(235)),
     gap(2700),
-    para(run(t('Build. Run. Protect. Transform.').toUpperCase(), { bold: true, color: 'C9BDF0', size: 20, characterSpacing: 40 }), { spacing: { after: 240 } }),
+    para(run(t('Build. Run. Protect. Transform.').toUpperCase(), { bold: true, color: 'CCBDF0', size: 20, characterSpacing: 40 }), { spacing: { after: 240 } }),
     ...TAGLINE.map(([a, b, color]) =>
-      para([run(`${t(a)} `, { bold: true, color: 'F1F2F8', size: 76 }), run(t(b), { bold: true, color, size: 76 })], { spacing: { after: 40 } })
+      para([run(`${t(a)} `, { bold: true, color: 'F2F1F8', size: 76 }), run(t(b), { bold: true, color, size: 76 })], { spacing: { after: 40 } })
     ),
     gap(3300),
     para(run(title, { bold: true, color: 'FFFFFF', size: 38 }), { spacing: { after: 80 } }),
-    para(run(`${count} · ${t('Prepared on {date}', { date: preparedDate(lang) })}`, { color: 'C3C9DB', size: 21 })),
+    para(run(`${count} · ${t('Prepared on {date}', { date: preparedDate(lang) })}`, { color: 'C7C3DB', size: 21 })),
   ]);
 
   const statCells = [
@@ -194,18 +194,18 @@ export async function buildWordDocument(list, { t, lang, dir, logoBytes, stats, 
   });
 
   const contactBlock = (name, value) => [
-    para(run(name.toUpperCase(), { color: 'A7B0C9', size: 16, characterSpacing: 20 }), { spacing: { before: 200, after: 30 } }),
+    para(run(name.toUpperCase(), { color: 'ADA7C9', size: 16, characterSpacing: 20 }), { spacing: { before: 200, after: 30 } }),
     para(run(value, { color: 'FFFFFF', size: 24 })),
   ];
   const back = darkPage([
     para(logo(235)),
     gap(2500),
     para(run(t('Talk to a MindSuite expert'), { bold: true, color: 'FFFFFF', size: 66 }), { spacing: { after: 220 } }),
-    para(run(t(about.lead), { color: 'D3D8E8', size: 24 }), { spacing: { after: 360 } }),
+    para(run(t(about.lead), { color: 'D6D3E8', size: 24 }), { spacing: { after: 360 } }),
     para(
       new ExternalHyperlink({
         link: url,
-        children: [run(`${t('Request a proposal')} →`, { bold: true, color: NAVY, size: 24, shading: fill('F3F2F9') })],
+        children: [run(`${t('Request a proposal')} →`, { bold: true, color: NAVY, size: 24, shading: fill('F4F2F9') })],
       })
     ),
     gap(300),
@@ -215,7 +215,7 @@ export async function buildWordDocument(list, { t, lang, dir, logoBytes, stats, 
     gap(900),
     para(
       run(t('Definitions and typical scope are guidance. Final deliverables, acceptance criteria and ownership are agreed in the proposal.'), {
-        color: 'A7B0C9',
+        color: 'ADA7C9',
         size: 17,
       })
     ),
@@ -230,7 +230,7 @@ export async function buildWordDocument(list, { t, lang, dir, logoBytes, stats, 
     creator: 'MindSuite',
     title,
     styles: {
-      default: { document: { run: { font: 'Arial', size: 21, color: '333C55' }, paragraph: { spacing: { line: 288 } } } },
+      default: { document: { run: { font: 'Arial', size: 21, color: '353157' }, paragraph: { spacing: { line: 288 } } } },
       paragraphStyles: [
         {
           id: 'Heading1',

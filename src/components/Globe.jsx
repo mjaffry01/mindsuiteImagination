@@ -53,7 +53,7 @@ export default function Globe({ playing, sidebar = false, light = false }) {
         points.forEach((p, i) => (i ? ctx.lineTo(p[0], p[1]) : ctx.moveTo(p[0], p[1])));
         ctx.stroke();
       };
-      ctx.strokeStyle = s.light ? 'rgba(81,90,143,.24)' : 'rgba(141,183,233,.25)';
+      ctx.strokeStyle = s.light ? 'rgba(86,80,162,.24)' : 'rgba(156,141,233,.25)';
       ctx.lineWidth = 0.7;
       const rad = Math.PI / 180;
       for (let lat = -75; lat <= 75; lat += 15) {

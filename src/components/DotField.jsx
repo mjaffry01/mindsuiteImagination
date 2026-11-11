@@ -84,7 +84,7 @@ export default function DotField() {
       canvas.width = w * dpr;
       canvas.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      ctx.fillStyle = '#c3cdf0';
+      ctx.fillStyle = '#cac3f0';
       draw();
     }
 

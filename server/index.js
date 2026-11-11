@@ -185,8 +185,8 @@ function offeringsHtml(offerings) {
   return Object.entries(byFamily)
     .map(
       ([family, items]) =>
-        `<p style="margin:14px 0 4px;font-weight:bold;color:#4d3f85">${esc(family)}</p><ul style="margin:0;padding-left:18px">${items
-          .map((o) => `<li>${esc(o.name)} <span style="color:#6c7790">(${esc(o.area)})</span></li>`)
+        `<p style="margin:14px 0 4px;font-weight:bold;color:#5650a2">${esc(family)}</p><ul style="margin:0;padding-left:18px">${items
+          .map((o) => `<li>${esc(o.name)} <span style="color:#726c90">(${esc(o.area)})</span></li>`)
           .join('')}</ul>`
     )
     .join('');
@@ -195,17 +195,17 @@ function offeringsHtml(offerings) {
 function teamMail(e) {
   const { subject, body } = enquiryEmail(e);
   const row = (k, v) =>
-    v ? `<tr><td style="padding:4px 14px 4px 0;color:#6c7790">${k}</td><td style="padding:4px 0">${v}</td></tr>` : '';
+    v ? `<tr><td style="padding:4px 14px 4px 0;color:#726c90">${k}</td><td style="padding:4px 0">${v}</td></tr>` : '';
   const link = (href, text) => `<a href="${esc(href)}">${esc(text)}</a>`;
   const when = new Date(e.submittedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' }) + ' IST';
-  const html = `<div style="font-family:Arial,sans-serif;font-size:14px;color:#2b3350;line-height:1.5">
+  const html = `<div style="font-family:Aller,Arial,Helvetica,sans-serif;font-size:14px;color:#2d2952;line-height:1.5">
   <h2 style="margin:0 0 4px">New proposal request</h2>
-  <p style="margin:0 0 16px;color:#6c7790">Reference <strong>${esc(e.reference)}</strong></p>
+  <p style="margin:0 0 16px;color:#726c90">Reference <strong>${esc(e.reference)}</strong></p>
   <table style="border-collapse:collapse">${row('Name', esc(e.contact.name))}${row('Email', link(`mailto:${e.contact.email}`, e.contact.email))}${row('Phone', e.contact.phone ? link(`tel:${e.contact.phone.replace(/[^\d+]/g, '')}`, e.contact.phone) : esc('(not given)'))}${row('Company', esc(e.contact.company))}${row('Preferred contact', esc(e.contact.preferredContact))}${row('Timeline', esc(e.timeline))}${row('Received', esc(when))}</table>
   <p style="margin:18px 0 4px;font-weight:bold">What they want to achieve</p>
   <p style="margin:0;white-space:pre-wrap">${esc(e.message || '(not provided)')}</p>
   <p style="margin:18px 0 0;font-weight:bold">Offerings of interest (${e.offerings.length})</p>${offeringsHtml(e.offerings)}
-  <p style="margin:20px 0 0;color:#6c7790;font-size:12px">Sent from ${esc(e.source)} · reply to this email to answer ${esc(e.contact.name)} directly.</p></div>`;
+  <p style="margin:20px 0 0;color:#726c90;font-size:12px">Sent from ${esc(e.source)} · reply to this email to answer ${esc(e.contact.name)} directly.</p></div>`;
   return {
     from: config.from,
     to: config.to,
@@ -238,14 +238,14 @@ function ackMail(e) {
     'MindSuite',
     'info@mindsuite.in · +91 91000 05500',
   ].join('\n');
-  const html = `<div style="font-family:Arial,sans-serif;font-size:14px;color:#2b3350;line-height:1.6">
+  const html = `<div style="font-family:Aller,Arial,Helvetica,sans-serif;font-size:14px;color:#2d2952;line-height:1.6">
   <p>Hello ${esc(first)},</p>
   <p>Thank you for your interest in MindSuite. We have received your proposal request <strong>${esc(e.reference)}</strong> for:</p>
   ${offeringsHtml(e.offerings)}
   <p style="margin:18px 0 4px;font-weight:bold">What happens next</p>
   <ol style="margin:0;padding-left:20px">${steps.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>
   <p>Reply to this email if you would like to add anything.</p>
-  <p style="color:#6c7790">MindSuite · info@mindsuite.in · +91 91000 05500</p></div>`;
+  <p style="color:#726c90">MindSuite · info@mindsuite.in · +91 91000 05500</p></div>`;
   return {
     from: config.from,
     to: e.contact.email,
