@@ -570,19 +570,5 @@
  "{offerings} in your enquiry": "{offerings} dans votre demande",
  "{offerings} in {areas}": "{offerings} dans {areas}",
  "← All goals": "← Tous les objectifs",
- "← Change areas": "← Modifier les domaines",
- "Listen to our offerings": "Écouter nos offres",
- "Voice tour": "Visite audio",
- "Stop {n} of {total}": "Étape {n} sur {total}",
- "Close voice tour": "Fermer la visite audio",
- "Go to stop {n}: {title}": "Aller à l’étape {n} : {title}",
- "Previous stop": "Étape précédente",
- "Next stop": "Étape suivante",
- "Listen again": "Réécouter",
- "Play": "Lecture",
- "Pause": "Pause",
- "Playback speed: {rate}": "Vitesse de lecture : {rate}",
- "Hide captions": "Masquer les sous-titres",
- "Show captions": "Afficher les sous-titres",
- "Open your enquiry": "Ouvrir votre demande"
+ "← Change areas": "← Modifier les domaines"
 }

@@ -2128,70 +2128,8 @@ a.privacy-contact-line svg { margin-top: 0; }
   .privacy-controls .careers-btn { flex: 1 1 100%; justify-content: center; }
 }
 
-/* ---------- Voice tour: narrated walk through the service families ---------- */
-/* Hero buttons: an icon each, all the same height (the outlined ones have a 1px border). */
+/* Hero buttons with icons */
 .cta-icon { align-items: center; gap: 9px; }
 .cta-icon:not(.cta-tour) { border: 1px solid transparent; }
 .cta-icon > svg { flex: none; width: 17px; height: 17px; }
 .cta-icon .cta-arrow { margin-inline-start: 22px; }
-.voice-tour {
-  position: fixed; z-index: 90; bottom: 20px; left: 50%; transform: translateX(-50%); width: min(620px, calc(100vw - 32px));
-  padding: 14px 18px 12px; border: 1px solid #ddd8ea; border-radius: 16px; background: #fff; color: #2b3350;
-  box-shadow: 0 20px 56px #1b203847; font: 14px/1.55 Arial, Helvetica, sans-serif;
-}
-.vt-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.vt-count { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: #6b5aa6; letter-spacing: .3px; }
-.vt-count svg { width: 15px; height: 15px; }
-.vt-title { margin: 4px 0 2px; font-size: 18px; line-height: 1.3; color: #1d1a36; }
-.vt-caption { margin: 4px 0 0; max-height: 7.8em; overflow: auto; color: #4b5470; font-size: 14px; }
-.vt-dots { display: flex; gap: 4px; margin: 12px 0 10px; padding: 0; list-style: none; }
-.vt-dots li { flex: 1; }
-.vt-dots button {
-  position: relative; display: block; width: 100%; height: 6px; padding: 0; border: 0; border-radius: 3px; overflow: hidden;
-  background: #e6e1f1; cursor: pointer;
-}
-.vt-dots button::after { content: ''; position: absolute; inset: -8px 0; } /* bigger touch target */
-.vt-dots button.is-done { background: #8b6fbb; }
-.vt-dots button.is-on { background: #d6cdea; }
-.vt-dots button span { position: absolute; inset: 0; background: #6b4fa8; transform-origin: left; transition: transform .25s linear; }
-[dir=rtl] .vt-dots button span { transform-origin: right; }
-.vt-controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.vt-icon {
-  display: grid; place-items: center; width: 36px; height: 36px; border: 0; border-radius: 50%; background: #f1eff8; color: #4b5470; cursor: pointer;
-}
-.vt-icon svg { width: 17px; height: 17px; }
-[dir=rtl] .vt-controls .vt-icon:is(:first-child, :nth-child(3)) svg { transform: scaleX(-1); }
-.vt-icon:hover:not(:disabled) { background: #e4dff3; color: #4d3f85; }
-.vt-icon:disabled { opacity: .4; cursor: default; }
-.vt-icon[aria-pressed=false] { color: #8a91a6; }
-.vt-play {
-  display: grid; place-items: center; width: 46px; height: 46px; border: 0; border-radius: 50%; background: #5b45a0; color: #fff; cursor: pointer;
-}
-.vt-play:hover { background: #4d3f85; }
-.vt-play svg { width: 20px; height: 20px; }
-.vt-speed {
-  min-width: 52px; height: 36px; padding: 0 10px; border: 1px solid #ddd8ea; border-radius: 18px; background: #fff; color: #4b5470;
-  font: 700 13px Arial, Helvetica, sans-serif; cursor: pointer;
-}
-.vt-speed:hover { border-color: #8b6fbb; color: #4d3f85; }
-.vt-enquiry {
-  margin-inline-start: auto; height: 38px; padding: 0 16px; border: 0; border-radius: 19px; background: #e1dbf3; color: #3d2f78;
-  font: 700 13px Arial, Helvetica, sans-serif; cursor: pointer;
-}
-.vt-enquiry:hover { background: #5b45a0; color: #fff; }
-.voice-tour :is(button):focus-visible { outline: 2px solid #48b8df; outline-offset: 2px; }
-.family-section.is-voice-focus .family-header { position: relative; }
-.family-section.is-voice-focus .family-header::before {
-  content: ''; position: absolute; inset-block: -10px; inset-inline-start: -18px; width: 4px; border-radius: 2px; background: #8b6fbb;
-}
-@media (max-width: 900px) {
-  .voice-tour { bottom: calc(var(--tabs-h, 0px) + 10px); padding: 12px 14px 10px; }
-  .vt-title { font-size: 16px; }
-  .vt-caption { max-height: 5.4em; font-size: 13px; }
-  .family-section.is-voice-focus .family-header::before { inset-inline-start: -12px; }
-}
-@media (prefers-reduced-motion: reduce) { .vt-dots button span { transition: none; } }
-.vt-caption { position: relative; }
-.vt-caption span { transition: color .2s; }
-.vt-caption .is-past { color: #8a91a6; }
-.vt-caption .is-now { color: #1d1a36; background: #efeaf9; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }

@@ -9,7 +9,6 @@
     "build:mindsuite": "vite build --mode mindsuite",
     "preview": "vite preview",
     "server": "node --env-file-if-exists=.env server/index.js",
-    "voice-tour": "node --env-file-if-exists=.env tools/voice-tour-audio.mjs",
     "start": "npm run build && npm run server"
   },
   "dependencies": {

@@ -1,4 +1,4 @@
-import { ChevronDown, Compass, Headphones, LayoutGrid } from 'lucide-react';
+import { ChevronDown, Compass, LayoutGrid } from 'lucide-react';
 import Globe from './Globe.jsx';
 import DotField from './DotField.jsx';
 import { offerings } from '../data/catalogue.js';
@@ -15,7 +15,7 @@ const STATS = [
   { value: clients.list.length, label: 'client businesses' },
 ];
 
-export default function Hero({ playing, onToggleMotion, onStartTour, onStartVoice }) {
+export default function Hero({ playing, onToggleMotion, onStartTour }) {
   const t = useT();
   return (
     <div className="opening-screen">
@@ -43,10 +43,6 @@ export default function Hero({ playing, onToggleMotion, onStartTour, onStartVoic
           <button type="button" className="cta cta-icon cta-tour" onClick={onStartTour}>
             <Compass aria-hidden="true" />
             {t('Take a quick tour')}
-          </button>
-          <button type="button" className="cta cta-icon cta-tour" onClick={onStartVoice}>
-            <Headphones aria-hidden="true" />
-            {t('Listen to our offerings')}
           </button>
           {/* Shown on smaller screens, where the header has no room for the mission. */}
           <div className="mission hero-mission">
