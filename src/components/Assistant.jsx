@@ -14,6 +14,7 @@ import {
   downloadConversation,
   sendConversation,
   sendOfferingEmail,
+  wakeGuideServer,
 } from '../lib/conversation.js';
 import { guessCountry } from '../lib/phone.js';
 import {
@@ -236,6 +237,11 @@ export default function Assistant({ interests, onAdd }) {
     });
   }, [pos]);
   useLayoutEffect(positionPanel, [positionPanel]);
+
+  // A hosted server may be asleep: wake it as soon as the guide opens.
+  useEffect(() => {
+    if (open) wakeGuideServer();
+  }, [open]);
 
   useEffect(() => {
     const onResize = () => setPos(clampPos(savedPosition()));

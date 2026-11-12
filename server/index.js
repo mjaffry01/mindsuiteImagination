@@ -501,7 +501,7 @@ function budgetAlertMail(s) {
 }
 
 const budget = createUsageBudget({
-  file: join(here, 'usage.json'),
+  file: env.USAGE_FILE || join(here, 'usage.json'),
   limit: config.budget.limit,
   prices: config.budget.prices,
   onAlert: async (s) => {

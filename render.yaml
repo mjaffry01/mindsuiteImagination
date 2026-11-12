@@ -1,0 +1,52 @@
+# Render Blueprint for the MindSuite Guide server (AI guide, enquiry and email endpoints).
+# In Render: New > Blueprint > pick this repository and branch. Render asks for every
+# value marked "sync: false" (keys and passwords); type them there, never in this file.
+# The website stays on GitHub Pages: set the repository variable GUIDE_SERVER_URL to this
+# service's address (for example https://mindsuite-guide.onrender.com) and re-run the Pages deploy.
+services:
+  - type: web
+    name: mindsuite-guide
+    runtime: node
+    plan: free            # sleeps after 15 idle minutes; "starter" stays awake
+    region: singapore
+    branch: MIndsuiteOffering
+    buildCommand: npm ci --omit=dev
+    startCommand: node server/index.js
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      - key: ALLOWED_ORIGINS
+        value: https://mjaffry01.github.io
+      - key: SITE_URL
+        value: https://mjaffry01.github.io/mindsuiteImagination
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: ASSISTANT_MONTHLY_BUDGET_USD
+        value: "20"
+      - key: BUDGET_ALERT_TO
+        value: info@mindsuite.in, privacy@mindsuite.in
+      - key: MAIL_FROM
+        value: MindSuite <no-reply@mindsuite.in>
+      - key: MAIL_TO
+        sync: false
+      - key: MAIL_REPLY_TO
+        value: info@mindsuite.in
+      - key: SEND_ACK
+        value: "true"
+      - key: SMTP_HOST
+        value: smtp.office365.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_SECURE
+        value: "false"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: SMTP_OAUTH_TENANT_ID
+        sync: false
+      - key: SMTP_OAUTH_CLIENT_ID
+        sync: false
+      - key: SMTP_OAUTH_CLIENT_SECRET
+        sync: false

@@ -19,6 +19,12 @@ export const CONVERSATION_URL = ASSISTANT_URL ? ASSISTANT_URL.replace(/assistant
 // Where "send me the details of …" emails are sent from (the guide's own server).
 export const OFFERING_EMAIL_URL = ASSISTANT_URL ? ASSISTANT_URL.replace(/assistant\/?$/, 'offering-email') : '';
 
+/** Wakes a hosted server that sleeps when idle, so it is ready by the time the visitor asks. */
+export function wakeGuideServer() {
+  if (!ASSISTANT_URL) return;
+  fetch(ASSISTANT_URL.replace(/assistant\/?$/, 'health'), { mode: 'no-cors', cache: 'no-store' }).catch(() => {});
+}
+
 const THINKING = 'Finding relevant offerings...';
 
 /** The conversation as plain data, in the language the visitor saw it. */

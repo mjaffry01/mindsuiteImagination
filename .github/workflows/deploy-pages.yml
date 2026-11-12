@@ -1,8 +1,11 @@
 # Builds the site and publishes it to GitHub Pages on every push to MIndsuiteOffering.
 # Live at https://mjaffry01.github.io/mindsuiteImagination/
 #
-# GitHub Pages serves static files only, so the proposal form uses its email-app fallback here
-# (VITE_ENQUIRY_URL is not set). Point VITE_ENQUIRY_URL at a hosted enquiry server to send by SMTP.
+# GitHub Pages serves static files only. The AI guide, the proposal form and the guide emails
+# need the guide server (render.yaml or the Dockerfile). Set the repository variable
+# GUIDE_SERVER_URL (Settings > Secrets and variables > Actions > Variables) to its address, e.g.
+# https://mindsuite-guide.onrender.com, and re-run this workflow. Without it the guide uses
+# catalogue matching and the form opens the visitor's email app.
 name: Deploy to GitHub Pages
 
 on:
@@ -31,6 +34,9 @@ jobs:
       - run: npm ci
       # Project pages live under /<repo-name>/, so assets need that base path.
       - run: npx vite build --base=/${{ github.event.repository.name }}/
+        env:
+          VITE_ASSISTANT_URL: ${{ vars.GUIDE_SERVER_URL && format('{0}/api/assistant', vars.GUIDE_SERVER_URL) || '' }}
+          VITE_ENQUIRY_URL: ${{ vars.GUIDE_SERVER_URL && format('{0}/api/enquiry', vars.GUIDE_SERVER_URL) || '' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
