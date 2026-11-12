@@ -153,6 +153,18 @@ export default function App() {
       const id = decodeURIComponent(link.getAttribute('href').slice(1));
       if (!id) return;
       e.preventDefault();
+      go(id);
+    };
+    // The guide's spoken navigation ("take me to Careers") goes the same way as a link.
+    const onGuideGo = (e) => {
+      const id = e.detail;
+      if (id === 'top' && getRoute().page !== 'main') {
+        navigate('main');
+        return window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+      go(id);
+    };
+    const go = (id) => {
       const page = id.match(/^\/careers(?:\/([\w-]+))?/);
       if (page) return navigate('careers', page[1] || null);
       if (id === '/privacy') return navigate('privacy');
@@ -168,7 +180,11 @@ export default function App() {
       setTimeout(() => scrollToId(id), 0);
     };
     document.addEventListener('click', onClick);
-    return () => document.removeEventListener('click', onClick);
+    addEventListener('mindsuite:go', onGuideGo);
+    return () => {
+      document.removeEventListener('click', onClick);
+      removeEventListener('mindsuite:go', onGuideGo);
+    };
   }, []);
 
   // Opening an address such as /ai-for-business or /team (or an older #section link) jumps

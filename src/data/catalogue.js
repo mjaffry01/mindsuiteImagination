@@ -35,7 +35,7 @@ export const normalize = (value) =>
     .toLowerCase()
     .normalize('NFKD')
     .replace(/[̀-ͯ]/g, '')
-    .replace(/[ً-ْٰـ]/g, '')
+    .replace(/[ً-ٰٕـ]/g, '') // vowel and hamza marks (NFKD splits إ into ا + hamza)
     .replace(/[أإآ]/g, 'ا')
     .replace(/[^a-z0-9؀-ۿ]+/g, ' ')
     .trim();

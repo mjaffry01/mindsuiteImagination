@@ -10,8 +10,8 @@
  *
  * Every statement here must stay true for the live site. Change it when the site changes.
  */
-export const PRIVACY_VERSION = '1.0';
-export const PRIVACY_EFFECTIVE = '2026-11-10';
+export const PRIVACY_VERSION = '1.3';
+export const PRIVACY_EFFECTIVE = '2026-11-12';
 export const PRIVACY_EMAIL = 'privacy@mindsuite.in';
 export const GRIEVANCE_OFFICER = 'Data Protection and Grievance Officer';
 
@@ -19,6 +19,11 @@ export const GRIEVANCE_OFFICER = 'Data Protection and Grievance Officer';
 export const STORAGE_ROWS = [
   { name: 'Your shortlist', use: 'The offerings you add to your enquiry, so they are still there when you come back.', kind: 'Essential' },
   { name: 'Language', use: 'The language you choose for the site.', kind: 'Essential' },
+  {
+    name: 'Guide visit',
+    use: 'For this visit only (cleared when you close the tab): that the guide has said hello, and the name, email and phone you gave it, so it doesn’t ask again.',
+    kind: 'Essential',
+  },
   { name: 'Your privacy choice', use: 'Whether you allowed display choices to be remembered, so we don’t ask again.', kind: 'Essential' },
   {
     name: 'Display choices',
@@ -54,7 +59,7 @@ export function privacySections({ server = false, remoteGuide = false } = {}) {
           items: [
             'Proposal requests: your name, work email, company, phone number (optional), how you would like us to contact you, your timeline, your message and the offerings you picked.',
             'Messages you send us yourself by email, phone, WhatsApp or Telegram.',
-            remoteGuide && 'What you type to the MindSuite Guide (see “The MindSuite Guide” below).',
+            remoteGuide && 'The MindSuite Guide: what you type or say to it and, if you choose to share them, your name, email and phone number (see “The MindSuite Guide” below).',
           ].filter(Boolean),
         },
         { p: 'We do not use analytics, advertising or tracking tools, and we do not build profiles of visitors.' },
@@ -67,6 +72,7 @@ export function privacySections({ server = false, remoteGuide = false } = {}) {
         {
           items: [
             'To reply to your request and prepare a proposal. Basis: your consent, which you give with the tick box on the form.',
+            remoteGuide && 'To follow up on a conversation with the MindSuite Guide, and to email you the offering details you ask it for. Basis: your consent, which you give by sharing your details with the guide; you can continue without sharing.',
             server && 'To protect the form from abuse, for example by limiting how often one connection can send it. Basis: keeping the service safe and working.',
             'To meet legal obligations, such as keeping records once you become a client.',
           ].filter(Boolean),
@@ -96,11 +102,17 @@ export function privacySections({ server = false, remoteGuide = false } = {}) {
       blocks: [
         remoteGuide
           ? {
-              p: 'What you type to the guide is sent to our server to suggest matching offerings. When AI suggestions are switched on, the conversation is passed to Anthropic’s Claude service, which processes it on our behalf. We don’t keep the conversation. The guide doesn’t need personal details, so please don’t include any.',
+              p: 'What you type to the guide is sent to our server to suggest matching offerings. When AI suggestions are switched on, the conversation is passed to Anthropic’s Claude service, which processes it on our behalf.',
             }
           : {
               p: 'The guide that helps you choose offerings works entirely in your browser. What you type to it is not sent to us or anyone else, and it is cleared when you leave or reload the page.',
             },
+        ...(remoteGuide ? [{ p: 'When the guide opens, it asks for your name, email and phone number so our team can follow up. If you share them, the conversation and your details are emailed to our team when you finish: when you end a voice conversation, close the guide, start a new conversation or leave the page. We treat that email like an enquiry. If you continue without sharing, we don’t keep the conversation.' }] : []),
+        ...(remoteGuide ? [{ p: 'If you ask the guide to send you the details of offerings, we email them to the address you gave it. That email contains only catalogue information, and we don’t add you to any mailing list.' }] : []),
+        ...(remoteGuide ? [{ p: 'The name, email and phone you give when the guide asks for them are not passed to Anthropic. To stop the guide being used to send unwanted email, our server holds your connection’s IP address and your email address in memory for up to 24 hours to limit how many of these emails are sent, and its log notes which offerings were sent to which address.' }] : []),
+        {
+          p: 'You can also talk to the guide. Your browser turns your voice into text using its maker’s speech service (Google in Chrome, Microsoft in Edge, Apple in Safari), under that company’s privacy policy. The microphone is used only during a voice conversation, which you start and end with the microphone button (or by saying “stop”); it also switches off by itself after about half a minute of silence, and it is off while the guide is speaking. Replies are read aloud by your own device; that sound is not sent anywhere.',
+        },
       ],
     },
     {
@@ -112,6 +124,7 @@ export function privacySections({ server = false, remoteGuide = false } = {}) {
             'Our hosting and network providers, such as GitHub and Cloudflare, carry the traffic to this site and keep standard technical logs, such as IP addresses, under their own privacy policies.',
             'Microsoft 365 carries and stores our business email.',
             remoteGuide && 'Anthropic provides the AI behind the guide.',
+            'If you speak to the guide, your browser’s speech service (Google, Microsoft or Apple) turns your voice into text.',
             'Share buttons and links to LinkedIn, WhatsApp, Telegram and Google Maps take you to those services, and their privacy policies then apply. We don’t load their scripts or trackers on this site.',
             'Team photos load from our main website, www.mindsuite.in.',
             'We share personal data with authorities only when the law requires it.',
@@ -133,7 +146,7 @@ export function privacySections({ server = false, remoteGuide = false } = {}) {
       title: 'Cookies and browser storage',
       blocks: [
         { p: 'This site sets no cookies and uses no analytics or advertising trackers.' },
-        { p: 'It saves a few small settings in your browser’s own storage. They stay on your device and are never sent to us.' },
+        { p: 'It saves a few small settings in your browser’s own storage. They stay on your device; the browser storage itself is never sent to us.' },
         { storage: true },
         { p: 'You can change your choice at any time with “Cookie settings” at the bottom of every page, or clear everything this site has saved in your browser.' },
         { controls: true },
@@ -146,6 +159,7 @@ export function privacySections({ server = false, remoteGuide = false } = {}) {
         {
           items: [
             'Enquiries that don’t lead to work: up to 24 months, then deleted.',
+            remoteGuide && 'Guide conversations you shared your details with: the same as enquiries.',
             'Client contracts and records: for the length of the contract and 7 years after, as the law requires.',
             server && 'Website server logs: up to 180 days.',
             'Settings in your browser: until you clear them.',

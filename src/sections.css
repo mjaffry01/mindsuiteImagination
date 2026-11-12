@@ -1715,7 +1715,7 @@ img.platform-logo { max-width: 80%; max-height: 72px; margin: auto; object-fit: 
 /* ---------- Touch targets: at least 44 x 44 px (Fitts's Law) ---------- */
 .lang-select { display: none; }
 .assistant-minimize, .tour-close { min-width: 44px; min-height: 44px; }
-.assistant-reset, .assistant-position-reset { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 8px; }
+.assistant-reset, .assistant-position-reset, .assistant-download { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 8px; }
 .assistant-prompts button { min-height: 44px; }
 .tour-back, .tour-next { min-height: 44px; }
 .search-suggestions button, .search-clear, .navigation-close, .area-filter-chip, .area-filter-clear, .view-interests { min-height: 44px; }
@@ -2176,3 +2176,53 @@ a.privacy-contact-line svg { margin-top: 0; }
 .show-selected:hover {
   background: var(--brand-gradient-hover);
 }
+
+/* Talking to the guide: microphone, voice replies switch and voice messages */
+.assistant-input .assistant-mic { display: inline-grid; place-items: center; flex: none; width: 44px; padding: 0; }
+.assistant-mic > svg { width: 19px; height: 19px; }
+.assistant-mic.is-listening { background: #c2410c; border-color: #c2410c; animation: assistant-mic-pulse 1.2s ease-in-out infinite; }
+@keyframes assistant-mic-pulse { 0%, 100% { box-shadow: 0 0 0 0 #c2410c66; } 50% { box-shadow: 0 0 0 6px #c2410c00; } }
+.assistant-voice-toggle { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; padding-inline: 8px; margin-inline-start: auto; }
+.assistant-voice-toggle > svg { width: 15px; height: 15px; }
+.assistant-voice-note { font-size: 11px; line-height: 1.5; color: #796133; padding: 4px 15px 0; flex-shrink: 0; }
+.assistant-mic.is-talking:not(.is-listening) { background: #9a3412; border-color: #9a3412; }
+.assistant-voice-status { display: flex; align-items: center; gap: 8px; margin: 6px 15px 0; padding: 6px 10px; border-radius: 8px; background: #fff7ed; color: #7c2d12; font-size: 12px; line-height: 1.4; flex-shrink: 0; }
+.assistant-voice-status > span:nth-child(2) { flex: 1; }
+.assistant-voice-dot { width: 9px; height: 9px; border-radius: 50%; background: #c2410c; flex: none; }
+.assistant-voice-status.is-listening .assistant-voice-dot { animation: assistant-mic-pulse 1.2s ease-in-out infinite; }
+.assistant-voice-status.is-thinking .assistant-voice-dot { background: #a16207; animation: assistant-dot-blink 0.9s ease-in-out infinite; }
+.assistant-voice-status.is-speaking .assistant-voice-dot { background: #15803d; }
+@keyframes assistant-dot-blink { 50% { opacity: 0.25; } }
+.assistant-voice-status button { min-height: 32px; padding: 0 10px; border: 1px solid #c2410c; border-radius: 6px; background: #fff; color: #9a3412; font: inherit; font-weight: 600; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) { .assistant-mic.is-listening, .assistant-voice-dot { animation: none !important; } }
+
+.assistant-download { gap: 5px; }
+.assistant-download > svg { width: 15px; height: 15px; }
+.assistant-toolbar { flex-wrap: nowrap; align-items: center; column-gap: 12px; padding-inline: 14px; }
+.assistant-position-reset { padding-inline: 6px; }
+.assistant-position-reset > svg { width: 15px; height: 15px; }
+.assistant-voice-toggle { white-space: nowrap; }
+.assistant-message small { display: flex; align-items: center; gap: 8px; }
+.assistant-replay { display: inline-flex; align-items: center; gap: 4px; margin-inline-start: auto; min-height: 32px; padding: 0 8px; border: 1px solid #d1cde6; border-radius: 999px; background: #fff; color: #5650a2; font: inherit; font-size: 10px; cursor: pointer; }
+.assistant-replay > svg { width: 12px; height: 12px; }
+.assistant-replay:hover { border-color: #5650a2; }
+.assistant-message.is-replaying { border-color: #c2410c; box-shadow: 0 0 0 2px #c2410c55; }
+/* Guide: the visitor's details, asked when the guide first opens */
+.guide-intake { display: grid; gap: 8px; padding: 10px 16px 6px; border-top: 1px solid #ece9f6; background: #fbfaff; }
+.guide-intake-fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.guide-intake-field { display: grid; gap: 2px; min-width: 0; padding: 7px 9px; border: 1px solid #e1ddf0; border-radius: 10px; background: #fff; text-align: start; font: inherit; color: #6a648a; cursor: default; }
+.guide-intake-field.is-filled { border-color: #c9c1ea; cursor: pointer; }
+.guide-intake-field.is-filled:hover { border-color: #5650a2; }
+.guide-intake-field.is-current { border-color: #5650a2; box-shadow: 0 0 0 3px #5650a222; }
+.guide-intake-field:disabled { opacity: 1; }
+.guide-intake-label { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #423e7e; }
+.guide-intake-label svg { width: 13px; height: 13px; color: #1f8a5b; flex: none; }
+.guide-intake-dot { width: 7px; height: 7px; border-radius: 50%; background: #cfc9e6; flex: none; }
+.guide-intake-field.is-current .guide-intake-dot { background: #5650a2; animation: guide-intake-pulse 1.2s ease-in-out infinite; }
+.guide-intake-value { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; color: #27234c; }
+.guide-intake-field.is-current .guide-intake-value { color: #5650a2; font-style: italic; }
+.guide-intake-note { margin: 0; font-size: 11px; line-height: 1.5; color: #6a648a; }
+.guide-intake-note a, .guide-intake-skip { color: #5650a2; }
+.guide-intake-skip { padding: 0; border: 0; background: none; font: inherit; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+@keyframes guide-intake-pulse { 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .guide-intake-field.is-current .guide-intake-dot { animation: none; } }
