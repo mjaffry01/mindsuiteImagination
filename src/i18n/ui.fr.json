@@ -644,8 +644,10 @@
  "The name, email and phone you give when the guide asks for them are not passed to Anthropic. To stop the guide being used to send unwanted email, our server holds your connection’s IP address and your email address in memory for up to 24 hours to limit how many of these emails are sent, and its log notes which offerings were sent to which address.": "Le nom, l’e-mail et le téléphone que vous indiquez quand le guide vous les demande ne sont pas transmis à Anthropic. Pour éviter que le guide serve à envoyer des e-mails non sollicités, notre serveur garde en mémoire l’adresse IP de votre connexion et votre adresse e-mail pendant 24 heures au plus afin de limiter le nombre de ces e-mails, et son journal note quelles offres ont été envoyées à quelle adresse.",
  "Okay, I’ve ended this conversation. Thank you, {name}. Our team has your conversation and will follow up. Ask me anything whenever you’re ready to start again.": "D’accord, j’ai mis fin à cette conversation. Merci, {name}. Notre équipe a reçu votre conversation et vous recontactera. Posez-moi une question quand vous voulez recommencer.",
  "Okay, I’ve ended this conversation. Thank you for visiting MindSuite. Ask me anything whenever you’re ready to start again.": "D’accord, j’ai mis fin à cette conversation. Merci de votre visite chez MindSuite. Posez-moi une question quand vous voulez recommencer.",
- "Voice": "Voix",
  "Automatic (most natural)": "Automatique (la plus naturelle)",
- "Listen": "Écouter",
- "Hello, I’m the MindSuite guide. This is how I’ll sound.": "Bonjour, je suis le guide MindSuite. Voici comment je parlerai."
+ "Hello, I’m the MindSuite guide. This is how I’ll sound.": "Bonjour, je suis le guide MindSuite. Voici comment je parlerai.",
+ "Choose a voice": "Choisir une voix",
+ "Tap a voice to hear it.": "Touchez une voix pour l’écouter.",
+ "Female voice": "Voix féminine",
+ "Male voice": "Voix masculine"
 }

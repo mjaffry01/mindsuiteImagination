@@ -2227,10 +2227,24 @@ a.privacy-contact-line svg { margin-top: 0; }
 @keyframes guide-intake-pulse { 50% { opacity: .35; } }
 @media (prefers-reduced-motion: reduce) { .guide-intake-field.is-current .guide-intake-dot { animation: none; } }
 
-/* Guide: choosing the voice that reads replies aloud */
-.assistant-voice-picker { display: flex; align-items: center; gap: 8px; padding: 6px 14px; border-bottom: 1px solid #e7e3f3; font-size: 12px; flex-shrink: 0; }
-.assistant-voice-picker label { font-weight: 600; color: #3f3a78; }
-.assistant-voice-picker select { flex: 1; min-width: 0; min-height: 36px; padding: 0 8px; border: 1px solid #d1cde6; border-radius: 6px; background: #fff; color: inherit; font: inherit; text-overflow: ellipsis; }
-.assistant-voice-picker button { display: inline-flex; align-items: center; gap: 4px; min-height: 36px; padding: 0 10px; border: 1px solid #d1cde6; border-radius: 6px; background: #fff; color: #5650a2; font: inherit; font-weight: 600; cursor: pointer; }
-.assistant-voice-picker button > svg { width: 14px; height: 14px; }
-.assistant-voice-picker select:focus-visible, .assistant-voice-picker button:focus-visible { outline: 2px solid #5650a2; outline-offset: 1px; }
+/* Guide: the voice replies switch and its voice menu */
+.assistant-toolbar { position: relative; }
+.assistant-voice-group { position: relative; display: inline-flex; align-items: center; margin-inline-start: auto; }
+.assistant-voice-group .assistant-voice-toggle { margin-inline-start: 0; padding-inline: 6px; }
+.assistant-voice-more { display: inline-flex; align-items: center; gap: 3px; min-height: 44px; padding: 0 4px; border: 0; background: none; color: inherit; font: inherit; white-space: nowrap; cursor: pointer; }
+.assistant-voice-more > svg { width: 15px; height: 15px; transition: transform .15s; }
+.assistant-voice-more[aria-expanded="true"] > svg { transform: rotate(180deg); }
+.assistant-voice-more:focus-visible { outline: 2px solid #5650a2; outline-offset: -2px; border-radius: 6px; }
+.assistant-voice-menu { position: absolute; inset-inline-end: 0; top: calc(100% + 4px); z-index: 5; width: 250px; max-width: calc(100vw - 40px); max-height: min(320px, 60vh); overflow-y: auto; padding: 6px; border: 1px solid #d1cde6; border-radius: 10px; background: #fff; box-shadow: 0 10px 28px #1e1b4b33; }
+.assistant-voice-menu p { margin: 4px 8px 6px; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #6b6699; }
+.assistant-voice-menu button { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 40px; padding: 0 10px; border: 0; border-radius: 6px; background: none; color: #1f1b4d; font: inherit; font-size: 13px; text-align: start; cursor: pointer; }
+.assistant-voice-menu button:hover, .assistant-voice-menu button:focus-visible { background: #f1effa; outline: none; }
+.assistant-voice-menu button.is-chosen { font-weight: 600; color: #3f3a78; }
+.assistant-voice-menu button > svg { flex: none; width: 15px; height: 15px; color: #5650a2; }
+.assistant-voice-menu small { display: block; margin: 6px 8px 2px; font-size: 11px; color: #6b6699; }
+@media (prefers-reduced-motion: reduce) { .assistant-voice-more > svg { transition: none; } }
+.assistant-voice-gender { display: inline-grid; place-items: center; flex: none; width: 24px; height: 24px; border-radius: 50%; background: #f1effa; color: #5650a2; }
+.assistant-voice-gender > svg { width: 14px; height: 14px; }
+.assistant-voice-gender.is-female { background: #fce7f3; color: #be185d; }
+.assistant-voice-gender.is-male { background: #e0f2fe; color: #0369a1; }
+.assistant-voice-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

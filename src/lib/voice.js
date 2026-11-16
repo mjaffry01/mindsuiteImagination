@@ -84,6 +84,29 @@ export function voicesFor(lang) {
     .sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name));
 }
 
+// Browsers don't say whether a voice sounds male or female, so the common Windows, Edge,
+// Chrome, Android and Apple voices are listed here by first name. Unknown voices get no symbol.
+const FEMALE = new Set(
+  'aria jenny michelle ana emma ava ashley cora elizabeth jane nancy sara amber monica zira heera hazel susan sonia libby maisie mia neerja ananya aarohi kavya swara clara natasha catherine linda samantha karen moira tessa fiona veena victoria allison ava serena kate kathy vicki agnes princess zoe nicky denise julie hortense eloise vivienne brigitte celeste coralie jacqueline josephine yvette sylvie ariane charline audrey amelie aurelie marie zariyah hoda salma fatima laila amany reem amina mouna iman sana layla noura rana mariam muna'.split(' ')
+);
+const MALE = new Set(
+  'david mark guy christopher eric roger steve tony davis jason brian andrew jacob ravi prabhat kunal aarav arjun rehaan ryan george thomas alfie elliot oliver noah william liam ken duncan alex daniel rishi fred tom aaron arthur gordon lee oliver paul henri claude jerome alain yves remy maurice antoine fabrice jean gerard lucien thierry louis hamed naayf shakir hamdan omar ali bassel moaz rami taim jamal hamza maged majed tarik ahmad khalid'.split(' ')
+);
+
+/** 'female', 'male' or '' when the voice is not known. */
+export function voiceGender(v) {
+  const name = v.name.toLowerCase();
+  if (/\bfemale\b|\bwoman\b/.test(name)) return 'female';
+  if (/\bmale\b|\bman\b/.test(name)) return 'male';
+  if (/^google us english$/.test(name)) return 'female';
+  const words = name.replace(/^(microsoft|google|apple)\s+/, '').split(/[^a-zà-ÿ]+/);
+  for (const w of words) {
+    if (FEMALE.has(w)) return 'female';
+    if (MALE.has(w)) return 'male';
+  }
+  return '';
+}
+
 /** A voice's name without the maker's prefix, e.g. "Aria Online (Natural) · en-US". */
 export const voiceLabel = (v) =>
   `${v.name.replace(/^(Microsoft|Google|Apple)\s+/i, '').replace(/\s+-\s+.*$/, '')} · ${v.lang}`;

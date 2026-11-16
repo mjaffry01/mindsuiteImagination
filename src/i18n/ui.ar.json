@@ -644,8 +644,10 @@
  "The name, email and phone you give when the guide asks for them are not passed to Anthropic. To stop the guide being used to send unwanted email, our server holds your connection’s IP address and your email address in memory for up to 24 hours to limit how many of these emails are sent, and its log notes which offerings were sent to which address.": "لا يُمرَّر إلى Anthropic الاسم والبريد الإلكتروني والهاتف التي تقدّمها عندما يطلبها الدليل. ولمنع استخدام الدليل لإرسال رسائل غير مرغوب فيها، يحتفظ خادمنا في ذاكرته بعنوان IP لاتصالك وببريدك الإلكتروني لمدة أقصاها 24 ساعة للحد من عدد هذه الرسائل، ويسجّل في سجله العروض التي أُرسلت وإلى أي عنوان.",
  "Okay, I’ve ended this conversation. Thank you, {name}. Our team has your conversation and will follow up. Ask me anything whenever you’re ready to start again.": "حسنًا، أنهيت هذه المحادثة. شكرًا، {name}. لدى فريقنا محادثتك وسيتواصل معك. اسألني أي شيء متى أردت البدء من جديد.",
  "Okay, I’ve ended this conversation. Thank you for visiting MindSuite. Ask me anything whenever you’re ready to start again.": "حسنًا، أنهيت هذه المحادثة. شكرًا لزيارتك MindSuite. اسألني أي شيء متى أردت البدء من جديد.",
- "Voice": "الصوت",
  "Automatic (most natural)": "تلقائي (الأكثر طبيعية)",
- "Listen": "استمع",
- "Hello, I’m the MindSuite guide. This is how I’ll sound.": "مرحبًا، أنا دليل MindSuite. هكذا سيبدو صوتي."
+ "Hello, I’m the MindSuite guide. This is how I’ll sound.": "مرحبًا، أنا دليل MindSuite. هكذا سيبدو صوتي.",
+ "Choose a voice": "اختر صوتًا",
+ "Tap a voice to hear it.": "المس صوتًا لتسمعه.",
+ "Female voice": "صوت أنثوي",
+ "Male voice": "صوت ذكوري"
 }

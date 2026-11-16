@@ -3,7 +3,7 @@ import Icon from './Icon.jsx';
 import { focusTarget } from '../lib/focus.js';
 import { normalize, offeringById } from '../data/catalogue.js';
 import { localAssistantReply } from '../data/matcher.js';
-import { Check, Download, LocateFixed, Mic, RotateCcw, Square, Volume2, VolumeX } from 'lucide-react';
+import { Check, ChevronDown, Download, LocateFixed, Mic, RotateCcw, Square, Volume2, VolumeX } from 'lucide-react';
 import { useLanguage } from '../i18n/index.jsx';
 import { preferenceStorage } from '../lib/consent.js';
 import {
@@ -16,9 +16,27 @@ import {
   onVoicesChanged,
   speak,
   stopSpeaking,
+  voiceGender,
   voiceLabel,
   voicesFor,
 } from '../lib/voice.js';
+
+/** Small male and female symbols for the voice list, drawn like the other icons. */
+const GENDER_ICON = {
+  female: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+      <circle cx="12" cy="9" r="6" />
+      <path d="M12 15v7M9 19h6" />
+    </svg>
+  ),
+  male: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="10" cy="14" r="6" />
+      <path d="M14.5 9.5 21 3M15 3h6v6" />
+    </svg>
+  ),
+};
+const GENDER_LABEL = { female: 'Female voice', male: 'Male voice' };
 import { navigationTarget, offeringEmailRequest } from '../lib/voiceNavigation.js';
 import {
   CONVERSATION_URL,
@@ -185,6 +203,8 @@ export default function Assistant({ interests, onAdd }) {
   const [voiceReplies, setVoiceReplies] = useState(false);
   const [voices, setVoices] = useState([]);
   const [voiceId, setVoiceId] = useState('');
+  const [voiceMenu, setVoiceMenu] = useState(false);
+  const voiceMenuRef = useRef(null);
   const [voiceNote, setVoiceNote] = useState('');
   const recogniser = useRef(null);
   const talkingRef = useRef(false);
@@ -263,11 +283,26 @@ export default function Assistant({ interests, onAdd }) {
     return onVoicesChanged(load);
   }, [lang]);
 
+  // Choosing a voice plays a sample in it and turns spoken replies on.
   const pickVoice = (id) => {
     chooseVoice(lang, id);
     setVoiceId(id);
+    setVoiceReplies(true);
     speak(t(VOICE_SAMPLE), lang);
   };
+
+  // The voice menu closes on a click elsewhere or Escape.
+  useEffect(() => {
+    if (!voiceMenu) return;
+    const away = (e) => !voiceMenuRef.current?.contains(e.target) && setVoiceMenu(false);
+    const esc = (e) => e.key === 'Escape' && setVoiceMenu(false);
+    addEventListener('pointerdown', away);
+    addEventListener('keydown', esc);
+    return () => {
+      removeEventListener('pointerdown', away);
+      removeEventListener('keydown', esc);
+    };
+  }, [voiceMenu]);
 
   // A hosted server may be asleep: wake it as soon as the guide opens.
   useEffect(() => {
@@ -928,37 +963,62 @@ export default function Assistant({ interests, onAdd }) {
             {t('Download')}
           </button>
           {canSpeak && (
-            <button
-              type="button"
-              className="assistant-voice-toggle"
-              aria-pressed={voiceReplies}
-              onClick={() => {
-                if (voiceReplies) stopSpeaking();
-                setVoiceReplies(!voiceReplies);
-              }}
-            >
-              {voiceReplies ? <Volume2 aria-hidden="true" /> : <VolumeX aria-hidden="true" />}
-              {voiceReplies ? t('Voice replies on') : t('Voice replies off')}
-            </button>
+            <div className="assistant-voice-group" ref={voiceMenuRef}>
+              <button
+                type="button"
+                className="assistant-voice-toggle"
+                aria-pressed={voiceReplies}
+                aria-label={voiceReplies ? t('Voice replies on') : t('Voice replies off')}
+                title={voiceReplies ? t('Voice replies on') : t('Voice replies off')}
+                onClick={() => {
+                  if (voiceReplies) stopSpeaking();
+                  setVoiceReplies(!voiceReplies);
+                }}
+              >
+                {voiceReplies ? <Volume2 aria-hidden="true" /> : <VolumeX aria-hidden="true" />}
+                {voices.length > 1 ? null : voiceReplies ? t('Voice replies on') : t('Voice replies off')}
+              </button>
+              {voices.length > 1 && (
+                <button
+                  type="button"
+                  className="assistant-voice-more"
+                  aria-haspopup="true"
+                  aria-expanded={voiceMenu}
+                  onClick={() => setVoiceMenu(!voiceMenu)}
+                >
+                  {t('Choose a voice')}
+                  <ChevronDown aria-hidden="true" />
+                </button>
+              )}
+              {voiceMenu && (
+                <div className="assistant-voice-menu" role="group" aria-label={t('Choose a voice')}>
+                  <p>{t('Choose a voice')}</p>
+                  {['', ...voices.map((v) => v.voiceURI)].map((id) => {
+                    const v = voices.find((x) => x.voiceURI === id);
+                    const gender = v ? voiceGender(v) : '';
+                    return (
+                      <button
+                        key={id || 'auto'}
+                        type="button"
+                        aria-pressed={voiceId === id}
+                        className={voiceId === id ? 'is-chosen' : ''}
+                        onClick={() => pickVoice(id)}
+                      >
+                        <span className={`assistant-voice-gender${gender ? ` is-${gender}` : ''}`} title={gender ? t(GENDER_LABEL[gender]) : undefined}>
+                          {gender ? GENDER_ICON[gender] : <Volume2 aria-hidden="true" />}
+                          {gender && <span className="visually-hidden">{t(GENDER_LABEL[gender])}</span>}
+                        </span>
+                        <span className="assistant-voice-name">{v ? voiceLabel(v) : t('Automatic (most natural)')}</span>
+                        {voiceId === id && <Check aria-hidden="true" />}
+                      </button>
+                    );
+                  })}
+                  <small>{t('Tap a voice to hear it.')}</small>
+                </div>
+              )}
+            </div>
           )}
         </div>
-        {voiceReplies && voices.length > 1 && (
-          <div className="assistant-voice-picker">
-            <label htmlFor="assistant-voice">{t('Voice')}</label>
-            <select id="assistant-voice" value={voiceId} onChange={(e) => pickVoice(e.target.value)}>
-              <option value="">{t('Automatic (most natural)')}</option>
-              {voices.map((v) => (
-                <option key={v.voiceURI} value={v.voiceURI}>
-                  {voiceLabel(v)}
-                </option>
-              ))}
-            </select>
-            <button type="button" onClick={() => speak(t(VOICE_SAMPLE), lang)}>
-              <Volume2 aria-hidden="true" />
-              {t('Listen')}
-            </button>
-          </div>
-        )}
         <div className="assistant-messages" role="log" aria-live="polite" aria-label={t('Conversation')} ref={logRef}>
           {messages.map((m) => (
             <div
