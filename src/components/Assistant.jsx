@@ -6,7 +6,19 @@ import { localAssistantReply } from '../data/matcher.js';
 import { Check, Download, LocateFixed, Mic, RotateCcw, Square, Volume2, VolumeX } from 'lucide-react';
 import { useLanguage } from '../i18n/index.jsx';
 import { preferenceStorage } from '../lib/consent.js';
-import { canListen, canSpeak, isSpeaking, listen, speak, stopSpeaking } from '../lib/voice.js';
+import {
+  canListen,
+  canSpeak,
+  chooseVoice,
+  chosenVoice,
+  isSpeaking,
+  listen,
+  onVoicesChanged,
+  speak,
+  stopSpeaking,
+  voiceLabel,
+  voicesFor,
+} from '../lib/voice.js';
 import { navigationTarget, offeringEmailRequest } from '../lib/voiceNavigation.js';
 import {
   CONVERSATION_URL,
@@ -130,6 +142,7 @@ const REWIND_PHRASES = new Set(
   ].map((phrase) => normalize(phrase).trim())
 );
 const THINKING = 'Finding relevant offerings...';
+const VOICE_SAMPLE = 'Hello, I’m the MindSuite guide. This is how I’ll sound.';
 
 // After this many quiet spells (about 8 seconds each) the microphone is switched off.
 const QUIET_LIMIT = 4;
@@ -170,6 +183,8 @@ export default function Assistant({ interests, onAdd }) {
   const [talking, setTalking] = useState(false);
   const [phase, setPhase] = useState(''); // 'listening' | 'thinking' | 'speaking' while talking
   const [voiceReplies, setVoiceReplies] = useState(false);
+  const [voices, setVoices] = useState([]);
+  const [voiceId, setVoiceId] = useState('');
   const [voiceNote, setVoiceNote] = useState('');
   const recogniser = useRef(null);
   const talkingRef = useRef(false);
@@ -237,6 +252,22 @@ export default function Assistant({ interests, onAdd }) {
     });
   }, [pos]);
   useLayoutEffect(positionPanel, [positionPanel]);
+
+  // The device's voices for the site language, and the one the visitor chose.
+  useEffect(() => {
+    const load = () => {
+      setVoices(voicesFor(lang));
+      setVoiceId(chosenVoice(lang));
+    };
+    load();
+    return onVoicesChanged(load);
+  }, [lang]);
+
+  const pickVoice = (id) => {
+    chooseVoice(lang, id);
+    setVoiceId(id);
+    speak(t(VOICE_SAMPLE), lang);
+  };
 
   // A hosted server may be asleep: wake it as soon as the guide opens.
   useEffect(() => {
@@ -911,6 +942,23 @@ export default function Assistant({ interests, onAdd }) {
             </button>
           )}
         </div>
+        {voiceReplies && voices.length > 1 && (
+          <div className="assistant-voice-picker">
+            <label htmlFor="assistant-voice">{t('Voice')}</label>
+            <select id="assistant-voice" value={voiceId} onChange={(e) => pickVoice(e.target.value)}>
+              <option value="">{t('Automatic (most natural)')}</option>
+              {voices.map((v) => (
+                <option key={v.voiceURI} value={v.voiceURI}>
+                  {voiceLabel(v)}
+                </option>
+              ))}
+            </select>
+            <button type="button" onClick={() => speak(t(VOICE_SAMPLE), lang)}>
+              <Volume2 aria-hidden="true" />
+              {t('Listen')}
+            </button>
+          </div>
+        )}
         <div className="assistant-messages" role="log" aria-live="polite" aria-label={t('Conversation')} ref={logRef}>
           {messages.map((m) => (
             <div

@@ -71,16 +71,57 @@ export function listen(lang, { onText, onEnd, onError }) {
   return r;
 }
 
-/** The most natural device voice for a language: neural/online voices first. */
-function voiceFor(lang) {
+const NATURAL = /natural|online|neural|premium|enhanced/i;
+const rank = (v) => (NATURAL.test(v.name) ? 0 : /google/i.test(v.name) ? 1 : 2);
+
+/** The device's voices for a language, most natural first. */
+export function voicesFor(lang) {
+  if (!canSpeak) return [];
   const prefix = (LOCALES[lang] || 'en-US').slice(0, 2);
-  const voices = speechSynthesis.getVoices().filter((v) => v.lang?.toLowerCase().startsWith(prefix));
-  return (
-    voices.find((v) => /natural|online|neural|premium|enhanced/i.test(v.name)) ||
-    voices.find((v) => /google/i.test(v.name)) ||
-    voices[0] ||
-    null
-  );
+  return speechSynthesis
+    .getVoices()
+    .filter((v) => v.lang?.toLowerCase().startsWith(prefix))
+    .sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name));
+}
+
+/** A voice's name without the maker's prefix, e.g. "Aria Online (Natural) · en-US". */
+export const voiceLabel = (v) =>
+  `${v.name.replace(/^(Microsoft|Google|Apple)\s+/i, '').replace(/\s+-\s+.*$/, '')} · ${v.lang}`;
+
+// The visitor's chosen voice per language, kept on this device only.
+const VOICE_KEY = 'mindsuite-guide-voice';
+function savedVoices() {
+  try {
+    return JSON.parse(localStorage.getItem(VOICE_KEY)) || {};
+  } catch {
+    return {};
+  }
+}
+/** The id of the voice the visitor chose for a language, or '' for automatic. */
+export const chosenVoice = (lang) => savedVoices()[lang] || '';
+export function chooseVoice(lang, id) {
+  const all = savedVoices();
+  if (id) all[lang] = id;
+  else delete all[lang];
+  try {
+    localStorage.setItem(VOICE_KEY, JSON.stringify(all));
+  } catch {
+    // private browsing: the choice lasts until the page is closed
+  }
+}
+
+/** Calls `onChange` when the device's list of voices changes; returns a function to stop. */
+export function onVoicesChanged(onChange) {
+  if (!canSpeak) return () => {};
+  speechSynthesis.addEventListener('voiceschanged', onChange);
+  return () => speechSynthesis.removeEventListener('voiceschanged', onChange);
+}
+
+/** The visitor's chosen voice for a language, otherwise the most natural one. */
+function voiceFor(lang) {
+  const voices = voicesFor(lang);
+  const id = chosenVoice(lang);
+  return (id && voices.find((v) => v.voiceURI === id)) || voices[0] || null;
 }
 
 // Some browsers load their voices late; asking once early makes them ready in time.
