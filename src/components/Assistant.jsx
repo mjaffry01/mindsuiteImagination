@@ -64,25 +64,25 @@ import {
 const STORAGE_KEY = 'mindsuite-assistant-position-v1';
 // The welcome. "AI assistant" is said only when AI answers are really switched on.
 const GREETING =
-  'Hello, welcome to MindSuite. I’m the MindSuite guide, and I’m here to help you. Tell me what you’d like to improve, and I’ll suggest the right offerings.';
+  'Hello, and a warm welcome to MindSuite. I’m the MindSuite guide, and it would be my pleasure to help you. Please tell me what you’d like to improve, and I’ll gladly suggest the right offerings.';
 const GREETING_AI =
-  'Hello, welcome to MindSuite. I’m an AI assistant, and I’m here to help you. Tell me what you’d like to improve, and I’ll suggest the right offerings.';
+  'Hello, and a warm welcome to MindSuite. I’m an AI assistant, and it would be my pleasure to help you. Please tell me what you’d like to improve, and I’ll gladly suggest the right offerings.';
 // Set once the guide has greeted aloud in this browser tab session, so it only does so once.
 const GREETED_KEY = 'mindsuite-guide-greeted';
 // The visitor's name, email and phone for this browser tab session (or "skipped").
 const VISITOR_KEY = 'mindsuite-guide-visitor';
 const INTAKE_LABELS = { name: 'Name', email: 'Email', phone: 'Phone' };
 // "Send me the details of …"
-const EMAIL_ASK_NAME = 'To send you the details, I’ll need your email address. First, may I have your name?';
-const EMAIL_SENDING = 'Thank you, {name}. Sending the details to {email} now…';
-const EMAIL_SENT = 'Done. I’ve emailed the details of {names} to {email}.';
+const EMAIL_ASK_NAME = 'I’d be happy to send you the details. For that, I’ll need your email address. First, may I please have your name?';
+const EMAIL_SENDING = 'Thank you, {name}. I’m sending the details to {email} now…';
+const EMAIL_SENT = 'All done. I’ve emailed the details of {names} to {email}. I hope you find them useful.';
 const EMAIL_FAILED = {
-  limited: 'I’ve already sent several emails, so I can’t send more right now. Please try again later, or write to info@mindsuite.in.',
-  unavailable: 'I can’t send emails from this version of the website. You can download this conversation, or write to info@mindsuite.in.',
-  send_failed: 'Sorry, I couldn’t send the email just now. Please try again later, or write to info@mindsuite.in.',
+  limited: 'I’m sorry, I’ve already sent several emails, so I can’t send more just now. Please try again a little later, or feel free to write to us at info@mindsuite.in.',
+  unavailable: 'I’m sorry, I can’t send emails from this version of the website. You’re welcome to download this conversation, or to write to us at info@mindsuite.in.',
+  send_failed: 'I’m sorry, I couldn’t send the email just now. Please try again a little later, or write to us at info@mindsuite.in.',
 };
 const EMAIL_WHICH =
-  'Which offering should I send you? Say its name, for example “send me the details of Cloud Native Security”, or ask me for suggestions first and then say “send me these”.';
+  'Which offering would you like me to send you? Please say its name, for example “send me the details of Cloud Native Security”, or ask me for suggestions first and then say “send me these”.';
 const INTAKE_PLACEHOLDERS = {
   name: 'Type or say your name',
   email: 'Spell or type your email address',
@@ -90,21 +90,37 @@ const INTAKE_PLACEHOLDERS = {
 };
 // The guide asks for the visitor's details only after they have used it for a while.
 const DETAILS_AFTER_MS = 3 * 60 * 1000;
-// When the guide was first opened in this browser tab session.
-const DETAILS_CLOCK_KEY = 'mindsuite-guide-first-opened';
+// When the visitor first asked the guide something in this browser tab session: the three
+// minutes count from there, so just opening the guide and leaving it doesn't start them.
+const DETAILS_CLOCK_KEY = 'mindsuite-guide-first-asked';
 function detailsClockStart() {
   try {
-    let start = Number(sessionStorage.getItem(DETAILS_CLOCK_KEY));
-    if (!start) {
-      start = Date.now();
-      sessionStorage.setItem(DETAILS_CLOCK_KEY, String(start));
-    }
-    return start;
+    return Number(sessionStorage.getItem(DETAILS_CLOCK_KEY)) || 0;
   } catch {
-    return Date.now();
+    return 0;
   }
 }
+function startDetailsClock() {
+  try {
+    if (!detailsClockStart()) sessionStorage.setItem(DETAILS_CLOCK_KEY, String(Date.now()));
+  } catch {}
+}
 const KEYPAD = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', 'del'];
+// The on-screen keyboard for typing or correcting an email address. Wide keys take more columns.
+const EMAIL_KEYS = [
+  ...'1234567890qwertyuiopasdfghjkl'.split(''),
+  'del',
+  ...'zxcvbnm._-'.split(''),
+  '@',
+  '@gmail.com',
+  '.com',
+  'left',
+  'right',
+  'clear',
+];
+const KEY_SPAN = { '@gmail.com': 3, '.com': 2, clear: 2 };
+const KEY_FACE = { del: '⌫', left: '←', right: '→', clear: 'Clear' };
+const KEY_LABEL = { del: 'Delete', left: 'Move left', right: 'Move right', clear: 'Clear' };
 
 function savedVisitor() {
   try {
@@ -223,6 +239,8 @@ export default function Assistant({ interests, onAdd }) {
   const [voiceId, setVoiceId] = useState('');
   const [voiceMenu, setVoiceMenu] = useState(false);
   const voiceMenuRef = useRef(null);
+  // True once the visitor has switched spoken replies off themselves.
+  const voiceMuted = useRef(false);
   const [voiceNote, setVoiceNote] = useState('');
   const recogniser = useRef(null);
   const talkingRef = useRef(false);
@@ -247,6 +265,8 @@ export default function Assistant({ interests, onAdd }) {
   // The guide asks for details only once the visitor has used it for a while (or asked to be
   // emailed something), never as soon as it opens.
   const [askingDetails, setAskingDetails] = useState(false);
+  // True once the visitor has started talking to the guide (typed or spoken).
+  const [talkedAt, setTalkedAt] = useState(detailsClockStart);
   const needsDetails = Boolean(CONVERSATION_URL) && !visitor && askingDetails;
   // While details are needed, the guide asks for them one at a time and fills them in here.
   const [intake, setIntakeState] = useState({ step: 'name', name: '', email: '', phone: '', country: guessCountry() });
@@ -430,7 +450,7 @@ export default function Assistant({ interests, onAdd }) {
           }
           // Nothing said: keep waiting for a while, then switch the microphone off.
           if (++quietSpells.current >= QUIET_LIMIT) {
-            return stopTalking('The voice conversation paused because it was quiet. Tap the microphone to talk again.');
+            return stopTalking('The voice conversation paused because it was quiet. Whenever you’re ready, please tap the microphone to talk again.');
           }
           setTimeout(listenTurn, 200);
         },
@@ -445,7 +465,7 @@ export default function Assistant({ interests, onAdd }) {
       });
     } catch {
       recogniser.current = null;
-      stopTalking('Voice input stopped. Please try again, or type your question.');
+      stopTalking('I’m sorry, voice input stopped. Please try again, or type your question.');
     }
   }
 
@@ -462,8 +482,8 @@ export default function Assistant({ interests, onAdd }) {
     const person = visitorRef.current;
     const bye =
       person && !person.skipped
-        ? 'Okay, I’ve ended this conversation. Thank you, {name}. Our team has your conversation and will follow up. Ask me anything whenever you’re ready to start again.'
-        : 'Okay, I’ve ended this conversation. Thank you for visiting MindSuite. Ask me anything whenever you’re ready to start again.';
+        ? 'Thank you, {name}. I’ve ended this conversation, and our team has a copy and will follow up with you. It was a pleasure helping you. Whenever you’re ready, just ask me anything to start again.'
+        : 'Thank you for visiting MindSuite. I’ve ended this conversation, and it was a pleasure helping you. Whenever you’re ready, just ask me anything to start again.';
     const vars = { name: person?.name || '' };
     setMessages((list) => [
       ...list,
@@ -555,21 +575,88 @@ export default function Assistant({ interests, onAdd }) {
     dispatchEvent(new CustomEvent('mindsuite:go', { detail: target.id }));
   }
 
-  // The first time the guide is opened in a session it says hello aloud (opening it is a click,
-  // which is what lets the browser speak). Later openings just show the conversation.
-  useEffect(() => {
-    if (!open || !canSpeak) return;
-    try {
-      if (sessionStorage.getItem(GREETED_KEY)) return;
-      sessionStorage.setItem(GREETED_KEY, '1');
-    } catch {}
-    const greeting = messagesRef.current.find((m) => m.greeting);
-    const question = needsDetails ? [...messagesRef.current].reverse().find((m) => m.intake && m.who === 'guide') : null;
+  /** Says the welcome ("Hello, welcome to MindSuite…") aloud, with any question that follows it. */
+  function sayGreeting(list = messagesRef.current) {
+    const greeting = list.find((m) => m.greeting);
+    const question = needsDetails ? [...list].reverse().find((m) => m.intake && m.who === 'guide') : null;
     const { t: tr, lang: language } = live.current;
     if (greeting) {
       speak([tr(greeting.text), question ? tr(question.text, question.vars) : ''].filter(Boolean).join(' '), language);
     }
+  }
+
+  // Each session starts with the guide saying hello aloud. Opening the guide is a click, which is
+  // what lets the browser speak. If the guide was already open when the page loaded, the browser
+  // won't speak yet, so the hello comes with the visitor's first tap or key press on the page.
+  useEffect(() => {
+    if (!open || !canSpeak) return;
+    try {
+      if (sessionStorage.getItem(GREETED_KEY)) return;
+    } catch {}
+    const greet = () => {
+      try {
+        sessionStorage.setItem(GREETED_KEY, '1');
+      } catch {}
+      sayGreeting();
+    };
+    if (navigator.userActivation?.hasBeenActive !== false) {
+      greet();
+      return;
+    }
+    const onFirstTouch = (e) => {
+      // A tap on the microphone starts listening instead; the guide shouldn't talk over it.
+      if (e.target.closest?.('.assistant-mic')) return stop(true);
+      stop();
+      greet();
+    };
+    const stop = (skip) => {
+      removeEventListener('pointerdown', onFirstTouch, true);
+      removeEventListener('keydown', onFirstTouch, true);
+      if (skip) {
+        try {
+          sessionStorage.setItem(GREETED_KEY, '1');
+        } catch {}
+      }
+    };
+    addEventListener('pointerdown', onFirstTouch, true);
+    addEventListener('keydown', onFirstTouch, true);
+    return () => stop();
   }, [open]);
+
+  /**
+   * A key on the guide's phone keypad or email keyboard: types at the cursor in the answer box,
+   * or deletes, clears or moves the cursor. The box is focused only where there is a mouse, so a
+   * phone doesn't also open its own keyboard.
+   */
+  function pressKey(key) {
+    const el = inputRef.current;
+    const value = input;
+    let start = Math.min(el?.selectionStart ?? value.length, value.length);
+    let end = Math.min(el?.selectionEnd ?? value.length, value.length);
+    let next = value;
+    let caret = start;
+    if (key === 'del') {
+      if (start !== end) next = value.slice(0, start) + value.slice(end);
+      else if (start > 0) {
+        next = value.slice(0, start - 1) + value.slice(start);
+        caret = start - 1;
+      }
+    } else if (key === 'clear') {
+      next = '';
+      caret = 0;
+    } else if (key === 'left') caret = Math.max(0, start - 1);
+    else if (key === 'right') caret = Math.min(value.length, end + 1);
+    else {
+      next = value.slice(0, start) + key + value.slice(end);
+      caret = start + key.length;
+    }
+    setInput(next);
+    requestAnimationFrame(() => {
+      if (!el) return;
+      if (matchMedia('(pointer: fine)').matches) el.focus();
+      el.setSelectionRange(caret, caret);
+    });
+  }
 
   /** The question the guide asks to fill in one of the visitor's details. */
   function intakeQuestion(step, state) {
@@ -590,6 +677,7 @@ export default function Assistant({ interests, onAdd }) {
     const next = { ...intakeRef.current, step };
     setIntake(next);
     const text = INTAKE_CORRECT[step];
+    setInput(intakeRef.current[step] || '');
     setMessages((list) => [...list, { id: nextId++, who: 'guide', text, intake: true }]);
     sayReply(text);
     requestAnimationFrame(() => inputRef.current?.focus());
@@ -675,10 +763,10 @@ export default function Assistant({ interests, onAdd }) {
     sayReply(INTAKE_INVITE);
   }
 
-  // Three minutes after the guide first opened, at a quiet moment (not while it is answering or
+  // Three minutes after the visitor started talking to the guide, at a quiet moment (not while it is answering or
   // speaking, or the visitor is typing or talking), the guide asks for the visitor's details.
   useEffect(() => {
-    if (!open || !CONVERSATION_URL || visitor || askingDetails) return;
+    if (!open || !talkedAt || !CONVERSATION_URL || visitor || askingDetails) return;
     let timer = 0;
     const tryAsk = () => {
       const quiet = !busyRef.current && !isSpeaking() && !inputRef.current?.value.trim();
@@ -689,9 +777,9 @@ export default function Assistant({ interests, onAdd }) {
       }
       askForDetails();
     };
-    timer = setTimeout(tryAsk, Math.max(4000, detailsClockStart() + DETAILS_AFTER_MS - Date.now()));
+    timer = setTimeout(tryAsk, Math.max(4000, talkedAt + DETAILS_AFTER_MS - Date.now()));
     return () => clearTimeout(timer);
-  }, [open, visitor, askingDetails]);
+  }, [open, talkedAt, visitor, askingDetails]);
 
   /**
    * The visitor asked for offerings by email but hasn't shared their details: the guide asks for
@@ -808,6 +896,10 @@ export default function Assistant({ interests, onAdd }) {
     }
     stopSpeaking();
     setInput('');
+    if (!talkedAt) {
+      startDetailsClock();
+      setTalkedAt(detailsClockStart() || Date.now());
+    }
 
     // "Say that again" / "rewind": read an earlier answer again instead of asking.
     const command = normalize(trimmed).trim();
@@ -912,8 +1004,8 @@ export default function Assistant({ interests, onAdd }) {
     } catch (error) {
       const text =
         error.name === 'TimeoutError'
-          ? 'I could not complete that request. The response took too long.'
-          : 'I could not complete that request. Please try again or use catalogue search.';
+          ? 'I’m sorry, I couldn’t complete that request because the response took too long. Please try again.'
+          : 'I’m sorry, I couldn’t complete that request. Please try again, or use the catalogue search.';
       update(pendingId, { text, retry: trimmed });
       reply = [text];
     } finally {
@@ -940,6 +1032,9 @@ export default function Assistant({ interests, onAdd }) {
       welcome.push({ id: nextId++, who: 'guide', text, vars, intake: true });
     }
     setMessages(welcome);
+    // A new conversation starts with the hello too, unless the visitor is talking (the guide is
+    // listening then) or has switched spoken replies off.
+    if (!voiceMuted.current && !talkingRef.current) sayGreeting(welcome);
     inputRef.current?.focus();
   };
 
@@ -1024,6 +1119,7 @@ export default function Assistant({ interests, onAdd }) {
                 title={voiceReplies ? t('Voice replies on') : t('Voice replies off')}
                 onClick={() => {
                   if (voiceReplies) stopSpeaking();
+                  voiceMuted.current = voiceReplies;
                   setVoiceReplies(!voiceReplies);
                 }}
               >
@@ -1174,11 +1270,26 @@ export default function Assistant({ interests, onAdd }) {
                     className={key === 'del' ? 'is-delete' : ''}
                     aria-label={key === 'del' ? t('Delete last digit') : key}
                     disabled={busy}
-                    onClick={() => {
-                      setInput((value) => (key === 'del' ? value.slice(0, -1) : `${value}${key}`));
-                    }}
+                    onClick={() => pressKey(key)}
                   >
                     {key === 'del' ? '⌫' : key}
+                  </button>
+                ))}
+              </div>
+            )}
+            {intake.step === 'email' && (
+              <div className="guide-keypad guide-keypad-email" role="group" aria-label={t('Email keyboard')} dir="ltr">
+                {EMAIL_KEYS.map((key) => (
+                  <button
+                    type="button"
+                    key={key}
+                    className={key === 'del' || key === 'clear' ? 'is-delete' : KEY_SPAN[key] ? 'is-wide' : ''}
+                    style={KEY_SPAN[key] ? { gridColumn: `span ${KEY_SPAN[key]}` } : undefined}
+                    aria-label={KEY_LABEL[key] ? t(KEY_LABEL[key]) : key}
+                    disabled={busy}
+                    onClick={() => pressKey(key)}
+                  >
+                    {key === 'clear' ? t(KEY_FACE[key]) : KEY_FACE[key] || key}
                   </button>
                 ))}
               </div>

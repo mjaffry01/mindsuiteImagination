@@ -10,27 +10,27 @@ import { checkPhone } from './phone.js';
 export const INTAKE_STEPS = ['name', 'email', 'phone'];
 
 export const INTAKE_QUESTIONS = {
-  name: 'May I have your name, please?',
-  email: 'Thanks, {name}. Please spell your email address for me, letter by letter. For example: j, o, h, n, at gmail dot com.',
-  phone: 'Got it: {email}. Now your phone number, please. Type it on the keypad below, then press Send. If it isn’t a {country} number, start with the country code.',
+  name: 'May I please have your name?',
+  email: 'Thank you, {name}. Could you please spell your email address for me, letter by letter? For example: j, o, h, n, at gmail dot com.',
+  phone: 'Thank you, I have {email}. May I also have your phone number, please? Kindly type it on the keypad below, then press Send. If it isn’t a {country} number, please start with the country code.',
 };
 export const INTAKE_RETRY = {
-  name: 'Sorry, I didn’t catch your name. Could you tell me again?',
-  email: 'I didn’t get a complete email address. Please spell it again, letter by letter, for example: j, o, h, n, at gmail dot com. You can also type it.',
-  phone: 'That doesn’t look like a valid phone number. Please type it on the keypad, with the country code, then press Send.',
+  name: 'I’m sorry, I didn’t quite catch your name. Would you mind telling me again?',
+  email: 'I’m sorry, I didn’t get a complete email address. Would you mind spelling it again, letter by letter? For example: j, o, h, n, at gmail dot com. You’re also welcome to type it.',
+  phone: 'I’m sorry, that doesn’t look like a valid phone number. Could you please type it on the keypad, with the country code, then press Send?',
 };
 /** Asked when the visitor clicks a detail they already gave, to correct it. */
 export const INTAKE_CORRECT = {
-  name: 'Sure. What name should I use?',
-  email: 'Sure. Please spell the right email address, letter by letter.',
-  phone: 'Sure. Please type the right phone number on the keypad.',
+  name: 'Of course. What name would you like me to use?',
+  email: 'Of course. Please correct your email address with the keyboard below, then press Send. You can also spell it again, letter by letter.',
+  phone: 'Of course. Please type the correct phone number on the keypad.',
 };
 export const INTAKE_DONE =
-  'Thank you, {name}. I’ve noted {email} and {phone}, and our team will follow up with you. Is there anything else I can help you with?';
+  'Thank you very much, {name}. I’ve noted {email} and {phone}, and our team will be in touch with you soon. Is there anything else I can help you with?';
 /** Asked once the visitor has used the guide for a while (not when it first opens). */
 export const INTAKE_INVITE =
-  'I see you’re interested in our offerings. To take this further, why don’t you give me your name, email address and phone number? Our team will then follow up with you. First, may I have your name?';
-export const INTAKE_SKIPPED = 'No problem. Tell me what you’d like to improve, and I’ll suggest the right offerings.';
+  'I can see you’re interested in our offerings, and I’m glad to help. So that our team can follow up with you, would you be kind enough to share your name, email address and phone number? First, may I please have your name?';
+export const INTAKE_SKIPPED = 'That’s perfectly fine. Please tell me what you’d like to improve, and I’ll gladly suggest the right offerings.';
 
 const SKIP_PHRASES = new Set(
   [

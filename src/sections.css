@@ -2256,3 +2256,6 @@ a.privacy-contact-line svg { margin-top: 0; }
 .guide-keypad button:focus-visible { outline: 2px solid #5650a2; outline-offset: 1px; }
 .guide-keypad button.is-delete { color: #9a3412; }
 .guide-keypad button:disabled { opacity: .5; cursor: default; }
+.guide-keypad-email { grid-template-columns: repeat(10, 1fr); gap: 4px; }
+.guide-keypad-email button { min-height: 34px; padding: 0; font-size: 15px; font-weight: 500; }
+.guide-keypad-email button.is-wide, .guide-keypad-email button.is-delete { font-size: 13px; }

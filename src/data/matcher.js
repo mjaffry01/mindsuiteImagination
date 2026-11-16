@@ -81,7 +81,7 @@ export function localAssistantReply(text) {
       mode: 'catalogue',
       // Messages are interface strings: the guide translates them when it shows them.
       message:
-        'I could not find a close match in the catalogue. Try describing the outcome you want, such as “reduce cloud costs” or “prepare for an audit”, or use the catalogue search.',
+        'I’m sorry, I couldn’t find a close match in the catalogue. Could you please describe the outcome you’re hoping for, such as “reduce cloud costs” or “prepare for an audit”? You’re also welcome to use the catalogue search.',
       suggestions: [],
     };
   }
@@ -89,8 +89,8 @@ export function localAssistantReply(text) {
     mode: 'catalogue',
     message:
       found.length === 1
-        ? 'Here is the offering from the catalogue that best matches what you described:'
-        : 'Here are {count} offerings from the catalogue that best match what you described:',
+        ? 'Thank you. Here is the offering from our catalogue that best matches what you described:'
+        : 'Thank you. Here are {count} offerings from our catalogue that best match what you described:',
     vars: { count: found.length },
     suggestions: found.map((o) => ({ id: o.id, reason: o.definition })),
   };
