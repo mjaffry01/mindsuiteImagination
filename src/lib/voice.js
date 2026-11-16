@@ -188,7 +188,8 @@ export function speak(text, lang, { onEnd } = {}) {
 }
 
 /** True while the guide is reading something out (until its last sentence ends or is stopped). */
-export const isSpeaking = () => queued.length > 0;
+// The browser is asked too: speech it cancelled or dropped never reports its end.
+export const isSpeaking = () => queued.length > 0 && (speechSynthesis.speaking || speechSynthesis.pending);
 
 export function stopSpeaking() {
   speechTurn++;

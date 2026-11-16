@@ -10,23 +10,26 @@ import { checkPhone } from './phone.js';
 export const INTAKE_STEPS = ['name', 'email', 'phone'];
 
 export const INTAKE_QUESTIONS = {
-  name: 'Before we begin, may I have your name?',
-  email: 'Thanks, {name}. What’s your email address?',
-  phone: 'Got it: {email}. And your phone number, please? If it isn’t a {country} number, include the country code.',
+  name: 'May I have your name, please?',
+  email: 'Thanks, {name}. Please spell your email address for me, letter by letter. For example: j, o, h, n, at gmail dot com.',
+  phone: 'Got it: {email}. Now your phone number, please. Type it on the keypad below, then press Send. If it isn’t a {country} number, start with the country code.',
 };
 export const INTAKE_RETRY = {
   name: 'Sorry, I didn’t catch your name. Could you tell me again?',
-  email: 'That doesn’t look like a complete email address. Could you say or type it again? For example, name@company.com.',
-  phone: 'That doesn’t look like a valid phone number. Could you say or type it again, with the country code?',
+  email: 'I didn’t get a complete email address. Please spell it again, letter by letter, for example: j, o, h, n, at gmail dot com. You can also type it.',
+  phone: 'That doesn’t look like a valid phone number. Please type it on the keypad, with the country code, then press Send.',
 };
 /** Asked when the visitor clicks a detail they already gave, to correct it. */
 export const INTAKE_CORRECT = {
   name: 'Sure. What name should I use?',
-  email: 'Sure. What’s the right email address?',
-  phone: 'Sure. What’s the right phone number?',
+  email: 'Sure. Please spell the right email address, letter by letter.',
+  phone: 'Sure. Please type the right phone number on the keypad.',
 };
 export const INTAKE_DONE =
-  'Thank you, {name}. I’ve noted {email} and {phone}, and our team will follow up with you. Now, what would you like to improve?';
+  'Thank you, {name}. I’ve noted {email} and {phone}, and our team will follow up with you. Is there anything else I can help you with?';
+/** Asked once the visitor has used the guide for a while (not when it first opens). */
+export const INTAKE_INVITE =
+  'I see you’re interested in our offerings. To take this further, why don’t you give me your name, email address and phone number? Our team will then follow up with you. First, may I have your name?';
 export const INTAKE_SKIPPED = 'No problem. Tell me what you’d like to improve, and I’ll suggest the right offerings.';
 
 const SKIP_PHRASES = new Set(
@@ -67,14 +70,25 @@ const EMAIL_RE = /[^\s@]+@[^\s@]+\.[^\s@]{2,}/;
 
 /** An email from typed or spoken text ("sara dot khan at acme dot com"), or ''. */
 export function extractEmail(text) {
+  const typedAt = String(text || '').includes('@');
   let s = ` ${String(text || '').toLowerCase()} `;
+  // Spelled out letter by letter ("j, o, h, n, at gmail dot com"): drop the separators and
+  // words like "capital", and turn "double f" into "ff" and digit words into digits.
+  if (!typedAt) {
+    s = s
+      .replace(/[,;]/g, ' ')
+      .replace(/(?<=\s)([a-z0-9])\.(?=\s)/g, '$1') // "j. o. h. n."
+      .replace(/(?<=\s)(?:the letter|lower case|upper case|capital|small|letter|lowercase|uppercase|majuscule|minuscule)(?=\s)/g, ' ')
+      .replace(/(?<=\s)(zero|one|two|three|four|five|six|seven|eight|nine)(?=\s)/g, (w) => SPELLED_DIGITS[w])
+      .replace(/(?<=\s)(double|triple)\s+([a-z0-9])(?=\s)/g, (m, n, c) => c.repeat(n === 'triple' ? 3 : 2));
+  }
   s = s
     .replace(/\s(?:at the rate(?: of)?|at sign|arobase|arrobase|at)\s/g, '@')
     .replace(/\s(?:dot|point|period)\s/g, '.')
     .replace(/\s(?:underscore|tiret bas)\s/g, '_')
     .replace(/\s(?:dash|hyphen|minus|tiret)\s/g, '-');
   // Typed with an "@": take the address as written.
-  const typed = String(text || '').includes('@') && s.match(EMAIL_RE);
+  const typed = typedAt && s.match(EMAIL_RE);
   if (typed) return clean(typed[0]);
   // Spoken: the words around "@" belong together ("sara khan@acme.com" → "sarakhan@acme.com").
   const at = s.indexOf('@');
@@ -84,6 +98,7 @@ export function extractEmail(text) {
   const m = joined.match(EMAIL_RE);
   return m ? clean(m[0]) : '';
 }
+const SPELLED_DIGITS = { zero: '0', one: '1', two: '2', three: '3', four: '4', five: '5', six: '6', seven: '7', eight: '8', nine: '9' };
 const clean = (email) => email.replace(/^[^a-z0-9]+|[.,;!?]+$/g, '');
 
 const DIGIT_WORDS = {

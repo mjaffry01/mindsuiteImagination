@@ -2248,3 +2248,11 @@ a.privacy-contact-line svg { margin-top: 0; }
 .assistant-voice-gender.is-female { background: #fce7f3; color: #be185d; }
 .assistant-voice-gender.is-male { background: #e0f2fe; color: #0369a1; }
 .assistant-voice-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Guide: keypad for the visitor's phone number */
+.guide-keypad { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; margin: 8px 0 2px; }
+.guide-keypad button { min-height: 38px; border: 1px solid #d1cde6; border-radius: 8px; background: #fff; color: #1f1b4d; font: inherit; font-size: 17px; font-weight: 600; font-variant-numeric: tabular-nums; cursor: pointer; }
+.guide-keypad button:hover { background: #f1effa; border-color: #5650a2; }
+.guide-keypad button:active { background: #e4e0f7; }
+.guide-keypad button:focus-visible { outline: 2px solid #5650a2; outline-offset: 1px; }
+.guide-keypad button.is-delete { color: #9a3412; }
+.guide-keypad button:disabled { opacity: .5; cursor: default; }

@@ -50,6 +50,7 @@ import { guessCountry } from '../lib/phone.js';
 import {
   INTAKE_CORRECT,
   INTAKE_DONE,
+  INTAKE_INVITE,
   INTAKE_QUESTIONS,
   INTAKE_RETRY,
   INTAKE_SKIPPED,
@@ -84,9 +85,26 @@ const EMAIL_WHICH =
   'Which offering should I send you? Say its name, for example “send me the details of Cloud Native Security”, or ask me for suggestions first and then say “send me these”.';
 const INTAKE_PLACEHOLDERS = {
   name: 'Type or say your name',
-  email: 'Type or say your email address',
-  phone: 'Type or say your phone number',
+  email: 'Spell or type your email address',
+  phone: 'Type your phone number on the keypad',
 };
+// The guide asks for the visitor's details only after they have used it for a while.
+const DETAILS_AFTER_MS = 3 * 60 * 1000;
+// When the guide was first opened in this browser tab session.
+const DETAILS_CLOCK_KEY = 'mindsuite-guide-first-opened';
+function detailsClockStart() {
+  try {
+    let start = Number(sessionStorage.getItem(DETAILS_CLOCK_KEY));
+    if (!start) {
+      start = Date.now();
+      sessionStorage.setItem(DETAILS_CLOCK_KEY, String(start));
+    }
+    return start;
+  } catch {
+    return Date.now();
+  }
+}
+const KEYPAD = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '+', 'del'];
 
 function savedVisitor() {
   try {
@@ -183,7 +201,7 @@ export default function Assistant({ interests, onAdd }) {
   const [open, setOpen] = useState(false);
   const [pos, setPos] = useState(() => clampPos(savedPosition()));
   const [panelBox, setPanelBox] = useState(null);
-  const [messages, setMessages] = useState(() => firstMessages(false, Boolean(CONVERSATION_URL) && !savedVisitor()));
+  const [messages, setMessages] = useState(() => firstMessages(false, false));
   const [busy, setBusy] = useState(false);
   const [input, setInput] = useState('');
   const [mode, setMode] = useState(REMOTE_URL ? 'Connecting...' : 'Catalogue matching');
@@ -226,7 +244,10 @@ export default function Assistant({ interests, onAdd }) {
   const [visitor, setVisitor] = useState(savedVisitor);
   const visitorRef = useRef(visitor);
   visitorRef.current = visitor;
-  const needsDetails = Boolean(CONVERSATION_URL) && !visitor;
+  // The guide asks for details only once the visitor has used it for a while (or asked to be
+  // emailed something), never as soon as it opens.
+  const [askingDetails, setAskingDetails] = useState(false);
+  const needsDetails = Boolean(CONVERSATION_URL) && !visitor && askingDetails;
   // While details are needed, the guide asks for them one at a time and fills them in here.
   const [intake, setIntakeState] = useState({ step: 'name', name: '', email: '', phone: '', country: guessCountry() });
   const intakeRef = useRef(intake);
@@ -391,6 +412,8 @@ export default function Assistant({ interests, onAdd }) {
     if (!talkingRef.current || recogniser.current || busyRef.current) return;
     // Never listen while the guide is speaking: it would hear itself. It listens once it finishes.
     if (isSpeaking()) return;
+    // Phone numbers are typed on the keypad: spoken digits are too easily misheard.
+    if (needsDetailsRef.current && intakeRef.current.step === 'phone') return setPhase('');
     setPhase('listening');
     setVoiceNote('');
     try {
@@ -642,6 +665,34 @@ export default function Assistant({ interests, onAdd }) {
     sayReply(text, vars);
   }
 
+  /** Invites the visitor to share their details (after a few minutes of using the guide). */
+  function askForDetails() {
+    needsDetailsRef.current = true;
+    setAskingDetails(true);
+    const state = { ...intakeRef.current, step: INTAKE_STEPS.find((k) => !intakeRef.current[k]) || 'name' };
+    setIntake(state);
+    setMessages((list) => [...list, { id: nextId++, who: 'guide', text: INTAKE_INVITE, intake: true }]);
+    sayReply(INTAKE_INVITE);
+  }
+
+  // Three minutes after the guide first opened, at a quiet moment (not while it is answering or
+  // speaking, or the visitor is typing or talking), the guide asks for the visitor's details.
+  useEffect(() => {
+    if (!open || !CONVERSATION_URL || visitor || askingDetails) return;
+    let timer = 0;
+    const tryAsk = () => {
+      const quiet = !busyRef.current && !isSpeaking() && !inputRef.current?.value.trim();
+      if (!quiet) return (timer = setTimeout(tryAsk, 5000));
+      if (recogniser.current) {
+        recogniser.current.abort(); // nothing said yet: stop waiting so the guide can speak
+        recogniser.current = null;
+      }
+      askForDetails();
+    };
+    timer = setTimeout(tryAsk, Math.max(4000, detailsClockStart() + DETAILS_AFTER_MS - Date.now()));
+    return () => clearTimeout(timer);
+  }, [open, visitor, askingDetails]);
+
   /**
    * The visitor asked for offerings by email but hasn't shared their details: the guide asks for
    * them, then sends. Returns the question it asks, to be read out after the current reply.
@@ -653,6 +704,7 @@ export default function Assistant({ interests, onAdd }) {
     } catch {}
     visitorRef.current = null;
     needsDetailsRef.current = true;
+    setAskingDetails(true);
     setVisitor(null);
     const state = { ...intakeRef.current, step: INTAKE_STEPS.find((k) => !intakeRef.current[k]) || 'email' };
     setIntake(state);
@@ -1113,6 +1165,24 @@ export default function Assistant({ interests, onAdd }) {
                 );
               })}
             </div>
+            {intake.step === 'phone' && (
+              <div className="guide-keypad" role="group" aria-label={t('Phone keypad')} dir="ltr">
+                {KEYPAD.map((key) => (
+                  <button
+                    type="button"
+                    key={key}
+                    className={key === 'del' ? 'is-delete' : ''}
+                    aria-label={key === 'del' ? t('Delete last digit') : key}
+                    disabled={busy}
+                    onClick={() => {
+                      setInput((value) => (key === 'del' ? value.slice(0, -1) : `${value}${key}`));
+                    }}
+                  >
+                    {key === 'del' ? '⌫' : key}
+                  </button>
+                ))}
+              </div>
+            )}
             <p className="guide-intake-note">
               {t('When you finish, this conversation and your details are emailed to the MindSuite team.')}{' '}
               <a href="#/privacy">{t('Privacy and Cookies')}</a>
@@ -1151,6 +1221,8 @@ export default function Assistant({ interests, onAdd }) {
             }
             required
             value={input}
+            inputMode={needsDetails && intake.step === 'phone' ? 'tel' : needsDetails && intake.step === 'email' ? 'email' : undefined}
+            dir={needsDetails && intake.step !== 'name' ? 'ltr' : undefined}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
