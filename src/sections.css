@@ -2259,3 +2259,5 @@ a.privacy-contact-line svg { margin-top: 0; }
 .guide-keypad-email { grid-template-columns: repeat(10, 1fr); gap: 4px; }
 .guide-keypad-email button { min-height: 34px; padding: 0; font-size: 15px; font-weight: 500; }
 .guide-keypad-email button.is-wide, .guide-keypad-email button.is-delete { font-size: 13px; }
+.assistant-sources { display: flex; align-items: flex-start; gap: 6px; margin: 6px 0 0; font-size: 12px; color: #5b5786; }
+.assistant-sources > svg { flex: none; width: 14px; height: 14px; margin-top: 1px; }

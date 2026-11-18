@@ -1,0 +1,1086 @@
+{
+ "docs": [
+  {
+   "id": "doc-01",
+   "file": "01-MindSuite-Threat-Modeling-and-Attack-Path-Review.pdf",
+   "title": "Threat Modeling and Attack Path Review",
+   "category": "Cybersecurity · Threat Assessment & Testing"
+  },
+  {
+   "id": "doc-02",
+   "file": "02-MindSuite-Cyber-Threat-Intelligence.pdf",
+   "title": "Cyber Threat Intelligence",
+   "category": "Cybersecurity · Threat Assessment & Testing"
+  },
+  {
+   "id": "doc-03",
+   "file": "03-MindSuite-Red-Team-and-Purple-Team-Exercises.pdf",
+   "title": "Red Team and Purple Team Exercises",
+   "category": "Cybersecurity · Threat Assessment & Testing"
+  },
+  {
+   "id": "doc-04",
+   "file": "04-MindSuite-Penetration-Testing.pdf",
+   "title": "Penetration Testing",
+   "category": "Cybersecurity · Threat Assessment & Testing"
+  },
+  {
+   "id": "doc-05",
+   "file": "05-MindSuite-AI-and-Generative-AI-Security.pdf",
+   "title": "AI and Generative AI Security",
+   "category": "Cybersecurity · Infrastructure & Data Protection"
+  },
+  {
+   "id": "doc-06",
+   "file": "06-MindSuite-Network-and-Endpoint-Security.pdf",
+   "title": "Network and Endpoint Security",
+   "category": "Cybersecurity · Infrastructure & Data Protection"
+  },
+  {
+   "id": "doc-07",
+   "file": "07-MindSuite-Cloud-Native-Security.pdf",
+   "title": "Cloud Native Security",
+   "category": "Cybersecurity · Infrastructure & Data Protection"
+  },
+  {
+   "id": "doc-08",
+   "file": "08-MindSuite-Data-Protection.pdf",
+   "title": "Data Protection",
+   "category": "Cybersecurity · Infrastructure & Data Protection"
+  },
+  {
+   "id": "doc-09",
+   "file": "09-MindSuite-AI-Security.pdf",
+   "title": "AI Security",
+   "category": "Cybersecurity · Infrastructure & Data Protection"
+  },
+  {
+   "id": "doc-10",
+   "file": "10-MindSuite-OT-ICS-Security.pdf",
+   "title": "OT/ICS Security",
+   "category": "Cybersecurity · Infrastructure & Data Protection"
+  },
+  {
+   "id": "doc-11",
+   "file": "11-MindSuite-Identity-and-Privileged-Access-Management.pdf",
+   "title": "Identity and Privileged Access Management",
+   "category": "Cybersecurity · Identity & Zero Trust"
+  },
+  {
+   "id": "doc-12",
+   "file": "12-MindSuite-Zero-Trust-Architecture.pdf",
+   "title": "Zero Trust Architecture",
+   "category": "Cybersecurity · Identity & Zero Trust"
+  },
+  {
+   "id": "doc-13",
+   "file": "13-MindSuite-Executive-Security-Advisory.pdf",
+   "title": "Executive Security Advisory",
+   "category": "Cybersecurity · Security Leadership & Risk"
+  },
+  {
+   "id": "doc-14",
+   "file": "14-MindSuite-vCISO-Retainer-Services.pdf",
+   "title": "vCISO Retainer Services",
+   "category": "Cybersecurity · Security Leadership & Risk"
+  },
+  {
+   "id": "doc-15",
+   "file": "15-MindSuite-Security-Governance.pdf",
+   "title": "Security Governance",
+   "category": "Cybersecurity · Security Leadership & Risk"
+  },
+  {
+   "id": "doc-16",
+   "file": "16-MindSuite-Cyber-Risk-Management.pdf",
+   "title": "Cyber Risk Management",
+   "category": "Cybersecurity · Security Leadership & Risk"
+  },
+  {
+   "id": "doc-17",
+   "file": "17-MindSuite-Compliance-and-Audit-Readiness.pdf",
+   "title": "Compliance and Audit Readiness",
+   "category": "Cybersecurity · Compliance & Audit Readiness"
+  },
+  {
+   "id": "doc-18",
+   "file": "18-MindSuite-Compliance-Program-Management.pdf",
+   "title": "Compliance Program Management",
+   "category": "Cybersecurity · Compliance & Audit Readiness"
+  },
+  {
+   "id": "doc-19",
+   "file": "19-MindSuite-Audit-Readiness-and-Assurance.pdf",
+   "title": "Audit Readiness and Assurance",
+   "category": "Cybersecurity · Compliance & Audit Readiness"
+  },
+  {
+   "id": "doc-20",
+   "file": "20-MindSuite-Vulnerability-Management.pdf",
+   "title": "Vulnerability Management",
+   "category": "Cybersecurity · Vulnerability & Exposure Management"
+  },
+  {
+   "id": "doc-21",
+   "file": "21-MindSuite-Application-Security-and-Secure-Development.pdf",
+   "title": "Application Security and Secure Development",
+   "category": "Cybersecurity · Vulnerability & Exposure Management"
+  },
+  {
+   "id": "doc-22",
+   "file": "22-MindSuite-Attack-Surface-and-Exposure-Management.pdf",
+   "title": "Attack Surface and Exposure Management",
+   "category": "Cybersecurity · Vulnerability & Exposure Management"
+  },
+  {
+   "id": "doc-23",
+   "file": "23-MindSuite-Remediation-Management.pdf",
+   "title": "Remediation Management",
+   "category": "Cybersecurity · Vulnerability & Exposure Management"
+  },
+  {
+   "id": "doc-24",
+   "file": "24-MindSuite-Incident-and-Ransomware-Readiness.pdf",
+   "title": "Incident and Ransomware Readiness",
+   "category": "Cybersecurity · Monitoring & Incident Response"
+  },
+  {
+   "id": "doc-25",
+   "file": "25-MindSuite-SOC-and-Security-Monitoring.pdf",
+   "title": "SOC and Security Monitoring",
+   "category": "Cybersecurity · Monitoring & Incident Response"
+  },
+  {
+   "id": "doc-26",
+   "file": "26-MindSuite-Security-Incident-Response.pdf",
+   "title": "Security Incident Response",
+   "category": "Cybersecurity · Monitoring & Incident Response"
+  },
+  {
+   "id": "doc-27",
+   "file": "27-MindSuite-Digital-Forensics-and-Incident-Investigation.pdf",
+   "title": "Digital Forensics and Incident Investigation",
+   "category": "Cybersecurity · Monitoring & Incident Response"
+  },
+  {
+   "id": "doc-28",
+   "file": "28-MindSuite-Ransomware-Readiness.pdf",
+   "title": "Ransomware Readiness",
+   "category": "Cybersecurity · Resilience & Continuity"
+  },
+  {
+   "id": "doc-29",
+   "file": "29-MindSuite-Business-Continuity-Planning-BCP.pdf",
+   "title": "Business Continuity Planning (BCP)",
+   "category": "Cybersecurity · Resilience & Continuity"
+  },
+  {
+   "id": "doc-30",
+   "file": "30-MindSuite-Recovery-Planning-and-Disaster-Recovery-Testing.pdf",
+   "title": "Recovery Planning and Disaster Recovery Testing",
+   "category": "Cybersecurity · Resilience & Continuity"
+  }
+ ],
+ "chunks": [
+  {
+   "doc": "doc-01",
+   "section": "Overview",
+   "text": "THREAT MODELING & ATTACK PATH REVIEW Find the attack path before attackers do. Constant change opens routes to critical systems faster than annual reviews can track. We map and close them while fixes are cheap. BUSINESS VALUE Helps teams address important design risks before incidents occur."
+  },
+  {
+   "doc": "doc-01",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Flaws found too late Design weaknesses surface in pen tests or after go-live, when fixes cost most. 2 Change outpaces reviews Cloud, APIs and frequent releases reshape the attack surface every sprint. 3 Findings without context Scanners list thousands of issues but not which ones chain to critical assets. 4 Gaps no one owns Vendors, integrations and over-privileged identities fall between teams."
+  },
+  {
+   "doc": "doc-01",
+   "section": "How MindSuite helps: attack paths, broken at choke points",
+   "text": "A structured examination of how important assets could be misused or compromised through their architecture and dependencies. It identifies plausible attack paths and prioritizes preventive controls based on business impact and feasibility."
+  },
+  {
+   "doc": "doc-01",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Early and end to end People, apps, APIs, cloud and third parties modeled as one system, before build or change. 2 An AI-assisted, living model AI drafts data flows and threats from design docs so the model keeps pace; our experts decide. 3 Attack paths, not lists Weaknesses chained into real paths and choke points fixed first, weighted by live threat intelligence. 4 Every risk has an owner Third-party and identity routes included; each finding lands in your backlog with a named owner."
+  },
+  {
+   "doc": "doc-01",
+   "section": "What you receive",
+   "text": "What you receive: threat model (data flows & trust boundaries) · STRIDE threat register · attack-path findings with choke points · prioritized control recommendations with owners · executive summary Aligned with: STRIDE · PASTA · attack trees · MITRE ATT&CK · NIST SP 800-218 (SSDF) · ISO/IEC 27001:2022 (8.27)"
+  },
+  {
+   "doc": "doc-01",
+   "section": "How it works and notes",
+   "text": "Pairs with Cyber Threat Intelligence. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. UNTRUSTED APPLICATION TIER CRITICAL ASSETS TRUST BOUNDARY TRUST BOUNDARY Phishing email to staff Compromised credential MFA Exposed web or API endpoint Vulnerable app server WAF, patching Third-party / vendor access Over-privileged cloud role Least privilege Crown jewels Customer data Payment switch Core banking 1 Decompose What are we working on? 2 Identify threats What can go wrong? 3 Map attack paths How would it be chained? 4 Rank & treat What will we do about it? 5 Validate Did we do a good job?"
+  },
+  {
+   "doc": "doc-02",
+   "section": "Overview",
+   "text": "CYBER THREAT INTELLIGENCE Too many threat alerts. Too little intelligence. Your teams face endless feeds yet still miss the threats aimed at you. We turn that noise into intelligence people can act on. BUSINESS VALUE Improves prioritization of security attention."
+  },
+  {
+   "doc": "doc-02",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Drowning in threat feeds Too many feeds and alerts, most irrelevant to you. Analysts triage noise. 2 Blind beyond the perimeter Leaked credentials and lookalike domains go unseen until they are used. 3 Intelligence that changes nothing Reports land in inboxes but never change detections, patches or priorities. 4 Proving it to regulators ISO 27001 and sector regulators expect proof that intelligence drives action."
+  },
+  {
+   "doc": "doc-02",
+   "section": "How MindSuite helps: from scattered signals to decisions",
+   "text": "MindSuite Cyber Threat Intelligence is a continuous service that collects and analyzes threat information against your actual assets and priorities, from strategic board briefs to technical indicators for your SOC."
+  },
+  {
+   "doc": "doc-02",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 AI-assisted, analyst-validated AI triages and correlates high-volume signals; our analysts verify findings, so you see what matters. 2 Visibility end to end Dark web, credential and brand monitoring tied to your own assets, from exposure to response. 3 Built to be acted on ATT&CK-mapped findings delivered into your SIEM and SOAR and routed to the team that acts. 4 Requirements-led, audit-ready We start from agreed intelligence requirements, giving a clear trail from question to action."
+  },
+  {
+   "doc": "doc-02",
+   "section": "What you receive",
+   "text": "What you receive: monthly threat landscape brief · priority flash alerts · ATT&CK-mapped detection recommendations · contextual indicators (STIX/TAXII) · credential & brand exposure findings · quarterly executive briefing Aligned with: ISO/IEC 27001:2022 (5.7) · NIST CSF 2.0 · NIST SP 800-150 · MITRE ATT&CK · FIRST TLP 2.0"
+  },
+  {
+   "doc": "doc-02",
+   "section": "How it works and notes",
+   "text": "Pairs with Threat Modeling & Attack Path Review. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. Internal telemetry Open source (OSINT) ISACs & CERTs Commercial feeds Dark web & forums AI-ASSISTED ANALYST-VALIDATED The intelligence lifecycle Strategic Board and CISO: risk briefs Operational Security leads: campaign reports Tactical SOC: ATT&CK-mapped TTPs Technical Tools: indicators (STIX/TAXII) 1 Direction Agree intelligence requirements 2 Collection Gather from relevant sources 3 Analysis Assess relevance and confidence 4 Dissemination Brief each audience, then refine"
+  },
+  {
+   "doc": "doc-03",
+   "section": "Overview",
+   "text": "RED TEAM & PURPLE TEAM EXERCISES Would your defenses spot a real attacker? Tools and alerts look fine on paper. We test whether your people, detections and response hold up against realistic attacks. BUSINESS VALUE Tests operational defenses against realistic attack behavior."
+  },
+  {
+   "doc": "doc-03",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Untested detections Rules exist, but no one knows which attacker behaviors they actually catch. 2 Pen tests miss the chain Single-target tests rarely show how an intruder moves to critical assets. 3 Blue team learns too late Findings arrive as a report months later, not as hands- on improvement. 4 No proof for leadership Boards ask if the SOC is ready; there is little evidence either way."
+  },
+  {
+   "doc": "doc-03",
+   "section": "How MindSuite helps: attack, detect, improve",
+   "text": "An authorized adversary simulation that tests whether selected defenses and response processes work in practice. Red-team work pursues agreed objectives; purple-team collaboration helps defenders improve detection during or after testing."
+  },
+  {
+   "doc": "doc-03",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Mapped to MITRE ATT&CK Every simulated technique is mapped, so you see exactly which behaviors you detect. 2 End to end, to the crown jewels We chain access, privilege and movement through to agreed business objectives. 3 Purple-team collaboration We work alongside defenders to tune detections during the exercise, not after. 4 AI-assisted evidence reporting AI organizes exercise evidence; experts produce a board- ready view of readiness."
+  },
+  {
+   "doc": "doc-03",
+   "section": "What you receive",
+   "text": "What you receive: exercise plan · rules of engagement · exercise evidence · detection-gap findings mapped to ATT&CK · improvement recommendations · retest results Aligned with: MITRE ATT&CK · TIBER-EU threat-led testing · NIST CSF 2.0 (Detect, Respond)"
+  },
+  {
+   "doc": "doc-03",
+   "section": "How it works and notes",
+   "text": "Pairs with Security Incident Response. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. RED TEAM BLUE TEAM 1 Initial access Detected 2 Persistence Gap found 3 Privilege escalation Detected 4 Lateral movement Gap found 5 Objective Detected PURPLE TEAM: DETECT · TUNE · RETEST 1 Agree objectives & rules Crown-jewel goals and rules of engagement 2 Simulate attacks Realistic, threat-informed adversary behavior 3 Review detection & response What was seen, missed and escalated 4 Retest after improvements Confirm gaps are actually closed"
+  },
+  {
+   "doc": "doc-04",
+   "section": "Overview",
+   "text": "PENETRATION TESTING Find the weaknesses before attackers do. Scanners produce long lists; attackers need one way in. We find and prove the weaknesses that matter, with clear fixes. BUSINESS VALUE Identifies exploitable weaknesses before an attacker can use them."
+  },
+  {
+   "doc": "doc-04",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Scanner noise Thousands of automated findings, few proven to be exploitable. 2 New releases, new holes Every app release, API and cloud change can open fresh entry points. 3 Findings without fixes Reports list issues but give developers little practical guidance. 4 Customers and auditors ask Clients, regulators and PCI DSS expect independent testing evidence."
+  },
+  {
+   "doc": "doc-04",
+   "section": "How MindSuite helps: the attacker's view, layer by layer",
+   "text": "An authorized, scoped effort to find and validate exploitable weaknesses in selected applications or infrastructure. It produces evidence-based findings and remediation guidance within agreed rules, with retesting as agreed."
+  },
+  {
+   "doc": "doc-04",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Manual validation of every finding Each issue is proven exploitable, so your team fixes real risk first. 2 Chained, end-to-end attack paths We show how small issues combine into a route to critical systems. 3 Developer-ready guidance Clear reproduction steps and fixes your engineers can act on directly. 4 AI-assisted triage, expert-tested AI speeds recon and de-duplication; certified testers do the exploitation."
+  },
+  {
+   "doc": "doc-04",
+   "section": "What you receive",
+   "text": "What you receive: technical findings with evidence · risk priorities (CVSS) · remediation guidance · executive summary · agreed retest results Aligned with: OWASP WSTG · OWASP API Security Top 10 · PTES · NIST SP 800-115 · CVSS v4.0"
+  },
+  {
+   "doc": "doc-04",
+   "section": "How it works and notes",
+   "text": "Pairs with Remediation Management. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. EXTERNAL NETWORK INTERNAL NETWORK APPS & APIs DATA Attacker Blocked Exploit proven 1 Define targets & rules Scope, timing and safe-testing limits 2 Test for weaknesses Manual and tool-assisted testing 3 Validate impact Prove what an attacker could really do 4 Report & retest Prioritized fixes, then confirm closure"
+  },
+  {
+   "doc": "doc-05",
+   "section": "Overview",
+   "text": "AI & GENERATIVE AI SECURITY Your teams adopted AI. Did security? Copilots and chatbots spread faster than policy. We find where AI touches your data and set guardrails that keep adoption safe. BUSINESS VALUE Clarifies risks introduced by business adoption of generative AI."
+  },
+  {
+   "doc": "doc-05",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Shadow AI everywhere Staff use public AI tools with no inventory or usage rules. 2 Sensitive data in prompts Customer and internal data can leak through prompts and outputs. 3 New attack types Prompt injection and jailbreaks bypass traditional controls. 4 Unclear accountability No one owns AI risk across business, IT and legal."
+  },
+  {
+   "doc": "doc-05",
+   "section": "How MindSuite helps: guardrails between your people and AI",
+   "text": "A bounded review of AI and generative-AI systems that combines system inventory, data-access review and adversarial testing. It examines prompt-based attacks, information leakage and action boundaries, then recommends practical controls and usage rules."
+  },
+  {
+   "doc": "doc-05",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Full AI inventory We map sanctioned and shadow AI use so nothing is left ungoverned. 2 Data-flow review end to end We trace what data each AI can reach, from prompt to provider. 3 Adversarial testing AI-assisted attack generation, expert-reviewed, using the OWASP LLM Top 10. 4 Practical governance Usage rules and owners aligned with NIST AI RMF and ISO/IEC 42001."
+  },
+  {
+   "doc": "doc-05",
+   "section": "What you receive",
+   "text": "What you receive: AI exposure inventory · data-access findings · security findings from adversarial tests · control plan · usage guidance Aligned with: OWASP Top 10 for LLM Applications · NIST AI RMF · ISO/IEC 42001 · MITRE ATLAS"
+  },
+  {
+   "doc": "doc-05",
+   "section": "How it works and notes",
+   "text": "Pairs with AI Security. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. Sensitive data GUARDRAILS AI Copilots and chatbots Models & providers Company data (RAG) Plugins & actions Shadow AI found and governed Clear usage rules 1 Inventory AI workflows Sanctioned and shadow AI use 2 Review data access What each AI system can see and send 3 Test misuse Prompt injection, leakage, unsafe actions 4 Define guardrails Controls and clear usage rules"
+  },
+  {
+   "doc": "doc-06",
+   "section": "Overview",
+   "text": "NETWORK & ENDPOINT SECURITY One compromised laptop shouldn't reach it all. Flat networks and inconsistent device controls let one foothold spread. We design protection around how your environment really works. BUSINESS VALUE Reduces opportunities for compromise and uncontrolled lateral movement."
+  },
+  {
+   "doc": "doc-06",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Flat networks Once inside, attackers move freely between systems. 2 Uneven endpoint protection Agents missing, misconfigured or never tuned on key devices. 3 Tools bought, not integrated Each control runs alone, with gaps between them. 4 Hybrid work sprawl Remote users and branch sites widen the attack surface."
+  },
+  {
+   "doc": "doc-06",
+   "section": "How MindSuite helps: contain the blast radius",
+   "text": "Design and implementation of safeguards for endpoints and network communication. The service coordinates device protection, network segmentation and monitoring around your actual operating environment, not as standalone installations."
+  },
+  {
+   "doc": "doc-06",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Designed end to end Endpoint, network and monitoring controls planned as one system. 2 Segmentation that fits operations Rules based on real traffic, so business keeps running. 3 AI-assisted traffic analysis AI groups observed flows to propose segments; engineers validate them. 4 Tested, not assumed We simulate attacker techniques to prove detection works."
+  },
+  {
+   "doc": "doc-06",
+   "section": "What you receive",
+   "text": "What you receive: security configurations · segmentation rules · detection test results · operating procedures Aligned with: CIS Controls v8 · CIS Benchmarks · ISO/IEC 27001:2022 (8.1, 8.20–8.22) · MITRE ATT&CK"
+  },
+  {
+   "doc": "doc-06",
+   "section": "How it works and notes",
+   "text": "Pairs with Zero Trust Architecture. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. USER ZONE SERVER ZONE CRITICAL ZONE Infected device contained Monitoring across every zone 1 Assess devices & traffic Coverage, configuration and flows 2 Configure protection Hardened endpoints and EDR policies 3 Segment the network Limit lateral movement paths 4 Validate detection Test that alerts fire as expected"
+  },
+  {
+   "doc": "doc-07",
+   "section": "Overview",
+   "text": "CLOUD NATIVE SECURITY Misconfiguration is the new open door. Cloud moves fast and defaults are rarely safe. We harden your accounts, workloads and access, and make clear who owns what. BUSINESS VALUE Reduces cloud misconfiguration and unnecessary exposure."
+  },
+  {
+   "doc": "doc-07",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Misconfigurations at scale Public storage, open ports and weak defaults slip into production. 2 Over-privileged identities Roles and keys grant far more access than workloads need. 3 Shared responsibility confusion Teams assume the provider secures what is theirs to secure. 4 Containers move too fast Kubernetes and images change daily without security review."
+  },
+  {
+   "doc": "doc-07",
+   "section": "How MindSuite helps: your side of the shared-responsibility model",
+   "text": "Security assessment and implementation for cloud accounts, services, containers and orchestration environments. It addresses cloud-specific configuration and access risks while clarifying the responsibilities you retain and those of your providers."
+  },
+  {
+   "doc": "doc-07",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Clear ownership We map provider versus customer duties so no control is orphaned. 2 Multi-cloud, end to end AWS, Azure, GCP and Kubernetes reviewed against one baseline. 3 AI-assisted posture analysis AI ranks misconfigurations by exposure; experts confirm the fixes. 4 Security as code Hardening delivered as reusable templates for every new deployment."
+  },
+  {
+   "doc": "doc-07",
+   "section": "What you receive",
+   "text": "What you receive: posture findings · implemented controls · access rules · monitoring guidance Aligned with: CSA Cloud Controls Matrix · CIS Benchmarks (cloud, Kubernetes) · NIST SP 800-190 · ISO/IEC 27017"
+  },
+  {
+   "doc": "doc-07",
+   "section": "How it works and notes",
+   "text": "Pairs with Identity & Privileged Access Management. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. PROVIDER SECURES Facilities, hardware, hypervisor YOU SECURE Identity Configuration Containers Monitoring Least privilege by default 1 Review cloud posture Accounts, services and exposure 2 Harden configurations Benchmarks applied as code 3 Manage workload access Least-privilege roles and secrets 4 Enable monitoring Cloud logs and alerts that matter"
+  },
+  {
+   "doc": "doc-08",
+   "section": "Overview",
+   "text": "DATA PROTECTION Do you know where your sensitive data is? Data spreads across apps, cloud and inboxes. We find what matters and protect it wherever it is stored, used or shared. BUSINESS VALUE Reduces unintended exposure of important business information."
+  },
+  {
+   "doc": "doc-08",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Data everywhere Copies of sensitive data spread across SaaS, cloud and devices. 2 No consistent classification Teams cannot tell confidential data from routine files. 3 Leaks through everyday tools Email, sharing links and uploads expose data quietly. 4 Privacy laws tightening India's DPDP Act and global laws raise the stakes."
+  },
+  {
+   "doc": "doc-08",
+   "section": "How MindSuite helps: protection that follows the data",
+   "text": "A coordinated approach to identifying sensitive data and protecting it throughout storage, use and transfer. It aligns classification, access restrictions, loss-prevention controls and encryption with your data-handling requirements."
+  },
+  {
+   "doc": "doc-08",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Discovery across every store AI-assisted scanning finds sensitive data in cloud, SaaS and file shares. 2 Protection end to end Classification, DLP and encryption tuned together across the lifecycle. 3 Low-friction controls Policies tested with users so protection doesn't stop the business. 4 Regulation-ready Handling rules mapped to DPDP Act, GDPR and ISO 27001 controls."
+  },
+  {
+   "doc": "doc-08",
+   "section": "What you receive",
+   "text": "What you receive: data-handling rules · classification scheme · protection configurations · findings · operating procedures Aligned with: ISO/IEC 27001:2022 (5.12, 8.12, 8.24) · DPDP Act 2023 · GDPR · NIST Privacy Framework"
+  },
+  {
+   "doc": "doc-08",
+   "section": "How it works and notes",
+   "text": "Pairs with AI & Generative AI Security. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. CLASSIFY ONCE Public Internal Confidential Restricted Create Label at source Store Encrypt at rest Use Least access Share DLP on transfer Archive Retention rules Dispose Verified deletion PROTECTION FOLLOWS THE DATA THROUGH ITS LIFECYCLE 1 Classify data Simple labels people can apply 2 Map data flows Where sensitive data lives and travels 3 Configure protection Access, DLP and encryption 4 Manage exceptions Validate controls and handle edge cases"
+  },
+  {
+   "doc": "doc-09",
+   "section": "Overview",
+   "text": "AI SECURITY Your copilot can see a lot. What can it do? AI apps combine prompts, company data and tool access. We test how they could be tricked and tighten their boundaries. BUSINESS VALUE Helps teams secure a specific AI implementation."
+  },
+  {
+   "doc": "doc-09",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Prompt injection Hidden instructions in content can redirect your AI's behavior. 2 Over-reaching retrieval Assistants surface documents users should never see. 3 Tools with broad permissions Agents can send, change or delete more than intended. 4 No AI test baseline Traditional app testing misses model-specific attacks."
+  },
+  {
+   "doc": "doc-09",
+   "section": "How MindSuite helps: testing every layer of your AI application",
+   "text": "Security assessment and improvement of selected AI models, copilots and their supporting workflows. It examines how inputs, retrieved data and tool permissions could produce unauthorized disclosure or behavior, within a defined technical scope."
+  },
+  {
+   "doc": "doc-09",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Model-specific testing Attacks drawn from MITRE ATLAS and the OWASP LLM Top 10. 2 End-to-end data boundaries We check what the AI can retrieve against what each user may see. 3 AI-assisted red teaming AI generates attack variants at scale; experts judge real impact. 4 Repeatable validation Test suites you can rerun on every model or prompt change."
+  },
+  {
+   "doc": "doc-09",
+   "section": "What you receive",
+   "text": "What you receive: AI security findings · prioritized mitigations · validation tests · control guidance Aligned with: OWASP Top 10 for LLM Applications · MITRE ATLAS · NIST AI 600-1 · ISO/IEC 42001"
+  },
+  {
+   "doc": "doc-09",
+   "section": "How it works and notes",
+   "text": "Pairs with AI & Generative AI Security. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. Inputs Prompt injection Retrieval (RAG) Data over-exposure Model Jailbreak Tools & actions Excessive agency Outputs Leak checks & logging 1 Review AI architecture Model, data sources and integrations 2 Test prompt attacks & leakage Injection, jailbreaks, data exposure 3 Improve access boundaries Scope retrieval and tool permissions 4 Validate mitigations Repeatable tests for each release"
+  },
+  {
+   "doc": "doc-10",
+   "section": "Overview",
+   "text": "OT / ICS SECURITY Protect the plant without stopping it. IT-style fixes can halt production. We improve industrial security in ways that respect safety and uptime. BUSINESS VALUE Improves industrial security without ignoring operating constraints."
+  },
+  {
+   "doc": "doc-10",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Unknown assets Legacy controllers and devices that no inventory captures. 2 IT and OT converging Remote access and IT links open paths into the plant. 3 Patching isn't simple Downtime and vendor limits make standard fixes unsafe. 4 Safety comes first Security changes must never put people or processes at risk."
+  },
+  {
+   "doc": "doc-10",
+   "section": "How MindSuite helps: a controlled path from office to plant floor",
+   "text": "Security work for operational technology and industrial control systems. We inventory assets, assess communication paths and access, and plan improvements that can be made safely within production and safety constraints."
+  },
+  {
+   "doc": "doc-10",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Passive, safety-first discovery Asset visibility without touching fragile controllers. 2 IT-to-OT, end to end We trace every path from enterprise and vendors to the process. 3 AI-assisted traffic baselining AI learns normal OT communication; engineers flag the anomalies. 4 Staged, realistic roadmap Fixes sequenced around maintenance windows and vendor support."
+  },
+  {
+   "doc": "doc-10",
+   "section": "What you receive",
+   "text": "What you receive: asset view · communication-path map · segmentation recommendations · access controls · staged remediation plan Aligned with: IEC 62443 · NIST SP 800-82 Rev. 3 · MITRE ATT&CK for ICS"
+  },
+  {
+   "doc": "doc-10",
+   "section": "How it works and notes",
+   "text": "Pairs with Network & Endpoint Security. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. ENTERPRISE IT INDUSTRIAL DMZ Direct path blocked One controlled conduit SITE OPERATIONS SCADA · HMI · historians CONTROLLERS & PROCESS PLC PLC PLC 1 Inventory assets Passive discovery, no disruption 2 Assess communication paths Who and what talks to controllers 3 Review access Remote, vendor and engineering access 4 Plan safe improvements Staged around maintenance windows"
+  },
+  {
+   "doc": "doc-11",
+   "section": "Overview",
+   "text": "IDENTITY & PRIVILEGED ACCESS MANAGEMENT Too many people can do too much. Access piles up as people join, move and leave. We cut excess privilege and keep admin access controlled and reviewed. BUSINESS VALUE Reduces excessive and unmanaged access to critical systems."
+  },
+  {
+   "doc": "doc-11",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Access creep People keep old permissions long after they change roles. 2 Uncontrolled admin rights Shared and standing admin accounts are prime targets. 3 Forgotten machine identities Service accounts and API keys never expire or get reviewed. 4 Painful access reviews Auditors want evidence; reviews are slow and rubber- stamped."
+  },
+  {
+   "doc": "doc-11",
+   "section": "How MindSuite helps: the right access, for the right time",
+   "text": "Management of workforce, privileged and machine access across agreed systems. It pairs identity lifecycle control with restrictions and oversight for high-privilege activity, so access can be justified, reviewed and removed when no longer needed."
+  },
+  {
+   "doc": "doc-11",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Complete identity inventory Human and machine identities found and owned across systems. 2 Privilege end to end From directory to cloud to apps, standing admin access is reduced. 3 AI-assisted access analytics AI flags outlier and unused entitlements; owners decide. 4 Audit-ready by design Review workflows that produce evidence auditors accept."
+  },
+  {
+   "doc": "doc-11",
+   "section": "What you receive",
+   "text": "What you receive: documented access model · privileged access controls · access review process · audit evidence Aligned with: NIST SP 800-63 · ISO/IEC 27001:2022 (5.15–5.18, 8.2) · CIS Controls v8 (5, 6)"
+  },
+  {
+   "doc": "doc-11",
+   "section": "How it works and notes",
+   "text": "Pairs with Zero Trust Architecture. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. Workforce Employees, contractors Privileged Admins, root, domain Machine Services, API keys PAM VAULT Just-in-time, recorded access CRITICAL SYSTEMS Access justified, reviewed and removed when no longer needed LIFECYCLE Joiner Mover Leaver 1 Catalogue identities People, admins, services and keys 2 Set least privilege Right-size roles and entitlements 3 Control privileged accounts Vaulting, just-in-time, session oversight 4 Review the lifecycle Joiner, mover, leaver and recertification"
+  },
+  {
+   "doc": "doc-12",
+   "section": "Overview",
+   "text": "ZERO TRUST ARCHITECTURE Stop trusting the network. Verify access. Once inside, attackers inherit trust they shouldn't. We design access that checks identity, device and context every time. BUSINESS VALUE Limits unnecessary trust and improves consistency of access decisions."
+  },
+  {
+   "doc": "doc-12",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Implicit network trust Being 'inside' still grants broad access to systems. 2 Inconsistent access rules Each app and site decides access its own way. 3 Zero Trust buzzword fatigue Vendors sell products, not a practical transition plan. 4 Big-bang change is risky Ripping out VPNs and networks at once disrupts users."
+  },
+  {
+   "doc": "doc-12",
+   "section": "How MindSuite helps: never trust, always verify",
+   "text": "An architecture approach where access decisions rely on verified identities, resource context and policy rather than implicit trust in network location. The engagement defines a practical transition design across selected users, devices and applications."
+  },
+  {
+   "doc": "doc-12",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Vendor-neutral design Architecture first, mapped to the tools you already own. 2 End to end across pillars Identity, device, network, app and data designed together. 3 AI-assisted access mapping AI analyzes access logs to draft policies; architects refine them. 4 Phased, measurable roadmap Maturity stages with validation criteria, not a big bang."
+  },
+  {
+   "doc": "doc-12",
+   "section": "What you receive",
+   "text": "What you receive: reference architecture · access patterns · phased roadmap · validation criteria Aligned with: NIST SP 800-207 · CISA Zero Trust Maturity Model v2.0 · NIST CSF 2.0"
+  },
+  {
+   "doc": "doc-12",
+   "section": "How it works and notes",
+   "text": "Pairs with Identity & Privileged Access Management. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. Access request Identity Device health Context & risk POLICY ENGINE Verify explicitly, every session Applications Data Workloads Least-privilege, per- session access Denied: unmanaged device 1 Assess access paths How users reach apps and data today 2 Define policy enforcement Where and how decisions are made 3 Design identity & segmentation Controls for each pillar 4 Plan phased rollout Validation criteria for each stage"
+  },
+  {
+   "doc": "doc-13",
+   "section": "Overview",
+   "text": "EXECUTIVE SECURITY ADVISORY Security spend the board can understand. Leaders hear jargon, not business risk. We connect security investment to the decisions your executives actually make. BUSINESS VALUE Connects security investment to executive business decisions."
+  },
+  {
+   "doc": "doc-13",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Jargon in the boardroom Technical updates don't answer what the board needs to decide. 2 Spend without direction Budgets go to tools without a clear, prioritized roadmap. 3 Rising director liability Regulators expect boards to oversee cyber risk actively. 4 No trusted second opinion Executives lack independent advice on security choices."
+  },
+  {
+   "doc": "doc-13",
+   "section": "How MindSuite helps: from technical noise to board decisions",
+   "text": "A security-leadership engagement that combines fractional executive guidance with board-level risk communication. We review posture, set a roadmap, advise leadership on decisions and prepare clear board reporting."
+  },
+  {
+   "doc": "doc-13",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Business language Risk expressed in money, operations and reputation, not jargon. 2 End-to-end view Posture, roadmap, decisions and reporting handled as one cycle. 3 AI-assisted insight AI condenses findings and benchmarks; advisers shape the message. 4 Independent counsel Vendor-neutral advice your board can rely on."
+  },
+  {
+   "doc": "doc-13",
+   "section": "What you receive",
+   "text": "What you receive: security roadmap · board materials · decision recommendations · oversight cadence Aligned with: NIST CSF 2.0 (Govern) · ISO/IEC 27014 · ISO/IEC 27001 (Leadership)"
+  },
+  {
+   "doc": "doc-13",
+   "section": "How it works and notes",
+   "text": "Pairs with vCISO Retainer Services. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. TECHNICAL NOISE CVE lists SIEM alerts Patch levels Pen-test findings Audit gaps Tool sprawl MINDSUITE ADVISOR BOARD VIEW Top risks, in business terms Investment priorities Roadmap progress 1 Review posture Where you stand against your risks 2 Set the roadmap Priorities tied to business goals 3 Advise leadership Independent input on key decisions 4 Prepare board reporting Clear, decision-ready material"
+  },
+  {
+   "doc": "doc-14",
+   "section": "Overview",
+   "text": "VCISO RETAINER SERVICES CISO-level leadership, without the hire. You need a CISO's judgment but not necessarily a full-time executive. We provide accountable direction at the level you need. BUSINESS VALUE Provides accountable security direction at an agreed engagement level."
+  },
+  {
+   "doc": "doc-14",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 No one owns security IT juggles security alongside everything else. 2 Scarce, costly talent Experienced CISOs are hard to hire and retain. 3 Customers ask hard questions Security questionnaires and audits need a credible lead. 4 Programs stall Initiatives start but lose momentum without leadership."
+  },
+  {
+   "doc": "doc-14",
+   "section": "How MindSuite helps: one accountable security leader",
+   "text": "Part-time security leadership that guides your security program without a full-time executive appointment. Responsibilities and authority are agreed across priorities, policies, risk treatment and coordination with internal teams."
+  },
+  {
+   "doc": "doc-14",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Clear accountability Agreed responsibilities and authority, not vague advice. 2 End-to-end program view Strategy, policy, risk and delivery led by one person. 3 AI-assisted reporting AI drafts status and risk reports; your vCISO owns the judgment. 4 Flexible engagement Scale hours up or down as your needs change."
+  },
+  {
+   "doc": "doc-14",
+   "section": "What you receive",
+   "text": "What you receive: security plan · governance cadence · risk updates · leadership advice Aligned with: NIST CSF 2.0 · ISO/IEC 27001:2022 · CIS Controls v8"
+  },
+  {
+   "doc": "doc-14",
+   "section": "How it works and notes",
+   "text": "Pairs with Executive Security Advisory. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. Board IT & engineering Auditors Customers Regulators Vendors vCISO One accountable security leader 1 Establish priorities A plan matched to your risks 2 Guide program work Policies, projects and vendors 3 Coordinate stakeholders IT, business, auditors and boards 4 Report progress Regular risk and progress updates"
+  },
+  {
+   "doc": "doc-15",
+   "section": "Overview",
+   "text": "SECURITY GOVERNANCE Who decides on security? Make it clear. Security fails when decisions and ownership are fuzzy. We define who sets the rules, who accepts risk and who checks. BUSINESS VALUE Makes security decisions and ownership consistent."
+  },
+  {
+   "doc": "doc-15",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Unclear ownership No one knows who owns a control or accepts a risk. 2 Policies on the shelf Documents exist but don't guide daily decisions. 3 Tools over governance Security is treated as a set of products, not a discipline. 4 Oversight gaps Leadership can't see whether controls actually perform."
+  },
+  {
+   "doc": "doc-15",
+   "section": "How MindSuite helps: clear decisions, clear ownership",
+   "text": "Definition of the policies, responsibilities and decision processes through which your organization manages security. Governance clarifies who sets requirements, accepts risk and verifies performance, rather than treating security as a collection of tools."
+  },
+  {
+   "doc": "doc-15",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Clarity on decision rights A responsibility matrix everyone can follow. 2 End-to-end governance From board appetite down to individual control owners. 3 AI-assisted policy drafting AI drafts and aligns policies; experts tailor them to you. 4 Built for oversight Review calendar and metrics leadership can actually use."
+  },
+  {
+   "doc": "doc-15",
+   "section": "What you receive",
+   "text": "What you receive: governance framework · policy set · responsibility (RACI) matrix · review calendar Aligned with: NIST CSF 2.0 (Govern) · ISO/IEC 27001:2022 · ISO/IEC 27014 · COBIT 2019"
+  },
+  {
+   "doc": "doc-15",
+   "section": "How it works and notes",
+   "text": "Pairs with Cyber Risk Management. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. BOARD Policies What must be done Decision rights Who approves and accepts risk Control owners Who does the work, who checks RESPONSIBILITY MATRIX CISO IT Risk Audit A R C I R A I C C R A I I C R A 1 Define policies Practical, approved and current 2 Set decision rights Who approves, accepts and escalates 3 Assign control ownership A named owner for every control 4 Establish oversight Review routines and reporting"
+  },
+  {
+   "doc": "doc-16",
+   "section": "Overview",
+   "text": "CYBER RISK MANAGEMENT Which cyber risks deserve your budget first? Every risk looks urgent when it's described technically. We express cyber risk in business terms so you can invest wisely. BUSINESS VALUE Helps leaders prioritize risk-reduction investment."
+  },
+  {
+   "doc": "doc-16",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Technical risk lists Long vulnerability lists don't show business consequences. 2 Heat maps without logic Red-amber-green scores with no clear rationale behind them. 3 No risk owners Risks are recorded but nobody is accountable for treatment. 4 Hard to justify spend Leaders can't compare security investments to other priorities."
+  },
+  {
+   "doc": "doc-16",
+   "section": "How MindSuite helps: risk your business can act on",
+   "text": "A process for identifying, assessing and treating cyber risks in business terms. It links threats and weaknesses to consequences, accountable owners and treatment decisions, and states assessment assumptions openly."
+  },
+  {
+   "doc": "doc-16",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Scenario-based, not checklist Risks framed as events your business would recognize. 2 End-to-end traceability From threat and weakness to consequence, owner and decision. 3 AI-assisted analysis AI gathers threat and control data; analysts make the judgments. 4 Transparent assumptions Every rating explained, so decisions can be defended."
+  },
+  {
+   "doc": "doc-16",
+   "section": "What you receive",
+   "text": "What you receive: risk register · assessment rationale · treatment plan · reporting approach Aligned with: ISO/IEC 27005 · ISO 31000 · NIST SP 800-30 · FAIR"
+  },
+  {
+   "doc": "doc-16",
+   "section": "How it works and notes",
+   "text": "Pairs with Security Governance. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. LIKELIHOOD IMPACT RISK IN BUSINESS TERMS, WITH AN OWNER AND A DECISION Ransomware halts operations Likelihood and impact stated with assumptions Treat: Reduce Customer data exposed Linked to the weaknesses and controls involved Treat: Reduce Key supplier compromised Consequences owned by a named business owner Treat: Transfer 1 Identify scenarios Realistic threat and impact scenarios 2 Assess likelihood & impact Transparent, documented reasoning 3 Assign owners Accountable business owners 4 Plan treatment Reduce, transfer, avoid or accept"
+  },
+  {
+   "doc": "doc-17",
+   "section": "Overview",
+   "text": "COMPLIANCE & AUDIT READINESS One control set. Every framework covered. ISO, SOC 2, PCI and regulators each ask for evidence. We organize requirements once so preparation stops being fragmented. BUSINESS VALUE Reduces fragmented preparation for multiple assurance requirements."
+  },
+  {
+   "doc": "doc-17",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Framework overload ISO 27001, SOC 2, PCI DSS and regulators overlap but are run separately. 2 Evidence scramble Teams hunt for proof every time an audit approaches. 3 Unknown gaps Readiness is assumed until an auditor finds the gap. 4 Duplicated effort The same control is documented three different ways."
+  },
+  {
+   "doc": "doc-17",
+   "section": "How MindSuite helps: map once, evidence many",
+   "text": "An engagement that organizes applicable control requirements and supporting evidence into a coordinated program, including gap analysis and remediation planning. Formal certification or audit conclusions remain with the relevant independent assessor."
+  },
+  {
+   "doc": "doc-17",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Unified control mapping One control set mapped across all your frameworks. 2 End-to-end readiness From requirement to evidence to corrective action. 3 AI-assisted evidence mapping AI matches documents to controls; experts verify sufficiency. 4 Independent and honest We prepare you; certification stays with the independent assessor."
+  },
+  {
+   "doc": "doc-17",
+   "section": "What you receive",
+   "text": "What you receive: control mapping · evidence index · gap assessment · remediation plan Aligned with: ISO/IEC 27001:2022 · SOC 2 · PCI DSS v4.0 · NIST CSF 2.0 · DPDP Act 2023"
+  },
+  {
+   "doc": "doc-17",
+   "section": "How it works and notes",
+   "text": "Pairs with Audit Readiness & Assurance. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. ISO/IEC 27001 SOC 2 PCI DSS v4.0 NIST CSF 2.0 Sector regulators ONE CONTROL SET EVIDENCE LIBRARY Mapped to every framework Gaps found before the audit Corrective actions tracked 1 Map requirements Overlaps across frameworks 2 Test readiness Controls and evidence against criteria 3 Organize evidence One indexed evidence library 4 Plan corrective actions Prioritized remediation plan"
+  },
+  {
+   "doc": "doc-18",
+   "section": "Overview",
+   "text": "COMPLIANCE PROGRAM MANAGEMENT Compliance every day, not just audit week. Annual audit sprints exhaust teams and leave gaps in between. We build a program that makes compliance routine and repeatable. BUSINESS VALUE Makes recurring compliance obligations easier to manage."
+  },
+  {
+   "doc": "doc-18",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Audit-week panic Work piles up just before each audit, then stops. 2 Unclear control owners Nobody is sure who maintains each control. 3 Evidence goes stale Proof collected once becomes outdated within months. 4 Obligations keep growing New regulations and customer demands add up every year."
+  },
+  {
+   "doc": "doc-18",
+   "section": "How MindSuite helps: a year-round compliance rhythm",
+   "text": "Implementation and maintenance of a structured program for meeting selected compliance requirements. It assigns control responsibilities, evidence routines and review activities so compliance work is repeatable rather than a one-time documentation exercise."
+  },
+  {
+   "doc": "doc-18",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Ownership built in Every control has a named owner and routine. 2 End-to-end program Plan, own, evidence and review run as one cycle. 3 AI-assisted tracking AI reminds owners and checks evidence freshness; humans approve. 4 Scales with new obligations New frameworks slot into the same program."
+  },
+  {
+   "doc": "doc-18",
+   "section": "What you receive",
+   "text": "What you receive: compliance plan · control ownership · evidence schedule · reporting process Aligned with: ISO 37301 · ISO/IEC 27001:2022 · NIST CSF 2.0 · SOC 2 · PCI DSS v4.0"
+  },
+  {
+   "doc": "doc-18",
+   "section": "How it works and notes",
+   "text": "Pairs with Compliance & Audit Readiness. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. ALWAYS AUDIT-READY 12 months Evidence collected on schedule Routine collection, not a last-minute hunt Owners review their controls Named owners confirm controls still operate Internal checks find gaps early Issues tracked to closure before auditors arrive Leadership sees the status Regular reporting on obligations and risk 1 Define applicable controls What applies to you, and why 2 Assign owners A named owner for every control 3 Establish evidence collection Scheduled, not last-minute 4 Review & report Status leadership can track"
+  },
+  {
+   "doc": "doc-19",
+   "section": "Overview",
+   "text": "AUDIT READINESS & ASSURANCE No surprises when the auditor arrives. Gaps found during an audit cost time and credibility. We review your controls and evidence first, so you walk in prepared. BUSINESS VALUE Improves the quality and completeness of audit preparation."
+  },
+  {
+   "doc": "doc-19",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Surprise findings Gaps appear during the audit, when fixing them is hardest. 2 Incomplete evidence Proof exists but is scattered, outdated or unclear. 3 Controls on paper only Designed controls don't always operate as written. 4 Remediation drifts Agreed fixes lose track before the audit deadline."
+  },
+  {
+   "doc": "doc-19",
+   "section": "How MindSuite helps: ready before the auditor arrives",
+   "text": "A focused readiness review of control design, operation and supporting evidence before an audit or assurance activity. It identifies gaps and corrective actions, without representing the readiness reviewer as the final certifying authority."
+  },
+  {
+   "doc": "doc-19",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Auditor's-eye review We test the way auditors test: design, operation and evidence. 2 End to end to closure From evidence review to verified remediation. 3 AI-assisted evidence checks AI flags missing or stale evidence; reviewers confirm. 4 Clear independence We prepare you; the audit opinion stays with the auditor."
+  },
+  {
+   "doc": "doc-19",
+   "section": "What you receive",
+   "text": "What you receive: readiness report · evidence findings · remediation tracker · audit preparation guidance Aligned with: ISO 19011 · ISO/IEC 27001:2022 · SOC 2 · PCI DSS v4.0"
+  },
+  {
+   "doc": "doc-19",
+   "section": "How it works and notes",
+   "text": "Pairs with Compliance Program Management. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. Gap found early NO SURPRISES ON AUDIT DAY 1 Review evidence Complete and current 2 Test controls Design and operation 3 Fix gaps Tracked to closure Audit day Walk in prepared 1 Review evidence Completeness, quality and dates 2 Test selected controls Design and operating effectiveness 3 Identify gaps Clear, prioritized findings 4 Track remediation Until each gap is closed"
+  },
+  {
+   "doc": "doc-20",
+   "section": "Overview",
+   "text": "VULNERABILITY MANAGEMENT Fix what matters, not just what's flagged. Scanners find thousands of issues; teams can fix a fraction. We focus effort on the weaknesses that are truly consequential. BUSINESS VALUE Focuses remediation on relevant and consequential weaknesses."
+  },
+  {
+   "doc": "doc-20",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Endless scan results Thousands of findings every month, all marked urgent. 2 Severity isn't risk CVSS scores ignore asset value and real exploitation. 3 No clear owners Findings bounce between teams and never get fixed. 4 Counting, not closing Reports track findings found, not risk reduced."
+  },
+  {
+   "doc": "doc-20",
+   "section": "How MindSuite helps: from every finding to the critical few",
+   "text": "An ongoing process for discovering, prioritizing and addressing technical vulnerabilities across defined assets. It pairs scanning with asset context, ownership and verification, so success is measured by closure rather than finding counts."
+  },
+  {
+   "doc": "doc-20",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Risk-based prioritization CVSS, EPSS, CISA KEV and asset value combined into one ranking. 2 End to end to closure From discovery to verified fix, not just a report. 3 AI-assisted triage AI de-duplicates and enriches findings; analysts set priorities. 4 Closure-based metrics Success measured by risk removed, not issues counted."
+  },
+  {
+   "doc": "doc-20",
+   "section": "What you receive",
+   "text": "What you receive: vulnerability inventory · prioritized work queue · remediation reports · retest evidence Aligned with: CVSS v4.0 · EPSS · CISA KEV · ISO/IEC 27001:2022 (8.8) · CIS Controls v8 (7)"
+  },
+  {
+   "doc": "doc-20",
+   "section": "How it works and notes",
+   "text": "Pairs with Remediation Management. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. EVERY SCAN FINDING Exploited in the wild Likely to be exploited On a critical asset Fix first Owners, deadlines and retest Fix next Scheduled into normal work Monitor Re-checked every cycle 1 Define coverage Assets, owners and scan scope 2 Scan & validate Remove false positives 3 Prioritize by risk Exploitation and business impact 4 Assign & verify closure Owners, deadlines and retests"
+  },
+  {
+   "doc": "doc-21",
+   "section": "Overview",
+   "text": "APPLICATION SECURITY & SECURE DEVELOPMENT Ship fast without shipping vulnerabilities. Security bolted on at the end slows releases and misses flaws. We build it into how your teams already design and deliver. BUSINESS VALUE Reduces avoidable application weaknesses throughout delivery."
+  },
+  {
+   "doc": "doc-21",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Security at the end Testing just before release forces painful late fixes. 2 Tool noise for developers Scanners flood engineers with low-value findings. 3 Risky dependencies Open-source libraries carry inherited vulnerabilities. 4 No shared standard Each team decides its own security practices."
+  },
+  {
+   "doc": "doc-21",
+   "section": "How MindSuite helps: security at every stage of delivery",
+   "text": "Integration of security activities into application design, development and release. It combines requirements, review and suitable testing to help engineering teams prevent and detect weaknesses within their regular delivery workflow."
+  },
+  {
+   "doc": "doc-21",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Shift left, not just test Requirements and design reviews prevent flaws before code. 2 End-to-end pipeline coverage Code, dependencies, builds and runtime checked together. 3 AI-assisted triage for developers AI filters noise and suggests fixes; engineers decide. 4 Fits your workflow Findings land in your existing backlog and tools."
+  },
+  {
+   "doc": "doc-21",
+   "section": "What you receive",
+   "text": "What you receive: secure-development practices · pipeline test configurations · remediation backlog · developer guidance Aligned with: NIST SP 800-218 (SSDF) · OWASP SAMM · OWASP ASVS · OWASP Top 10"
+  },
+  {
+   "doc": "doc-21",
+   "section": "How it works and notes",
+   "text": "Pairs with Threat Modeling & Attack Path Review. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. Plan Security requirements Design Threat review Code Secure coding Build & test SAST · SCA · DAST Release Release gates Operate Runtime checks Flaw caught at design: cheap to fix Found in production: costly SECURITY CHECKS BUILT INTO YOUR EXISTING PIPELINE 1 Define security requirements Clear, testable expectations 2 Review designs Threat-aware architecture review 3 Integrate checks Code, dependency and runtime tests 4 Manage findings Triage into the team backlog"
+  },
+  {
+   "doc": "doc-22",
+   "section": "Overview",
+   "text": "ATTACK SURFACE & EXPOSURE MANAGEMENT See your organization the way attackers do. Forgotten domains, test servers and cloud assets stay exposed. We find what's reachable from the internet and what to fix first. BUSINESS VALUE Makes overlooked external exposure visible and actionable."
+  },
+  {
+   "doc": "doc-22",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Unknown internet assets Shadow IT, old sites and test systems nobody tracks. 2 Cloud sprawl New services go live faster than inventories update. 3 No clear owners Exposed assets have no one responsible for them. 4 Lists, not priorities Exposure findings without context on what matters most."
+  },
+  {
+   "doc": "doc-22",
+   "section": "How MindSuite helps: your attack surface, discovered and owned",
+   "text": "Discovery and assessment of exposed assets and reachable weaknesses from an attacker-oriented perspective. It connects asset visibility, exposure validation and business importance, rather than relying only on a list of vulnerability identifiers."
+  },
+  {
+   "doc": "doc-22",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Outside-in discovery Assets found the way attackers find them, not from your CMDB. 2 End to end to the owner Each exposure tied to an accountable owner and fix. 3 AI-assisted asset attribution AI links assets to your organization; analysts confirm. 4 Validated, not theoretical Exposures checked for real reachability before escalation."
+  },
+  {
+   "doc": "doc-22",
+   "section": "What you receive",
+   "text": "What you receive: attack-surface inventory · validated exposures · ownership map · prioritized treatment recommendations Aligned with: CTEM approach · CISA KEV · MITRE ATT&CK (Reconnaissance) · CIS Controls v8 (1)"
+  },
+  {
+   "doc": "doc-22",
+   "section": "How it works and notes",
+   "text": "Pairs with Vulnerability Management. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. Exposed test server Reachable from the internet, no owner Fix first Open cloud storage Validated as publicly readable Fix first Forgotten subdomain Unknown to IT, now attributed to an owner Assign owner Known web application Inventoried and monitored Tracked 1 Discover internet-facing assets Domains, IPs, cloud and SaaS 2 Verify ownership Confirm who owns each asset 3 Assess exposure Validate what is truly reachable 4 Prioritize paths Rank by exploitability and value"
+  },
+  {
+   "doc": "doc-23",
+   "section": "Overview",
+   "text": "REMEDIATION MANAGEMENT Findings don't fix themselves. Audit, test and scan findings stall between teams. We drive every fix from finding to verified closure, with clear owners. BUSINESS VALUE Reduces stalled findings and unclear responsibility."
+  },
+  {
+   "doc": "doc-23",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Stalled findings Issues sit open for months after every test and audit. 2 Unclear responsibility Teams dispute who should fix what. 3 Hidden exceptions Risks accepted informally, with no record or expiry. 4 No proof of closure Fixes are claimed but never retested."
+  },
+  {
+   "doc": "doc-23",
+   "section": "How MindSuite helps: every finding driven to closure",
+   "text": "Coordination of security fixes from finding through verified closure. It establishes accountable owners, due dates, exceptions and retesting so remediation progresses across teams and unresolved risk remains visible."
+  },
+  {
+   "doc": "doc-23",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 One tracker for all findings Pen tests, scans and audits managed in one place. 2 End-to-end accountability Ownership, deadlines, exceptions and retest in one flow. 3 AI-assisted follow-up AI groups duplicates and nudges owners; coordinators escalate. 4 Visible residual risk Leadership always sees what remains open and why."
+  },
+  {
+   "doc": "doc-23",
+   "section": "What you receive",
+   "text": "What you receive: remediation tracker · ownership and deadlines · exception records · closure evidence Aligned with: ISO/IEC 27001:2022 (8.8, 10.2) · CIS Controls v8 (7) · CVSS v4.0 · EPSS"
+  },
+  {
+   "doc": "doc-23",
+   "section": "How it works and notes",
+   "text": "Pairs with Vulnerability Management. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. ASSIGNED IN PROGRESS Exception Approved, with expiry RETEST CLOSED 1 Assign findings Named owners and due dates 2 Track work One tracker across all sources 3 Manage exceptions Documented, approved and time- bound 4 Coordinate retests Evidence that fixes really work"
+  },
+  {
+   "doc": "doc-24",
+   "section": "Overview",
+   "text": "INCIDENT & RANSOMWARE READINESS Rehearse the crisis before it happens. In an incident, unclear roles cost hours. We help leaders and operators practice coordinated response and recovery. BUSINESS VALUE Helps leadership and operators rehearse coordinated response."
+  },
+  {
+   "doc": "doc-24",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Plans never tested Playbooks exist but have never been exercised. 2 Unclear decisions Who isolates systems, informs regulators or talks to attackers? 3 Untested backups Recovery is assumed, not proven. 4 Tight reporting deadlines Regulators such as CERT-In expect rapid incident reporting."
+  },
+  {
+   "doc": "doc-24",
+   "section": "How MindSuite helps: rehearse the decisions before the crisis",
+   "text": "A preparedness engagement that brings together incident procedures and ransomware recovery considerations before a crisis. We review playbooks and backups, define key decisions, run tabletop exercises and prioritize the gaps."
+  },
+  {
+   "doc": "doc-24",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Leaders and operators together Executives and technical teams rehearse the same scenario. 2 End-to-end scenarios From detection to regulator notice to recovery. 3 AI-assisted scenario design AI tailors injects to your sector; facilitators run the exercise. 4 Actionable outcomes A prioritized action list, not just a workshop report."
+  },
+  {
+   "doc": "doc-24",
+   "section": "What you receive",
+   "text": "What you receive: readiness assessment · response and recovery plans · exercise findings · action list Aligned with: NIST SP 800-61 Rev. 3 · ISO/IEC 27035 · CISA #StopRansomware Guide · CERT-In Directions 2022"
+  },
+  {
+   "doc": "doc-24",
+   "section": "How it works and notes",
+   "text": "Pairs with Security Incident Response. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. SCENARIO Ransomware, 2 a.m. CEO CISO IT ops Legal Comms Finance Isolate the network? Who has authority, and how fast Notify regulators? Deadlines such as CERT-In's Restore or rebuild? Based on tested backups 1 Review playbooks & backups Procedures and recovery readiness 2 Define decisions Who decides what, and when 3 Run tabletop Realistic, facilitated scenario 4 Prioritize gaps A clear action list"
+  },
+  {
+   "doc": "doc-25",
+   "section": "Overview",
+   "text": "SOC & SECURITY MONITORING Alerts everywhere. Attention nowhere. Logs pile up and real threats hide in the noise. We build monitoring that sees what matters and escalates it to the right people. BUSINESS VALUE Improves visibility and coordination for suspected security incidents."
+  },
+  {
+   "doc": "doc-25",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Alert fatigue Analysts drown in false positives and miss real attacks. 2 Blind spots Key systems never send logs to monitoring. 3 Unclear escalation Alerts sit in a queue with no owner or deadline. 4 Fuzzy SOC promises Coverage hours and responsibilities are rarely explicit."
+  },
+  {
+   "doc": "doc-25",
+   "section": "How MindSuite helps: from noise to action",
+   "text": "Operation or enablement of a security monitoring function that collects relevant signals and coordinates investigation and escalation. Coverage, staffing hours and response responsibilities are agreed explicitly, not inferred from the term SOC."
+  },
+  {
+   "doc": "doc-25",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Explicit coverage Hours, scope and responsibilities agreed in writing. 2 End-to-end visibility Endpoint, network, cloud and identity signals correlated. 3 AI-assisted triage AI enriches and groups alerts; analysts make the call. 4 ATT&CK-mapped detections Coverage measured against real attacker techniques."
+  },
+  {
+   "doc": "doc-25",
+   "section": "What you receive",
+   "text": "What you receive: monitoring configuration · detection rules mapped to ATT&CK · incident queue · service reporting Aligned with: MITRE ATT&CK · NIST CSF 2.0 (Detect) · SOC-CMM · Sigma detection rules"
+  },
+  {
+   "doc": "doc-25",
+   "section": "How it works and notes",
+   "text": "Pairs with Cyber Threat Intelligence. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. 1 · Integrate telemetry Logs from the systems that matter 2 · Configure detection Use cases mapped to real threats 3 · Triage alerts Separate signal from noise 4 · Escalate & report Clear handoffs and service reports AI-ASSISTED TRIAGE RAW SIGNALS Real incidents to responders"
+  },
+  {
+   "doc": "doc-26",
+   "section": "Overview",
+   "text": "SECURITY INCIDENT RESPONSE When an incident hits, every hour counts. Confusion and delay make incidents worse. We bring defined roles, fast analysis and calm coordination when you need it most. BUSINESS VALUE Reduces confusion and delay during security incidents."
+  },
+  {
+   "doc": "doc-26",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Who does what? Teams improvise roles in the middle of a crisis. 2 Slow containment Attackers keep moving while decisions are debated. 3 Communication chaos Staff, customers and regulators get mixed messages. 4 Same mistakes again Lessons are never captured or acted on."
+  },
+  {
+   "doc": "doc-26",
+   "section": "How MindSuite helps: a calm, coordinated response",
+   "text": "Preparation and execution support for handling security incidents through defined roles, analysis, containment and communication. We help define playbooks, investigate evidence, coordinate containment and support communications."
+  },
+  {
+   "doc": "doc-26",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Defined roles from hour one Clear responsibilities before and during an incident. 2 End to end to lessons learned From triage and containment through recovery and review. 3 AI-assisted investigation AI speeds log and timeline analysis; responders decide actions. 4 Regulator-aware Communications aligned with CERT-In and sector reporting duties."
+  },
+  {
+   "doc": "doc-26",
+   "section": "What you receive",
+   "text": "What you receive: response plan or incident record · containment actions · recovery recommendations · lessons learned Aligned with: NIST SP 800-61 Rev. 3 · ISO/IEC 27035 · CERT-In Directions 2022"
+  },
+  {
+   "doc": "doc-26",
+   "section": "How it works and notes",
+   "text": "Pairs with Digital Forensics & Incident Investigation. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. Every hour counts Prepare Playbooks and roles Detect & analyze Scope the incident Contain Stop the spread Recover Restore safely Learn Fix root causes DEFINED ROLES AND CLEAR COMMUNICATION AT EVERY PHASE 1 Define playbooks Roles, triggers and contacts 2 Investigate evidence Scope and root cause 3 Coordinate containment Stop the spread safely 4 Support communications Staff, customers, regulators"
+  },
+  {
+   "doc": "doc-27",
+   "section": "Overview",
+   "text": "DIGITAL FORENSICS & INCIDENT INVESTIGATION Know exactly what happened, and prove it. After an incident, guesses won't satisfy boards, insurers or courts. We reconstruct events with evidence that stands up. BUSINESS VALUE Provides a defensible technical account of observed events."
+  },
+  {
+   "doc": "doc-27",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Evidence lost early Well-meant cleanup destroys the traces investigators need. 2 Unclear scope No one can say what was accessed or taken. 3 Legal and insurance pressure Claims and disputes need defensible findings. 4 No root cause Without it, the same attack can succeed again."
+  },
+  {
+   "doc": "doc-27",
+   "section": "How MindSuite helps: evidence that reconstructs the story",
+   "text": "Specialist collection and examination of digital evidence to reconstruct events and support an investigation. We preserve evidence, collect artifacts, analyze activity and document the timeline and findings."
+  },
+  {
+   "doc": "doc-27",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Forensically sound handling Evidence preserved and documented to recognized standards. 2 End-to-end reconstruction Endpoint, network, cloud and identity evidence combined. 3 AI-assisted timeline analysis AI correlates millions of events; examiners verify each step. 4 Defensible reporting Clear findings for boards, insurers, regulators and counsel."
+  },
+  {
+   "doc": "doc-27",
+   "section": "What you receive",
+   "text": "What you receive: evidence inventory · analysis report · event timeline · documented handling (chain-of-custody) record Aligned with: ISO/IEC 27037 · ISO/IEC 27042 · NIST SP 800-86 · RFC 3227"
+  },
+  {
+   "doc": "doc-27",
+   "section": "How it works and notes",
+   "text": "Pairs with Security Incident Response. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. Phishing email opened Admin rights gained Data staged for theft RECONSTRUCTED TIMELINE CHAIN OF CUSTODY ON EVERY ITEM SEALED Endpoints & memory SEALED Servers & logs SEALED Network traffic SEALED Cloud & SaaS trails SEALED Email & identity 1 Preserve evidence Before it is altered or lost 2 Collect artifacts Forensically sound acquisition 3 Analyze activity What happened, when and how 4 Document findings Timeline and handling record"
+  },
+  {
+   "doc": "doc-28",
+   "section": "Overview",
+   "text": "RANSOMWARE READINESS Could you recover without paying? Ransomware targets backups and decision-makers alike. We test your ability to withstand and recover before extortion begins. BUSINESS VALUE Improves preparation for destructive or extortion-driven disruption."
+  },
+  {
+   "doc": "doc-28",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Backups under attack Attackers seek out and encrypt backups first. 2 Flat recovery paths Infected systems can reach clean recovery environments. 3 Decisions under pressure Pay, notify, restore: choices made without a plan. 4 Recovery never rehearsed Restore times are guesses until tested."
+  },
+  {
+   "doc": "doc-28",
+   "section": "How MindSuite helps: layers that keep you recoverable",
+   "text": "Assessment and rehearsal of your ability to withstand and recover from ransomware disruption. It examines backup integrity, isolation options and decision-making so recovery assumptions are tested before an extortion scenario occurs."
+  },
+  {
+   "doc": "doc-28",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Backups proven, not assumed Restores tested with evidence of integrity and time. 2 End-to-end resilience Prevention, containment, decisions and recovery assessed together. 3 AI-assisted scenario modelling AI maps likely ransomware paths; experts set priorities. 4 Decision-ready leadership Executives rehearse the hard calls before they're real."
+  },
+  {
+   "doc": "doc-28",
+   "section": "What you receive",
+   "text": "What you receive: readiness findings · decision playbook · backup-test evidence · improvement plan Aligned with: NIST IR 8374 · CISA #StopRansomware Guide · NIST CSF 2.0 (Recover)"
+  },
+  {
+   "doc": "doc-28",
+   "section": "How it works and notes",
+   "text": "Pairs with Recovery Planning & Disaster Recovery Testing. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. IMMUTABLE BACKUPS Identity & admin hardening Isolation & segmentation Ransomware attack Stopped at the outer layers Clean restore, timed & proven Decision playbook ready 1 Review backups Integrity, immutability, coverage 2 Assess isolation Can you contain the spread? 3 Define decisions A clear extortion playbook 4 Rehearse recovery Timed restoration scenario"
+  },
+  {
+   "doc": "doc-29",
+   "section": "Overview",
+   "text": "BUSINESS CONTINUITY PLANNING ( BCP) Keep the business running when things break. Disruption hits systems, sites, people and suppliers. We plan how your essential work continues, and test that it works. BUSINESS VALUE Helps essential business activities continue during disruption."
+  },
+  {
+   "doc": "doc-29",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 IT-only thinking Recovery plans cover servers but not people or processes. 2 Unclear priorities No agreement on which processes must come back first. 3 Supplier dependence A key vendor outage can stop critical services. 4 Plans never exercised Documents exist but have never been tested."
+  },
+  {
+   "doc": "doc-29",
+   "section": "How MindSuite helps: keeping critical work standing",
+   "text": "Planning for continuity of critical business processes during disruption to systems, sites, people or suppliers. It defines operational alternatives and priorities beyond technical restoration, then tests whether those arrangements are practical."
+  },
+  {
+   "doc": "doc-29",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Business-first Plans built around processes and people, not just IT. 2 End to end, suppliers included Sites, staff, systems and vendors covered together. 3 AI-assisted impact analysis AI maps process dependencies; owners confirm priorities. 4 Exercised, not shelved Every plan tested and improved through real exercises."
+  },
+  {
+   "doc": "doc-29",
+   "section": "What you receive",
+   "text": "What you receive: business continuity plan · process priorities · exercise results · action backlog Aligned with: ISO 22301 · ISO/TS 22317 (BIA) · BCI Good Practice Guidelines"
+  },
+  {
+   "doc": "doc-29",
+   "section": "How it works and notes",
+   "text": "Pairs with Recovery Planning & Disaster Recovery Testing. Definitions and typical scope are guidance; final deliverables are agreed in the proposal. CRITICAL PROCESSES Systems Sites People Suppliers Plan B Supplier outage RESTORED IN PRIORITY ORDER 1 Customer-facing services Workarounds ready, roles assigned 2 Payments and operations Alternate sites and suppliers 3 Back-office functions Resumed once priorities are stable 1 Analyze business impact Critical processes and tolerances 2 Define continuity strategies Workarounds and alternatives 3 Assign roles Who leads, who acts 4 Exercise plans Prove they work in practice"
+  },
+  {
+   "doc": "doc-30",
+   "section": "Overview",
+   "text": "RECOVERY PLANNING & DISASTER RECOVERY TESTING Recoverable on paper isn't recoverable. Recovery times are often assumptions. We define and test restoration so you know what's achievable, with evidence. BUSINESS VALUE Replaces assumed recoverability with tested evidence."
+  },
+  {
+   "doc": "doc-30",
+   "section": "Sound familiar? The challenges organizations face",
+   "text": "1 Assumed recovery times RTO and RPO targets have never been measured. 2 Hidden dependencies Systems can't restart because a dependency was forgotten. 3 Outdated runbooks Restoration steps no longer match the environment. 4 Regulators want proof Auditors ask for evidence of tested recovery."
+  },
+  {
+   "doc": "doc-30",
+   "section": "How MindSuite helps: recovery you have measured",
+   "text": "Definition and testing of recovery arrangements for selected systems and data. It translates business recovery priorities into technical restoration procedures and measures whether agreed recovery objectives are achievable under the tested scenario."
+  },
+  {
+   "doc": "doc-30",
+   "section": "Why MindSuite: an answer to each challenge",
+   "text": "1 Measured, not assumed Actual restore times recorded against agreed objectives. 2 End-to-end dependencies Applications, data, infrastructure and suppliers mapped together. 3 AI-assisted dependency mapping AI drafts dependency maps from configs; engineers verify. 4 Audit-ready evidence Test records that satisfy auditors and regulators."
+  },
+  {
+   "doc": "doc-30",
+   "section": "What you receive",
+   "text": "What you receive: disaster recovery plan · measured recovery results · validation evidence · improvement actions Aligned with: ISO/IEC 27031 · NIST SP 800-34 Rev. 1 · ISO 22301"
+  },
+  {
+   "doc": "doc-30",
+   "section": "How it works and notes",
+   "text": "Pairs with Business Continuity Planning (BCP). Definitions and typical scope are guidance; final deliverables are agreed in the proposal. 1 Network 2 Identity 3 Database 4 Application RESTORED IN DEPENDENCY ORDER, THEN MEASURED Target RTO: time to restore Target RPO: data you can lose Evidence recorded 1 Set objectives RTO and RPO from business priorities 2 Document dependencies Systems, data and suppliers 3 Rehearse restoration Controlled, realistic tests 4 Record gaps Measured results and fixes"
+  }
+ ]
+}

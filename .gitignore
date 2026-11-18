@@ -5,3 +5,5 @@ dist
 !.env.example
 server/outbox
 server/usage.json
+# Source PDFs for the guide's documents (tools/build-knowledge.py turns them into server/knowledge.json)
+knowledge-src/

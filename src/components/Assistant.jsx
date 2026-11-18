@@ -3,7 +3,7 @@ import Icon from './Icon.jsx';
 import { focusTarget } from '../lib/focus.js';
 import { normalize, offeringById } from '../data/catalogue.js';
 import { localAssistantReply } from '../data/matcher.js';
-import { Check, ChevronDown, Download, LocateFixed, Mic, RotateCcw, Square, Volume2, VolumeX } from 'lucide-react';
+import { Check, FileText, ChevronDown, Download, LocateFixed, Mic, RotateCcw, Square, Volume2, VolumeX } from 'lucide-react';
 import { useLanguage } from '../i18n/index.jsx';
 import { preferenceStorage } from '../lib/consent.js';
 import {
@@ -992,6 +992,7 @@ export default function Assistant({ interests, onAdd }) {
         text: result.message,
         vars: result.vars,
         notice: result.notice,
+        sources: result.sources || [],
         suggestions,
       });
       history.current.push({ role: 'user', content: trimmed }, { role: 'assistant', content: live.current.t(result.message, result.vars) });
@@ -1192,6 +1193,15 @@ export default function Assistant({ interests, onAdd }) {
               {/* Guide messages may be interface strings (translated here) or AI replies (shown as written). */}
               <p>{m.who === 'visitor' ? m.text : t(m.text, m.vars)}</p>
               {m.notice && <p className="assistant-notice">{t(m.notice)}</p>}
+              {m.sources?.length > 0 && (
+                <p className="assistant-sources">
+                  <FileText aria-hidden="true" />
+                  <span>
+                    {t('From our documents:')}{' '}
+                    {m.sources.map((d) => t(offeringById.get(d.offeringId)?.name || d.title)).join(', ')}
+                  </span>
+                </p>
+              )}
               {m.suggestions?.map((s) => {
                 const o = offeringById.get(s.id);
                 const added = interests.has(o.id);

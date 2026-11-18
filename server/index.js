@@ -20,6 +20,7 @@ import { fileURLToPath } from 'node:url';
 import nodemailer from 'nodemailer';
 import { CONTACT_METHODS, TIMELINES, enquiryEmail, makeReference } from '../src/lib/enquiry.js';
 import { assistantError, createAssistant } from './assistant.js';
+import { loadKnowledge } from './knowledge.js';
 import { checkPhone } from '../src/lib/phone.js';
 import { offeringDetailsIndex, offeringDetailsMail } from './offeringEmail.js';
 import { DEFAULT_PRICES, createUsageBudget } from './usageBudget.js';
@@ -511,7 +512,9 @@ const budget = createUsageBudget({
 });
 
 // ---------------------------------------------------------------- assistant (Claude)
-const assistant = createAssistant(catalogue, { onUsage: budget.record });
+// MindSuite's offering documents, searched for every question (see server/knowledge.js).
+const knowledge = loadKnowledge(catalogue);
+const assistant = createAssistant(catalogue, { onUsage: budget.record, knowledge });
 
 // ---------------------------------------------------------------- HTTP helpers
 function send(res, status, data, headers = {}) {
@@ -735,6 +738,7 @@ const server = createServer(async (req, res) => {
 
 server.listen(config.port, () => {
   console.log(`MindSuite server on http://localhost:${config.port}  (mail mode: ${mode})`);
+  console.log(`Guide documents: ${knowledge ? `${knowledge.docs.length} documents, ${knowledge.passages} passages` : "none (run tools/build-knowledge.py)"}`);
   console.log(
     assistant.enabled
       ? `  Guide: AI recommendations with ${assistant.model}; ${
